@@ -60,6 +60,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="include\ui\UIObserver.cpp">
+      <Filter>include\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">
@@ -96,6 +99,9 @@
     </ClInclude>
     <ClInclude Include="include\flexx\Flexx.h">
       <Filter>include\flexx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\UIObserver.h">
+      <Filter>include\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
