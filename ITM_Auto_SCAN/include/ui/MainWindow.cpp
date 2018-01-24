@@ -9,14 +9,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 	RegisterObserver();
 	InitialViewer();
 	//		ui event
-	connect(_ui._flexxAction, SIGNAL(triggered()), this, SLOT(OpenFlexxCameraSlot));
-	connect(_ui.pushButton, SIGNAL(clicked()), this, SLOT(OpenFlexxCameraSlot));
+	connect(_ui._flexxAction, SIGNAL(triggered()), this, SLOT(OpenFlexxCameraSlot()));
 }
 
 void MainWindow::InitialViewer()
 {
 	_widget = new QVTKWidget(this->centralWidget());
-	_widget->setGeometry(QRect(30, 30, 370, 370));
+	_widget->setGeometry(QRect(30, 30, 730, 730));
 
 	_widget->SetRenderWindow(_viewer->GetRenderWindow());
 	_viewer->SetupInteractor(_widget->GetInteractor(), _widget->GetRenderWindow());
@@ -33,6 +32,8 @@ void MainWindow::RegisterObserver()
 void MainWindow::UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
 {
 	_viewer->Show(pointCloud);
+	//_viewer->ResetCamera();
+	_widget->update();
 }
 
 //		UI event

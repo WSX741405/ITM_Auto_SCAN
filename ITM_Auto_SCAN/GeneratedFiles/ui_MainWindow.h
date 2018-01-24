@@ -17,7 +17,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -29,7 +28,6 @@ class Ui_MainWindowClass
 public:
     QAction *_flexxAction;
     QWidget *centralWidget;
-    QPushButton *pushButton;
     QMenuBar *menuBar;
     QMenu *menuCamera;
     QToolBar *mainToolBar;
@@ -39,18 +37,15 @@ public:
     {
         if (MainWindowClass->objectName().isEmpty())
             MainWindowClass->setObjectName(QStringLiteral("MainWindowClass"));
-        MainWindowClass->resize(600, 400);
+        MainWindowClass->resize(800, 900);
         _flexxAction = new QAction(MainWindowClass);
         _flexxAction->setObjectName(QStringLiteral("_flexxAction"));
         centralWidget = new QWidget(MainWindowClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(520, 10, 75, 23));
         MainWindowClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 21));
+        menuBar->setGeometry(QRect(0, 0, 800, 21));
         menuCamera = new QMenu(menuBar);
         menuCamera->setObjectName(QStringLiteral("menuCamera"));
         MainWindowClass->setMenuBar(menuBar);
@@ -73,7 +68,6 @@ public:
     {
         MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", Q_NULLPTR));
         _flexxAction->setText(QApplication::translate("MainWindowClass", "Pico Flexx", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("MainWindowClass", "PushButton", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowClass", "Camera", Q_NULLPTR));
     } // retranslateUi
 
