@@ -71,24 +71,11 @@ public:
 			point->r = 255;
 			point->g = 255;
 			point->b = 255;
-			//std::cout << std::string("Flexx Listener : X = ") << data->points[counter].x << std::endl;
 			point->x = data->points[counter].x;
 			point->y = data->points[counter].y;
 			point->z = data->points[counter].z;
 			_pointCloud->push_back(*point);
 		}
-		/*
-		for (unsigned int y = 0; y < _height; y++)
-		{
-			for (unsigned int x = 0; x < _width; x++)
-			{
-				_pointCloud->points[y * _width + x].x = data->points[y * _width + x].x;
-				_pointCloud->points[y * _width + x].y = data->points[y * _width + x].y;
-				_pointCloud->points[y * _width + x].z = data->points[y * _width + x].z;
-				_pointCloud->points[y * _width + x].rgb = 0;
-			}
-		}
-		*/
 		_flexxSubject->notifyObservers(_pointCloud);
 	}
 
@@ -141,6 +128,12 @@ public:
 			throw std::string("Flexx: Error registering flexx listener");
 		if (_cameraDevice->startCapture() != royale::CameraStatus::SUCCESS)
 			throw std::string("Flexx: Error starting the capturing");
+	}
+
+	void CloseCamera()
+	{
+		if (_cameraDevice->stopCapture() != royale::CameraStatus::SUCCESS)
+			throw std::string("Flexx: Error stopping the capturing");
 	}
 
 private:

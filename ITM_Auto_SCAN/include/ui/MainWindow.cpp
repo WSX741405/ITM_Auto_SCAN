@@ -1,25 +1,23 @@
 #include "ui/MainWindow.h"
 #include "flexx/Flexx.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _ui(new Ui::MainWindowClass)
 {
-	_ui.setupUi(this);
+	_ui->setupUi(this);
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
 	RegisterObserver();
 	InitialViewer();
 	//		ui event
-	connect(_ui._flexxAction, SIGNAL(triggered()), this, SLOT(OpenFlexxCameraSlot()));
+	connect(_ui->_openFlexxAction, SIGNAL(triggered()), this, SLOT(OpenFlexxCameraSlot()));
+	connect(_ui->_closeFlexxAction, SIGNAL(triggered()), this, SLOT(CloseFlexxCameraSlot()));
 }
 
 void MainWindow::InitialViewer()
 {
-	_widget = new QVTKWidget(this->centralWidget());
-	_widget->setGeometry(QRect(30, 30, 730, 730));
-
-	_widget->SetRenderWindow(_viewer->GetRenderWindow());
-	_viewer->SetupInteractor(_widget->GetInteractor(), _widget->GetRenderWindow());
-	_widget->update();
+	_ui->_qvtkWidget->SetRenderWindow(_viewer->GetRenderWindow());
+	_viewer->SetupInteractor(_ui->_qvtkWidget->GetInteractor(), _ui->_qvtkWidget->GetRenderWindow());
+	_ui->_qvtkWidget->update();
 }
 
 void MainWindow::RegisterObserver()
@@ -33,11 +31,16 @@ void MainWindow::UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCl
 {
 	_viewer->Show(pointCloud);
 	//_viewer->ResetCamera();
-	_widget->update();
+	_ui->_qvtkWidget->update();
 }
 
 //		UI event
 void MainWindow::OpenFlexxCameraSlot()
 {
 	_flexx->OpenCamera();
+}
+
+void MainWindow::CloseFlexxCameraSlot()
+{
+	_flexx->CloseCamera();
 }

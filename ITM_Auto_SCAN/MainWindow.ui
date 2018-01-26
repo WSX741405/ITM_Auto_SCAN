@@ -7,13 +7,24 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>900</height>
+    <height>850</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QVTKWidget" name="_qvtkWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>730</width>
+      <height>730</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -27,7 +38,14 @@
     <property name="title">
      <string>Camera</string>
     </property>
-    <addaction name="_flexxAction"/>
+    <widget class="QMenu" name="menuPico_Flexx">
+     <property name="title">
+      <string>Pico Flexx</string>
+     </property>
+     <addaction name="_openFlexxAction"/>
+     <addaction name="_closeFlexxAction"/>
+    </widget>
+    <addaction name="menuPico_Flexx"/>
    </widget>
    <addaction name="menuCamera"/>
   </widget>
@@ -40,13 +58,25 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="_flexxAction">
+  <action name="_openFlexxAction">
    <property name="text">
-    <string>Pico Flexx</string>
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="_closeFlexxAction">
+   <property name="text">
+    <string>Close</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QVTKWidget</class>
+   <extends>QWidget</extends>
+   <header>QVTKWidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="MainWindow.qrc"/>
  </resources>

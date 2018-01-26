@@ -16,13 +16,8 @@ public:
 
 	void Show(boost::shared_ptr<pcl::PointCloud<PointT>> cloud, std::string name = "")
 	{
-			if (!_viewer->updatePointCloud(cloud, name))
-				_viewer->addPointCloud(cloud, name);
-	}
-
-	void ResetCamera()
-	{
-		_viewer->resetCamera();
+		if (!_viewer->updatePointCloud(cloud, name))
+			_viewer->addPointCloud(cloud, name);
 	}
 
 	void SetupInteractor(QVTKInteractor* interactor, vtkRenderWindow* renderWindow)
@@ -32,7 +27,7 @@ public:
 
 	vtkRenderWindow* GetRenderWindow()
 	{
-		 return _viewer->getRenderWindow();
+		return _viewer->getRenderWindow();
 	}
 
 	void AddCoordinateSystem(double coorSys)

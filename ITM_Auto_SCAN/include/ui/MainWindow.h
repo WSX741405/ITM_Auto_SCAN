@@ -23,6 +23,7 @@ public:
 
 public slots:
 	void	OpenFlexxCameraSlot();
+	void CloseFlexxCameraSlot();
 
 private:
 	void InitialViewer();
@@ -30,8 +31,8 @@ private:
 
 	Flexx* _flexx;
 	Viewer* _viewer;
-	QVTKWidget* _widget;
+	//QVTKWidget* _widget;
 	UIObserver* _uiObserver;
 	FlexxSubject* _flexxSubject;
-	Ui::MainWindowClass _ui;
+	Ui::MainWindowClass* _ui;
 };
