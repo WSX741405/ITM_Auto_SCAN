@@ -74,6 +74,9 @@
     <CustomBuild Include="include\ui\MainWindow.h">
       <Filter>include\ui</Filter>
     </CustomBuild>
+    <CustomBuild Include="include\flexx\Flexx.h">
+      <Filter>include\flexx</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
@@ -96,9 +99,6 @@
     </ClInclude>
     <ClInclude Include="include\file\plyFile.h">
       <Filter>include\file</Filter>
-    </ClInclude>
-    <ClInclude Include="include\flexx\Flexx.h">
-      <Filter>include\flexx</Filter>
     </ClInclude>
     <ClInclude Include="include\ui\UIObserver.h">
       <Filter>include\ui</Filter>

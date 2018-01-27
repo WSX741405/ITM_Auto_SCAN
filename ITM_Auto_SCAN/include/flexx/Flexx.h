@@ -58,7 +58,8 @@ public:
 	void onNewData(const royale::DepthData* data) override
 	{
 		std::unique_lock<std::mutex> lock(_lockForReceivedData);
-		_pointCloud->clear();
+		if (_pointCloud != nullptr)
+			_pointCloud->clear();
 		//			Copy depth data
 		_width = data->width;
 		_height = data->height;
