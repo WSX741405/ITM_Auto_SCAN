@@ -8,38 +8,12 @@
 #include <mutex>
 #include <thread>
 #include <chrono>
+#include "observer/IObserver.h"
+
 
 typedef pcl::PointXYZRGBA PointT;
 
-//		*****************************************************************
-//				Flexx Observer
-//				When frame arrived, notify observer to update UI
-//		*****************************************************************
-class IFlexxObserver
-{
-public:
-	virtual void Update(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud) = 0;
-};
-
-class FlexxSubject
-{
-public:
-	void RegisterObserver(IFlexxObserver* observer)
-	{
-		_observers.push_back(observer);
-	}
-
-	void notifyObservers(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
-	{
-		for each (IFlexxObserver* observer in _observers)
-		{
-			observer->Update(pointCloud);
-		}
-	}
-
-private:
-	std::vector<IFlexxObserver*> _observers;
-};
+class ISubject;
 
 //		*****************************************************************
 //				Flexx Listener
@@ -50,7 +24,7 @@ class FlexxListener : public royale::IDepthDataListener
 public:
 	const unsigned int DEPTH_CONFIDENCE = 128;
 
-	explicit FlexxListener(const royale::Vector<royale::StreamId> &streamIds, FlexxSubject* flexxSubject);
+	explicit FlexxListener(const royale::Vector<royale::StreamId> &streamIds, ISubject* subject);
 
 	void onNewData(const royale::DepthData* data) override;
 
@@ -60,7 +34,7 @@ private:
 	royale::Vector<uint32_t> _exposureTimes;
 	const royale::Vector<royale::StreamId> _streamIds;
 	std::mutex _lockForReceivedData;
-	FlexxSubject* _flexxSubject;
+	ISubject* _subject;
 	boost::shared_ptr<pcl::PointCloud<PointT>> _pointCloud;
 };
 
@@ -71,7 +45,7 @@ private:
 class Flexx
 {
 public:
-	Flexx(FlexxSubject* flexxSubject, unsigned int cameraId = 0);
+	Flexx(ISubject* subject, unsigned int cameraId = 0);
 	
 	~Flexx();
 
@@ -88,6 +62,6 @@ private:
 	unsigned int _selectedUseCaseId;														//	¿ï¥ÎªºUse case
 	royale::Vector<royale::StreamId> _streamIds;
 	std::unique_ptr<FlexxListener> _listener;
-	FlexxSubject* _flexxSubject;
+	ISubject* _subject;
 };
 #endif

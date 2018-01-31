@@ -8,10 +8,12 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 
 #include "ui_MainWindow.h"
 #include "ui/Viewer.h"
-#include "ui/UIObserver.h"
+#include "observer/IObserver.h"
 #include "flexx/Flexx.h"
 
 class UIObserver;
+class Flexx;
+class ISubject;
 
 class MainWindow : public QMainWindow
 {
@@ -24,15 +26,17 @@ public:
 public slots:
 	void	OpenFlexxCameraSlot();
 	void CloseFlexxCameraSlot();
+	void	OpenRSCameraSlot();
+	void CloseRSCameraSlot();
 
 private:
 	void InitialViewer();
-	void RegisterObserver();
+	//void RegisterObserver();
 
 	Flexx* _flexx;
 	Viewer* _viewer;
 	//QVTKWidget* _widget;
 	UIObserver* _uiObserver;
-	FlexxSubject* _flexxSubject;
+	ISubject* _subject;
 	Ui::MainWindowClass* _ui;
 };

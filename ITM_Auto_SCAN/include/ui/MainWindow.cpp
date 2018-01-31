@@ -1,16 +1,16 @@
 #include "ui/MainWindow.h"
-#include "flexx/Flexx.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _ui(new Ui::MainWindowClass)
 {
 	_ui->setupUi(this);
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
-	RegisterObserver();
 	InitialViewer();
 	//		ui event
 	connect(_ui->_openFlexxAction, SIGNAL(triggered()), this, SLOT(OpenFlexxCameraSlot()));
 	connect(_ui->_closeFlexxAction, SIGNAL(triggered()), this, SLOT(CloseFlexxCameraSlot()));
+	connect(_ui->_openRSAction, SIGNAL(triggered()), this, SLOT(OpenRSCameraSlot()));
+	connect(_ui->_closeRSAction, SIGNAL(triggered()), this, SLOT(CloseRSCameraSlot()));
 }
 
 void MainWindow::InitialViewer()
@@ -20,12 +20,14 @@ void MainWindow::InitialViewer()
 	_ui->_qvtkWidget->update();
 }
 
+/*
 void MainWindow::RegisterObserver()
 {
-	_flexxSubject = new FlexxSubject();
-	_flexxSubject->RegisterObserver(_uiObserver);
-	_flexx = new Flexx(_flexxSubject);
+	_subject = new _subject();
+	_subject->RegisterObserver(_uiObserver);
+	_flexx = new Flexx(_subject);
 }
+*/
 
 void MainWindow::UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
 {
@@ -43,4 +45,12 @@ void MainWindow::OpenFlexxCameraSlot()
 void MainWindow::CloseFlexxCameraSlot()
 {
 	_flexx->CloseCamera();
+}
+
+void MainWindow::OpenRSCameraSlot()
+{
+}
+
+void MainWindow::CloseRSCameraSlot()
+{
 }

@@ -4,7 +4,7 @@
 //				Flexx Listener
 //		*****************************************************************
 
-FlexxListener::FlexxListener(const royale::Vector<royale::StreamId> &streamIds, FlexxSubject* flexxSubject) : _streamIds(streamIds), _flexxSubject(flexxSubject)
+FlexxListener::FlexxListener(const royale::Vector<royale::StreamId> &streamIds, ISubject* subject) : _streamIds(streamIds), _subject(subject)
 {
 	_pointCloud.reset(new pcl::PointCloud<PointT>());
 }
@@ -31,14 +31,14 @@ void FlexxListener::onNewData(const royale::DepthData* data)
 		point->z = data->points[counter].z;
 		_pointCloud->push_back(*point);
 	}
-	_flexxSubject->notifyObservers(_pointCloud);
+	_subject->notifyObservers(_pointCloud);
 }
 
 //		*****************************************************************
 //				Flexx
 //		*****************************************************************
 
-Flexx::Flexx(FlexxSubject* flexxSubject, unsigned int cameraId) : _flexxSubject(flexxSubject)
+Flexx::Flexx(ISubject* subject, unsigned int cameraId) : _subject(subject)
 {
 	_camlist = _manager.getConnectedCameraList();
 	_selectedUseCaseId = 0;
@@ -65,7 +65,7 @@ void Flexx::OpenCamera()
 {
 	if (_cameraDevice->setUseCase(_useCases.at(_selectedUseCaseId)) != royale::CameraStatus::SUCCESS)
 		throw std::string("Flexx: Error setting use case");
-	_listener.reset(new FlexxListener(_streamIds, _flexxSubject));
+	_listener.reset(new FlexxListener(_streamIds, _subject));
 	if (_cameraDevice->registerDataListener(_listener.get()) != royale::CameraStatus::SUCCESS)
 		throw std::string("Flexx: Error registering flexx listener");
 	if (_cameraDevice->startCapture() != royale::CameraStatus::SUCCESS)

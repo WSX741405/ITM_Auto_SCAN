@@ -45,7 +45,15 @@
      <addaction name="_openFlexxAction"/>
      <addaction name="_closeFlexxAction"/>
     </widget>
+    <widget class="QMenu" name="menuIntel_Realsense">
+     <property name="title">
+      <string>Intel Realsense</string>
+     </property>
+     <addaction name="_openRSAction"/>
+     <addaction name="_closeRSAction"/>
+    </widget>
     <addaction name="menuPico_Flexx"/>
+    <addaction name="menuIntel_Realsense"/>
    </widget>
    <addaction name="menuCamera"/>
   </widget>
@@ -64,6 +72,16 @@
    </property>
   </action>
   <action name="_closeFlexxAction">
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </action>
+  <action name="_openRSAction">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="_closeRSAction">
    <property name="text">
     <string>Close</string>
    </property>
