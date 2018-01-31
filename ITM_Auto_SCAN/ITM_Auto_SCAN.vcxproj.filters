@@ -63,6 +63,9 @@
     <ClCompile Include="include\ui\UIObserver.cpp">
       <Filter>include\ui</Filter>
     </ClCompile>
+    <ClCompile Include="include\flexx\Flexx.cpp">
+      <Filter>include\flexx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">

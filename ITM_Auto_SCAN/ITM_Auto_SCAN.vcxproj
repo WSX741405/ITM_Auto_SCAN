@@ -81,6 +81,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="include\flexx\Flexx.cpp" />
     <ClCompile Include="include\main.cpp" />
     <ClCompile Include="include\ui\MainWindow.cpp" />
     <ClCompile Include="include\ui\UIObserver.cpp" />
