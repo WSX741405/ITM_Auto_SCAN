@@ -27,3 +27,16 @@ void FlexxSubject::NotifyObservers(boost::shared_ptr<pcl::PointCloud<PointT>> po
 		observer->Update(pointCloud);
 	}
 }
+
+void RSSubject::RegisterObserver(IObserver* observer)
+{
+	_observers.push_back(observer);
+}
+
+void RSSubject::NotifyObservers(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
+{
+	for each (IObserver* observer in _observers)
+	{
+		observer->Update(pointCloud);
+	}
+}

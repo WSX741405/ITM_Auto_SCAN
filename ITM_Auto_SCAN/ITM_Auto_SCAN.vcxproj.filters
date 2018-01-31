@@ -52,6 +52,9 @@
     <Filter Include="include\rs\rsgrabber">
       <UniqueIdentifier>{fe030005-29d4-4ca5-b96c-e844aca87481}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\grabber">
+      <UniqueIdentifier>{fe1bec2e-cdf9-4bac-8960-1f7e6e79734a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_MainWindow.cpp">
@@ -80,6 +83,12 @@
     </ClCompile>
     <ClCompile Include="include\rs\RS.cpp">
       <Filter>include\rs</Filter>
+    </ClCompile>
+    <ClCompile Include="ObserverFactory.cpp">
+      <Filter>include\observer</Filter>
+    </ClCompile>
+    <ClCompile Include="GrabberFactory.cpp">
+      <Filter>include\grabber</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +150,15 @@
     </ClInclude>
     <ClInclude Include="include\rs\RS.h">
       <Filter>include\rs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grabber\Grabber.h">
+      <Filter>include\grabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grabber\GrabberFactory.h">
+      <Filter>include\grabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\observer\ObserverFactory.h">
+      <Filter>include\observer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

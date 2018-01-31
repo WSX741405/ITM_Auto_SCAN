@@ -81,12 +81,14 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GrabberFactory.cpp" />
     <ClCompile Include="include\flexx\Flexx.cpp" />
     <ClCompile Include="include\main.cpp" />
     <ClCompile Include="include\observer\IObserver.cpp" />
     <ClCompile Include="include\rs\RS.cpp" />
     <ClCompile Include="include\rs\rsgrabber\real_sense_grabber.cpp" />
     <ClCompile Include="include\ui\MainWindow.cpp" />
+    <ClCompile Include="ObserverFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">
@@ -121,7 +123,10 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
     </CustomBuild>
+    <ClInclude Include="include\grabber\Grabber.h" />
+    <ClInclude Include="include\grabber\GrabberFactory.h" />
     <ClInclude Include="include\observer\IObserver.h" />
+    <ClInclude Include="include\observer\ObserverFactory.h" />
     <ClInclude Include="include\rs\RS.h" />
     <ClInclude Include="include\rs\rsgrabber\buffers.h" />
     <ClInclude Include="include\rs\rsgrabber\buffers.hpp" />

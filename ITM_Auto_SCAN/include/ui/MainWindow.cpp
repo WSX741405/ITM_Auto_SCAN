@@ -1,11 +1,13 @@
 #include "ui/MainWindow.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _ui(new Ui::MainWindowClass)
+MainWindow::MainWindow(QWidget *parent) :
+	QMainWindow(parent), _ui(new Ui::MainWindowClass), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory())
 {
 	_ui->setupUi(this);
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
 	InitialViewer();
+	RegisterObserver();
 	//		ui event
 	connect(_ui->_startFlexxAction, SIGNAL(triggered()), this, SLOT(StartFlexxCameraSlot()));
 	connect(_ui->_stopFlexxAction, SIGNAL(triggered()), this, SLOT(StopFlexxCameraSlot()));
@@ -20,14 +22,14 @@ void MainWindow::InitialViewer()
 	_ui->_qvtkWidget->update();
 }
 
-/*
 void MainWindow::RegisterObserver()
 {
-	_subject = new _subject();
-	_subject->RegisterObserver(_uiObserver);
-	_flexx = new Flexx(_subject);
+	ISubject* rsSubject = _subjectFactory->GetRSSubject();
+	rsSubject->RegisterObserver(_uiObserver);
+	ISubject* flexxSubject = _subjectFactory->GetFlexxSubject();
+	flexxSubject->RegisterObserver(_uiObserver);
 }
-*/
+
 
 void MainWindow::UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
 {
@@ -39,18 +41,26 @@ void MainWindow::UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCl
 //		UI event
 void MainWindow::StartFlexxCameraSlot()
 {
-	_flexx->StartCamera();
+	ISubject* subject = _subjectFactory->GetFlexxSubject();
+	IGrabber* grabber = _grabberFactory->GetFlexxGrabber(subject);
+	grabber->StartCamera();
 }
 
 void MainWindow::StopFlexxCameraSlot()
 {
-	_flexx->StopCamera();
+	IGrabber* grabber = _grabberFactory->GetFlexxGrabber();
+	grabber->StopCamera();
 }
 
 void MainWindow::StartRSCameraSlot()
 {
+	ISubject* subject = _subjectFactory->GetRSSubject();
+	IGrabber* grabber = _grabberFactory->GetRSGrabber(subject);
+	grabber->StartCamera();
 }
 
 void MainWindow::StopRSCameraSlot()
 {
+	IGrabber* grabber = _grabberFactory->GetRSGrabber();
+	grabber->StopCamera();
 }

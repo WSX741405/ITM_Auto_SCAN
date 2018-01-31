@@ -16,9 +16,9 @@ public:
 
 	void Show(boost::shared_ptr<pcl::PointCloud<PointT>> cloud, std::string name = "")
 	{
-		//if (!_viewer->updatePointCloud(cloud, name))
-		_viewer->removeAllPointClouds();
-		_viewer->addPointCloud(cloud, name);
+		if (!_viewer->updatePointCloud(cloud, name))
+		//_viewer->removeAllPointClouds();
+			_viewer->addPointCloud(cloud, name);
 	}
 
 	void SetupInteractor(QVTKInteractor* interactor, vtkRenderWindow* renderWindow)

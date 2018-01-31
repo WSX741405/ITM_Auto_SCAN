@@ -31,7 +31,7 @@ void FlexxListener::onNewData(const royale::DepthData* data)
 		point->z = data->points[counter].z;
 		_pointCloud->push_back(*point);
 	}
-	_subject->notifyObservers(_pointCloud);
+	_subject->NotifyObservers(_pointCloud);
 }
 
 //		*****************************************************************

@@ -8,6 +8,7 @@
 #include <mutex>
 #include <thread>
 #include <chrono>
+#include "grabber/Grabber.h"
 #include "observer/IObserver.h"
 
 typedef pcl::PointXYZRGBA PointT;
@@ -22,9 +23,7 @@ class FlexxListener : public royale::IDepthDataListener
 {
 public:
 	const unsigned int DEPTH_CONFIDENCE = 128;
-
 	explicit FlexxListener(const royale::Vector<royale::StreamId> &streamIds, ISubject* subject);
-
 	void onNewData(const royale::DepthData* data) override;
 
 private:
@@ -41,15 +40,12 @@ private:
 //				Flexx
 //				Flexx Manager, contains all pmdtec camera device
 //		*****************************************************************
-class Flexx
+class Flexx : IGrabber
 {
 public:
 	Flexx(ISubject* subject, unsigned int cameraId = 0);
-	
 	~Flexx();
-
 	void StartCamera();
-
 	void StopCamera();
 
 private:

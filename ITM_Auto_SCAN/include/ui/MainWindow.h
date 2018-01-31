@@ -8,12 +8,14 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 
 #include "ui_MainWindow.h"
 #include "ui/Viewer.h"
-#include "observer/IObserver.h"
-#include "flexx/Flexx.h"
+#include "observer/ObserverFactory.h"
+#include "grabber/GrabberFactory.h"
 
 class UIObserver;
-class Flexx;
 class ISubject;
+class SubjectFactory;
+class IGrabber;
+class GrabberFactory;
 
 class MainWindow : public QMainWindow
 {
@@ -31,12 +33,12 @@ public slots:
 
 private:
 	void InitialViewer();
-	//void RegisterObserver();
+	void RegisterObserver();
 
-	Flexx* _flexx;
 	Viewer* _viewer;
-	//QVTKWidget* _widget;
 	UIObserver* _uiObserver;
-	ISubject* _subject;
+	GrabberFactory* _grabberFactory;
+	SubjectFactory* _subjectFactory;
+	//ISubject* _subject;
 	Ui::MainWindowClass* _ui;
 };

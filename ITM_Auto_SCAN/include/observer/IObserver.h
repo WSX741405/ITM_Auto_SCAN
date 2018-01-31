@@ -19,10 +19,7 @@ public:
 class UIObserver : public IObserver
 {
 public:
-	UIObserver(MainWindow* window) : _mainWindow(window)
-	{
-	}
-
+	UIObserver(MainWindow* window) : _mainWindow(window){}
 	void Update(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 
 private:
@@ -38,17 +35,23 @@ class ISubject
 {
 public:
 	virtual void RegisterObserver(IObserver* observer) = 0;
-	virtual void notifyObservers(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud) = 0;
+	virtual void NotifyObservers(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud) = 0;
+
+protected:
+	std::vector<IObserver*> _observers;
 };
 
 class FlexxSubject : ISubject
 {
 public:
 	void RegisterObserver(IObserver* observer);
-
 	void NotifyObservers(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+};
 
-private:
-	std::vector<IObserver*> _observers;
+class RSSubject : ISubject
+{
+public:
+	void RegisterObserver(IObserver* observer);
+	void NotifyObservers(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 };
 #endif
