@@ -45,10 +45,10 @@
 #include <pcl/common/io.h>
 #include <pcl/common/time.h>
 
-#include "grabber/rsgrabber/real_sense_grabber.h"
-#include "grabber/rsgrabber/real_sense_device_manager.h"
-#include "grabber/rsgrabber/buffers.h"
-#include "grabber/rsgrabber/io_exception.h"
+#include "rs/rsgrabber/real_sense_grabber.h"
+#include "rs/rsgrabber/real_sense_device_manager.h"
+#include "rs/rsgrabber/buffers.h"
+#include "rs/rsgrabber/io_exception.h"
 
 using namespace pcl::io;
 using namespace pcl::io::real_sense;

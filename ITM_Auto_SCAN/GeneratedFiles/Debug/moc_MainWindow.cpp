@@ -32,16 +32,16 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
-QT_MOC_LITERAL(1, 11, 19), // "OpenFlexxCameraSlot"
-QT_MOC_LITERAL(2, 31, 0), // ""
-QT_MOC_LITERAL(3, 32, 20), // "CloseFlexxCameraSlot"
-QT_MOC_LITERAL(4, 53, 16), // "OpenRSCameraSlot"
-QT_MOC_LITERAL(5, 70, 17) // "CloseRSCameraSlot"
+QT_MOC_LITERAL(1, 11, 20), // "StartFlexxCameraSlot"
+QT_MOC_LITERAL(2, 32, 0), // ""
+QT_MOC_LITERAL(3, 33, 19), // "StopFlexxCameraSlot"
+QT_MOC_LITERAL(4, 53, 17), // "StartRSCameraSlot"
+QT_MOC_LITERAL(5, 71, 16) // "StopRSCameraSlot"
 
     },
-    "MainWindow\0OpenFlexxCameraSlot\0\0"
-    "CloseFlexxCameraSlot\0OpenRSCameraSlot\0"
-    "CloseRSCameraSlot"
+    "MainWindow\0StartFlexxCameraSlot\0\0"
+    "StopFlexxCameraSlot\0StartRSCameraSlot\0"
+    "StopRSCameraSlot"
 };
 #undef QT_MOC_LITERAL
 
@@ -79,10 +79,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         MainWindow *_t = static_cast<MainWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->OpenFlexxCameraSlot(); break;
-        case 1: _t->CloseFlexxCameraSlot(); break;
-        case 2: _t->OpenRSCameraSlot(); break;
-        case 3: _t->CloseRSCameraSlot(); break;
+        case 0: _t->StartFlexxCameraSlot(); break;
+        case 1: _t->StopFlexxCameraSlot(); break;
+        case 2: _t->StartRSCameraSlot(); break;
+        case 3: _t->StopRSCameraSlot(); break;
         default: ;
         }
     }

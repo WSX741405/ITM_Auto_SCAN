@@ -24,10 +24,10 @@ public:
 	void UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 
 public slots:
-	void	OpenFlexxCameraSlot();
-	void CloseFlexxCameraSlot();
-	void	OpenRSCameraSlot();
-	void CloseRSCameraSlot();
+	void	StartFlexxCameraSlot();
+	void StopFlexxCameraSlot();
+	void	StartRSCameraSlot();
+	void StopRSCameraSlot();
 
 private:
 	void InitialViewer();

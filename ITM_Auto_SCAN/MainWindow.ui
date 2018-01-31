@@ -42,15 +42,15 @@
      <property name="title">
       <string>Pico Flexx</string>
      </property>
-     <addaction name="_openFlexxAction"/>
-     <addaction name="_closeFlexxAction"/>
+     <addaction name="_startFlexxAction"/>
+     <addaction name="_stopFlexxAction"/>
     </widget>
     <widget class="QMenu" name="menuIntel_Realsense">
      <property name="title">
       <string>Intel Realsense</string>
      </property>
-     <addaction name="_openRSAction"/>
-     <addaction name="_closeRSAction"/>
+     <addaction name="_startRSAction"/>
+     <addaction name="_stopRSAction"/>
     </widget>
     <addaction name="menuPico_Flexx"/>
     <addaction name="menuIntel_Realsense"/>
@@ -66,22 +66,22 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="_openFlexxAction">
+  <action name="_startFlexxAction">
    <property name="text">
     <string>Open</string>
    </property>
   </action>
-  <action name="_closeFlexxAction">
+  <action name="_stopFlexxAction">
    <property name="text">
     <string>Close</string>
    </property>
   </action>
-  <action name="_openRSAction">
+  <action name="_startRSAction">
    <property name="text">
     <string>Open</string>
    </property>
   </action>
-  <action name="_closeRSAction">
+  <action name="_stopRSAction">
    <property name="text">
     <string>Close</string>
    </property>

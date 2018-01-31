@@ -61,7 +61,7 @@ Flexx::~Flexx()
 		throw std::string("Flexx: Error stopping the capturing");
 }
 
-void Flexx::OpenCamera()
+void Flexx::StartCamera()
 {
 	if (_cameraDevice->setUseCase(_useCases.at(_selectedUseCaseId)) != royale::CameraStatus::SUCCESS)
 		throw std::string("Flexx: Error setting use case");
@@ -72,7 +72,7 @@ void Flexx::OpenCamera()
 		throw std::string("Flexx: Error starting the capturing");
 }
 
-void Flexx::CloseCamera()
+void Flexx::StopCamera()
 {
 	if (_cameraDevice->stopCapture() != royale::CameraStatus::SUCCESS)
 		throw std::string("Flexx: Error stopping the capturing");

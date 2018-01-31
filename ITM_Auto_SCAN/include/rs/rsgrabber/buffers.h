@@ -196,7 +196,7 @@ namespace pcl
 
 }
 
-#include "grabber/rsgrabber/buffers.hpp"
+#include "rs/rsgrabber/buffers.hpp"
 
 #endif /* PCL_IO_BUFFERS_H */
 

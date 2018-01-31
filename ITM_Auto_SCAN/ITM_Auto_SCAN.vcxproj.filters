@@ -46,6 +46,12 @@
     <Filter Include="include\observer">
       <UniqueIdentifier>{dc279f83-71e5-407f-8479-3377a69829f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\rs">
+      <UniqueIdentifier>{6aeacd61-85a3-4d1d-8b28-984ef39f824b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\rs\rsgrabber">
+      <UniqueIdentifier>{fe030005-29d4-4ca5-b96c-e844aca87481}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_MainWindow.cpp">
@@ -68,6 +74,12 @@
     </ClCompile>
     <ClCompile Include="include\observer\IObserver.cpp">
       <Filter>include\observer</Filter>
+    </ClCompile>
+    <ClCompile Include="include\rs\rsgrabber\real_sense_grabber.cpp">
+      <Filter>include\rs\rsgrabber</Filter>
+    </ClCompile>
+    <ClCompile Include="include\rs\RS.cpp">
+      <Filter>include\rs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +120,27 @@
     </ClInclude>
     <ClInclude Include="include\observer\IObserver.h">
       <Filter>include\observer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rs\rsgrabber\buffers.h">
+      <Filter>include\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rs\rsgrabber\buffers.hpp">
+      <Filter>include\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rs\rsgrabber\io_exception.h">
+      <Filter>include\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rs\rsgrabber\real_sense_device_manager.h">
+      <Filter>include\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rs\rsgrabber\real_sense_grabber.h">
+      <Filter>include\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rs\rsgrabber\time.h">
+      <Filter>include\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rs\RS.h">
+      <Filter>include\rs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

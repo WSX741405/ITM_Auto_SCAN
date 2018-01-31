@@ -45,7 +45,7 @@
 #include <pcl/point_types.h>
 #include <pcl/io/grabber.h>
 
-#include "grabber/rsgrabber/time.h"
+#include "rs/rsgrabber/time.h"
 
 namespace pcl
 {

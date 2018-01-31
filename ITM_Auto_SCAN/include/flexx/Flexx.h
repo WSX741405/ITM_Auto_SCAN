@@ -10,7 +10,6 @@
 #include <chrono>
 #include "observer/IObserver.h"
 
-
 typedef pcl::PointXYZRGBA PointT;
 
 class ISubject;
@@ -49,9 +48,9 @@ public:
 	
 	~Flexx();
 
-	void OpenCamera();
+	void StartCamera();
 
-	void CloseCamera();
+	void StopCamera();
 
 private:
 

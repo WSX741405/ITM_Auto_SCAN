@@ -27,10 +27,10 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindowClass
 {
 public:
-    QAction *_openFlexxAction;
-    QAction *_closeFlexxAction;
-    QAction *_openRSAction;
-    QAction *_closeRSAction;
+    QAction *_startFlexxAction;
+    QAction *_stopFlexxAction;
+    QAction *_startRSAction;
+    QAction *_stopRSAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QMenuBar *menuBar;
@@ -45,14 +45,14 @@ public:
         if (MainWindowClass->objectName().isEmpty())
             MainWindowClass->setObjectName(QStringLiteral("MainWindowClass"));
         MainWindowClass->resize(800, 850);
-        _openFlexxAction = new QAction(MainWindowClass);
-        _openFlexxAction->setObjectName(QStringLiteral("_openFlexxAction"));
-        _closeFlexxAction = new QAction(MainWindowClass);
-        _closeFlexxAction->setObjectName(QStringLiteral("_closeFlexxAction"));
-        _openRSAction = new QAction(MainWindowClass);
-        _openRSAction->setObjectName(QStringLiteral("_openRSAction"));
-        _closeRSAction = new QAction(MainWindowClass);
-        _closeRSAction->setObjectName(QStringLiteral("_closeRSAction"));
+        _startFlexxAction = new QAction(MainWindowClass);
+        _startFlexxAction->setObjectName(QStringLiteral("_startFlexxAction"));
+        _stopFlexxAction = new QAction(MainWindowClass);
+        _stopFlexxAction->setObjectName(QStringLiteral("_stopFlexxAction"));
+        _startRSAction = new QAction(MainWindowClass);
+        _startRSAction->setObjectName(QStringLiteral("_startRSAction"));
+        _stopRSAction = new QAction(MainWindowClass);
+        _stopRSAction->setObjectName(QStringLiteral("_stopRSAction"));
         centralWidget = new QWidget(MainWindowClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
@@ -79,10 +79,10 @@ public:
         menuBar->addAction(menuCamera->menuAction());
         menuCamera->addAction(menuPico_Flexx->menuAction());
         menuCamera->addAction(menuIntel_Realsense->menuAction());
-        menuPico_Flexx->addAction(_openFlexxAction);
-        menuPico_Flexx->addAction(_closeFlexxAction);
-        menuIntel_Realsense->addAction(_openRSAction);
-        menuIntel_Realsense->addAction(_closeRSAction);
+        menuPico_Flexx->addAction(_startFlexxAction);
+        menuPico_Flexx->addAction(_stopFlexxAction);
+        menuIntel_Realsense->addAction(_startRSAction);
+        menuIntel_Realsense->addAction(_stopRSAction);
 
         retranslateUi(MainWindowClass);
 
@@ -92,10 +92,10 @@ public:
     void retranslateUi(QMainWindow *MainWindowClass)
     {
         MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", Q_NULLPTR));
-        _openFlexxAction->setText(QApplication::translate("MainWindowClass", "Open", Q_NULLPTR));
-        _closeFlexxAction->setText(QApplication::translate("MainWindowClass", "Close", Q_NULLPTR));
-        _openRSAction->setText(QApplication::translate("MainWindowClass", "Open", Q_NULLPTR));
-        _closeRSAction->setText(QApplication::translate("MainWindowClass", "Close", Q_NULLPTR));
+        _startFlexxAction->setText(QApplication::translate("MainWindowClass", "Open", Q_NULLPTR));
+        _stopFlexxAction->setText(QApplication::translate("MainWindowClass", "Close", Q_NULLPTR));
+        _startRSAction->setText(QApplication::translate("MainWindowClass", "Open", Q_NULLPTR));
+        _stopRSAction->setText(QApplication::translate("MainWindowClass", "Close", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowClass", "Camera", Q_NULLPTR));
         menuPico_Flexx->setTitle(QApplication::translate("MainWindowClass", "Pico Flexx", Q_NULLPTR));
         menuIntel_Realsense->setTitle(QApplication::translate("MainWindowClass", "Intel Realsense", Q_NULLPTR));

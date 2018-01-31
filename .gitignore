@@ -22,3 +22,5 @@ ITM_Auto_SCAN/x64/Debug/MainWindow.obj
 ITM_Auto_SCAN/x64/Debug/ITM_Auto_SCAN.tlog/link.write.1.tlog
 ITM_Auto_SCAN/x64/Debug/ITM_Auto_SCAN.tlog/custombuild.command.1.tlog
 ITM_Auto_SCAN.VC.db
+ITM_Auto_SCAN/lib/real_sense.lib
+ITM_Auto_SCAN/x64/Debug/real_sense_grabber.obj
