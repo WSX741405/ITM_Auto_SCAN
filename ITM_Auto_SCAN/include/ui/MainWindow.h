@@ -1,10 +1,17 @@
 #pragma once
 
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+
 #include <vtkAutoInit.h>
 VTK_MODULE_INIT(vtkRenderingOpenGL);
 VTK_MODULE_INIT(vtkInteractionStyle);
 #include <QtWidgets/QMainWindow>
 #include <QVTKWidget.h>
+
+typedef pcl::PointXYZRGBA PointT;
+#include <QMetaType>
+Q_DECLARE_METATYPE(boost::shared_ptr<pcl::PointCloud<PointT>>);
 
 #include "ui_MainWindow.h"
 #include "ui/Viewer.h"
@@ -23,13 +30,13 @@ class MainWindow : public QMainWindow
 
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
-	void UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 
 public slots:
 	void	StartFlexxCameraSlot();
 	void StopFlexxCameraSlot();
 	void	StartRSCameraSlot();
 	void StopRSCameraSlot();
+	void UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 
 private:
 	void InitialViewer();

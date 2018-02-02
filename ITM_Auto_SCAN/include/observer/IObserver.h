@@ -16,11 +16,15 @@ public:
 	virtual void Update(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud) = 0;
 };
 
-class UIObserver : public IObserver
+class UIObserver : public QObject, public IObserver
 {
+	Q_OBJECT
 public:
 	UIObserver(MainWindow* window) : _mainWindow(window){}
 	void Update(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+
+signals:
+	void UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 
 private:
 	MainWindow* _mainWindow;

@@ -90,6 +90,12 @@
     <ClCompile Include="GrabberFactory.cpp">
       <Filter>include\grabber</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_IObserver.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_IObserver.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">
@@ -103,6 +109,9 @@
     </CustomBuild>
     <CustomBuild Include="include\flexx\Flexx.h">
       <Filter>include\flexx</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\observer\IObserver.h">
+      <Filter>include\observer</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -126,9 +135,6 @@
     </ClInclude>
     <ClInclude Include="include\file\plyFile.h">
       <Filter>include\file</Filter>
-    </ClInclude>
-    <ClInclude Include="include\observer\IObserver.h">
-      <Filter>include\observer</Filter>
     </ClInclude>
     <ClInclude Include="include\rs\rsgrabber\buffers.h">
       <Filter>include\rs\rsgrabber</Filter>

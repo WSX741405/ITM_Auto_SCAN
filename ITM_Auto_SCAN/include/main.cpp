@@ -1,7 +1,8 @@
-#include "ui/MainWindow.h"
 #include <QtWidgets/QApplication>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+
+#include "ui/MainWindow.h"
 
 int main(int argc, char *argv[])
 {
