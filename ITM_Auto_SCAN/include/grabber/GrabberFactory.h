@@ -8,15 +8,20 @@
 typedef pcl::PointXYZRGBA PointT;
 
 class IGrabber;
+class Flexx;
+class Realsense;
 
 class GrabberFactory
 {
 public:
-	GrabberFactory()
-	{
-	}
-	IGrabber* GetRSGrabber(ISubject* subject = nullptr);
-	IGrabber* GetFlexxGrabber(ISubject* subject = nullptr);
+	GrabberFactory();
+	~GrabberFactory();
+	IGrabber* GetFlexxGrabber(ISubject* subject = NULL);
+	IGrabber* GetRSGrabber(ISubject* subject = NULL);
+
+private:
+	Flexx* _flexx;
+	Realsense* _rs;
 };
 
 #endif

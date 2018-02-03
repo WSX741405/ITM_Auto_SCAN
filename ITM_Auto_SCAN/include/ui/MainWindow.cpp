@@ -40,6 +40,11 @@ void MainWindow::UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCl
 	_ui->_qvtkWidget->update();
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+	delete _grabberFactory;
+}
+
 //		UI event
 void MainWindow::StartFlexxCameraSlot()
 {

@@ -7,11 +7,13 @@
 VTK_MODULE_INIT(vtkRenderingOpenGL);
 VTK_MODULE_INIT(vtkInteractionStyle);
 #include <QtWidgets/QMainWindow>
-#include <QVTKWidget.h>
 
 typedef pcl::PointXYZRGBA PointT;
 #include <QMetaType>
 Q_DECLARE_METATYPE(boost::shared_ptr<pcl::PointCloud<PointT>>);
+
+#include <QVTKWidget.h>
+#include <QCloseEvent>
 
 #include "ui_MainWindow.h"
 #include "ui/Viewer.h"
@@ -41,6 +43,7 @@ public slots:
 private:
 	void InitialViewer();
 	void RegisterObserver();
+	void closeEvent(QCloseEvent *event);
 
 	Viewer* _viewer;
 	UIObserver* _uiObserver;
