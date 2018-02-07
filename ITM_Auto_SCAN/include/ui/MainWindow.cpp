@@ -7,14 +7,20 @@ MainWindow::MainWindow(QWidget *parent) :
 	_ui->setupUi(this);
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
+	_arduino = new Arduino("com4");
 	InitialViewer();
 	RegisterObserver();
-	//		ui event
+	ConnectSlots();
+}
+
+void MainWindow::ConnectSlots()
+{
 	connect(_ui->_startFlexxAction, SIGNAL(triggered()), this, SLOT(StartFlexxCameraSlot()));
 	connect(_ui->_stopFlexxAction, SIGNAL(triggered()), this, SLOT(StopFlexxCameraSlot()));
 	connect(_ui->_startRSAction, SIGNAL(triggered()), this, SLOT(StartRSCameraSlot()));
 	connect(_ui->_stopRSAction, SIGNAL(triggered()), this, SLOT(StopRSCameraSlot()));
 	connect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)));
+	connect(_ui->_communicateArduinoAction, SIGNAL(triggered()), this, SLOT(CommunicateArduinoSlot()));
 }
 
 void MainWindow::InitialViewer()
@@ -45,7 +51,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 	delete _grabberFactory;
 }
 
-//		UI event
+//****************************************************************
+//								Slots : Camera
+//****************************************************************
 void MainWindow::StartFlexxCameraSlot()
 {
 	ISubject* subject = _subjectFactory->GetFlexxSubject();
@@ -70,4 +78,14 @@ void MainWindow::StopRSCameraSlot()
 {
 	IGrabber* grabber = _grabberFactory->GetRSGrabber();
 	grabber->StopCamera();
+}
+
+//****************************************************************
+//								Slots : Arduino
+//****************************************************************
+void MainWindow::CommunicateArduinoSlot()
+{
+	_arduino->SendData("123");
+	_arduino->ReceiveData(3);
+
 }

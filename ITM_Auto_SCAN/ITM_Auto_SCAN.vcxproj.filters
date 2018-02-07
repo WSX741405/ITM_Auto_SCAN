@@ -55,6 +55,9 @@
     <Filter Include="include\grabber">
       <UniqueIdentifier>{fe1bec2e-cdf9-4bac-8960-1f7e6e79734a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\arduino">
+      <UniqueIdentifier>{253a9609-4400-4eba-b1c8-e99253ea4726}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_MainWindow.cpp">
@@ -84,17 +87,20 @@
     <ClCompile Include="include\rs\RS.cpp">
       <Filter>include\rs</Filter>
     </ClCompile>
-    <ClCompile Include="ObserverFactory.cpp">
-      <Filter>include\observer</Filter>
-    </ClCompile>
-    <ClCompile Include="GrabberFactory.cpp">
-      <Filter>include\grabber</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_IObserver.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_IObserver.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="include\arduino\tserial.cpp">
+      <Filter>include\arduino</Filter>
+    </ClCompile>
+    <ClCompile Include="include\grabber\GrabberFactory.cpp">
+      <Filter>include\grabber</Filter>
+    </ClCompile>
+    <ClCompile Include="include\observer\ObserverFactory.cpp">
+      <Filter>include\observer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,9 +121,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\ui\Viewer.h">
       <Filter>include\ui</Filter>
     </ClInclude>
@@ -165,6 +168,15 @@
     </ClInclude>
     <ClInclude Include="include\observer\ObserverFactory.h">
       <Filter>include\observer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\arduino\tserial.h">
+      <Filter>include\arduino</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\arduino\arduino.h">
+      <Filter>include\arduino</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

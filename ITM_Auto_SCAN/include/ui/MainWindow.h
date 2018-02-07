@@ -19,12 +19,14 @@ Q_DECLARE_METATYPE(boost::shared_ptr<pcl::PointCloud<PointT>>);
 #include "ui/Viewer.h"
 #include "observer/ObserverFactory.h"
 #include "grabber/GrabberFactory.h"
+#include "arduino/arduino.h"
 
 class UIObserver;
 class ISubject;
 class SubjectFactory;
 class IGrabber;
 class GrabberFactory;
+class Arduino;
 
 class MainWindow : public QMainWindow
 {
@@ -34,13 +36,21 @@ public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 
 public slots:
+	//****************************************************************
+	//										Camera
+	//****************************************************************
 	void	StartFlexxCameraSlot();
 	void StopFlexxCameraSlot();
 	void	StartRSCameraSlot();
 	void StopRSCameraSlot();
 	void UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+	//****************************************************************
+	//										Arduino
+	//****************************************************************
+	void CommunicateArduinoSlot();
 
 private:
+	void ConnectSlots();
 	void InitialViewer();
 	void RegisterObserver();
 	void closeEvent(QCloseEvent *event);
@@ -49,6 +59,7 @@ private:
 	UIObserver* _uiObserver;
 	GrabberFactory* _grabberFactory;
 	SubjectFactory* _subjectFactory;
+	Arduino* _arduino;
 	//ISubject* _subject;
 	Ui::MainWindowClass* _ui;
 };

@@ -55,7 +55,14 @@
     <addaction name="menuPico_Flexx"/>
     <addaction name="menuIntel_Realsense"/>
    </widget>
+   <widget class="QMenu" name="menuArduino">
+    <property name="title">
+     <string>Arduino</string>
+    </property>
+    <addaction name="_communicateArduinoAction"/>
+   </widget>
    <addaction name="menuCamera"/>
+   <addaction name="menuArduino"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -84,6 +91,11 @@
   <action name="_stopRSAction">
    <property name="text">
     <string>Close</string>
+   </property>
+  </action>
+  <action name="_communicateArduinoAction">
+   <property name="text">
+    <string>communicate</string>
    </property>
   </action>
  </widget>

@@ -87,14 +87,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GrabberFactory.cpp" />
+    <ClCompile Include="include\arduino\tserial.cpp" />
     <ClCompile Include="include\flexx\Flexx.cpp" />
+    <ClCompile Include="include\grabber\GrabberFactory.cpp" />
     <ClCompile Include="include\main.cpp" />
     <ClCompile Include="include\observer\IObserver.cpp" />
+    <ClCompile Include="include\observer\ObserverFactory.cpp" />
     <ClCompile Include="include\rs\RS.cpp" />
     <ClCompile Include="include\rs\rsgrabber\real_sense_grabber.cpp" />
     <ClCompile Include="include\ui\MainWindow.cpp" />
-    <ClCompile Include="ObserverFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">
@@ -110,6 +111,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h" />
+    <ClInclude Include="include\arduino\arduino.h" />
+    <ClInclude Include="include\arduino\tserial.h" />
     <ClInclude Include="include\file\3DFile.h" />
     <ClInclude Include="include\file\fileFactory.h" />
     <ClInclude Include="include\file\objFile.h" />
