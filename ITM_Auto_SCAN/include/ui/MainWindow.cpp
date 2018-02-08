@@ -85,7 +85,22 @@ void MainWindow::StopRSCameraSlot()
 //****************************************************************
 void MainWindow::CommunicateArduinoSlot()
 {
-	_arduino->SendData("123");
-	_arduino->ReceiveData(3);
+	static unsigned int numOfRecData = 0;
+	std::string str = InputDialog("Communicate Arduino", "Input Data");
+	int len = StringMethod::GetStringLength(&str[0u]);
+	_arduino->SendData(&str[0u], len);
+	while (_arduino->ReceiveDataNumberOfBytes() != numOfRecData)
+		numOfRecData += _arduino->ReceiveDataNumberOfBytes();
+	char* data = _arduino->ReceiveData(len);
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(data));
+}
 
+std::string MainWindow::InputDialog(const char* title, const char* label, const char* text)
+{
+	bool ok;
+	QString input = QInputDialog::getText(this, tr(title), tr(label), QLineEdit::Normal, tr(text), &ok);
+	if (ok && !input.isEmpty()) {
+		return StringMethod::QString2String(input);
+	}
+	return std::string("");
 }

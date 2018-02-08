@@ -13,6 +13,8 @@ typedef pcl::PointXYZRGBA PointT;
 Q_DECLARE_METATYPE(boost::shared_ptr<pcl::PointCloud<PointT>>);
 
 #include <QVTKWidget.h>
+#include<QMessageBox>
+#include<QInputDialog>
 #include <QCloseEvent>
 
 #include "ui_MainWindow.h"
@@ -20,6 +22,7 @@ Q_DECLARE_METATYPE(boost::shared_ptr<pcl::PointCloud<PointT>>);
 #include "observer/ObserverFactory.h"
 #include "grabber/GrabberFactory.h"
 #include "arduino/arduino.h"
+#include "stringMethod.h"
 
 class UIObserver;
 class ISubject;
@@ -55,11 +58,12 @@ private:
 	void RegisterObserver();
 	void closeEvent(QCloseEvent *event);
 
+	std::string InputDialog(const char* title = "", const char* label = "", const char* text = "");
+
 	Viewer* _viewer;
 	UIObserver* _uiObserver;
 	GrabberFactory* _grabberFactory;
 	SubjectFactory* _subjectFactory;
 	Arduino* _arduino;
-	//ISubject* _subject;
 	Ui::MainWindowClass* _ui;
 };

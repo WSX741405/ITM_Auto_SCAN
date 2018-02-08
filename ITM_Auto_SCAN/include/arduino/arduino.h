@@ -17,19 +17,22 @@ public:
 		delete _tserial;
 	}
 
-	void SendData(char* dataPtr)
+	void SendData(char* dataPtr, int len)
 	{
 		char* dataTmpPtr = dataPtr;
-		int len = 0;
-		if (*dataTmpPtr != '\0')
-			len++;
 		_tserial->sendArray(dataPtr, len);
 	}
 
-	int ReceiveData(int len)
+	char* ReceiveData(int len)
 	{
 		char* dataPtr = new char[len]();
-		return _tserial->getArray(dataPtr, len);
+		_tserial->getArray(dataPtr, len);
+		return dataPtr;
+	}
+
+	int ReceiveDataNumberOfBytes()
+	{
+		return _tserial->getNbrOfBytes();
 	}
 
 private:

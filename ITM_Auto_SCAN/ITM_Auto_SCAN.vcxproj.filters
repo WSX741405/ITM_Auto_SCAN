@@ -178,5 +178,8 @@
     <ClInclude Include="include\arduino\arduino.h">
       <Filter>include\arduino</Filter>
     </ClInclude>
+    <ClInclude Include="include\stringMethod.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
