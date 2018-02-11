@@ -8,6 +8,6 @@ void loop() {
   if(Serial.available() >= 1)
   {
     data = Serial.read();
-    Serial.print(data);
+    Serial.write(data);
   }
 }

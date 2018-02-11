@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[10];
-    char stringdata0[179];
+    QByteArrayData data[12];
+    char stringdata0[202];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,14 +40,17 @@ QT_MOC_LITERAL(5, 71, 16), // "StopRSCameraSlot"
 QT_MOC_LITERAL(6, 88, 12), // "UpdateViewer"
 QT_MOC_LITERAL(7, 101, 43), // "boost::shared_ptr<pcl::PointC..."
 QT_MOC_LITERAL(8, 145, 10), // "pointCloud"
-QT_MOC_LITERAL(9, 156, 22) // "CommunicateArduinoSlot"
+QT_MOC_LITERAL(9, 156, 20), // "GetNumberOfBytesSlot"
+QT_MOC_LITERAL(10, 177, 11), // "GetCharSlot"
+QT_MOC_LITERAL(11, 189, 12) // "GetArraySlot"
 
     },
     "MainWindow\0StartFlexxCameraSlot\0\0"
     "StopFlexxCameraSlot\0StartRSCameraSlot\0"
     "StopRSCameraSlot\0UpdateViewer\0"
     "boost::shared_ptr<pcl::PointCloud<PointT> >\0"
-    "pointCloud\0CommunicateArduinoSlot"
+    "pointCloud\0GetNumberOfBytesSlot\0"
+    "GetCharSlot\0GetArraySlot"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,7 +60,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,12 +68,14 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x0a /* Public */,
-       3,    0,   45,    2, 0x0a /* Public */,
-       4,    0,   46,    2, 0x0a /* Public */,
-       5,    0,   47,    2, 0x0a /* Public */,
-       6,    1,   48,    2, 0x0a /* Public */,
-       9,    0,   51,    2, 0x0a /* Public */,
+       1,    0,   54,    2, 0x0a /* Public */,
+       3,    0,   55,    2, 0x0a /* Public */,
+       4,    0,   56,    2, 0x0a /* Public */,
+       5,    0,   57,    2, 0x0a /* Public */,
+       6,    1,   58,    2, 0x0a /* Public */,
+       9,    0,   61,    2, 0x0a /* Public */,
+      10,    0,   62,    2, 0x0a /* Public */,
+      11,    0,   63,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -78,6 +83,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 7,    8,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -94,7 +101,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 2: _t->StartRSCameraSlot(); break;
         case 3: _t->StopRSCameraSlot(); break;
         case 4: _t->UpdateViewer((*reinterpret_cast< boost::shared_ptr<pcl::PointCloud<PointT> >(*)>(_a[1]))); break;
-        case 5: _t->CommunicateArduinoSlot(); break;
+        case 5: _t->GetNumberOfBytesSlot(); break;
+        case 6: _t->GetCharSlot(); break;
+        case 7: _t->GetArraySlot(); break;
         default: ;
         }
     }
@@ -125,13 +134,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 8;
     }
     return _id;
 }

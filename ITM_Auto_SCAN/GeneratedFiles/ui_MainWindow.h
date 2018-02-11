@@ -31,7 +31,9 @@ public:
     QAction *_stopFlexxAction;
     QAction *_startRSAction;
     QAction *_stopRSAction;
-    QAction *_communicateArduinoAction;
+    QAction *_getNumberOfBytesAction;
+    QAction *_getCharAction;
+    QAction *_getArrayAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QMenuBar *menuBar;
@@ -39,6 +41,7 @@ public:
     QMenu *menuPico_Flexx;
     QMenu *menuIntel_Realsense;
     QMenu *menuArduino;
+    QMenu *menucommunicate;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -55,8 +58,12 @@ public:
         _startRSAction->setObjectName(QStringLiteral("_startRSAction"));
         _stopRSAction = new QAction(MainWindowClass);
         _stopRSAction->setObjectName(QStringLiteral("_stopRSAction"));
-        _communicateArduinoAction = new QAction(MainWindowClass);
-        _communicateArduinoAction->setObjectName(QStringLiteral("_communicateArduinoAction"));
+        _getNumberOfBytesAction = new QAction(MainWindowClass);
+        _getNumberOfBytesAction->setObjectName(QStringLiteral("_getNumberOfBytesAction"));
+        _getCharAction = new QAction(MainWindowClass);
+        _getCharAction->setObjectName(QStringLiteral("_getCharAction"));
+        _getArrayAction = new QAction(MainWindowClass);
+        _getArrayAction->setObjectName(QStringLiteral("_getArrayAction"));
         centralWidget = new QWidget(MainWindowClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
@@ -74,6 +81,8 @@ public:
         menuIntel_Realsense->setObjectName(QStringLiteral("menuIntel_Realsense"));
         menuArduino = new QMenu(menuBar);
         menuArduino->setObjectName(QStringLiteral("menuArduino"));
+        menucommunicate = new QMenu(menuArduino);
+        menucommunicate->setObjectName(QStringLiteral("menucommunicate"));
         MainWindowClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindowClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -90,7 +99,10 @@ public:
         menuPico_Flexx->addAction(_stopFlexxAction);
         menuIntel_Realsense->addAction(_startRSAction);
         menuIntel_Realsense->addAction(_stopRSAction);
-        menuArduino->addAction(_communicateArduinoAction);
+        menuArduino->addAction(menucommunicate->menuAction());
+        menucommunicate->addAction(_getNumberOfBytesAction);
+        menucommunicate->addAction(_getCharAction);
+        menucommunicate->addAction(_getArrayAction);
 
         retranslateUi(MainWindowClass);
 
@@ -104,11 +116,14 @@ public:
         _stopFlexxAction->setText(QApplication::translate("MainWindowClass", "Close", Q_NULLPTR));
         _startRSAction->setText(QApplication::translate("MainWindowClass", "Open", Q_NULLPTR));
         _stopRSAction->setText(QApplication::translate("MainWindowClass", "Close", Q_NULLPTR));
-        _communicateArduinoAction->setText(QApplication::translate("MainWindowClass", "communicate", Q_NULLPTR));
+        _getNumberOfBytesAction->setText(QApplication::translate("MainWindowClass", "Get # Bytes Of Data", Q_NULLPTR));
+        _getCharAction->setText(QApplication::translate("MainWindowClass", "Get Char", Q_NULLPTR));
+        _getArrayAction->setText(QApplication::translate("MainWindowClass", "Get Array", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowClass", "Camera", Q_NULLPTR));
         menuPico_Flexx->setTitle(QApplication::translate("MainWindowClass", "Pico Flexx", Q_NULLPTR));
         menuIntel_Realsense->setTitle(QApplication::translate("MainWindowClass", "Intel Realsense", Q_NULLPTR));
         menuArduino->setTitle(QApplication::translate("MainWindowClass", "Arduino", Q_NULLPTR));
+        menucommunicate->setTitle(QApplication::translate("MainWindowClass", "communicate", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MAIN_WINDOW
+#define MAIN_WINDOW
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -34,7 +35,7 @@ class Arduino;
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
-
+	char* COM_PORT = "com3";
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 
@@ -42,15 +43,17 @@ public slots:
 	//****************************************************************
 	//										Camera
 	//****************************************************************
-	void	StartFlexxCameraSlot();
+	void StartFlexxCameraSlot();
 	void StopFlexxCameraSlot();
-	void	StartRSCameraSlot();
+	void StartRSCameraSlot();
 	void StopRSCameraSlot();
 	void UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 	//****************************************************************
 	//										Arduino
 	//****************************************************************
-	void CommunicateArduinoSlot();
+	void GetNumberOfBytesSlot();
+	void GetCharSlot();
+	void GetArraySlot();
 
 private:
 	void ConnectSlots();
@@ -67,3 +70,5 @@ private:
 	Arduino* _arduino;
 	Ui::MainWindowClass* _ui;
 };
+
+#endif

@@ -59,7 +59,15 @@
     <property name="title">
      <string>Arduino</string>
     </property>
-    <addaction name="_communicateArduinoAction"/>
+    <widget class="QMenu" name="menucommunicate">
+     <property name="title">
+      <string>communicate</string>
+     </property>
+     <addaction name="_getNumberOfBytesAction"/>
+     <addaction name="_getCharAction"/>
+     <addaction name="_getArrayAction"/>
+    </widget>
+    <addaction name="menucommunicate"/>
    </widget>
    <addaction name="menuCamera"/>
    <addaction name="menuArduino"/>
@@ -93,9 +101,19 @@
     <string>Close</string>
    </property>
   </action>
-  <action name="_communicateArduinoAction">
+  <action name="_getNumberOfBytesAction">
    <property name="text">
-    <string>communicate</string>
+    <string>Get # Bytes Of Data</string>
+   </property>
+  </action>
+  <action name="_getCharAction">
+   <property name="text">
+    <string>Get Char</string>
+   </property>
+  </action>
+  <action name="_getArrayAction">
+   <property name="text">
+    <string>Get Array</string>
    </property>
   </action>
  </widget>

@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	_ui->setupUi(this);
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
-	_arduino = new Arduino("com4");
+	_arduino = new Arduino(COM_PORT);
 	InitialViewer();
 	RegisterObserver();
 	ConnectSlots();
@@ -20,7 +20,9 @@ void MainWindow::ConnectSlots()
 	connect(_ui->_startRSAction, SIGNAL(triggered()), this, SLOT(StartRSCameraSlot()));
 	connect(_ui->_stopRSAction, SIGNAL(triggered()), this, SLOT(StopRSCameraSlot()));
 	connect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)));
-	connect(_ui->_communicateArduinoAction, SIGNAL(triggered()), this, SLOT(CommunicateArduinoSlot()));
+	connect(_ui->_getNumberOfBytesAction, SIGNAL(triggered()), this, SLOT(GetNumberOfBytesSlot()));
+	connect(_ui->_getCharAction, SIGNAL(triggered()), this, SLOT(GetCharSlot()));
+	connect(_ui->_getArrayAction, SIGNAL(triggered()), this, SLOT(GetArraySlot()));
 }
 
 void MainWindow::InitialViewer()
@@ -38,7 +40,6 @@ void MainWindow::RegisterObserver()
 	flexxSubject->RegisterObserver(_uiObserver);
 }
 
-
 void MainWindow::UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
 {
 	_viewer->Show(pointCloud);
@@ -49,6 +50,20 @@ void MainWindow::UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCl
 void MainWindow::closeEvent(QCloseEvent *event)
 {
 	delete _grabberFactory;
+}
+
+//****************************************************************
+//								UI Component
+//****************************************************************
+
+std::string MainWindow::InputDialog(const char* title, const char* label, const char* text)
+{
+	bool ok;
+	QString input = QInputDialog::getText(this, tr(title), tr(label), QLineEdit::Normal, tr(text), &ok);
+	if (ok && !input.isEmpty()) {
+		return StringMethod::QString2String(input);
+	}
+	return std::string("");
 }
 
 //****************************************************************
@@ -83,24 +98,31 @@ void MainWindow::StopRSCameraSlot()
 //****************************************************************
 //								Slots : Arduino
 //****************************************************************
-void MainWindow::CommunicateArduinoSlot()
+void MainWindow::GetNumberOfBytesSlot()
 {
-	static unsigned int numOfRecData = 0;
+	int numberOfBytes = 0;
 	std::string str = InputDialog("Communicate Arduino", "Input Data");
 	int len = StringMethod::GetStringLength(&str[0u]);
 	_arduino->SendData(&str[0u], len);
-	while (_arduino->ReceiveDataNumberOfBytes() != numOfRecData)
-		numOfRecData += _arduino->ReceiveDataNumberOfBytes();
-	char* data = _arduino->ReceiveData(len);
-	QMessageBox::about(this, tr("Communicate Arduino"), tr(data));
+	while (numberOfBytes = _arduino->ReceiveDataNumberOfBytes(), numberOfBytes== 0);
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(StringMethod::Int2String(numberOfBytes).c_str()));
 }
 
-std::string MainWindow::InputDialog(const char* title, const char* label, const char* text)
+void MainWindow::GetCharSlot()
 {
-	bool ok;
-	QString input = QInputDialog::getText(this, tr(title), tr(label), QLineEdit::Normal, tr(text), &ok);
-	if (ok && !input.isEmpty()) {
-		return StringMethod::QString2String(input);
-	}
-	return std::string("");
+	/*
+	std::string str = InputDialog("Communicate Arduino", "Input Data");
+	int len = StringMethod::GetStringLength(&str[0u]);
+	_arduino->SendData(&str[0u], len);*/
+	std::string str = InputDialog("Communicate Arduino", "Input Data");
+	unsigned char data = str[0] & 0xff;
+	_arduino->SendData(data);
+	Sleep(50);
+	char* recData = _arduino->ReceiveData();
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(recData));
+}
+
+void MainWindow::GetArraySlot()
+{
+
 }

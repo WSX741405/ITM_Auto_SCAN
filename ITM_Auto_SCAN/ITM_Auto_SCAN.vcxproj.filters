@@ -60,9 +60,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\qrc_MainWindow.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="include\main.cpp">
       <Filter>include</Filter>
     </ClCompile>
@@ -172,14 +169,14 @@
     <ClInclude Include="include\arduino\tserial.h">
       <Filter>include\arduino</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\arduino\arduino.h">
       <Filter>include\arduino</Filter>
     </ClInclude>
     <ClInclude Include="include\stringMethod.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
+      <Filter>Generated Files\Release</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,3 +1,6 @@
+#ifndef ARDUINO
+#define ARDUINO
+
 #include "arduino/tserial.h"
 
 class Arduino
@@ -12,20 +15,33 @@ public:
 		}
 	}
 
-	Arduino()
+	~Arduino()
 	{
 		delete _tserial;
 	}
 
+	void SendData(char data)
+	{
+		_tserial->sendChar(data);
+	}
+
 	void SendData(char* dataPtr, int len)
 	{
-		char* dataTmpPtr = dataPtr;
 		_tserial->sendArray(dataPtr, len);
+	}
+
+	char* ReceiveData()
+	{
+		char* dataPtr = new char[2]();
+		dataPtr[1] = '\0';
+		dataPtr[0] = _tserial->getChar();
+		return dataPtr;
 	}
 
 	char* ReceiveData(int len)
 	{
-		char* dataPtr = new char[len]();
+		char* dataPtr = new char[len + 1]();
+		dataPtr[len] = '\0';
 		_tserial->getArray(dataPtr, len);
 		return dataPtr;
 	}
@@ -38,3 +54,5 @@ public:
 private:
 	Tserial* _tserial;
 };
+
+#endif
