@@ -34,6 +34,7 @@ public:
     QAction *_getNumberOfBytesAction;
     QAction *_getCharAction;
     QAction *_getArrayAction;
+    QAction *_controlMotorAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QMenuBar *menuBar;
@@ -64,6 +65,8 @@ public:
         _getCharAction->setObjectName(QStringLiteral("_getCharAction"));
         _getArrayAction = new QAction(MainWindowClass);
         _getArrayAction->setObjectName(QStringLiteral("_getArrayAction"));
+        _controlMotorAction = new QAction(MainWindowClass);
+        _controlMotorAction->setObjectName(QStringLiteral("_controlMotorAction"));
         centralWidget = new QWidget(MainWindowClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
@@ -100,6 +103,7 @@ public:
         menuIntel_Realsense->addAction(_startRSAction);
         menuIntel_Realsense->addAction(_stopRSAction);
         menuArduino->addAction(menucommunicate->menuAction());
+        menuArduino->addAction(_controlMotorAction);
         menucommunicate->addAction(_getNumberOfBytesAction);
         menucommunicate->addAction(_getCharAction);
         menucommunicate->addAction(_getArrayAction);
@@ -119,11 +123,12 @@ public:
         _getNumberOfBytesAction->setText(QApplication::translate("MainWindowClass", "Get # Bytes Of Data", Q_NULLPTR));
         _getCharAction->setText(QApplication::translate("MainWindowClass", "Get Char", Q_NULLPTR));
         _getArrayAction->setText(QApplication::translate("MainWindowClass", "Get Array", Q_NULLPTR));
+        _controlMotorAction->setText(QApplication::translate("MainWindowClass", "Control Motor", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowClass", "Camera", Q_NULLPTR));
         menuPico_Flexx->setTitle(QApplication::translate("MainWindowClass", "Pico Flexx", Q_NULLPTR));
         menuIntel_Realsense->setTitle(QApplication::translate("MainWindowClass", "Intel Realsense", Q_NULLPTR));
         menuArduino->setTitle(QApplication::translate("MainWindowClass", "Arduino", Q_NULLPTR));
-        menucommunicate->setTitle(QApplication::translate("MainWindowClass", "communicate", Q_NULLPTR));
+        menucommunicate->setTitle(QApplication::translate("MainWindowClass", "Communicate", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -61,13 +61,14 @@
     </property>
     <widget class="QMenu" name="menucommunicate">
      <property name="title">
-      <string>communicate</string>
+      <string>Communicate</string>
      </property>
      <addaction name="_getNumberOfBytesAction"/>
      <addaction name="_getCharAction"/>
      <addaction name="_getArrayAction"/>
     </widget>
     <addaction name="menucommunicate"/>
+    <addaction name="_controlMotorAction"/>
    </widget>
    <addaction name="menuCamera"/>
    <addaction name="menuArduino"/>
@@ -114,6 +115,11 @@
   <action name="_getArrayAction">
    <property name="text">
     <string>Get Array</string>
+   </property>
+  </action>
+  <action name="_controlMotorAction">
+   <property name="text">
+    <string>Control Motor</string>
    </property>
   </action>
  </widget>

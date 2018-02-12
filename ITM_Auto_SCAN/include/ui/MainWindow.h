@@ -54,6 +54,7 @@ public slots:
 	void GetNumberOfBytesSlot();
 	void GetCharSlot();
 	void GetArraySlot();
+	void ControlMotorSlot();
 
 private:
 	void ConnectSlots();

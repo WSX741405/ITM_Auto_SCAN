@@ -23,6 +23,7 @@ void MainWindow::ConnectSlots()
 	connect(_ui->_getNumberOfBytesAction, SIGNAL(triggered()), this, SLOT(GetNumberOfBytesSlot()));
 	connect(_ui->_getCharAction, SIGNAL(triggered()), this, SLOT(GetCharSlot()));
 	connect(_ui->_getArrayAction, SIGNAL(triggered()), this, SLOT(GetArraySlot()));
+	connect(_ui->_controlMotorAction, SIGNAL(triggered()), this, SLOT(ControlMotorSlot()));
 }
 
 void MainWindow::InitialViewer()
@@ -103,7 +104,7 @@ void MainWindow::GetNumberOfBytesSlot()
 	std::string str = InputDialog("Communicate Arduino", "Input Data");
 	int len = str.length();
 	_arduino->SendData(&str[0], len);
-	Sleep(50);
+	//Sleep(50);
 	int recData = _arduino->ReceiveDataNumberOfBytes();
 	QMessageBox::about(this, tr("Communicate Arduino"), tr(StringMethod::Int2String(recData).c_str()));
 }
@@ -111,9 +112,7 @@ void MainWindow::GetNumberOfBytesSlot()
 void MainWindow::GetCharSlot()
 {
 	std::string str = InputDialog("Communicate Arduino", "Input Data");
-	unsigned char data = str[0];
-	_arduino->SendData(data);
-	Sleep(50);
+	_arduino->SendData(str[0]);
 	char* recData = _arduino->ReceiveData();
 	QMessageBox::about(this, tr("Communicate Arduino"), tr(recData));
 }
@@ -123,7 +122,20 @@ void MainWindow::GetArraySlot()
 	std::string str = InputDialog("Communicate Arduino", "Input Data");
 	int len = str.length();
 	_arduino->SendData(&str[0], len);
-	Sleep(50);
 	char* recData = _arduino->ReceiveData(len);
 	QMessageBox::about(this, tr("Communicate Arduino"), tr(recData));
+}
+
+void MainWindow::ControlMotorSlot()
+{
+	std::string motorId = InputDialog("Control Motor", "Input Motor Id");
+	std::string degree = InputDialog("Control Motor", "Input Degree");
+	int motorIdLen = motorId.length();
+	int degreeLen = degree.length();
+	_arduino->SendData(&motorId[0], motorIdLen);
+	_arduino->SendData(&degree[0], degreeLen);
+	char* recMotorId = _arduino->ReceiveData(motorIdLen);
+	char* recDegree = _arduino->ReceiveData(degreeLen);
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(recMotorId));
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(recDegree));
 }
