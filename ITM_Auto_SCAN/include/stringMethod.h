@@ -4,15 +4,16 @@
 class StringMethod
 {
 public:
+	/*
 	static int GetStringLength(char* dataPtr)
 	{
 		char* dataTmpPtr = dataPtr;
 		int len = 0;
-		if (*dataTmpPtr != '\0')
+		while (*dataTmpPtr != '\0')
 			len++;
 		return len;
 	}
-
+	*/
 	static std::string Int2String(int number)
 	{
 		std::string str = std::to_string(number);

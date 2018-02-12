@@ -48,7 +48,9 @@ public:
 
 	int ReceiveDataNumberOfBytes()
 	{
-		return _tserial->getNbrOfBytes();
+		int len = _tserial->getNbrOfBytes();
+		char* dataPtr = this->ReceiveData(len);
+		return len;
 	}
 
 private:

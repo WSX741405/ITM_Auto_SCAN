@@ -100,22 +100,18 @@ void MainWindow::StopRSCameraSlot()
 //****************************************************************
 void MainWindow::GetNumberOfBytesSlot()
 {
-	int numberOfBytes = 0;
 	std::string str = InputDialog("Communicate Arduino", "Input Data");
-	int len = StringMethod::GetStringLength(&str[0u]);
-	_arduino->SendData(&str[0u], len);
-	while (numberOfBytes = _arduino->ReceiveDataNumberOfBytes(), numberOfBytes== 0);
-	QMessageBox::about(this, tr("Communicate Arduino"), tr(StringMethod::Int2String(numberOfBytes).c_str()));
+	int len = str.length();
+	_arduino->SendData(&str[0], len);
+	Sleep(50);
+	int recData = _arduino->ReceiveDataNumberOfBytes();
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(StringMethod::Int2String(recData).c_str()));
 }
 
 void MainWindow::GetCharSlot()
 {
-	/*
 	std::string str = InputDialog("Communicate Arduino", "Input Data");
-	int len = StringMethod::GetStringLength(&str[0u]);
-	_arduino->SendData(&str[0u], len);*/
-	std::string str = InputDialog("Communicate Arduino", "Input Data");
-	unsigned char data = str[0] & 0xff;
+	unsigned char data = str[0];
 	_arduino->SendData(data);
 	Sleep(50);
 	char* recData = _arduino->ReceiveData();
@@ -124,5 +120,10 @@ void MainWindow::GetCharSlot()
 
 void MainWindow::GetArraySlot()
 {
-
+	std::string str = InputDialog("Communicate Arduino", "Input Data");
+	int len = str.length();
+	_arduino->SendData(&str[0], len);
+	Sleep(50);
+	char* recData = _arduino->ReceiveData(len);
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(recData));
 }

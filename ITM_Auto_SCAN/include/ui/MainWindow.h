@@ -35,7 +35,7 @@ class Arduino;
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
-	char* COM_PORT = "com3";
+	char* COM_PORT = "com4";
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 
