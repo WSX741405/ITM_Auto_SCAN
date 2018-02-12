@@ -7,4 +7,6 @@
 >    + Arduino 1.8.5
 
 >## 2. Issue
->	+ 
+>	+ QVTK Widget refresh point cloud and mouse event is triggered
+>	(https://www.youtube.com/watch?v=fcoMvsVMy0s&feature=youtu.be)
+>	when the point cloud come, emit signal and use slot to update QVTK Widget
