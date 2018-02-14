@@ -4,6 +4,8 @@
  Author:	qaz74
 */
 
+#include <ArduinoSTL.h>
+#include <Servo.h>
 int data;
 
 void setup() {
