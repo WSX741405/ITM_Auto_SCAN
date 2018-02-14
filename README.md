@@ -17,6 +17,7 @@
 >	Reference : [What is the difference between print and write](https://arduino.stackexchange.com/questions/10088/what-is-the-difference-between-serial-write-and-serial-print-and-when-are-they)<br/>
 >
 >	+ How to include library to Arduino project used visual studio IDE<br/>
->	My solution : 1. [Arduino IDE for Visual Studio](https://marketplace.visualstudio.com/items?itemName=VisualMicro.ArduinoIDEforVisualStudio)<br/>
->				  2. "Add Library" in top menu >> "Install Arduino Library from Zip"<br/>
->				  3. "Add Library" in top menu >> "Download and Install Arduino Library" >> click library<br/>
+>	My solution : <br/>
+>	1. [Arduino IDE for Visual Studio](https://marketplace.visualstudio.com/items?itemName=VisualMicro.ArduinoIDEforVisualStudio)<br/>
+>	2. "Add Library" in top menu >> "Install Arduino Library from Zip"<br/>
+>	3. "Add Library" in top menu >> "Download and Install Arduino Library" >> click library<br/>
