@@ -44,7 +44,10 @@ C:\Users\qaz74\AppData\Local\Temp\VMBuilds\OBJ_Auto_SCAN_Arduino\uno\Debug\OBJ_A
  C:\Users\qaz74\Documents\Arduino\libraries\ArduinoSTL\src/iostream \
  C:\Users\qaz74\Documents\Arduino\libraries\ArduinoSTL\src/string_iostream \
  D:\Software\Arduino\hardware\arduino\avr\cores\arduino/Stream.h \
+ C:\Users\qaz74\Documents\Arduino\libraries\myServo/MyServo.h \
  D:\Software\Arduino\libraries\Servo\src/Servo.h \
  D:\Software\Arduino\libraries\Servo\src/avr/ServoTimers.h \
+ C:\Users\qaz74\Documents\Arduino\libraries\myServo/MyServoFactory.h \
+ C:\Users\qaz74\Documents\Arduino\libraries\myServo/MyServo.h \
  D:\Software\VS2015\Common7\IDE\Extensions\biwahlsd.4uq\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h \
  D:\Software\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h

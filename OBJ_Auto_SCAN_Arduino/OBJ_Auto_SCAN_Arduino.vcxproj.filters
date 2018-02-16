@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="include">
-      <UniqueIdentifier>{e04e68e0-447d-4dac-a78c-543370e3555b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\myServo">
-      <UniqueIdentifier>{8ced504a-26b8-4fe0-b61b-6220b54ed725}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="OBJ_Auto_SCAN_Arduino.ino" />
@@ -27,19 +21,5 @@
     <ClInclude Include="__vm\.OBJ_Auto_SCAN_Arduino.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\myServo\MyServo.h">
-      <Filter>include\myServo</Filter>
-    </ClInclude>
-    <ClInclude Include="include\myServo\MyServoFactory.h">
-      <Filter>include\myServo</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="include\myServo\MyServo.cpp">
-      <Filter>include\myServo</Filter>
-    </ClCompile>
-    <ClCompile Include="include\myServo\MyServoFactory.cpp">
-      <Filter>include\myServo</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

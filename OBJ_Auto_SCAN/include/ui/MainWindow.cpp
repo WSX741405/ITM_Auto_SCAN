@@ -134,8 +134,8 @@ void MainWindow::ControlMotorSlot()
 	int degreeLen = degree.length();
 	_arduino->SendData(&motorId[0], motorIdLen);
 	_arduino->SendData(&degree[0], degreeLen);
-	char* recMotorId = _arduino->ReceiveData(motorIdLen);
+	//char* recMotorId = _arduino->ReceiveData(motorIdLen);
 	char* recDegree = _arduino->ReceiveData(degreeLen);
-	QMessageBox::about(this, tr("Communicate Arduino"), tr(recMotorId));
+	//QMessageBox::about(this, tr("Communicate Arduino"), tr(recMotorId));
 	QMessageBox::about(this, tr("Communicate Arduino"), tr(recDegree));
 }

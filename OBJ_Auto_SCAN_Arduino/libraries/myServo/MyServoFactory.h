@@ -12,7 +12,7 @@ public:
 	bool IsServoExist(int servoId);
 private:
 	int _numberOfServo;
-	
+	std::vector<MyServo> _servos;
 };
 
 #endif

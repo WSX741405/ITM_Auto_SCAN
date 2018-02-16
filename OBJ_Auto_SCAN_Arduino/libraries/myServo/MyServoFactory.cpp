@@ -2,7 +2,6 @@
 
 MyServoFactory::MyServoFactory(int numberOfServo) : _numberOfServo(numberOfServo)
 {
-
 }
 
 MyServo MyServoFactory::GetServo(int servoId)
