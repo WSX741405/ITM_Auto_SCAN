@@ -7,7 +7,8 @@
 >    + Arduino 1.8.5
 
 ## 2. How to use
->	+ Arduino Project
+>	+ Arduino Project<br/>
+>	Reference title 3.Issue to install libraries
 
 ## 3. Issue
 >	+ QVTK widget refresh point cloud and mouse event is triggered<br/>
