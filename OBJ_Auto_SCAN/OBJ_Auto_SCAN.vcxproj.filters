@@ -157,9 +157,6 @@
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
       <Filter>Generated Files\Release</Filter>
     </ClInclude>
-    <ClInclude Include="include\StringMethod.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="include\file\3DFile.h">
       <Filter>include\file</Filter>
     </ClInclude>
@@ -177,6 +174,9 @@
     </ClInclude>
     <ClInclude Include="include\arduino\Arduino.h">
       <Filter>include\arduino</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Conversion.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

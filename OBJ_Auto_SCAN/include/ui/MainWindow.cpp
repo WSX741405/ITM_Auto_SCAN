@@ -62,7 +62,7 @@ std::string MainWindow::InputDialog(const char* title, const char* label, const 
 	bool ok;
 	QString input = QInputDialog::getText(this, tr(title), tr(label), QLineEdit::Normal, tr(text), &ok);
 	if (ok && !input.isEmpty()) {
-		return StringMethod::QString2String(input);
+		return TypeConversion::QString2String(input);
 	}
 	return std::string("");
 }
@@ -104,15 +104,17 @@ void MainWindow::GetNumberOfBytesSlot()
 	std::string str = InputDialog("Communicate Arduino", "Input Data");
 	int len = str.length();
 	_arduino->SendData(&str[0], len);
-	//Sleep(50);
-	int recData = _arduino->ReceiveDataNumberOfBytes();
-	QMessageBox::about(this, tr("Communicate Arduino"), tr(StringMethod::Int2String(recData).c_str()));
+	Sleep(ARDUINO_SLEEP_TIME);
+	int numOfData = _arduino->ReceiveDataNumberOfBytes();
+	char* recData = _arduino->ReceiveData();
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(TypeConversion::Int2String(numOfData).c_str()));
 }
 
 void MainWindow::GetCharSlot()
 {
 	std::string str = InputDialog("Communicate Arduino", "Input Data");
 	_arduino->SendData(str[0]);
+	Sleep(ARDUINO_SLEEP_TIME);
 	char* recData = _arduino->ReceiveData();
 	QMessageBox::about(this, tr("Communicate Arduino"), tr(recData));
 }
@@ -122,6 +124,7 @@ void MainWindow::GetArraySlot()
 	std::string str = InputDialog("Communicate Arduino", "Input Data");
 	int len = str.length();
 	_arduino->SendData(&str[0], len);
+	Sleep(ARDUINO_SLEEP_TIME);
 	char* recData = _arduino->ReceiveData(len);
 	QMessageBox::about(this, tr("Communicate Arduino"), tr(recData));
 }
@@ -134,8 +137,10 @@ void MainWindow::ControlMotorSlot()
 	int degreeLen = degree.length();
 	_arduino->SendData(&motorId[0], motorIdLen);
 	_arduino->SendData(&degree[0], degreeLen);
-	//char* recMotorId = _arduino->ReceiveData(motorIdLen);
-	char* recDegree = _arduino->ReceiveData(degreeLen);
-	//QMessageBox::about(this, tr("Communicate Arduino"), tr(recMotorId));
-	QMessageBox::about(this, tr("Communicate Arduino"), tr(recDegree));
+	Sleep(ARDUINO_SLEEP_TIME);
+	while (1)
+	{
+		char* test = _arduino->ReceiveData(1);
+		QMessageBox::about(this, tr("Communicate Arduino"), tr(test));
+	}
 }

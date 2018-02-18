@@ -23,7 +23,7 @@ Q_DECLARE_METATYPE(boost::shared_ptr<pcl::PointCloud<PointT>>);
 #include "observer/ObserverFactory.h"
 #include "grabber/GrabberFactory.h"
 #include "arduino/arduino.h"
-#include "stringMethod.h"
+#include "Conversion.h"
 
 class UIObserver;
 class ISubject;
@@ -35,6 +35,7 @@ class Arduino;
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
+	int ARDUINO_SLEEP_TIME = 100;
 	char* COM_PORT = "com3";
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);

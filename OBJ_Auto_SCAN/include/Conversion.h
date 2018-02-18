@@ -1,19 +1,9 @@
-#ifndef STRING_METHOD
-#define STRING_METHOD
+#ifndef CONVERSION
+#define CONVERSION
 
-class StringMethod
+class TypeConversion
 {
 public:
-	/*
-	static int GetStringLength(char* dataPtr)
-	{
-		char* dataTmpPtr = dataPtr;
-		int len = 0;
-		while (*dataTmpPtr != '\0')
-			len++;
-		return len;
-	}
-	*/
 	static std::string Int2String(int number)
 	{
 		std::string str = std::to_string(number);
