@@ -5,12 +5,12 @@
 class MyServo
 {
 public:
-	MyServo();
-	void SetPosition(int position);
-	int GetPosition();
+	MyServo(int degree = 0);
+	void SetDegree(int degree);
+	int GetDegree();
 
 private:
-	int _position;
+	int _degree;
 	Servo _servo;
 };
 

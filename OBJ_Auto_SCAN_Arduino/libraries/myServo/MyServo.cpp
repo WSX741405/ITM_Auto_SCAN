@@ -1,15 +1,15 @@
 #include "MyServo.h"
 
-MyServo::MyServo()
+MyServo::MyServo(int degree) : _degree(degree)
 {
 }
 
-void MyServo::SetPosition(int position)
+void MyServo::SetDegree(int degree)
 {
-	_position = position;
+	_degree = degree;
 }
 
-int MyServo::GetPosition()
+int MyServo::GetDegree()
 {
-	return _position;
+	return _degree;
 }

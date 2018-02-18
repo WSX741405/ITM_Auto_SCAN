@@ -20,22 +20,16 @@ void setup() {
 }
 
 void loop() {
-	/*
 	if (Serial.available() >= 2)
 	{
-		servoId = Serial.read();
-		degree = Serial.read();
+		servoId = Serial.read() - 48;
+		degree = Serial.readString().toInt();
 		if (servoFactory->IsServoExist(servoId))
 		{
 			servo = servoFactory->GetServo(servoId);
 			servo->SetDegree(degree);
+			Serial.print(servoId);
+			Serial.print(servo->GetDegree());
 		}
-		Serial.write(servoId);
-		Serial.write(degree);
-	}*/
-	if (Serial.available() >= 1)
-	{
-		servoId = Serial.readStringUntil('5').toInt();
-		Serial.write(servoId);
 	}
 }
