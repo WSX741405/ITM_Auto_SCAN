@@ -25,3 +25,9 @@ ITM_Auto_SCAN.VC.db
 ITM_Auto_SCAN/lib/real_sense.lib
 ITM_Auto_SCAN/x64/Debug/real_sense_grabber.obj
 ITM_Auto_SCAN.VC.VC.opendb
+OBJ_Auto_SCAN/lib/real_sense-d.lib
+OBJ_Auto_SCAN/x64/Debug/vc140.pdb
+x64/Debug/OBJ_Auto_SCAN.pdb
+x64/Debug/OBJ_Auto_SCAN.lib
+OBJ_Auto_SCAN/x64/Debug/real_sense_grabber.obj
+x64/Debug/OBJ_Auto_SCAN.ilk

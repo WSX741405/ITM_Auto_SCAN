@@ -19,11 +19,12 @@ void MainWindow::ConnectSlots()
 	connect(_ui->_stopFlexxAction, SIGNAL(triggered()), this, SLOT(StopFlexxCameraSlot()));
 	connect(_ui->_startRSAction, SIGNAL(triggered()), this, SLOT(StartRSCameraSlot()));
 	connect(_ui->_stopRSAction, SIGNAL(triggered()), this, SLOT(StopRSCameraSlot()));
-	connect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)));
+	connect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
 	connect(_ui->_getNumberOfBytesAction, SIGNAL(triggered()), this, SLOT(GetNumberOfBytesSlot()));
 	connect(_ui->_getCharAction, SIGNAL(triggered()), this, SLOT(GetCharSlot()));
 	connect(_ui->_getArrayAction, SIGNAL(triggered()), this, SLOT(GetArraySlot()));
 	connect(_ui->_controlMotorAction, SIGNAL(triggered()), this, SLOT(ControlMotorSlot()));
+	connect(this, SIGNAL(OutputDialog(const char*, const char*)), this, SLOT(OutputDialogSlot(const char*, const char*)));
 }
 
 void MainWindow::InitialViewer()
@@ -41,11 +42,17 @@ void MainWindow::RegisterObserver()
 	flexxSubject->RegisterObserver(_uiObserver);
 }
 
-void MainWindow::UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
+void MainWindow::UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
 {
 	_viewer->Show(pointCloud);
 	//_viewer->ResetCamera();
 	_ui->_qvtkWidget->update();
+}
+
+void MainWindow::OutputDialogSlot(const char* title, const char* context)
+{
+
+	QMessageBox::about(this, tr(title), tr(context));
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -107,7 +114,7 @@ void MainWindow::GetNumberOfBytesSlot()
 	Sleep(ARDUINO_SLEEP_TIME);
 	int numOfData = _arduino->ReceiveDataNumberOfBytes();
 	char* recData = _arduino->ReceiveData();
-	QMessageBox::about(this, tr("Communicate Arduino"), tr(TypeConversion::Int2String(numOfData).c_str()));
+	emit OutputDialog("Communicate Arduino", TypeConversion::Int2String(numOfData).c_str());
 }
 
 void MainWindow::GetCharSlot()
@@ -116,7 +123,7 @@ void MainWindow::GetCharSlot()
 	_arduino->SendData(str[0]);
 	Sleep(ARDUINO_SLEEP_TIME);
 	char* recData = _arduino->ReceiveData();
-	QMessageBox::about(this, tr("Communicate Arduino"), tr(recData));
+	emit OutputDialog("Communicate Arduino", recData);
 }
 
 void MainWindow::GetArraySlot()
@@ -126,7 +133,7 @@ void MainWindow::GetArraySlot()
 	_arduino->SendData(&str[0], len);
 	Sleep(ARDUINO_SLEEP_TIME);
 	char* recData = _arduino->ReceiveData(len);
-	QMessageBox::about(this, tr("Communicate Arduino"), tr(recData));
+	emit OutputDialog("Communicate Arduino", recData);
 }
 
 void MainWindow::ControlMotorSlot()
@@ -139,7 +146,7 @@ void MainWindow::ControlMotorSlot()
 	_arduino->SendData(&degree[0], degreeLen);
 	Sleep(ARDUINO_SLEEP_TIME);
 	char* recMotorId = _arduino->ReceiveData(motorIdLen);
-	QMessageBox::about(this, tr("Communicate Arduino"), tr(recMotorId));
+	emit OutputDialog("Communicate Arduino", recMotorId);
 	char* recDegree = _arduino->ReceiveData(degreeLen);
-	QMessageBox::about(this, tr("Communicate Arduino"), tr(recDegree));
+	emit OutputDialog("Communicate Arduino", recDegree);
 }

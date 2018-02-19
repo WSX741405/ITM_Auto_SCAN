@@ -35,10 +35,13 @@ class Arduino;
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
-	int ARDUINO_SLEEP_TIME = 100;
-	char* COM_PORT = "com3";
+	int ARDUINO_SLEEP_TIME = 300;
+	char* COM_PORT = "com4";
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
+
+signals:
+	void OutputDialog(const char* title, const char* context);
 
 public slots:
 	//****************************************************************
@@ -48,7 +51,7 @@ public slots:
 	void StopFlexxCameraSlot();
 	void StartRSCameraSlot();
 	void StopRSCameraSlot();
-	void UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+	void UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 	//****************************************************************
 	//										Arduino
 	//****************************************************************
@@ -56,6 +59,7 @@ public slots:
 	void GetCharSlot();
 	void GetArraySlot();
 	void ControlMotorSlot();
+	void OutputDialogSlot(const char* title, const char* context);
 
 private:
 	void ConnectSlots();
