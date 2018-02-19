@@ -24,7 +24,6 @@ void MainWindow::ConnectSlots()
 	connect(_ui->_getCharAction, SIGNAL(triggered()), this, SLOT(GetCharSlot()));
 	connect(_ui->_getArrayAction, SIGNAL(triggered()), this, SLOT(GetArraySlot()));
 	connect(_ui->_controlMotorAction, SIGNAL(triggered()), this, SLOT(ControlMotorSlot()));
-	connect(this, SIGNAL(OutputDialog(const char*, const char*)), this, SLOT(OutputDialogSlot(const char*, const char*)));
 }
 
 void MainWindow::InitialViewer()
@@ -47,12 +46,6 @@ void MainWindow::UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> poi
 	_viewer->Show(pointCloud);
 	//_viewer->ResetCamera();
 	_ui->_qvtkWidget->update();
-}
-
-void MainWindow::OutputDialogSlot(const char* title, const char* context)
-{
-
-	QMessageBox::about(this, tr(title), tr(context));
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -114,7 +107,7 @@ void MainWindow::GetNumberOfBytesSlot()
 	Sleep(ARDUINO_SLEEP_TIME);
 	int numOfData = _arduino->ReceiveDataNumberOfBytes();
 	char* recData = _arduino->ReceiveData();
-	emit OutputDialog("Communicate Arduino", TypeConversion::Int2String(numOfData).c_str());
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(TypeConversion::Int2String(numOfData).c_str()));
 }
 
 void MainWindow::GetCharSlot()
@@ -123,7 +116,7 @@ void MainWindow::GetCharSlot()
 	_arduino->SendData(str[0]);
 	Sleep(ARDUINO_SLEEP_TIME);
 	char* recData = _arduino->ReceiveData();
-	emit OutputDialog("Communicate Arduino", recData);
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(recData));
 }
 
 void MainWindow::GetArraySlot()
@@ -133,7 +126,7 @@ void MainWindow::GetArraySlot()
 	_arduino->SendData(&str[0], len);
 	Sleep(ARDUINO_SLEEP_TIME);
 	char* recData = _arduino->ReceiveData(len);
-	emit OutputDialog("Communicate Arduino", recData);
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(recData));
 }
 
 void MainWindow::ControlMotorSlot()
@@ -146,7 +139,7 @@ void MainWindow::ControlMotorSlot()
 	_arduino->SendData(&degree[0], degreeLen);
 	Sleep(ARDUINO_SLEEP_TIME);
 	char* recMotorId = _arduino->ReceiveData(motorIdLen);
-	emit OutputDialog("Communicate Arduino", recMotorId);
+	QMessageBox::about(this, tr("Control Motor"), tr(recMotorId));
 	char* recDegree = _arduino->ReceiveData(degreeLen);
-	emit OutputDialog("Communicate Arduino", recDegree);
+	QMessageBox::about(this, tr("Control Motor"), tr(recDegree));
 }

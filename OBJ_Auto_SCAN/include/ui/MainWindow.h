@@ -36,7 +36,7 @@ class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 	int ARDUINO_SLEEP_TIME = 300;
-	char* COM_PORT = "com4";
+	char* COM_PORT = "com3";
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 
@@ -59,7 +59,6 @@ public slots:
 	void GetCharSlot();
 	void GetArraySlot();
 	void ControlMotorSlot();
-	void OutputDialogSlot(const char* title, const char* context);
 
 private:
 	void ConnectSlots();
