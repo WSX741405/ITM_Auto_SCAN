@@ -137,7 +137,9 @@ void MainWindow::ControlMotorSlot()
 	int degreeLen = degree.length();
 	_arduino->SendData(&motorId[0], motorIdLen);
 	_arduino->SendData(&degree[0], degreeLen);
-	Sleep(ARDUINO_SLEEP_TIME);
+	Sleep(ARDUINO_SLEEP_TIME); 
+	int numOfData = _arduino->ReceiveDataNumberOfBytes();
+	QMessageBox::about(this, tr("Communicate Arduino"), tr(TypeConversion::Int2String(numOfData).c_str()));
 	char* recMotorId = _arduino->ReceiveData(motorIdLen);
 	QMessageBox::about(this, tr("Control Motor"), tr(recMotorId));
 	char* recDegree = _arduino->ReceiveData(degreeLen);
