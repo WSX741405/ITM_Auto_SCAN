@@ -18,13 +18,14 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 #include "QVTKWidget.h"
 
 QT_BEGIN_NAMESPACE
 
-class Ui_MainWindowClass
+class Ui_MainWindowForm
 {
 public:
     QAction *_startFlexxAction;
@@ -35,8 +36,10 @@ public:
     QAction *_getCharAction;
     QAction *_getArrayAction;
     QAction *_controlMotorAction;
+    QAction *_keepPointCloudAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
+    QTableWidget *_pointCloudTable;
     QMenuBar *menuBar;
     QMenu *menuCamera;
     QMenu *menuPico_Flexx;
@@ -44,39 +47,45 @@ public:
     QMenu *menuArduino;
     QMenu *menucommunicate;
     QMenu *menuControl_Motor;
+    QMenu *menuPointCloud;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
-    void setupUi(QMainWindow *MainWindowClass)
+    void setupUi(QMainWindow *MainWindowForm)
     {
-        if (MainWindowClass->objectName().isEmpty())
-            MainWindowClass->setObjectName(QStringLiteral("MainWindowClass"));
-        MainWindowClass->resize(800, 850);
-        _startFlexxAction = new QAction(MainWindowClass);
+        if (MainWindowForm->objectName().isEmpty())
+            MainWindowForm->setObjectName(QStringLiteral("MainWindowForm"));
+        MainWindowForm->resize(1300, 850);
+        _startFlexxAction = new QAction(MainWindowForm);
         _startFlexxAction->setObjectName(QStringLiteral("_startFlexxAction"));
-        _stopFlexxAction = new QAction(MainWindowClass);
+        _stopFlexxAction = new QAction(MainWindowForm);
         _stopFlexxAction->setObjectName(QStringLiteral("_stopFlexxAction"));
-        _startRSAction = new QAction(MainWindowClass);
+        _startRSAction = new QAction(MainWindowForm);
         _startRSAction->setObjectName(QStringLiteral("_startRSAction"));
-        _stopRSAction = new QAction(MainWindowClass);
+        _stopRSAction = new QAction(MainWindowForm);
         _stopRSAction->setObjectName(QStringLiteral("_stopRSAction"));
-        _getNumberOfBytesAction = new QAction(MainWindowClass);
+        _getNumberOfBytesAction = new QAction(MainWindowForm);
         _getNumberOfBytesAction->setObjectName(QStringLiteral("_getNumberOfBytesAction"));
-        _getCharAction = new QAction(MainWindowClass);
+        _getCharAction = new QAction(MainWindowForm);
         _getCharAction->setObjectName(QStringLiteral("_getCharAction"));
-        _getArrayAction = new QAction(MainWindowClass);
+        _getArrayAction = new QAction(MainWindowForm);
         _getArrayAction->setObjectName(QStringLiteral("_getArrayAction"));
-        _controlMotorAction = new QAction(MainWindowClass);
+        _controlMotorAction = new QAction(MainWindowForm);
         _controlMotorAction->setObjectName(QStringLiteral("_controlMotorAction"));
-        centralWidget = new QWidget(MainWindowClass);
+        _keepPointCloudAction = new QAction(MainWindowForm);
+        _keepPointCloudAction->setObjectName(QStringLiteral("_keepPointCloudAction"));
+        centralWidget = new QWidget(MainWindowForm);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
         _qvtkWidget->setObjectName(QStringLiteral("_qvtkWidget"));
         _qvtkWidget->setGeometry(QRect(30, 30, 730, 730));
-        MainWindowClass->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(MainWindowClass);
+        _pointCloudTable = new QTableWidget(centralWidget);
+        _pointCloudTable->setObjectName(QStringLiteral("_pointCloudTable"));
+        _pointCloudTable->setGeometry(QRect(800, 30, 460, 200));
+        MainWindowForm->setCentralWidget(centralWidget);
+        menuBar = new QMenuBar(MainWindowForm);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 800, 21));
+        menuBar->setGeometry(QRect(0, 0, 1300, 21));
         menuCamera = new QMenu(menuBar);
         menuCamera->setObjectName(QStringLiteral("menuCamera"));
         menuPico_Flexx = new QMenu(menuCamera);
@@ -89,16 +98,19 @@ public:
         menucommunicate->setObjectName(QStringLiteral("menucommunicate"));
         menuControl_Motor = new QMenu(menuArduino);
         menuControl_Motor->setObjectName(QStringLiteral("menuControl_Motor"));
-        MainWindowClass->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(MainWindowClass);
+        menuPointCloud = new QMenu(menuBar);
+        menuPointCloud->setObjectName(QStringLiteral("menuPointCloud"));
+        MainWindowForm->setMenuBar(menuBar);
+        mainToolBar = new QToolBar(MainWindowForm);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        MainWindowClass->addToolBar(Qt::TopToolBarArea, mainToolBar);
-        statusBar = new QStatusBar(MainWindowClass);
+        MainWindowForm->addToolBar(Qt::TopToolBarArea, mainToolBar);
+        statusBar = new QStatusBar(MainWindowForm);
         statusBar->setObjectName(QStringLiteral("statusBar"));
-        MainWindowClass->setStatusBar(statusBar);
+        MainWindowForm->setStatusBar(statusBar);
 
         menuBar->addAction(menuCamera->menuAction());
         menuBar->addAction(menuArduino->menuAction());
+        menuBar->addAction(menuPointCloud->menuAction());
         menuCamera->addAction(menuPico_Flexx->menuAction());
         menuCamera->addAction(menuIntel_Realsense->menuAction());
         menuPico_Flexx->addAction(_startFlexxAction);
@@ -111,35 +123,38 @@ public:
         menucommunicate->addAction(_getCharAction);
         menucommunicate->addAction(_getArrayAction);
         menuControl_Motor->addAction(_controlMotorAction);
+        menuPointCloud->addAction(_keepPointCloudAction);
 
-        retranslateUi(MainWindowClass);
+        retranslateUi(MainWindowForm);
 
-        QMetaObject::connectSlotsByName(MainWindowClass);
+        QMetaObject::connectSlotsByName(MainWindowForm);
     } // setupUi
 
-    void retranslateUi(QMainWindow *MainWindowClass)
+    void retranslateUi(QMainWindow *MainWindowForm)
     {
-        MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", Q_NULLPTR));
-        _startFlexxAction->setText(QApplication::translate("MainWindowClass", "Open", Q_NULLPTR));
-        _stopFlexxAction->setText(QApplication::translate("MainWindowClass", "Close", Q_NULLPTR));
-        _startRSAction->setText(QApplication::translate("MainWindowClass", "Open", Q_NULLPTR));
-        _stopRSAction->setText(QApplication::translate("MainWindowClass", "Close", Q_NULLPTR));
-        _getNumberOfBytesAction->setText(QApplication::translate("MainWindowClass", "Get # Bytes Of Data", Q_NULLPTR));
-        _getCharAction->setText(QApplication::translate("MainWindowClass", "Get Char", Q_NULLPTR));
-        _getArrayAction->setText(QApplication::translate("MainWindowClass", "Get Array", Q_NULLPTR));
-        _controlMotorAction->setText(QApplication::translate("MainWindowClass", "Control Motor", Q_NULLPTR));
-        menuCamera->setTitle(QApplication::translate("MainWindowClass", "Camera", Q_NULLPTR));
-        menuPico_Flexx->setTitle(QApplication::translate("MainWindowClass", "Pico Flexx", Q_NULLPTR));
-        menuIntel_Realsense->setTitle(QApplication::translate("MainWindowClass", "Intel Realsense", Q_NULLPTR));
-        menuArduino->setTitle(QApplication::translate("MainWindowClass", "Arduino", Q_NULLPTR));
-        menucommunicate->setTitle(QApplication::translate("MainWindowClass", "Communicate", Q_NULLPTR));
-        menuControl_Motor->setTitle(QApplication::translate("MainWindowClass", "Control Motor", Q_NULLPTR));
+        MainWindowForm->setWindowTitle(QApplication::translate("MainWindowForm", "MainWindow", Q_NULLPTR));
+        _startFlexxAction->setText(QApplication::translate("MainWindowForm", "Open", Q_NULLPTR));
+        _stopFlexxAction->setText(QApplication::translate("MainWindowForm", "Close", Q_NULLPTR));
+        _startRSAction->setText(QApplication::translate("MainWindowForm", "Open", Q_NULLPTR));
+        _stopRSAction->setText(QApplication::translate("MainWindowForm", "Close", Q_NULLPTR));
+        _getNumberOfBytesAction->setText(QApplication::translate("MainWindowForm", "Get # Bytes Of Data", Q_NULLPTR));
+        _getCharAction->setText(QApplication::translate("MainWindowForm", "Get Char", Q_NULLPTR));
+        _getArrayAction->setText(QApplication::translate("MainWindowForm", "Get Array", Q_NULLPTR));
+        _controlMotorAction->setText(QApplication::translate("MainWindowForm", "Control Motor", Q_NULLPTR));
+        _keepPointCloudAction->setText(QApplication::translate("MainWindowForm", "Keep PointCloud", Q_NULLPTR));
+        menuCamera->setTitle(QApplication::translate("MainWindowForm", "Camera", Q_NULLPTR));
+        menuPico_Flexx->setTitle(QApplication::translate("MainWindowForm", "Pico Flexx", Q_NULLPTR));
+        menuIntel_Realsense->setTitle(QApplication::translate("MainWindowForm", "Intel Realsense", Q_NULLPTR));
+        menuArduino->setTitle(QApplication::translate("MainWindowForm", "Arduino", Q_NULLPTR));
+        menucommunicate->setTitle(QApplication::translate("MainWindowForm", "Communicate", Q_NULLPTR));
+        menuControl_Motor->setTitle(QApplication::translate("MainWindowForm", "Control Motor", Q_NULLPTR));
+        menuPointCloud->setTitle(QApplication::translate("MainWindowForm", "PointClouds", Q_NULLPTR));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class MainWindowClass: public Ui_MainWindowClass {};
+    class MainWindowForm: public Ui_MainWindowForm {};
 } // namespace Ui
 
 QT_END_NAMESPACE

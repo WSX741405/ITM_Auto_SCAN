@@ -2,7 +2,7 @@
 
 //		*****************************************************************
 //				Observer
-//				UI, 
+//				UI
 //		*****************************************************************
 
 void UIObserver::Update(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
@@ -12,7 +12,7 @@ void UIObserver::Update(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
 
 //		*****************************************************************
 //				Subject
-//				Flexx, 
+//				Grabber(Flexx, RS)
 //		*****************************************************************
 
 void FlexxSubject::RegisterObserver(IObserver* observer)

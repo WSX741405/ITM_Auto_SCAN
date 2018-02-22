@@ -140,6 +140,8 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="include\observer\ObserverFactory.h" />
+    <ClInclude Include="include\pointCloud\MyPointCloud.h" />
+    <ClInclude Include="include\pointCloud\MyPointClouds.h" />
     <ClInclude Include="include\rs\RS.h" />
     <ClInclude Include="include\rs\rsgrabber\buffers.h" />
     <ClInclude Include="include\rs\rsgrabber\buffers.hpp" />

@@ -21,6 +21,11 @@ public:
 			_viewer->addPointCloud(cloud, name);
 	}
 
+	void Clear()
+	{
+		_viewer->removeAllPointClouds();
+	}
+
 	void SetupInteractor(QVTKInteractor* interactor, vtkRenderWindow* renderWindow)
 	{
 		_viewer->setupInteractor(interactor, renderWindow);

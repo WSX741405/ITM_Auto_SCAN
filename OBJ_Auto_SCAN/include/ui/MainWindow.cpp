@@ -1,36 +1,95 @@
 #include "ui/MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-	QMainWindow(parent), _ui(new Ui::MainWindowClass), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory())
+	QMainWindow(parent), _ui(new Ui::MainWindowForm), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory())
 {
 	qRegisterMetaType<boost::shared_ptr<pcl::PointCloud<PointT>>>("boost::shared_ptr<pcl::PointCloud<PointT>>");
 	_ui->setupUi(this);
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
 	_arduino = new Arduino(COM_PORT);
-	InitialViewer();
+	_pointClouds = new MyPointClouds();
+	InitialPointCloudViewer();
+	InitialPointCloudTable();
 	RegisterObserver();
 	ConnectSlots();
 }
 
 void MainWindow::ConnectSlots()
 {
+	//		Camera
 	connect(_ui->_startFlexxAction, SIGNAL(triggered()), this, SLOT(StartFlexxCameraSlot()));
 	connect(_ui->_stopFlexxAction, SIGNAL(triggered()), this, SLOT(StopFlexxCameraSlot()));
 	connect(_ui->_startRSAction, SIGNAL(triggered()), this, SLOT(StartRSCameraSlot()));
 	connect(_ui->_stopRSAction, SIGNAL(triggered()), this, SLOT(StopRSCameraSlot()));
 	connect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
+	//		Arduino
 	connect(_ui->_getNumberOfBytesAction, SIGNAL(triggered()), this, SLOT(GetNumberOfBytesSlot()));
 	connect(_ui->_getCharAction, SIGNAL(triggered()), this, SLOT(GetCharSlot()));
 	connect(_ui->_getArrayAction, SIGNAL(triggered()), this, SLOT(GetArraySlot()));
 	connect(_ui->_controlMotorAction, SIGNAL(triggered()), this, SLOT(ControlMotorSlot()));
+	//		PointClouds
+	connect(_ui->_keepPointCloudAction, SIGNAL(triggered()), this, SLOT(KeepPointCloudSlot()));
+	connect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
 }
 
-void MainWindow::InitialViewer()
+//****************************************************************
+//								UI
+//						Initial, Update etc
+//****************************************************************
+
+void MainWindow::InitialPointCloudViewer()
 {
 	_ui->_qvtkWidget->SetRenderWindow(_viewer->GetRenderWindow());
 	_viewer->SetupInteractor(_ui->_qvtkWidget->GetInteractor(), _ui->_qvtkWidget->GetRenderWindow());
 	_ui->_qvtkWidget->update();
+}
+
+void MainWindow::InitialPointCloudTable()
+{
+	_ui->_pointCloudTable->setRowCount(0);
+	_ui->_pointCloudTable->setColumnCount(2);
+	_ui->_pointCloudTable->setColumnWidth(0, 400);
+	QStringList tableTitle;
+	tableTitle << QString("Name") << QString("Show");
+	for (int counter = 0; counter < _ui->_pointCloudTable->horizontalHeader()->count(); ++counter)
+	{
+		_ui->_pointCloudTable->horizontalHeader()->setSectionResizeMode(counter, QHeaderView::Stretch);
+	}
+	_ui->_pointCloudTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	_ui->_pointCloudTable->setHorizontalHeaderLabels(tableTitle);
+}
+
+void MainWindow::UpdatePointCloudViewer()
+{
+	_viewer->Clear();
+	for (int counter = 0; counter < _pointClouds->GetNumberOfPointCloud(); counter++)
+	{
+		if (_pointClouds->GetIsShowById(counter))
+			_viewer->Show(_pointClouds->GetPointCloudById(counter), _pointClouds->GetNameById(counter));
+	}
+	_ui->_qvtkWidget->update();
+}
+
+void MainWindow::UpdatePointCloudTable()
+{
+	disconnect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
+	_ui->_pointCloudTable->setRowCount(_pointClouds->GetNumberOfPointCloud());
+	for (int counter = 0; counter < _pointClouds->GetNumberOfPointCloud(); counter++)
+	{
+		//		Name Column
+		QString name = QString::fromStdString(_pointClouds->GetNameById(counter));
+		//		Show Column
+		QTableWidgetItem *showPointCloudItem = new QTableWidgetItem();
+		if (_pointClouds->GetIsShowById(counter))
+			showPointCloudItem->setCheckState(Qt::Checked);
+		else
+			showPointCloudItem->setCheckState(Qt::Unchecked);
+		//		Add into Table
+		_ui->_pointCloudTable->setItem(counter, 0, new QTableWidgetItem(name));
+		_ui->_pointCloudTable->setItem(counter, 1, showPointCloudItem);
+	}
+	connect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
 }
 
 void MainWindow::RegisterObserver()
@@ -41,30 +100,35 @@ void MainWindow::RegisterObserver()
 	flexxSubject->RegisterObserver(_uiObserver);
 }
 
-void MainWindow::UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
-{
-	_viewer->Show(pointCloud);
-	//_viewer->ResetCamera();
-	_ui->_qvtkWidget->update();
-}
-
 void MainWindow::closeEvent(QCloseEvent *event)
 {
 	delete _grabberFactory;
 }
 
-//****************************************************************
-//								UI Component
-//****************************************************************
-
-std::string MainWindow::InputDialog(const char* title, const char* label, const char* text)
+std::string MainWindow::InputDialog(bool* ok, const char* title, const char* label, const char* text)
 {
-	bool ok;
-	QString input = QInputDialog::getText(this, tr(title), tr(label), QLineEdit::Normal, tr(text), &ok);
-	if (ok && !input.isEmpty()) {
+	QString input = QInputDialog::getText(this, tr(title), tr(label), QLineEdit::Normal, tr(text), ok);
+	if ((*ok) && !input.isEmpty()) {
 		return TypeConversion::QString2String(input);
 	}
 	return std::string("");
+}
+
+//****************************************************************
+//								Slots : UI
+//****************************************************************
+void MainWindow::UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
+{
+	_tmpPointCloud = pointCloud;
+	_viewer->Show(_tmpPointCloud = pointCloud);
+	//_viewer->ResetCamera();
+	_ui->_qvtkWidget->update();
+}
+
+void MainWindow::TableItemChangeSlot(QTableWidgetItem* item)
+{
+	_pointClouds->SetIsShowById(item->row(), item->checkState() == Qt::Checked);
+	UpdatePointCloudViewer();
 }
 
 //****************************************************************
@@ -80,7 +144,10 @@ void MainWindow::StartFlexxCameraSlot()
 void MainWindow::StopFlexxCameraSlot()
 {
 	IGrabber* grabber = _grabberFactory->GetFlexxGrabber();
+	if (grabber == NULL)	return;
 	grabber->StopCamera();
+	_viewer->Clear();
+	UpdatePointCloudViewer();
 }
 
 void MainWindow::StartRSCameraSlot()
@@ -93,7 +160,10 @@ void MainWindow::StartRSCameraSlot()
 void MainWindow::StopRSCameraSlot()
 {
 	IGrabber* grabber = _grabberFactory->GetRSGrabber();
+	if (grabber == NULL)	return;
 	grabber->StopCamera();
+	_viewer->Clear();
+	UpdatePointCloudViewer();
 }
 
 //****************************************************************
@@ -101,7 +171,9 @@ void MainWindow::StopRSCameraSlot()
 //****************************************************************
 void MainWindow::GetNumberOfBytesSlot()
 {
-	std::string str = InputDialog("Communicate Arduino", "Input Data");
+	bool ok;
+	std::string str = InputDialog(&ok, "Communicate Arduino", "Input Data");
+	if (!ok)	return;
 	int len = str.length();
 	_arduino->SendData(&str[0], len);
 	Sleep(ARDUINO_SLEEP_TIME);
@@ -112,7 +184,9 @@ void MainWindow::GetNumberOfBytesSlot()
 
 void MainWindow::GetCharSlot()
 {
-	std::string str = InputDialog("Communicate Arduino", "Input Data");
+	bool ok;
+	std::string str = InputDialog(&ok, "Communicate Arduino", "Input Data");
+	if (!ok)	return;
 	_arduino->SendData(str[0]);
 	Sleep(ARDUINO_SLEEP_TIME);
 	char* recData = _arduino->ReceiveData();
@@ -121,7 +195,9 @@ void MainWindow::GetCharSlot()
 
 void MainWindow::GetArraySlot()
 {
-	std::string str = InputDialog("Communicate Arduino", "Input Data");
+	bool ok;
+	std::string str = InputDialog(&ok, "Communicate Arduino", "Input Data");
+	if (!ok)	return;
 	int len = str.length();
 	_arduino->SendData(&str[0], len);
 	Sleep(ARDUINO_SLEEP_TIME);
@@ -131,17 +207,40 @@ void MainWindow::GetArraySlot()
 
 void MainWindow::ControlMotorSlot()
 {
-	std::string motorId = InputDialog("Control Motor", "Input Motor Id");
-	std::string degree = InputDialog("Control Motor", "Input Degree");
+	bool motorOk;
+	std::string motorId = InputDialog(&motorOk, "Control Motor", "Input Motor Id");
+	if (!motorOk)	return;
+	bool degreeOk;
+	std::string degree = InputDialog(&degreeOk, "Control Motor", "Input Degree");
+	if (!degreeOk)	return;
 	int motorIdLen = motorId.length();
 	int degreeLen = degree.length();
 	_arduino->SendData(&motorId[0], motorIdLen);
 	_arduino->SendData(&degree[0], degreeLen);
-	Sleep(ARDUINO_SLEEP_TIME); 
+	Sleep(ARDUINO_SLEEP_TIME);
 	int numOfData = _arduino->ReceiveDataNumberOfBytes();
 	QMessageBox::about(this, tr("Communicate Arduino"), tr(TypeConversion::Int2String(numOfData).c_str()));
 	char* recMotorId = _arduino->ReceiveData(motorIdLen);
 	QMessageBox::about(this, tr("Control Motor"), tr(recMotorId));
 	char* recDegree = _arduino->ReceiveData(degreeLen);
 	QMessageBox::about(this, tr("Control Motor"), tr(recDegree));
+}
+
+//****************************************************************
+//								Slots : Point Cloud
+//****************************************************************
+void MainWindow::KeepPointCloudSlot()
+{
+	boost::shared_ptr<pcl::PointCloud<PointT>> copyPointCloud;
+	copyPointCloud.reset(new pcl::PointCloud<PointT>(*_tmpPointCloud));
+	bool ok;
+	std::string str = InputDialog(&ok, "Keep PointCloud", "Input Name");
+	if (!ok)	return;
+	if (_pointClouds->IsNameExist(str) || str == "")
+	{
+		QMessageBox::about(this, tr("Keep PointCloud"), tr("Name is exist/empty!"));
+		return;
+	}
+	_pointClouds->AddPointCloud(copyPointCloud, str);
+	UpdatePointCloudTable();
 }
