@@ -20,7 +20,7 @@ void FlexxListener::onNewData(const royale::DepthData* data)
 	unsigned int counter = 0;
 	for (; counter < _width * _height; counter++)
 	{
-		if (data->points[counter].depthConfidence < DEPTH_CONFIDENCE)		//	資料不可靠
+		if (data->points[counter].depthConfidence < _depthConfidence)		//	資料不可靠
 			continue;
 		boost::shared_ptr<pcl::PointXYZRGBA> point(new pcl::PointXYZRGBA);
 		point->r = 255;
@@ -32,6 +32,11 @@ void FlexxListener::onNewData(const royale::DepthData* data)
 		_pointCloud->push_back(*point);
 	}
 	_subject->NotifyObservers(_pointCloud);
+}
+
+void FlexxListener::SetDepthConfidence(int depthConfidence)
+{
+	_depthConfidence = depthConfidence;
 }
 
 std::mutex& FlexxListener::GetMutex()
@@ -81,6 +86,11 @@ void Flexx::StopCamera()
 {
 	if (_cameraDevice->stopCapture() != royale::CameraStatus::SUCCESS)
 		throw std::string("Flexx: Error stopping the capturing");
+}
+
+void Flexx::SetDepthConfidence(int depthConfidence)
+{
+	_listener->SetDepthConfidence(depthConfidence);
 }
 
 std::mutex& Flexx::GetMutex()

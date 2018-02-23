@@ -37,6 +37,7 @@ public:
     QAction *_getArrayAction;
     QAction *_controlMotorAction;
     QAction *_keepPointCloudAction;
+    QAction *_setConfidenceAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QTableWidget *_pointCloudTable;
@@ -74,6 +75,8 @@ public:
         _controlMotorAction->setObjectName(QStringLiteral("_controlMotorAction"));
         _keepPointCloudAction = new QAction(MainWindowForm);
         _keepPointCloudAction->setObjectName(QStringLiteral("_keepPointCloudAction"));
+        _setConfidenceAction = new QAction(MainWindowForm);
+        _setConfidenceAction->setObjectName(QStringLiteral("_setConfidenceAction"));
         centralWidget = new QWidget(MainWindowForm);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
@@ -115,6 +118,7 @@ public:
         menuCamera->addAction(menuIntel_Realsense->menuAction());
         menuPico_Flexx->addAction(_startFlexxAction);
         menuPico_Flexx->addAction(_stopFlexxAction);
+        menuPico_Flexx->addAction(_setConfidenceAction);
         menuIntel_Realsense->addAction(_startRSAction);
         menuIntel_Realsense->addAction(_stopRSAction);
         menuArduino->addAction(menucommunicate->menuAction());
@@ -142,6 +146,7 @@ public:
         _getArrayAction->setText(QApplication::translate("MainWindowForm", "Get Array", Q_NULLPTR));
         _controlMotorAction->setText(QApplication::translate("MainWindowForm", "Control Motor", Q_NULLPTR));
         _keepPointCloudAction->setText(QApplication::translate("MainWindowForm", "Keep PointCloud", Q_NULLPTR));
+        _setConfidenceAction->setText(QApplication::translate("MainWindowForm", "Set Confidence", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowForm", "Camera", Q_NULLPTR));
         menuPico_Flexx->setTitle(QApplication::translate("MainWindowForm", "Pico Flexx", Q_NULLPTR));
         menuIntel_Realsense->setTitle(QApplication::translate("MainWindowForm", "Intel Realsense", Q_NULLPTR));

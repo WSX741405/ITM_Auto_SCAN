@@ -23,6 +23,7 @@ void MainWindow::ConnectSlots()
 	connect(_ui->_startRSAction, SIGNAL(triggered()), this, SLOT(StartRSCameraSlot()));
 	connect(_ui->_stopRSAction, SIGNAL(triggered()), this, SLOT(StopCameraSlot()));
 	connect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
+	connect(_ui->_setConfidenceAction, SIGNAL(triggered()), this, SLOT(SetCameraDepthConfidenceSlot()));
 	//		Arduino
 	connect(_ui->_getNumberOfBytesAction, SIGNAL(triggered()), this, SLOT(GetNumberOfBytesSlot()));
 	connect(_ui->_getCharAction, SIGNAL(triggered()), this, SLOT(GetCharSlot()));
@@ -102,6 +103,7 @@ void MainWindow::RegisterObserver()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+	disconnect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
 	delete _grabberFactory;
 }
 
@@ -155,6 +157,14 @@ void MainWindow::StopCameraSlot()
 	_grabber->StopCamera();
 	_viewer->Clear();
 	UpdatePointCloudViewer();
+}
+
+void MainWindow::SetCameraDepthConfidenceSlot()
+{
+	bool ok;
+	std::string str = InputDialog(&ok, "Set Camera Depth Confidence", "Input Depth Confidence");
+	if (_grabber == NULL)return;
+	_grabber->SetDepthConfidence(TypeConversion::String2Int(str));
 }
 
 //****************************************************************

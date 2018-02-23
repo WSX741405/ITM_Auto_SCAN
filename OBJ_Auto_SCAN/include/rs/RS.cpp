@@ -29,6 +29,11 @@ void Realsense::CloudCallback(boost::shared_ptr<const pcl::PointCloud<PointT>> c
 	_subject->NotifyObservers(cpyCloud);
 }
 
+void Realsense::SetDepthConfidence(int depthConfidence)
+{
+	throw std::string("Realsense: No support depth confidence");
+}
+
 std::mutex& Realsense::GetMutex()
 {
 	return _mutex;

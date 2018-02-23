@@ -52,6 +52,7 @@ public slots:
 	void StartRSCameraSlot();
 	void StopCameraSlot();
 	void UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+	void SetCameraDepthConfidenceSlot();
 	//****************************************************************
 	//										Arduino
 	//****************************************************************

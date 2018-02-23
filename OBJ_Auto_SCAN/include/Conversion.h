@@ -15,6 +15,12 @@ public:
 		std::string str = qs.toLocal8Bit().constData();
 		return str;
 	}
+
+	static int String2Int(std::string str)
+	{
+		int number = std::stoi(str);
+		return number;
+	}
 };
 
 #endif

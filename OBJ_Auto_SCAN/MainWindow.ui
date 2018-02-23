@@ -54,6 +54,7 @@
      </property>
      <addaction name="_startFlexxAction"/>
      <addaction name="_stopFlexxAction"/>
+     <addaction name="_setConfidenceAction"/>
     </widget>
     <widget class="QMenu" name="menuIntel_Realsense">
      <property name="title">
@@ -148,6 +149,11 @@
   <action name="_keepPointCloudAction">
    <property name="text">
     <string>Keep PointCloud</string>
+   </property>
+  </action>
+  <action name="_setConfidenceAction">
+   <property name="text">
+    <string>Set Confidence</string>
    </property>
   </action>
  </widget>

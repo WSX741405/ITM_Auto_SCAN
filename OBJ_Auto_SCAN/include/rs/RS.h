@@ -19,6 +19,7 @@ public:
 	~Realsense();
 	void StartCamera();
 	void StopCamera();
+	void SetDepthConfidence(int depthConfidence);
 	std::mutex& GetMutex();
 
 private:
