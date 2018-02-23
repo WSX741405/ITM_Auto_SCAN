@@ -25,6 +25,7 @@ public:
 	const unsigned int DEPTH_CONFIDENCE = 128;
 	explicit FlexxListener(const royale::Vector<royale::StreamId> &streamIds, ISubject* subject);
 	void onNewData(const royale::DepthData* data) override;
+	std::mutex& GetMutex();
 
 private:
 	std::size_t _width;
@@ -47,6 +48,7 @@ public:
 	~Flexx();
 	void StartCamera();
 	void StopCamera();
+	std::mutex& GetMutex();
 
 private:
 

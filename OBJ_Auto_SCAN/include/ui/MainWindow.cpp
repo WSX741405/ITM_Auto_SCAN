@@ -19,9 +19,9 @@ void MainWindow::ConnectSlots()
 {
 	//		Camera
 	connect(_ui->_startFlexxAction, SIGNAL(triggered()), this, SLOT(StartFlexxCameraSlot()));
-	connect(_ui->_stopFlexxAction, SIGNAL(triggered()), this, SLOT(StopFlexxCameraSlot()));
+	connect(_ui->_stopFlexxAction, SIGNAL(triggered()), this, SLOT(StopCameraSlot()));
 	connect(_ui->_startRSAction, SIGNAL(triggered()), this, SLOT(StartRSCameraSlot()));
-	connect(_ui->_stopRSAction, SIGNAL(triggered()), this, SLOT(StopRSCameraSlot()));
+	connect(_ui->_stopRSAction, SIGNAL(triggered()), this, SLOT(StopCameraSlot()));
 	connect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
 	//		Arduino
 	connect(_ui->_getNumberOfBytesAction, SIGNAL(triggered()), this, SLOT(GetNumberOfBytesSlot()));
@@ -119,6 +119,7 @@ std::string MainWindow::InputDialog(bool* ok, const char* title, const char* lab
 //****************************************************************
 void MainWindow::UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
 {
+	std::unique_lock<std::mutex> lock(_grabber->GetMutex());
 	_tmpPointCloud = pointCloud;
 	_viewer->Show(_tmpPointCloud = pointCloud);
 	//_viewer->ResetCamera();
@@ -137,17 +138,8 @@ void MainWindow::TableItemChangeSlot(QTableWidgetItem* item)
 void MainWindow::StartFlexxCameraSlot()
 {
 	ISubject* subject = _subjectFactory->GetFlexxSubject();
-	IGrabber* grabber = _grabberFactory->GetFlexxGrabber(subject);
-	grabber->StartCamera();
-}
-
-void MainWindow::StopFlexxCameraSlot()
-{
-	IGrabber* grabber = _grabberFactory->GetFlexxGrabber();
-	if (grabber == NULL)	return;
-	grabber->StopCamera();
-	_viewer->Clear();
-	UpdatePointCloudViewer();
+	_grabber = _grabberFactory->GetFlexxGrabber(subject);
+	_grabber->StartCamera();
 }
 
 void MainWindow::StartRSCameraSlot()
@@ -157,11 +149,10 @@ void MainWindow::StartRSCameraSlot()
 	grabber->StartCamera();
 }
 
-void MainWindow::StopRSCameraSlot()
+void MainWindow::StopCameraSlot()
 {
-	IGrabber* grabber = _grabberFactory->GetRSGrabber();
-	if (grabber == NULL)	return;
-	grabber->StopCamera();
+	if (_grabber == NULL)	return;
+	_grabber->StopCamera();
 	_viewer->Clear();
 	UpdatePointCloudViewer();
 }
@@ -218,8 +209,6 @@ void MainWindow::ControlMotorSlot()
 	_arduino->SendData(&motorId[0], motorIdLen);
 	_arduino->SendData(&degree[0], degreeLen);
 	Sleep(ARDUINO_SLEEP_TIME);
-	int numOfData = _arduino->ReceiveDataNumberOfBytes();
-	QMessageBox::about(this, tr("Communicate Arduino"), tr(TypeConversion::Int2String(numOfData).c_str()));
 	char* recMotorId = _arduino->ReceiveData(motorIdLen);
 	QMessageBox::about(this, tr("Control Motor"), tr(recMotorId));
 	char* recDegree = _arduino->ReceiveData(degreeLen);

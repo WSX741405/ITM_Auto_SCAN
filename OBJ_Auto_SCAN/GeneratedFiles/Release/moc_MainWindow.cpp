@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[18];
-    char stringdata0[281];
+    QByteArrayData data[21];
+    char stringdata0[324];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -48,7 +48,10 @@ QT_MOC_LITERAL(13, 199, 20), // "GetNumberOfBytesSlot"
 QT_MOC_LITERAL(14, 220, 11), // "GetCharSlot"
 QT_MOC_LITERAL(15, 232, 12), // "GetArraySlot"
 QT_MOC_LITERAL(16, 245, 16), // "ControlMotorSlot"
-QT_MOC_LITERAL(17, 262, 18) // "KeepPointCloudSlot"
+QT_MOC_LITERAL(17, 262, 18), // "KeepPointCloudSlot"
+QT_MOC_LITERAL(18, 281, 19), // "TableItemChangeSlot"
+QT_MOC_LITERAL(19, 301, 17), // "QTableWidgetItem*"
+QT_MOC_LITERAL(20, 319, 4) // "item"
 
     },
     "MainWindow\0OutputDialog\0\0const char*\0"
@@ -58,7 +61,8 @@ QT_MOC_LITERAL(17, 262, 18) // "KeepPointCloudSlot"
     "boost::shared_ptr<pcl::PointCloud<PointT> >\0"
     "pointCloud\0GetNumberOfBytesSlot\0"
     "GetCharSlot\0GetArraySlot\0ControlMotorSlot\0"
-    "KeepPointCloudSlot"
+    "KeepPointCloudSlot\0TableItemChangeSlot\0"
+    "QTableWidgetItem*\0item"
 };
 #undef QT_MOC_LITERAL
 
@@ -68,7 +72,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -76,19 +80,20 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   69,    2, 0x06 /* Public */,
+       1,    2,   74,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       6,    0,   74,    2, 0x0a /* Public */,
-       7,    0,   75,    2, 0x0a /* Public */,
-       8,    0,   76,    2, 0x0a /* Public */,
-       9,    0,   77,    2, 0x0a /* Public */,
-      10,    1,   78,    2, 0x0a /* Public */,
-      13,    0,   81,    2, 0x0a /* Public */,
-      14,    0,   82,    2, 0x0a /* Public */,
-      15,    0,   83,    2, 0x0a /* Public */,
-      16,    0,   84,    2, 0x0a /* Public */,
-      17,    0,   85,    2, 0x0a /* Public */,
+       6,    0,   79,    2, 0x0a /* Public */,
+       7,    0,   80,    2, 0x0a /* Public */,
+       8,    0,   81,    2, 0x0a /* Public */,
+       9,    0,   82,    2, 0x0a /* Public */,
+      10,    1,   83,    2, 0x0a /* Public */,
+      13,    0,   86,    2, 0x0a /* Public */,
+      14,    0,   87,    2, 0x0a /* Public */,
+      15,    0,   88,    2, 0x0a /* Public */,
+      16,    0,   89,    2, 0x0a /* Public */,
+      17,    0,   90,    2, 0x0a /* Public */,
+      18,    1,   91,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 3,    4,    5,
@@ -104,6 +109,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 19,   20,
 
        0        // eod
 };
@@ -125,6 +131,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 8: _t->GetArraySlot(); break;
         case 9: _t->ControlMotorSlot(); break;
         case 10: _t->KeepPointCloudSlot(); break;
+        case 11: _t->TableItemChangeSlot((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -165,13 +172,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 12)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 11;
+        _id -= 12;
     }
     return _id;
 }

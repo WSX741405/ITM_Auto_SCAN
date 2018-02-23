@@ -37,7 +37,7 @@ class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 	int ARDUINO_SLEEP_TIME = 300;
-	char* COM_PORT = "com3";
+	char* COM_PORT = "com4";
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 
@@ -49,9 +49,8 @@ public slots:
 	//										Camera
 	//****************************************************************
 	void StartFlexxCameraSlot();
-	void StopFlexxCameraSlot();
 	void StartRSCameraSlot();
-	void StopRSCameraSlot();
+	void StopCameraSlot();
 	void UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 	//****************************************************************
 	//										Arduino
@@ -80,6 +79,7 @@ private:
 	Viewer* _viewer;
 	UIObserver* _uiObserver;
 	GrabberFactory* _grabberFactory;
+	IGrabber* _grabber;
 	SubjectFactory* _subjectFactory;
 	boost::shared_ptr<pcl::PointCloud<PointT>> _tmpPointCloud;
 	MyPointClouds* _pointClouds;

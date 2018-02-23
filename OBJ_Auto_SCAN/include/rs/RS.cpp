@@ -24,7 +24,12 @@ void Realsense::StopCamera()
 
 void Realsense::CloudCallback(boost::shared_ptr<const pcl::PointCloud<PointT>> cloud)
 {
-	boost::mutex::scoped_lock lock(_mutex);
+	std::unique_lock<std::mutex> lock(_mutex);
 	boost::shared_ptr<pcl::PointCloud<PointT>> cpyCloud = boost::const_pointer_cast<pcl::PointCloud<PointT>>(cloud);
 	_subject->NotifyObservers(cpyCloud);
+}
+
+std::mutex& Realsense::GetMutex()
+{
+	return _mutex;
 }

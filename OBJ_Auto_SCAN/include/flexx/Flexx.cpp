@@ -34,6 +34,11 @@ void FlexxListener::onNewData(const royale::DepthData* data)
 	_subject->NotifyObservers(_pointCloud);
 }
 
+std::mutex& FlexxListener::GetMutex()
+{
+	return _lockForReceivedData;
+}
+
 //		*****************************************************************
 //				Flexx
 //		*****************************************************************
@@ -76,4 +81,9 @@ void Flexx::StopCamera()
 {
 	if (_cameraDevice->stopCapture() != royale::CameraStatus::SUCCESS)
 		throw std::string("Flexx: Error stopping the capturing");
+}
+
+std::mutex& Flexx::GetMutex()
+{
+	return _listener->GetMutex();
 }
