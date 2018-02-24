@@ -38,6 +38,7 @@ public:
     QAction *_controlMotorAction;
     QAction *_keepPointCloudAction;
     QAction *_setConfidenceAction;
+    QAction *_icpAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QTableWidget *_pointCloudTable;
@@ -77,6 +78,8 @@ public:
         _keepPointCloudAction->setObjectName(QStringLiteral("_keepPointCloudAction"));
         _setConfidenceAction = new QAction(MainWindowForm);
         _setConfidenceAction->setObjectName(QStringLiteral("_setConfidenceAction"));
+        _icpAction = new QAction(MainWindowForm);
+        _icpAction->setObjectName(QStringLiteral("_icpAction"));
         centralWidget = new QWidget(MainWindowForm);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
@@ -128,6 +131,7 @@ public:
         menucommunicate->addAction(_getArrayAction);
         menuControl_Motor->addAction(_controlMotorAction);
         menuPointCloud->addAction(_keepPointCloudAction);
+        menuPointCloud->addAction(_icpAction);
 
         retranslateUi(MainWindowForm);
 
@@ -147,6 +151,7 @@ public:
         _controlMotorAction->setText(QApplication::translate("MainWindowForm", "Control Motor", Q_NULLPTR));
         _keepPointCloudAction->setText(QApplication::translate("MainWindowForm", "Keep PointCloud", Q_NULLPTR));
         _setConfidenceAction->setText(QApplication::translate("MainWindowForm", "Set Confidence", Q_NULLPTR));
+        _icpAction->setText(QApplication::translate("MainWindowForm", "ICP", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowForm", "Camera", Q_NULLPTR));
         menuPico_Flexx->setTitle(QApplication::translate("MainWindowForm", "Pico Flexx", Q_NULLPTR));
         menuIntel_Realsense->setTitle(QApplication::translate("MainWindowForm", "Intel Realsense", Q_NULLPTR));

@@ -22,8 +22,8 @@ void MainWindow::ConnectSlots()
 	connect(_ui->_stopFlexxAction, SIGNAL(triggered()), this, SLOT(StopCameraSlot()));
 	connect(_ui->_startRSAction, SIGNAL(triggered()), this, SLOT(StartRSCameraSlot()));
 	connect(_ui->_stopRSAction, SIGNAL(triggered()), this, SLOT(StopCameraSlot()));
-	connect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
 	connect(_ui->_setConfidenceAction, SIGNAL(triggered()), this, SLOT(SetCameraDepthConfidenceSlot()));
+	connect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
 	//		Arduino
 	connect(_ui->_getNumberOfBytesAction, SIGNAL(triggered()), this, SLOT(GetNumberOfBytesSlot()));
 	connect(_ui->_getCharAction, SIGNAL(triggered()), this, SLOT(GetCharSlot()));
@@ -31,6 +31,7 @@ void MainWindow::ConnectSlots()
 	connect(_ui->_controlMotorAction, SIGNAL(triggered()), this, SLOT(ControlMotorSlot()));
 	//		PointClouds
 	connect(_ui->_keepPointCloudAction, SIGNAL(triggered()), this, SLOT(KeepPointCloudSlot()));
+	connect(_ui->_icpAction, SIGNAL(triggered()), this, SLOT(ICPSlot()));
 	connect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
 }
 
@@ -66,7 +67,7 @@ void MainWindow::UpdatePointCloudViewer()
 	_viewer->Clear();
 	for (int counter = 0; counter < _pointClouds->GetNumberOfPointCloud(); counter++)
 	{
-		if (_pointClouds->GetIsShowById(counter))
+		if (_pointClouds->GetIsSelectedById(counter))
 			_viewer->Show(_pointClouds->GetPointCloudById(counter), _pointClouds->GetNameById(counter));
 	}
 	_ui->_qvtkWidget->update();
@@ -82,7 +83,7 @@ void MainWindow::UpdatePointCloudTable()
 		QString name = QString::fromStdString(_pointClouds->GetNameById(counter));
 		//		Show Column
 		QTableWidgetItem *showPointCloudItem = new QTableWidgetItem();
-		if (_pointClouds->GetIsShowById(counter))
+		if (_pointClouds->GetIsSelectedById(counter))
 			showPointCloudItem->setCheckState(Qt::Checked);
 		else
 			showPointCloudItem->setCheckState(Qt::Unchecked);
@@ -130,7 +131,7 @@ void MainWindow::UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> poi
 
 void MainWindow::TableItemChangeSlot(QTableWidgetItem* item)
 {
-	_pointClouds->SetIsShowById(item->row(), item->checkState() == Qt::Checked);
+	_pointClouds->SetIsSelectedById(item->row(), item->checkState() == Qt::Checked);
 	UpdatePointCloudViewer();
 }
 
@@ -242,4 +243,27 @@ void MainWindow::KeepPointCloudSlot()
 	}
 	_pointClouds->AddPointCloud(copyPointCloud, str);
 	UpdatePointCloudTable();
+}
+
+void MainWindow::ICPSlot()
+{
+	boost::shared_ptr<pcl::PointCloud<PointT>> icpPointCloud;
+	std::vector<MyPointCloud*> pointClouds = _pointClouds->GetPointCloudsByIsSelected();
+	if (pointClouds.size() == 0)return;
+	else if (pointClouds.size() == 1)
+		icpPointCloud.reset(new pcl::PointCloud<PointT>(*pointClouds[0]->GetCloud()));
+	else
+	{
+		MyICP icp(pointClouds[0]->GetCloud(), pointClouds[1]->GetCloud());
+		icp.SetMaxCorrespondenceDistance(0.1);
+		icp.SetTransformationEpsilon(1e-10);
+		icp.SetEuclideanFitnessEpsilon(0.01);
+		icp.SetMaximumIterations(100);
+		icp.ProcessICP();
+		icpPointCloud = icp.GetOutputPointCloud();
+		for (int counter = 2; counter < pointClouds.size(); counter++)
+		{
+
+		}
+	}
 }

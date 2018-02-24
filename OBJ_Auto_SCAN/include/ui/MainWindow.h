@@ -23,6 +23,7 @@ Q_DECLARE_METATYPE(boost::shared_ptr<pcl::PointCloud<PointT>>);
 #include "observer/ObserverFactory.h"
 #include "grabber/GrabberFactory.h"
 #include "pointCloud/MyPointClouds.h"
+#include "pointCloud/MyICP.h"
 #include "arduino/Arduino.h"
 #include "Conversion.h"
 
@@ -51,8 +52,8 @@ public slots:
 	void StartFlexxCameraSlot();
 	void StartRSCameraSlot();
 	void StopCameraSlot();
-	void UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 	void SetCameraDepthConfidenceSlot();
+	void UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 	//****************************************************************
 	//										Arduino
 	//****************************************************************
@@ -64,6 +65,7 @@ public slots:
 	//										Point Cloud
 	//****************************************************************
 	void KeepPointCloudSlot();
+	void ICPSlot();
 	void TableItemChangeSlot(QTableWidgetItem* item);
 
 private:

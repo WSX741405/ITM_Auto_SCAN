@@ -92,6 +92,7 @@
      <string>PointClouds</string>
     </property>
     <addaction name="_keepPointCloudAction"/>
+    <addaction name="_icpAction"/>
    </widget>
    <addaction name="menuCamera"/>
    <addaction name="menuArduino"/>
@@ -154,6 +155,11 @@
   <action name="_setConfidenceAction">
    <property name="text">
     <string>Set Confidence</string>
+   </property>
+  </action>
+  <action name="_icpAction">
+   <property name="text">
+    <string>ICP</string>
    </property>
   </action>
  </widget>

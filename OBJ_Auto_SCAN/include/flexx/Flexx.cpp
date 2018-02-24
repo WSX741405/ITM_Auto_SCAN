@@ -7,6 +7,7 @@
 FlexxListener::FlexxListener(const royale::Vector<royale::StreamId> &streamIds, ISubject* subject) : _streamIds(streamIds), _subject(subject)
 {
 	_pointCloud.reset(new pcl::PointCloud<PointT>());
+	_depthConfidence = 230;		// default
 }
 
 void FlexxListener::onNewData(const royale::DepthData* data)

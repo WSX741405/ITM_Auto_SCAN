@@ -11,7 +11,7 @@ class MyPointCloud
 public:
 	MyPointCloud(boost::shared_ptr<pcl::PointCloud<PointT>> cloud, std::string name = "Name") : _cloud(cloud), _name(name)
 	{
-		_isShow = false;		//default
+		_isSelected = false;		//default
 	}
 
 	std::string GetName()
@@ -24,19 +24,19 @@ public:
 		return _cloud;
 	}
 
-	void SetIsShow(bool isShow)
+	void SetIsSelected(bool isSelected)
 	{
-		_isShow = isShow;
+		_isSelected = isSelected;
 	}
 
-	bool GetIsShow()
+	bool GetIsSelected()
 	{
-		return _isShow;
+		return _isSelected;
 	}
 
 private:
 	std::string _name;
-	bool _isShow;	// Display or not
+	bool _isSelected;
 	boost::shared_ptr<pcl::PointCloud<PointT>> _cloud;
 };
 
