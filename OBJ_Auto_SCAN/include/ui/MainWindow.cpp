@@ -234,19 +234,22 @@ void MainWindow::KeepPointCloudSlot()
 	boost::shared_ptr<pcl::PointCloud<PointT>> copyPointCloud;
 	copyPointCloud.reset(new pcl::PointCloud<PointT>(*_tmpPointCloud));
 	bool ok;
-	std::string str = InputDialog(&ok, "Keep PointCloud", "Input Name");
+	std::string cloudName = InputDialog(&ok, "Keep PointCloud", "Input Name");
 	if (!ok)	return;
-	if (_pointClouds->IsNameExist(str) || str == "")
+	if (_pointClouds->IsNameExist(cloudName) || cloudName == "")
 	{
 		QMessageBox::about(this, tr("Keep PointCloud"), tr("Name is exist/empty!"));
 		return;
 	}
-	_pointClouds->AddPointCloud(copyPointCloud, str);
+	_pointClouds->AddPointCloud(copyPointCloud, cloudName);
 	UpdatePointCloudTable();
 }
 
 void MainWindow::ICPSlot()
 {
+	bool ok;
+	std::string cloudName = InputDialog(&ok, "Control Motor", "Input Motor Id");
+	if (!ok)	return;
 	boost::shared_ptr<pcl::PointCloud<PointT>> icpPointCloud;
 	std::vector<MyPointCloud*> pointClouds = _pointClouds->GetPointCloudsByIsSelected();
 	if (pointClouds.size() == 0)return;
@@ -254,16 +257,23 @@ void MainWindow::ICPSlot()
 		icpPointCloud.reset(new pcl::PointCloud<PointT>(*pointClouds[0]->GetCloud()));
 	else
 	{
-		MyICP icp(pointClouds[0]->GetCloud(), pointClouds[1]->GetCloud());
-		icp.SetMaxCorrespondenceDistance(0.1);
-		icp.SetTransformationEpsilon(1e-10);
-		icp.SetEuclideanFitnessEpsilon(0.01);
-		icp.SetMaximumIterations(100);
-		icp.ProcessICP();
-		icpPointCloud = icp.GetOutputPointCloud();
+		MyICP icpFirstTime(pointClouds[0]->GetCloud(), pointClouds[1]->GetCloud());
+		icpFirstTime.SetMaxCorrespondenceDistance(0.1);
+		icpFirstTime.SetTransformationEpsilon(1e-10);
+		icpFirstTime.SetEuclideanFitnessEpsilon(0.01);
+		icpFirstTime.SetMaximumIterations(100);
+		icpFirstTime.ProcessICP();
+		icpPointCloud = icpFirstTime.GetOutputPointCloud();
 		for (int counter = 2; counter < pointClouds.size(); counter++)
 		{
-
+			MyICP icpElseTimes(icpPointCloud, pointClouds[counter]->GetCloud());
+			icpElseTimes.SetMaxCorrespondenceDistance(0.1);
+			icpElseTimes.SetTransformationEpsilon(1e-10);
+			icpElseTimes.SetEuclideanFitnessEpsilon(0.01);
+			icpElseTimes.SetMaximumIterations(100);
+			icpElseTimes.ProcessICP();
+			icpPointCloud = icpElseTimes.GetOutputPointCloud();
 		}
 	}
+	_pointClouds->AddPointCloud(icpPointCloud, cloudName);
 }
