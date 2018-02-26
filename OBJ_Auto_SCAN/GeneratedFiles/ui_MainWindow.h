@@ -38,7 +38,7 @@ public:
     QAction *_controlMotorAction;
     QAction *_keepPointCloudAction;
     QAction *_setConfidenceAction;
-    QAction *_icpAction;
+    QAction *IterativeClosestPointAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QTableWidget *_pointCloudTable;
@@ -50,6 +50,7 @@ public:
     QMenu *menucommunicate;
     QMenu *menuControl_Motor;
     QMenu *menuPointCloud;
+    QMenu *menuICP;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -78,8 +79,8 @@ public:
         _keepPointCloudAction->setObjectName(QStringLiteral("_keepPointCloudAction"));
         _setConfidenceAction = new QAction(MainWindowForm);
         _setConfidenceAction->setObjectName(QStringLiteral("_setConfidenceAction"));
-        _icpAction = new QAction(MainWindowForm);
-        _icpAction->setObjectName(QStringLiteral("_icpAction"));
+        IterativeClosestPointAction = new QAction(MainWindowForm);
+        IterativeClosestPointAction->setObjectName(QStringLiteral("IterativeClosestPointAction"));
         centralWidget = new QWidget(MainWindowForm);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
@@ -106,6 +107,8 @@ public:
         menuControl_Motor->setObjectName(QStringLiteral("menuControl_Motor"));
         menuPointCloud = new QMenu(menuBar);
         menuPointCloud->setObjectName(QStringLiteral("menuPointCloud"));
+        menuICP = new QMenu(menuPointCloud);
+        menuICP->setObjectName(QStringLiteral("menuICP"));
         MainWindowForm->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindowForm);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -131,7 +134,8 @@ public:
         menucommunicate->addAction(_getArrayAction);
         menuControl_Motor->addAction(_controlMotorAction);
         menuPointCloud->addAction(_keepPointCloudAction);
-        menuPointCloud->addAction(_icpAction);
+        menuPointCloud->addAction(menuICP->menuAction());
+        menuICP->addAction(IterativeClosestPointAction);
 
         retranslateUi(MainWindowForm);
 
@@ -151,7 +155,7 @@ public:
         _controlMotorAction->setText(QApplication::translate("MainWindowForm", "Control Motor", Q_NULLPTR));
         _keepPointCloudAction->setText(QApplication::translate("MainWindowForm", "Keep PointCloud", Q_NULLPTR));
         _setConfidenceAction->setText(QApplication::translate("MainWindowForm", "Set Confidence", Q_NULLPTR));
-        _icpAction->setText(QApplication::translate("MainWindowForm", "ICP", Q_NULLPTR));
+        IterativeClosestPointAction->setText(QApplication::translate("MainWindowForm", "PCL IterativeClosestPoint", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowForm", "Camera", Q_NULLPTR));
         menuPico_Flexx->setTitle(QApplication::translate("MainWindowForm", "Pico Flexx", Q_NULLPTR));
         menuIntel_Realsense->setTitle(QApplication::translate("MainWindowForm", "Intel Realsense", Q_NULLPTR));
@@ -159,6 +163,7 @@ public:
         menucommunicate->setTitle(QApplication::translate("MainWindowForm", "Communicate", Q_NULLPTR));
         menuControl_Motor->setTitle(QApplication::translate("MainWindowForm", "Control Motor", Q_NULLPTR));
         menuPointCloud->setTitle(QApplication::translate("MainWindowForm", "PointClouds", Q_NULLPTR));
+        menuICP->setTitle(QApplication::translate("MainWindowForm", "ICP", Q_NULLPTR));
     } // retranslateUi
 
 };

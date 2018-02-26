@@ -65,7 +65,7 @@ public slots:
 	//										Point Cloud
 	//****************************************************************
 	void KeepPointCloudSlot();
-	void ICPSlot();
+	void IterativeClosestPointSlot();
 	void TableItemChangeSlot(QTableWidgetItem* item);
 
 private:

@@ -7,10 +7,10 @@
 #include <pcl/registration/icp.h>
 typedef pcl::PointXYZRGBA PointT;
 
-class MyICP
+class MyIterativeClosestPoint
 {
 public:
-	MyICP(boost::shared_ptr<pcl::PointCloud<PointT>> sourceCloud, boost::shared_ptr<pcl::PointCloud<PointT>> targetCloud)
+	MyIterativeClosestPoint(boost::shared_ptr<pcl::PointCloud<PointT>> sourceCloud, boost::shared_ptr<pcl::PointCloud<PointT>> targetCloud)
 	{
 		_sourceCloud.reset(new pcl::PointCloud<PointT>(*sourceCloud));
 		_targetCloud.reset(new pcl::PointCloud<PointT>(*targetCloud));

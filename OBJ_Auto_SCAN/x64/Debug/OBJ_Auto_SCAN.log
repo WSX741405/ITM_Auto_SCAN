@@ -1,4 +1,5 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (ITM_Auto_SCAN.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Moc'ing MainWindow.h...
   moc_IObserver.cpp
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/interactor_style.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
@@ -7,8 +8,8 @@ D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/rans
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
-D:\Software\VS2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
-  D:\Software\VS2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
+D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
   D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61\boost/signals2/detail/auto_buffer.hpp(191): note: 請參閱所要編譯的函式 樣板 具現化 '_FwdIt *std::uninitialized_copy<I,boost::shared_ptr<void>*>(_InIt,_InIt,_FwdIt)' 之參考
           with
           [
@@ -76,8 +77,8 @@ D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/rans
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
-D:\Software\VS2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
-  D:\Software\VS2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
+D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
   D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61\boost/signals2/detail/auto_buffer.hpp(191): note: 請參閱所要編譯的函式 樣板 具現化 '_FwdIt *std::uninitialized_copy<I,boost::shared_ptr<void>*>(_InIt,_InIt,_FwdIt)' 之參考
           with
           [
@@ -147,8 +148,8 @@ D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 include\flexx\Flexx.cpp(72): warning C4297: 'Flexx::~Flexx': 函式預設並不會擲回例外狀況，但卻擲回例外狀況
   include\flexx\Flexx.cpp(72): note: 解構函式或釋放器 (可能隱含) 非擲回例外狀況的規格
-D:\Software\VS2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
-  D:\Software\VS2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
+D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
   D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61\boost/signals2/detail/auto_buffer.hpp(191): note: 請參閱所要編譯的函式 樣板 具現化 '_FwdIt *std::uninitialized_copy<I,boost::shared_ptr<void>*>(_InIt,_InIt,_FwdIt)' 之參考
           with
           [
@@ -216,8 +217,8 @@ D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/rans
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
-D:\Software\VS2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
-  D:\Software\VS2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
+D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
   D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61\boost/signals2/detail/auto_buffer.hpp(191): note: 請參閱所要編譯的函式 樣板 具現化 '_FwdIt *std::uninitialized_copy<I,boost::shared_ptr<void>*>(_InIt,_InIt,_FwdIt)' 之參考
           with
           [
@@ -285,8 +286,8 @@ D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/rans
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
-D:\Software\VS2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
-  D:\Software\VS2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
+D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
   D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61\boost/signals2/detail/auto_buffer.hpp(191): note: 請參閱所要編譯的函式 樣板 具現化 '_FwdIt *std::uninitialized_copy<I,boost::shared_ptr<void>*>(_InIt,_InIt,_FwdIt)' 之參考
           with
           [
@@ -354,8 +355,8 @@ D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/rans
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
-D:\Software\VS2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
-  D:\Software\VS2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
+D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
   D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61\boost/signals2/detail/auto_buffer.hpp(191): note: 請參閱所要編譯的函式 樣板 具現化 '_FwdIt *std::uninitialized_copy<I,boost::shared_ptr<void>*>(_InIt,_InIt,_FwdIt)' 之參考
           with
           [
@@ -423,8 +424,8 @@ D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/rans
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
-D:\Software\VS2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
-  D:\Software\VS2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
+D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
   D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61\boost/signals2/detail/auto_buffer.hpp(191): note: 請參閱所要編譯的函式 樣板 具現化 '_FwdIt *std::uninitialized_copy<I,boost::shared_ptr<void>*>(_InIt,_InIt,_FwdIt)' 之參考
           with
           [
@@ -492,8 +493,8 @@ D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/rans
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
-D:\Software\VS2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
-  D:\Software\VS2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
+D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
   D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61\boost/signals2/detail/auto_buffer.hpp(191): note: 請參閱所要編譯的函式 樣板 具現化 '_FwdIt *std::uninitialized_copy<I,boost::shared_ptr<void>*>(_InIt,_InIt,_FwdIt)' 之參考
           with
           [
@@ -561,8 +562,8 @@ D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/rans
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
-D:\Software\VS2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
-  D:\Software\VS2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
+D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  D:\Software\Visual Studio Professional 2015\VC\include\xmemory(102): note: 請參閱 'std::uninitialized_copy::_Unchecked_iterators::_Deprecate' 的宣告
   D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61\boost/signals2/detail/auto_buffer.hpp(191): note: 請參閱所要編譯的函式 樣板 具現化 '_FwdIt *std::uninitialized_copy<I,boost::shared_ptr<void>*>(_InIt,_InIt,_FwdIt)' 之參考
           with
           [
@@ -623,9 +624,9 @@ D:\Software\VS2015\VC\include\xmemory(102): warning C4996: 'std::uninitialized_c
           ]
   D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61\boost/signals2/connection.hpp(55): note: 請參閱要編譯的類別 樣板 具現化 'boost::signals2::detail::garbage_collecting_lock<Mutex>' 之參考
   正在產生程式碼...
-     正在建立程式庫 D:\github\x64\Debug\OBJ_Auto_SCAN.lib 和物件 D:\github\x64\Debug\OBJ_Auto_SCAN.exp
+  LINK : 最後的累加連結找不到或未建置 D:\github\ITM_Auto_Scan\x64\Debug\\OBJ_Auto_SCAN.exe，正在執行完整連結
+     正在建立程式庫 D:\github\ITM_Auto_Scan\x64\Debug\OBJ_Auto_SCAN.lib 和物件 D:\github\ITM_Auto_Scan\x64\Debug\OBJ_Auto_SCAN.exp
 MSVCRTD.lib(initializers.obj) : warning LNK4098: 預設的程式庫 'libcmtd.lib' 與其他使用的程式庫衝突，請使用 /NODEFAULTLIB:library
-real_sense-d.lib(real_sense_device_manager.obj) : warning LNK4099: 找不到 PDB 'real_sense.pdb' (有 'real_sense-d.lib(real_sense_device_manager.obj)' 或位於 'D:\github\x64\Debug\real_sense.pdb')，當做沒有偵錯資訊，連結物件
-real_sense-d.lib(io_exception.obj) : warning LNK4099: 找不到 PDB 'real_sense.pdb' (有 'real_sense-d.lib(io_exception.obj)' 或位於 'D:\github\x64\Debug\real_sense.pdb')，當做沒有偵錯資訊，連結物件
-  OBJ_Auto_SCAN.vcxproj -> D:\github\x64\Debug\OBJ_Auto_SCAN.exe
-  OBJ_Auto_SCAN.vcxproj -> D:\github\x64\Debug\OBJ_Auto_SCAN.pdb (Full PDB)
+tserial.obj : warning LNK4099: 找不到 PDB 'vc140.pdb' (有 'tserial.obj' 或位於 'D:\github\ITM_Auto_Scan\x64\Debug\vc140.pdb')，當做沒有偵錯資訊，連結物件
+  OBJ_Auto_SCAN.vcxproj -> D:\github\ITM_Auto_Scan\x64\Debug\OBJ_Auto_SCAN.exe
+  OBJ_Auto_SCAN.vcxproj -> D:\github\ITM_Auto_Scan\x64\Debug\OBJ_Auto_SCAN.pdb (Full PDB)

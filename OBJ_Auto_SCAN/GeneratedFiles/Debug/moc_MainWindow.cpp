@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[22];
-    char stringdata0[339];
+    char stringdata0[357];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -49,10 +49,10 @@ QT_MOC_LITERAL(14, 227, 11), // "GetCharSlot"
 QT_MOC_LITERAL(15, 239, 12), // "GetArraySlot"
 QT_MOC_LITERAL(16, 252, 16), // "ControlMotorSlot"
 QT_MOC_LITERAL(17, 269, 18), // "KeepPointCloudSlot"
-QT_MOC_LITERAL(18, 288, 7), // "ICPSlot"
-QT_MOC_LITERAL(19, 296, 19), // "TableItemChangeSlot"
-QT_MOC_LITERAL(20, 316, 17), // "QTableWidgetItem*"
-QT_MOC_LITERAL(21, 334, 4) // "item"
+QT_MOC_LITERAL(18, 288, 25), // "IterativeClosestPointSlot"
+QT_MOC_LITERAL(19, 314, 19), // "TableItemChangeSlot"
+QT_MOC_LITERAL(20, 334, 17), // "QTableWidgetItem*"
+QT_MOC_LITERAL(21, 352, 4) // "item"
 
     },
     "MainWindow\0OutputDialog\0\0const char*\0"
@@ -63,7 +63,7 @@ QT_MOC_LITERAL(21, 334, 4) // "item"
     "boost::shared_ptr<pcl::PointCloud<PointT> >\0"
     "pointCloud\0GetNumberOfBytesSlot\0"
     "GetCharSlot\0GetArraySlot\0ControlMotorSlot\0"
-    "KeepPointCloudSlot\0ICPSlot\0"
+    "KeepPointCloudSlot\0IterativeClosestPointSlot\0"
     "TableItemChangeSlot\0QTableWidgetItem*\0"
     "item"
 };
@@ -136,7 +136,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 8: _t->GetArraySlot(); break;
         case 9: _t->ControlMotorSlot(); break;
         case 10: _t->KeepPointCloudSlot(); break;
-        case 11: _t->ICPSlot(); break;
+        case 11: _t->IterativeClosestPointSlot(); break;
         case 12: _t->TableItemChangeSlot((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
         default: ;
         }

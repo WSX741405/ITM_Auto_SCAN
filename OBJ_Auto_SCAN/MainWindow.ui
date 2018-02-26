@@ -91,8 +91,14 @@
     <property name="title">
      <string>PointClouds</string>
     </property>
+    <widget class="QMenu" name="menuICP">
+     <property name="title">
+      <string>ICP</string>
+     </property>
+     <addaction name="IterativeClosestPointAction"/>
+    </widget>
     <addaction name="_keepPointCloudAction"/>
-    <addaction name="_icpAction"/>
+    <addaction name="menuICP"/>
    </widget>
    <addaction name="menuCamera"/>
    <addaction name="menuArduino"/>
@@ -157,9 +163,9 @@
     <string>Set Confidence</string>
    </property>
   </action>
-  <action name="_icpAction">
+  <action name="IterativeClosestPointAction">
    <property name="text">
-    <string>ICP</string>
+    <string>PCL IterativeClosestPoint</string>
    </property>
   </action>
  </widget>

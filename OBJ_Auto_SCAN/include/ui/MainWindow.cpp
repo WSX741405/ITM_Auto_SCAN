@@ -31,7 +31,7 @@ void MainWindow::ConnectSlots()
 	connect(_ui->_controlMotorAction, SIGNAL(triggered()), this, SLOT(ControlMotorSlot()));
 	//		PointClouds
 	connect(_ui->_keepPointCloudAction, SIGNAL(triggered()), this, SLOT(KeepPointCloudSlot()));
-	connect(_ui->_icpAction, SIGNAL(triggered()), this, SLOT(ICPSlot()));
+	connect(_ui->IterativeClosestPointAction, SIGNAL(triggered()), this, SLOT(IterativeClosestPointSlot()));
 	connect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
 }
 
@@ -245,7 +245,7 @@ void MainWindow::KeepPointCloudSlot()
 	UpdatePointCloudTable();
 }
 
-void MainWindow::ICPSlot()
+void MainWindow::IterativeClosestPointSlot()
 {
 	bool ok;
 	std::string cloudName = InputDialog(&ok, "Control Motor", "Input Motor Id");
@@ -257,7 +257,7 @@ void MainWindow::ICPSlot()
 		icpPointCloud.reset(new pcl::PointCloud<PointT>(*pointClouds[0]->GetCloud()));
 	else
 	{
-		MyICP icpFirstTime(pointClouds[0]->GetCloud(), pointClouds[1]->GetCloud());
+		MyIterativeClosestPoint icpFirstTime(pointClouds[0]->GetCloud(), pointClouds[1]->GetCloud());
 		icpFirstTime.SetMaxCorrespondenceDistance(0.1);
 		icpFirstTime.SetTransformationEpsilon(1e-10);
 		icpFirstTime.SetEuclideanFitnessEpsilon(0.01);
@@ -266,7 +266,7 @@ void MainWindow::ICPSlot()
 		icpPointCloud = icpFirstTime.GetOutputPointCloud();
 		for (int counter = 2; counter < pointClouds.size(); counter++)
 		{
-			MyICP icpElseTimes(icpPointCloud, pointClouds[counter]->GetCloud());
+			MyIterativeClosestPoint icpElseTimes(icpPointCloud, pointClouds[counter]->GetCloud());
 			icpElseTimes.SetMaxCorrespondenceDistance(0.1);
 			icpElseTimes.SetTransformationEpsilon(1e-10);
 			icpElseTimes.SetEuclideanFitnessEpsilon(0.01);
