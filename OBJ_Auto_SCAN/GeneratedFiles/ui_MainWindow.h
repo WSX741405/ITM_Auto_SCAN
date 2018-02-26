@@ -38,7 +38,9 @@ public:
     QAction *_controlMotorAction;
     QAction *_keepPointCloudAction;
     QAction *_setConfidenceAction;
-    QAction *IterativeClosestPointAction;
+    QAction *_IterativeClosestPointAction;
+    QAction *_openFileAction;
+    QAction *_saveFileAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QTableWidget *_pointCloudTable;
@@ -51,6 +53,7 @@ public:
     QMenu *menuControl_Motor;
     QMenu *menuPointCloud;
     QMenu *menuICP;
+    QMenu *menuFile;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -79,8 +82,12 @@ public:
         _keepPointCloudAction->setObjectName(QStringLiteral("_keepPointCloudAction"));
         _setConfidenceAction = new QAction(MainWindowForm);
         _setConfidenceAction->setObjectName(QStringLiteral("_setConfidenceAction"));
-        IterativeClosestPointAction = new QAction(MainWindowForm);
-        IterativeClosestPointAction->setObjectName(QStringLiteral("IterativeClosestPointAction"));
+        _IterativeClosestPointAction = new QAction(MainWindowForm);
+        _IterativeClosestPointAction->setObjectName(QStringLiteral("_IterativeClosestPointAction"));
+        _openFileAction = new QAction(MainWindowForm);
+        _openFileAction->setObjectName(QStringLiteral("_openFileAction"));
+        _saveFileAction = new QAction(MainWindowForm);
+        _saveFileAction->setObjectName(QStringLiteral("_saveFileAction"));
         centralWidget = new QWidget(MainWindowForm);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
@@ -109,6 +116,8 @@ public:
         menuPointCloud->setObjectName(QStringLiteral("menuPointCloud"));
         menuICP = new QMenu(menuPointCloud);
         menuICP->setObjectName(QStringLiteral("menuICP"));
+        menuFile = new QMenu(menuBar);
+        menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindowForm->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindowForm);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -117,6 +126,7 @@ public:
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindowForm->setStatusBar(statusBar);
 
+        menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuCamera->menuAction());
         menuBar->addAction(menuArduino->menuAction());
         menuBar->addAction(menuPointCloud->menuAction());
@@ -135,7 +145,9 @@ public:
         menuControl_Motor->addAction(_controlMotorAction);
         menuPointCloud->addAction(_keepPointCloudAction);
         menuPointCloud->addAction(menuICP->menuAction());
-        menuICP->addAction(IterativeClosestPointAction);
+        menuICP->addAction(_IterativeClosestPointAction);
+        menuFile->addAction(_openFileAction);
+        menuFile->addAction(_saveFileAction);
 
         retranslateUi(MainWindowForm);
 
@@ -155,7 +167,9 @@ public:
         _controlMotorAction->setText(QApplication::translate("MainWindowForm", "Control Motor", Q_NULLPTR));
         _keepPointCloudAction->setText(QApplication::translate("MainWindowForm", "Keep PointCloud", Q_NULLPTR));
         _setConfidenceAction->setText(QApplication::translate("MainWindowForm", "Set Confidence", Q_NULLPTR));
-        IterativeClosestPointAction->setText(QApplication::translate("MainWindowForm", "PCL IterativeClosestPoint", Q_NULLPTR));
+        _IterativeClosestPointAction->setText(QApplication::translate("MainWindowForm", "PCL IterativeClosestPoint", Q_NULLPTR));
+        _openFileAction->setText(QApplication::translate("MainWindowForm", "Open File", Q_NULLPTR));
+        _saveFileAction->setText(QApplication::translate("MainWindowForm", "Save File", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowForm", "Camera", Q_NULLPTR));
         menuPico_Flexx->setTitle(QApplication::translate("MainWindowForm", "Pico Flexx", Q_NULLPTR));
         menuIntel_Realsense->setTitle(QApplication::translate("MainWindowForm", "Intel Realsense", Q_NULLPTR));
@@ -164,6 +178,7 @@ public:
         menuControl_Motor->setTitle(QApplication::translate("MainWindowForm", "Control Motor", Q_NULLPTR));
         menuPointCloud->setTitle(QApplication::translate("MainWindowForm", "PointClouds", Q_NULLPTR));
         menuICP->setTitle(QApplication::translate("MainWindowForm", "ICP", Q_NULLPTR));
+        menuFile->setTitle(QApplication::translate("MainWindowForm", "File", Q_NULLPTR));
     } // retranslateUi
 
 };

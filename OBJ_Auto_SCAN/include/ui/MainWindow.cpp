@@ -7,16 +7,20 @@ MainWindow::MainWindow(QWidget *parent) :
 	_ui->setupUi(this);
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
+	_fileFactory = new FileFactory();
 	_arduino = new Arduino(COM_PORT);
 	_pointClouds = new MyPointClouds();
 	InitialPointCloudViewer();
 	InitialPointCloudTable();
 	RegisterObserver();
-	ConnectSlots();
+	InitialConnectSlots();
 }
 
-void MainWindow::ConnectSlots()
+void MainWindow::InitialConnectSlots()
 {
+	//		File
+	connect(_ui->_openFileAction, SIGNAL(triggered()), this, SLOT(OpenFileSlot()));
+	connect(_ui->_saveFileAction, SIGNAL(triggered()), this, SLOT(SaveFileSlot()));
 	//		Camera
 	connect(_ui->_startFlexxAction, SIGNAL(triggered()), this, SLOT(StartFlexxCameraSlot()));
 	connect(_ui->_stopFlexxAction, SIGNAL(triggered()), this, SLOT(StopCameraSlot()));
@@ -31,7 +35,7 @@ void MainWindow::ConnectSlots()
 	connect(_ui->_controlMotorAction, SIGNAL(triggered()), this, SLOT(ControlMotorSlot()));
 	//		PointClouds
 	connect(_ui->_keepPointCloudAction, SIGNAL(triggered()), this, SLOT(KeepPointCloudSlot()));
-	connect(_ui->IterativeClosestPointAction, SIGNAL(triggered()), this, SLOT(IterativeClosestPointSlot()));
+	connect(_ui->_IterativeClosestPointAction, SIGNAL(triggered()), this, SLOT(IterativeClosestPointSlot()));
 	connect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
 }
 
@@ -136,6 +140,57 @@ void MainWindow::TableItemChangeSlot(QTableWidgetItem* item)
 }
 
 //****************************************************************
+//								Slots : File
+//****************************************************************
+void MainWindow::OpenFileSlot()
+{
+	QFileDialog openFileDialog(this);
+	openFileDialog.setWindowTitle(tr("Open File"));
+	openFileDialog.setDirectory(".");
+	openFileDialog.setNameFilter(tr("OBJ(*.obj);;PLY(*.ply);;PCD(*.pcd)"));
+	if (openFileDialog.exec() == QDialog::Accepted)
+	{
+		QString dir = openFileDialog.selectedFiles()[0];
+		QString filter = openFileDialog.selectedNameFilter();
+		OpenFile(TypeConversion::QString2String(dir), TypeConversion::QString2String(filter));
+	}
+}
+
+void MainWindow::OpenFile(std::string dir, std::string filter)
+{
+	ThreeDFile* file = _fileFactory->GetFileByFilter(dir, filter);
+	file->LoadFile();
+	_pointClouds->AddPointCloud(file->GetPointCloud(), dir);
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
+}
+
+void MainWindow::SaveFileSlot()
+{
+	if (_pointClouds->GetPointCloudsByIsSelected().size() == 1)
+	{
+		QString filter;
+		QString dir = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("OBJ(*.obj);; PLY(*.ply);; PCD(*.pcd)"), &filter);
+		if (dir.isEmpty()) return;
+		else
+		{
+			SaveFile(TypeConversion::QString2String(dir), TypeConversion::QString2String(filter));
+		}
+	}
+	else
+	{
+		QMessageBox::about(this, tr("Save File"), tr("Selected Point Cloud More Than One"));
+	}
+}
+
+void MainWindow::SaveFile(std::string dir, std::string filter)
+{
+	std::vector<MyPointCloud*> pointClouds = _pointClouds->GetPointCloudsByIsSelected();
+	ThreeDFile* file = _fileFactory->GetFileByFilter(dir, filter);
+	file->SaveFile(pointClouds[0]->GetCloud());
+}
+
+//****************************************************************
 //								Slots : Camera
 //****************************************************************
 void MainWindow::StartFlexxCameraSlot()
@@ -163,7 +218,8 @@ void MainWindow::StopCameraSlot()
 void MainWindow::SetCameraDepthConfidenceSlot()
 {
 	bool ok;
-	std::string str = InputDialog(&ok, "Set Camera Depth Confidence", "Input Depth Confidence");
+	std::string str = InputDialog(&ok, "Set Camera Depth Confidence", "Depth Confidence");
+	if (!ok)	return;
 	if (_grabber == NULL)return;
 	_grabber->SetDepthConfidence(TypeConversion::String2Int(str));
 }
@@ -174,7 +230,7 @@ void MainWindow::SetCameraDepthConfidenceSlot()
 void MainWindow::GetNumberOfBytesSlot()
 {
 	bool ok;
-	std::string str = InputDialog(&ok, "Communicate Arduino", "Input Data");
+	std::string str = InputDialog(&ok, "Communicate Arduino", "Data");
 	if (!ok)	return;
 	int len = str.length();
 	_arduino->SendData(&str[0], len);
@@ -187,7 +243,7 @@ void MainWindow::GetNumberOfBytesSlot()
 void MainWindow::GetCharSlot()
 {
 	bool ok;
-	std::string str = InputDialog(&ok, "Communicate Arduino", "Input Data");
+	std::string str = InputDialog(&ok, "Communicate Arduino", "Data");
 	if (!ok)	return;
 	_arduino->SendData(str[0]);
 	Sleep(ARDUINO_SLEEP_TIME);
@@ -198,7 +254,7 @@ void MainWindow::GetCharSlot()
 void MainWindow::GetArraySlot()
 {
 	bool ok;
-	std::string str = InputDialog(&ok, "Communicate Arduino", "Input Data");
+	std::string str = InputDialog(&ok, "Communicate Arduino", "Data");
 	if (!ok)	return;
 	int len = str.length();
 	_arduino->SendData(&str[0], len);
@@ -210,10 +266,10 @@ void MainWindow::GetArraySlot()
 void MainWindow::ControlMotorSlot()
 {
 	bool motorOk;
-	std::string motorId = InputDialog(&motorOk, "Control Motor", "Input Motor Id");
+	std::string motorId = InputDialog(&motorOk, "Control Motor", "Motor Id");
 	if (!motorOk)	return;
 	bool degreeOk;
-	std::string degree = InputDialog(&degreeOk, "Control Motor", "Input Degree");
+	std::string degree = InputDialog(&degreeOk, "Control Motor", "Degree");
 	if (!degreeOk)	return;
 	int motorIdLen = motorId.length();
 	int degreeLen = degree.length();
@@ -234,7 +290,7 @@ void MainWindow::KeepPointCloudSlot()
 	boost::shared_ptr<pcl::PointCloud<PointT>> copyPointCloud;
 	copyPointCloud.reset(new pcl::PointCloud<PointT>(*_tmpPointCloud));
 	bool ok;
-	std::string cloudName = InputDialog(&ok, "Keep PointCloud", "Input Name");
+	std::string cloudName = InputDialog(&ok, "Keep PointCloud", "Cloud Name");
 	if (!ok)	return;
 	if (_pointClouds->IsNameExist(cloudName) || cloudName == "")
 	{
@@ -248,7 +304,7 @@ void MainWindow::KeepPointCloudSlot()
 void MainWindow::IterativeClosestPointSlot()
 {
 	bool ok;
-	std::string cloudName = InputDialog(&ok, "Control Motor", "Input Motor Id");
+	std::string cloudName = InputDialog(&ok, "Iterative Closest Point", "Cloud Name");
 	if (!ok)	return;
 	boost::shared_ptr<pcl::PointCloud<PointT>> icpPointCloud;
 	std::vector<MyPointCloud*> pointClouds = _pointClouds->GetPointCloudsByIsSelected();
@@ -276,4 +332,5 @@ void MainWindow::IterativeClosestPointSlot()
 		}
 	}
 	_pointClouds->AddPointCloud(icpPointCloud, cloudName);
+	UpdatePointCloudTable();
 }

@@ -15,19 +15,36 @@ public:
 	{
 	}
 
-	ThreeDFile* GetObjFile(std::string dir = "")
+	ThreeDFile* GetFileByFilter(std::string dir, std::string filter)
+	{
+		if (filter == std::string("OBJ(*.obj)"))
+		{
+			return GetObjFile(dir);
+		}
+		else if (filter == std::string("PLY(*.ply)"))
+		{
+			return GetPlyFile(dir);
+		}
+		else if (filter == std::string("PCD(*.pcd)"))
+		{
+			return GetPcdFile(dir);
+		}
+		return NULL;
+	}
+
+	ThreeDFile* GetObjFile(std::string dir)
 	{
 		ObjFile* file = new ObjFile(dir);
 		return (ThreeDFile*)file;
 	}
 
-	ThreeDFile* GetPlyFile(std::string dir = "")
+	ThreeDFile* GetPlyFile(std::string dir)
 	{
 		PlyFile* file = new PlyFile(dir);
 		return (ThreeDFile*)file;
 	}
 
-	ThreeDFile* GetPcdFile(std::string dir = "")
+	ThreeDFile* GetPcdFile(std::string dir)
 	{
 		PcdFile* file = new PcdFile(dir);
 		return (ThreeDFile*)file;

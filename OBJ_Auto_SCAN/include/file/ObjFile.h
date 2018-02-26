@@ -28,6 +28,13 @@ public:
 		}
 	}
 
+	void SaveFile(boost::shared_ptr<pcl::PointCloud<PointT>> cloud)
+	{
+		pcl::PolygonMesh mesh;
+		toPCLPointCloud2(*cloud, mesh.cloud);
+		pcl::io::saveOBJFile(_dir, mesh);
+	}
+
 	boost::shared_ptr<pcl::PointCloud<PointT>> GetPointCloud()
 	{
 		return _cloud;

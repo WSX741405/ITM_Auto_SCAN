@@ -4,16 +4,17 @@
 #include <string>
 #include <pcl/io/io.h>
 
+typedef pcl::PointXYZRGBA PointT;
+
 class ThreeDFile
 {
 public:
-	typedef pcl::PointXYZRGBA PointT;
-
 	ThreeDFile(std::string dir) : _dir(dir)
 	{
 	}
 
 	virtual void LoadFile() = 0;
+	virtual void SaveFile(boost::shared_ptr<pcl::PointCloud<PointT>> cloud) = 0;
 	virtual boost::shared_ptr<pcl::PointCloud<PointT>> GetPointCloud() = 0;
 protected:
 	std::string _dir;

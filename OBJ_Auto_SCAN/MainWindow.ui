@@ -95,11 +95,19 @@
      <property name="title">
       <string>ICP</string>
      </property>
-     <addaction name="IterativeClosestPointAction"/>
+     <addaction name="_IterativeClosestPointAction"/>
     </widget>
     <addaction name="_keepPointCloudAction"/>
     <addaction name="menuICP"/>
    </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="_openFileAction"/>
+    <addaction name="_saveFileAction"/>
+   </widget>
+   <addaction name="menuFile"/>
    <addaction name="menuCamera"/>
    <addaction name="menuArduino"/>
    <addaction name="menuPointCloud"/>
@@ -163,9 +171,19 @@
     <string>Set Confidence</string>
    </property>
   </action>
-  <action name="IterativeClosestPointAction">
+  <action name="_IterativeClosestPointAction">
    <property name="text">
     <string>PCL IterativeClosestPoint</string>
+   </property>
+  </action>
+  <action name="_openFileAction">
+   <property name="text">
+    <string>Open File</string>
+   </property>
+  </action>
+  <action name="_saveFileAction">
+   <property name="text">
+    <string>Save File</string>
    </property>
   </action>
  </widget>

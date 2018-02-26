@@ -12,8 +12,10 @@ class MyIterativeClosestPoint
 public:
 	MyIterativeClosestPoint(boost::shared_ptr<pcl::PointCloud<PointT>> sourceCloud, boost::shared_ptr<pcl::PointCloud<PointT>> targetCloud)
 	{
+		_isDone = false;
 		_sourceCloud.reset(new pcl::PointCloud<PointT>(*sourceCloud));
 		_targetCloud.reset(new pcl::PointCloud<PointT>(*targetCloud));
+		_outputCloud.reset(new pcl::PointCloud<PointT>());
 	}
 
 	void ProcessICP()
@@ -22,10 +24,11 @@ public:
 		_icp.setInputTarget(_targetCloud);
 		_icp.align(*_outputCloud);
 		_outputCloud->resize(_targetCloud->size() + _outputCloud->size());
-		for (int counter = 0; counter; counter++)
+		for (int counter = 0; counter < _targetCloud->size(); counter++)
 		{
 			_outputCloud->push_back(_targetCloud->points[counter]);
 		}
+		_isDone = true;
 	}
 
 	void SetMaxCorrespondenceDistance(double threshold)
@@ -48,12 +51,28 @@ public:
 		_icp.setMaximumIterations(iteraction);
 	}
 
+	bool GetIsDone()
+	{
+		return _isDone;
+	}
+
 	boost::shared_ptr<pcl::PointCloud<PointT>> GetOutputPointCloud()
 	{
 		return _outputCloud;
 	}
 
+	bool GetHasConverged()
+	{
+		return _icp.hasConverged();
+	}
+
+	double GetFitnessScore()
+	{
+		return _icp.getFitnessScore();
+	}
+
 private:
+	bool _isDone;
 	boost::shared_ptr<pcl::PointCloud<PointT>> _sourceCloud;
 	boost::shared_ptr<pcl::PointCloud<PointT>> _targetCloud;
 	boost::shared_ptr<pcl::PointCloud<PointT>> _outputCloud;

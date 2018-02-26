@@ -15,12 +15,14 @@ Q_DECLARE_METATYPE(boost::shared_ptr<pcl::PointCloud<PointT>>);
 
 #include <QVTKWidget.h>
 #include<QMessageBox>
+#include <QFileDialog>
 #include<QInputDialog>
 #include <QCloseEvent>
 
 #include "ui_MainWindow.h"
 #include "ui/Viewer.h"
 #include "observer/ObserverFactory.h"
+#include "file/FileFactory.h"
 #include "grabber/GrabberFactory.h"
 #include "pointCloud/MyPointClouds.h"
 #include "pointCloud/MyICP.h"
@@ -47,6 +49,11 @@ signals:
 
 public slots:
 	//****************************************************************
+	//										File
+	//****************************************************************
+	void OpenFileSlot();
+	void SaveFileSlot();
+	//****************************************************************
 	//										Camera
 	//****************************************************************
 	void StartFlexxCameraSlot();
@@ -69,18 +76,21 @@ public slots:
 	void TableItemChangeSlot(QTableWidgetItem* item);
 
 private:
-	void ConnectSlots();
+	void InitialConnectSlots();
 	void InitialPointCloudViewer();
 	void InitialPointCloudTable();
 	void UpdatePointCloudViewer();
 	void UpdatePointCloudTable();
 	void RegisterObserver();
 	void closeEvent(QCloseEvent *event);
+	void OpenFile(std::string dir, std::string filter);
+	void SaveFile(std::string dir, std::string filter);
 
 	std::string InputDialog(bool* ok, const char* title = "", const char* label = "", const char* text = "");
 
 	Viewer* _viewer;
 	UIObserver* _uiObserver;
+	FileFactory* _fileFactory;
 	GrabberFactory* _grabberFactory;
 	IGrabber* _grabber;
 	SubjectFactory* _subjectFactory;

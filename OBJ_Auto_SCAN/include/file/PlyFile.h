@@ -21,6 +21,12 @@ public:
 			_cloud->points[index].a = 255;
 	}
 
+	void SaveFile(boost::shared_ptr<pcl::PointCloud<PointT>> cloud)
+	{
+		pcl::PLYWriter writer;
+		writer.write(_dir, *cloud);
+	}
+
 	boost::shared_ptr<pcl::PointCloud<PointT>> GetPointCloud()
 	{
 		return _cloud;
