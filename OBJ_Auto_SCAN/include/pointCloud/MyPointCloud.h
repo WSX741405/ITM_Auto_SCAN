@@ -9,8 +9,9 @@ typedef pcl::PointXYZRGBA PointT;
 class MyPointCloud
 {
 public:
-	MyPointCloud(boost::shared_ptr<pcl::PointCloud<PointT>> cloud, std::string name = "Name") : _cloud(cloud), _name(name)
+	MyPointCloud(boost::shared_ptr<pcl::PointCloud<PointT>> cloud, std::string name = "Name") : _name(name)
 	{
+		_cloud.reset(new pcl::PointCloud<PointT>(*cloud));
 		_isSelected = false;		//default
 	}
 

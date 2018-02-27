@@ -87,6 +87,13 @@
     <addaction name="menucommunicate"/>
     <addaction name="menuControl_Motor"/>
    </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="_openFileAction"/>
+    <addaction name="_saveFileAction"/>
+   </widget>
    <widget class="QMenu" name="menuPointCloud">
     <property name="title">
      <string>PointClouds</string>
@@ -97,15 +104,15 @@
      </property>
      <addaction name="_IterativeClosestPointAction"/>
     </widget>
-    <addaction name="_keepPointCloudAction"/>
+    <widget class="QMenu" name="menuKeep_PointCloud">
+     <property name="title">
+      <string>Keep PointCloud</string>
+     </property>
+     <addaction name="_keepOneFrameAction"/>
+     <addaction name="_keepPointCloudContinueFrameAction"/>
+    </widget>
+    <addaction name="menuKeep_PointCloud"/>
     <addaction name="menuICP"/>
-   </widget>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="_openFileAction"/>
-    <addaction name="_saveFileAction"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuCamera"/>
@@ -161,11 +168,6 @@
     <string>Control Motor</string>
    </property>
   </action>
-  <action name="_keepPointCloudAction">
-   <property name="text">
-    <string>Keep PointCloud</string>
-   </property>
-  </action>
   <action name="_setConfidenceAction">
    <property name="text">
     <string>Set Confidence</string>
@@ -184,6 +186,16 @@
   <action name="_saveFileAction">
    <property name="text">
     <string>Save File</string>
+   </property>
+  </action>
+  <action name="_keepOneFrameAction">
+   <property name="text">
+    <string>One Frame</string>
+   </property>
+  </action>
+  <action name="_keepPointCloudContinueFrameAction">
+   <property name="text">
+    <string>Continue Frame</string>
    </property>
   </action>
  </widget>

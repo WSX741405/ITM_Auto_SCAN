@@ -25,6 +25,7 @@ public:
 
 signals:
 	void UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+	void KeepFrame(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 
 private:
 	MainWindow* _mainWindow;

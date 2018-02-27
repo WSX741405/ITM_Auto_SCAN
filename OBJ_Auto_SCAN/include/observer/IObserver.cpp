@@ -8,6 +8,7 @@
 void UIObserver::Update(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
 {
 	emit UIObserver::UpdateViewer(pointCloud);
+	emit UIObserver::KeepFrame(pointCloud);
 }
 
 //		*****************************************************************

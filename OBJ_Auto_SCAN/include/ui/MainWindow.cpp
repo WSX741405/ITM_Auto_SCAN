@@ -34,7 +34,8 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_getArrayAction, SIGNAL(triggered()), this, SLOT(GetArraySlot()));
 	connect(_ui->_controlMotorAction, SIGNAL(triggered()), this, SLOT(ControlMotorSlot()));
 	//		PointClouds
-	connect(_ui->_keepPointCloudAction, SIGNAL(triggered()), this, SLOT(KeepPointCloudSlot()));
+	connect(_ui->_keepOneFrameAction, SIGNAL(triggered()), this, SLOT(KeepOneFrameSlot()));
+	connect(_ui->_keepContinueFrameAction, SIGNAL(triggered()), this, SLOT(KeepContinueFrameSlot()));
 	connect(_ui->_IterativeClosestPointAction, SIGNAL(triggered()), this, SLOT(IterativeClosestPointSlot()));
 	connect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
 }
@@ -126,8 +127,8 @@ std::string MainWindow::InputDialog(bool* ok, const char* title, const char* lab
 //****************************************************************
 void MainWindow::UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
 {
-	std::unique_lock<std::mutex> lock(_grabber->GetMutex());
 	_tmpPointCloud = pointCloud;
+	std::unique_lock<std::mutex> lock(_grabber->GetMutex());
 	_viewer->Show(_tmpPointCloud = pointCloud);
 	//_viewer->ResetCamera();
 	_ui->_qvtkWidget->update();
@@ -285,10 +286,10 @@ void MainWindow::ControlMotorSlot()
 //****************************************************************
 //								Slots : Point Cloud
 //****************************************************************
-void MainWindow::KeepPointCloudSlot()
+void MainWindow::KeepOneFrameSlot()
 {
-	boost::shared_ptr<pcl::PointCloud<PointT>> copyPointCloud;
-	copyPointCloud.reset(new pcl::PointCloud<PointT>(*_tmpPointCloud));
+	boost::shared_ptr<pcl::PointCloud<PointT>> copyCloud;
+	copyCloud.reset(new pcl::PointCloud<PointT>(*_tmpPointCloud));
 	bool ok;
 	std::string cloudName = InputDialog(&ok, "Keep PointCloud", "Cloud Name");
 	if (!ok)	return;
@@ -297,8 +298,33 @@ void MainWindow::KeepPointCloudSlot()
 		QMessageBox::about(this, tr("Keep PointCloud"), tr("Name is exist/empty!"));
 		return;
 	}
-	_pointClouds->AddPointCloud(copyPointCloud, cloudName);
+	_pointClouds->AddPointCloud(_tmpPointCloud, cloudName);
 	UpdatePointCloudTable();
+}
+
+void MainWindow::KeepContinueFrameSlot()
+{
+	if (TypeConversion::QString2String(_ui->_keepContinueFrameAction->text()) == "Continue Frame")
+	{
+		bool ok;
+		_keepCloudName = InputDialog(&ok, "Keep PointCloud", "Cloud Name");
+		if (!ok)	return;
+		_keepFrameNumber = 0;
+		connect(this->_uiObserver, SIGNAL(KeepFrame(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(KeepFrameSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
+		_ui->_keepContinueFrameAction->setText(QString("Stop"));
+	}
+	else if (TypeConversion::QString2String(_ui->_keepContinueFrameAction->text()) == "Stop")
+	{
+		disconnect(this->_uiObserver, SIGNAL(KeepFrame(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(KeepFrameSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
+		_ui->_keepContinueFrameAction->setText(QString("Continue Frame"));
+	}
+}
+
+void MainWindow::KeepFrameSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
+{
+	_pointClouds->AddPointCloud(pointCloud, _keepCloudName + std::string("_") + TypeConversion::Int2String(_keepFrameNumber));
+	UpdatePointCloudTable();
+	_keepFrameNumber++;
 }
 
 void MainWindow::IterativeClosestPointSlot()

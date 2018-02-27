@@ -44,10 +44,12 @@ class MainWindow : public QMainWindow
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 
-signals:
-	void OutputDialog(const char* title, const char* context);
-
 public slots:
+	//****************************************************************
+	//										UI
+	//****************************************************************
+	void UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+	void TableItemChangeSlot(QTableWidgetItem* item);
 	//****************************************************************
 	//										File
 	//****************************************************************
@@ -60,7 +62,6 @@ public slots:
 	void StartRSCameraSlot();
 	void StopCameraSlot();
 	void SetCameraDepthConfidenceSlot();
-	void UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 	//****************************************************************
 	//										Arduino
 	//****************************************************************
@@ -71,9 +72,10 @@ public slots:
 	//****************************************************************
 	//										Point Cloud
 	//****************************************************************
-	void KeepPointCloudSlot();
+	void KeepOneFrameSlot();
+	void KeepContinueFrameSlot();
 	void IterativeClosestPointSlot();
-	void TableItemChangeSlot(QTableWidgetItem* item);
+	void KeepFrameSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 
 private:
 	void InitialConnectSlots();
@@ -94,6 +96,8 @@ private:
 	GrabberFactory* _grabberFactory;
 	IGrabber* _grabber;
 	SubjectFactory* _subjectFactory;
+	int _keepFrameNumber;
+	std::string _keepCloudName;
 	boost::shared_ptr<pcl::PointCloud<PointT>> _tmpPointCloud;
 	MyPointClouds* _pointClouds;
 	Arduino* _arduino;
