@@ -187,8 +187,5 @@
     <ClInclude Include="include\pointCloud\MyPointClouds.h">
       <Filter>include\pointCloud</Filter>
     </ClInclude>
-    <ClInclude Include="include\pointCloud\MyICP.h">
-      <Filter>include\pointCloud</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

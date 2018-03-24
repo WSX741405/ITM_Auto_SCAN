@@ -25,7 +25,6 @@ Q_DECLARE_METATYPE(boost::shared_ptr<pcl::PointCloud<PointT>>);
 #include "file/FileFactory.h"
 #include "grabber/GrabberFactory.h"
 #include "pointCloud/MyPointClouds.h"
-#include "pointCloud/MyICP.h"
 #include "arduino/Arduino.h"
 #include "Conversion.h"
 
@@ -74,7 +73,6 @@ public slots:
 	//****************************************************************
 	void KeepOneFrameSlot();
 	void KeepContinueFrameSlot();
-	void IterativeClosestPointSlot();
 	void KeepFrameSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
 
 private:

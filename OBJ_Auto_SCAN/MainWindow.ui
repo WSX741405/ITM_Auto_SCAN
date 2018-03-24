@@ -24,15 +24,54 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTableWidget" name="_pointCloudTable">
+   <widget class="QToolBox" name="toolBox">
     <property name="geometry">
      <rect>
-      <x>800</x>
+      <x>790</x>
       <y>30</y>
       <width>460</width>
-      <height>200</height>
+      <height>500</height>
      </rect>
     </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="_pointCloudPage">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>460</width>
+       <height>448</height>
+      </rect>
+     </property>
+     <attribute name="label">
+      <string>Point Cloud</string>
+     </attribute>
+     <widget class="QTableWidget" name="_pointCloudTable">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>30</y>
+        <width>460</width>
+        <height>200</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>460</width>
+       <height>448</height>
+      </rect>
+     </property>
+     <attribute name="label">
+      <string>Page 2</string>
+     </attribute>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -98,21 +137,14 @@
     <property name="title">
      <string>PointClouds</string>
     </property>
-    <widget class="QMenu" name="menuICP">
-     <property name="title">
-      <string>ICP</string>
-     </property>
-     <addaction name="_IterativeClosestPointAction"/>
-    </widget>
     <widget class="QMenu" name="menuKeep_PointCloud">
      <property name="title">
       <string>Keep PointCloud</string>
      </property>
      <addaction name="_keepOneFrameAction"/>
-     <addaction name="_keepPointCloudContinueFrameAction"/>
+     <addaction name="_keepContinueFrameAction"/>
     </widget>
     <addaction name="menuKeep_PointCloud"/>
-    <addaction name="menuICP"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuCamera"/>
@@ -193,7 +225,7 @@
     <string>One Frame</string>
    </property>
   </action>
-  <action name="_keepPointCloudContinueFrameAction">
+  <action name="_keepContinueFrameAction">
    <property name="text">
     <string>Continue Frame</string>
    </property>

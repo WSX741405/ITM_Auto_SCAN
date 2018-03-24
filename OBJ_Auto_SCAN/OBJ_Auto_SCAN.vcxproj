@@ -48,7 +48,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>lib;D:\Software\QT5.9.1\5.9.1\msvc2015_64\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\lib;C:\Program Files (x86)\Intel\RSSDK\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>lib;D:\Software\QT5.9.1\5.9.1\msvc2015_64\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\lib;C:\Program Files (x86)\Intel\RSSDK\lib\x64;D:\Code\rs-master\cmake_build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>pcl_io_debug.lib;pcl_common_debug.lib;pcl_visualization_debug.lib;pcl_kdtree_debug.lib;pcl_search_debug.lib;libboost_thread-vc140-mt-gd-1_61.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;vtkGUISupportQt-7.0-gd.lib;vtkCommonCore-7.0-gd.lib;vtkCommonDataModel-7.0-gd.lib;vtkCommonMath-7.0-gd.lib;vtkRenderingCore-7.0-gd.lib;vtkRenderingOpenGL-7.0-gd.lib;vtkInteractionStyle-7.0-gd.lib;libpxc_d.lib;royale.lib;real_sense-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -140,7 +140,6 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="include\observer\ObserverFactory.h" />
-    <ClInclude Include="include\pointCloud\MyICP.h" />
     <ClInclude Include="include\pointCloud\MyPointCloud.h" />
     <ClInclude Include="include\pointCloud\MyPointClouds.h" />
     <ClInclude Include="include\rs\RS.h" />

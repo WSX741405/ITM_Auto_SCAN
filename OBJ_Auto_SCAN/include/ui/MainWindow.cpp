@@ -326,37 +326,3 @@ void MainWindow::KeepFrameSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointC
 	UpdatePointCloudTable();
 	_keepFrameNumber++;
 }
-
-void MainWindow::IterativeClosestPointSlot()
-{
-	bool ok;
-	std::string cloudName = InputDialog(&ok, "Iterative Closest Point", "Cloud Name");
-	if (!ok)	return;
-	boost::shared_ptr<pcl::PointCloud<PointT>> icpPointCloud;
-	std::vector<MyPointCloud*> pointClouds = _pointClouds->GetPointCloudsByIsSelected();
-	if (pointClouds.size() == 0)return;
-	else if (pointClouds.size() == 1)
-		icpPointCloud.reset(new pcl::PointCloud<PointT>(*pointClouds[0]->GetCloud()));
-	else
-	{
-		MyIterativeClosestPoint icpFirstTime(pointClouds[0]->GetCloud(), pointClouds[1]->GetCloud());
-		icpFirstTime.SetMaxCorrespondenceDistance(0.1);
-		icpFirstTime.SetTransformationEpsilon(1e-10);
-		icpFirstTime.SetEuclideanFitnessEpsilon(0.01);
-		icpFirstTime.SetMaximumIterations(100);
-		icpFirstTime.ProcessICP();
-		icpPointCloud = icpFirstTime.GetOutputPointCloud();
-		for (int counter = 2; counter < pointClouds.size(); counter++)
-		{
-			MyIterativeClosestPoint icpElseTimes(icpPointCloud, pointClouds[counter]->GetCloud());
-			icpElseTimes.SetMaxCorrespondenceDistance(0.1);
-			icpElseTimes.SetTransformationEpsilon(1e-10);
-			icpElseTimes.SetEuclideanFitnessEpsilon(0.01);
-			icpElseTimes.SetMaximumIterations(100);
-			icpElseTimes.ProcessICP();
-			icpPointCloud = icpElseTimes.GetOutputPointCloud();
-		}
-	}
-	_pointClouds->AddPointCloud(icpPointCloud, cloudName);
-	UpdatePointCloudTable();
-}

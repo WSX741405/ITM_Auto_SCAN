@@ -14,12 +14,14 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QToolBox>
 #include <QtWidgets/QWidget>
 #include "QVTKWidget.h"
 
@@ -44,7 +46,10 @@ public:
     QAction *_keepContinueFrameAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
+    QToolBox *toolBox;
+    QWidget *_pointCloudPage;
     QTableWidget *_pointCloudTable;
+    QWidget *page_2;
     QMenuBar *menuBar;
     QMenu *menuCamera;
     QMenu *menuPico_Flexx;
@@ -52,10 +57,9 @@ public:
     QMenu *menuArduino;
     QMenu *menucommunicate;
     QMenu *menuControl_Motor;
-    QMenu *menuPointCloud;
-    QMenu *menuICP;
-    QMenu *menuKeep_PointCloud;
     QMenu *menuFile;
+    QMenu *menuPointCloud;
+    QMenu *menuKeep_PointCloud;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -97,9 +101,20 @@ public:
         _qvtkWidget = new QVTKWidget(centralWidget);
         _qvtkWidget->setObjectName(QStringLiteral("_qvtkWidget"));
         _qvtkWidget->setGeometry(QRect(30, 30, 730, 730));
-        _pointCloudTable = new QTableWidget(centralWidget);
+        toolBox = new QToolBox(centralWidget);
+        toolBox->setObjectName(QStringLiteral("toolBox"));
+        toolBox->setGeometry(QRect(790, 30, 460, 500));
+        _pointCloudPage = new QWidget();
+        _pointCloudPage->setObjectName(QStringLiteral("_pointCloudPage"));
+        _pointCloudPage->setGeometry(QRect(0, 0, 460, 448));
+        _pointCloudTable = new QTableWidget(_pointCloudPage);
         _pointCloudTable->setObjectName(QStringLiteral("_pointCloudTable"));
-        _pointCloudTable->setGeometry(QRect(800, 30, 460, 200));
+        _pointCloudTable->setGeometry(QRect(0, 30, 460, 200));
+        toolBox->addItem(_pointCloudPage, QStringLiteral("Point Cloud"));
+        page_2 = new QWidget();
+        page_2->setObjectName(QStringLiteral("page_2"));
+        page_2->setGeometry(QRect(0, 0, 460, 448));
+        toolBox->addItem(page_2, QStringLiteral("Page 2"));
         MainWindowForm->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowForm);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -116,14 +131,12 @@ public:
         menucommunicate->setObjectName(QStringLiteral("menucommunicate"));
         menuControl_Motor = new QMenu(menuArduino);
         menuControl_Motor->setObjectName(QStringLiteral("menuControl_Motor"));
-        menuPointCloud = new QMenu(menuBar);
-        menuPointCloud->setObjectName(QStringLiteral("menuPointCloud"));
-        menuICP = new QMenu(menuPointCloud);
-        menuICP->setObjectName(QStringLiteral("menuICP"));
-        menuKeep_PointCloud = new QMenu(menuPointCloud);
-        menuKeep_PointCloud->setObjectName(QStringLiteral("menuKeep_PointCloud"));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
+        menuPointCloud = new QMenu(menuBar);
+        menuPointCloud->setObjectName(QStringLiteral("menuPointCloud"));
+        menuKeep_PointCloud = new QMenu(menuPointCloud);
+        menuKeep_PointCloud->setObjectName(QStringLiteral("menuKeep_PointCloud"));
         MainWindowForm->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindowForm);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -149,15 +162,16 @@ public:
         menucommunicate->addAction(_getCharAction);
         menucommunicate->addAction(_getArrayAction);
         menuControl_Motor->addAction(_controlMotorAction);
-        menuPointCloud->addAction(menuKeep_PointCloud->menuAction());
-        menuPointCloud->addAction(menuICP->menuAction());
-        menuICP->addAction(_IterativeClosestPointAction);
-        menuKeep_PointCloud->addAction(_keepOneFrameAction);
-        menuKeep_PointCloud->addAction(_keepContinueFrameAction);
         menuFile->addAction(_openFileAction);
         menuFile->addAction(_saveFileAction);
+        menuPointCloud->addAction(menuKeep_PointCloud->menuAction());
+        menuKeep_PointCloud->addAction(_keepOneFrameAction);
+        menuKeep_PointCloud->addAction(_keepContinueFrameAction);
 
         retranslateUi(MainWindowForm);
+
+        toolBox->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(MainWindowForm);
     } // setupUi
@@ -179,16 +193,17 @@ public:
         _saveFileAction->setText(QApplication::translate("MainWindowForm", "Save File", Q_NULLPTR));
         _keepOneFrameAction->setText(QApplication::translate("MainWindowForm", "One Frame", Q_NULLPTR));
         _keepContinueFrameAction->setText(QApplication::translate("MainWindowForm", "Continue Frame", Q_NULLPTR));
+        toolBox->setItemText(toolBox->indexOf(_pointCloudPage), QApplication::translate("MainWindowForm", "Point Cloud", Q_NULLPTR));
+        toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("MainWindowForm", "Page 2", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowForm", "Camera", Q_NULLPTR));
         menuPico_Flexx->setTitle(QApplication::translate("MainWindowForm", "Pico Flexx", Q_NULLPTR));
         menuIntel_Realsense->setTitle(QApplication::translate("MainWindowForm", "Intel Realsense", Q_NULLPTR));
         menuArduino->setTitle(QApplication::translate("MainWindowForm", "Arduino", Q_NULLPTR));
         menucommunicate->setTitle(QApplication::translate("MainWindowForm", "Communicate", Q_NULLPTR));
         menuControl_Motor->setTitle(QApplication::translate("MainWindowForm", "Control Motor", Q_NULLPTR));
-        menuPointCloud->setTitle(QApplication::translate("MainWindowForm", "PointClouds", Q_NULLPTR));
-        menuICP->setTitle(QApplication::translate("MainWindowForm", "ICP", Q_NULLPTR));
-        menuKeep_PointCloud->setTitle(QApplication::translate("MainWindowForm", "Keep PointCloud", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindowForm", "File", Q_NULLPTR));
+        menuPointCloud->setTitle(QApplication::translate("MainWindowForm", "PointClouds", Q_NULLPTR));
+        menuKeep_PointCloud->setTitle(QApplication::translate("MainWindowForm", "Keep PointCloud", Q_NULLPTR));
     } // retranslateUi
 
 };
