@@ -288,6 +288,7 @@ void MainWindow::ControlMotorSlot()
 //****************************************************************
 void MainWindow::KeepOneFrameSlot()
 {
+	if (_grabber == NULL)	return;
 	boost::shared_ptr<pcl::PointCloud<PointT>> copyCloud;
 	copyCloud.reset(new pcl::PointCloud<PointT>(*_tmpPointCloud));
 	bool ok;
@@ -304,6 +305,7 @@ void MainWindow::KeepOneFrameSlot()
 
 void MainWindow::KeepContinueFrameSlot()
 {
+	if (_grabber == NULL)	return;
 	if (TypeConversion::QString2String(_ui->_keepContinueFrameAction->text()) == "Continue Frame")
 	{
 		bool ok;

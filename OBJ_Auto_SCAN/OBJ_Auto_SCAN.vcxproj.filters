@@ -40,17 +40,8 @@
     <Filter Include="include\file">
       <UniqueIdentifier>{b838347c-fcf3-4cb7-afc3-62bcd435169e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\flexx">
-      <UniqueIdentifier>{42278393-892c-4d6b-9cc7-00776c30c23a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\observer">
       <UniqueIdentifier>{dc279f83-71e5-407f-8479-3377a69829f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\rs">
-      <UniqueIdentifier>{6aeacd61-85a3-4d1d-8b28-984ef39f824b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\rs\rsgrabber">
-      <UniqueIdentifier>{fe030005-29d4-4ca5-b96c-e844aca87481}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\grabber">
       <UniqueIdentifier>{fe1bec2e-cdf9-4bac-8960-1f7e6e79734a}</UniqueIdentifier>
@@ -60,6 +51,15 @@
     </Filter>
     <Filter Include="include\pointCloud">
       <UniqueIdentifier>{280da0a5-e5cf-4f99-8d90-38612368cd83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\grabber\rs">
+      <UniqueIdentifier>{b09c1161-0be2-426a-8d6a-7ea8eb8f751f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\grabber\flexx">
+      <UniqueIdentifier>{80ce7a3f-465b-4661-85b7-fcea50212d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\grabber\rs\rsgrabber">
+      <UniqueIdentifier>{0c57734f-93e9-4c4a-94cb-54ce8794a411}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,17 +75,8 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="include\flexx\Flexx.cpp">
-      <Filter>include\flexx</Filter>
-    </ClCompile>
     <ClCompile Include="include\observer\IObserver.cpp">
       <Filter>include\observer</Filter>
-    </ClCompile>
-    <ClCompile Include="include\rs\rsgrabber\real_sense_grabber.cpp">
-      <Filter>include\rs\rsgrabber</Filter>
-    </ClCompile>
-    <ClCompile Include="include\rs\RS.cpp">
-      <Filter>include\rs</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_IObserver.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -102,6 +93,15 @@
     <ClCompile Include="include\observer\ObserverFactory.cpp">
       <Filter>include\observer</Filter>
     </ClCompile>
+    <ClCompile Include="include\grabber\flexx\Flexx.cpp">
+      <Filter>include\grabber\flexx</Filter>
+    </ClCompile>
+    <ClCompile Include="include\grabber\rs\RS.cpp">
+      <Filter>include\grabber\rs</Filter>
+    </ClCompile>
+    <ClCompile Include="include\grabber\rs\rsgrabber\real_sense_grabber.cpp">
+      <Filter>include\grabber\rs\rsgrabber</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">
@@ -113,9 +113,6 @@
     <CustomBuild Include="include\ui\MainWindow.h">
       <Filter>include\ui</Filter>
     </CustomBuild>
-    <CustomBuild Include="include\flexx\Flexx.h">
-      <Filter>include\flexx</Filter>
-    </CustomBuild>
     <CustomBuild Include="include\observer\IObserver.h">
       <Filter>include\observer</Filter>
     </CustomBuild>
@@ -123,27 +120,6 @@
   <ItemGroup>
     <ClInclude Include="include\ui\Viewer.h">
       <Filter>include\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rs\rsgrabber\buffers.h">
-      <Filter>include\rs\rsgrabber</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rs\rsgrabber\buffers.hpp">
-      <Filter>include\rs\rsgrabber</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rs\rsgrabber\io_exception.h">
-      <Filter>include\rs\rsgrabber</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rs\rsgrabber\real_sense_device_manager.h">
-      <Filter>include\rs\rsgrabber</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rs\rsgrabber\real_sense_grabber.h">
-      <Filter>include\rs\rsgrabber</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rs\rsgrabber\time.h">
-      <Filter>include\rs\rsgrabber</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rs\RS.h">
-      <Filter>include\rs</Filter>
     </ClInclude>
     <ClInclude Include="include\grabber\Grabber.h">
       <Filter>include\grabber</Filter>
@@ -186,6 +162,30 @@
     </ClInclude>
     <ClInclude Include="include\pointCloud\MyPointClouds.h">
       <Filter>include\pointCloud</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grabber\flexx\Flexx.h">
+      <Filter>include\grabber\flexx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grabber\rs\RS.h">
+      <Filter>include\grabber\rs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grabber\rs\rsgrabber\buffers.h">
+      <Filter>include\grabber\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grabber\rs\rsgrabber\buffers.hpp">
+      <Filter>include\grabber\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grabber\rs\rsgrabber\io_exception.h">
+      <Filter>include\grabber\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grabber\rs\rsgrabber\real_sense_device_manager.h">
+      <Filter>include\grabber\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grabber\rs\rsgrabber\real_sense_grabber.h">
+      <Filter>include\grabber\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grabber\rs\rsgrabber\time.h">
+      <Filter>include\grabber\rs\rsgrabber</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

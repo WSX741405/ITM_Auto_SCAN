@@ -44,12 +44,13 @@ public:
     QAction *_saveFileAction;
     QAction *_keepOneFrameAction;
     QAction *_keepContinueFrameAction;
+    QAction *actionFeature;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QToolBox *toolBox;
-    QWidget *_pointCloudPage;
+    QWidget *_featureSetting;
+    QWidget *_s;
     QTableWidget *_pointCloudTable;
-    QWidget *page_2;
     QMenuBar *menuBar;
     QMenu *menuCamera;
     QMenu *menuPico_Flexx;
@@ -96,6 +97,8 @@ public:
         _keepOneFrameAction->setObjectName(QStringLiteral("_keepOneFrameAction"));
         _keepContinueFrameAction = new QAction(MainWindowForm);
         _keepContinueFrameAction->setObjectName(QStringLiteral("_keepContinueFrameAction"));
+        actionFeature = new QAction(MainWindowForm);
+        actionFeature->setObjectName(QStringLiteral("actionFeature"));
         centralWidget = new QWidget(MainWindowForm);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
@@ -103,18 +106,18 @@ public:
         _qvtkWidget->setGeometry(QRect(30, 30, 730, 730));
         toolBox = new QToolBox(centralWidget);
         toolBox->setObjectName(QStringLiteral("toolBox"));
-        toolBox->setGeometry(QRect(790, 30, 460, 500));
-        _pointCloudPage = new QWidget();
-        _pointCloudPage->setObjectName(QStringLiteral("_pointCloudPage"));
-        _pointCloudPage->setGeometry(QRect(0, 0, 460, 448));
-        _pointCloudTable = new QTableWidget(_pointCloudPage);
+        toolBox->setGeometry(QRect(790, 270, 460, 490));
+        _featureSetting = new QWidget();
+        _featureSetting->setObjectName(QStringLiteral("_featureSetting"));
+        _featureSetting->setGeometry(QRect(0, 0, 460, 438));
+        toolBox->addItem(_featureSetting, QStringLiteral("Feature Setting"));
+        _s = new QWidget();
+        _s->setObjectName(QStringLiteral("_s"));
+        _s->setGeometry(QRect(0, 0, 460, 438));
+        toolBox->addItem(_s, QStringLiteral("123"));
+        _pointCloudTable = new QTableWidget(centralWidget);
         _pointCloudTable->setObjectName(QStringLiteral("_pointCloudTable"));
-        _pointCloudTable->setGeometry(QRect(0, 30, 460, 200));
-        toolBox->addItem(_pointCloudPage, QStringLiteral("Point Cloud"));
-        page_2 = new QWidget();
-        page_2->setObjectName(QStringLiteral("page_2"));
-        page_2->setGeometry(QRect(0, 0, 460, 448));
-        toolBox->addItem(page_2, QStringLiteral("Page 2"));
+        _pointCloudTable->setGeometry(QRect(790, 30, 460, 200));
         MainWindowForm->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowForm);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -165,12 +168,13 @@ public:
         menuFile->addAction(_openFileAction);
         menuFile->addAction(_saveFileAction);
         menuPointCloud->addAction(menuKeep_PointCloud->menuAction());
+        menuPointCloud->addAction(actionFeature);
         menuKeep_PointCloud->addAction(_keepOneFrameAction);
         menuKeep_PointCloud->addAction(_keepContinueFrameAction);
 
         retranslateUi(MainWindowForm);
 
-        toolBox->setCurrentIndex(0);
+        toolBox->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindowForm);
@@ -193,8 +197,9 @@ public:
         _saveFileAction->setText(QApplication::translate("MainWindowForm", "Save File", Q_NULLPTR));
         _keepOneFrameAction->setText(QApplication::translate("MainWindowForm", "One Frame", Q_NULLPTR));
         _keepContinueFrameAction->setText(QApplication::translate("MainWindowForm", "Continue Frame", Q_NULLPTR));
-        toolBox->setItemText(toolBox->indexOf(_pointCloudPage), QApplication::translate("MainWindowForm", "Point Cloud", Q_NULLPTR));
-        toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("MainWindowForm", "Page 2", Q_NULLPTR));
+        actionFeature->setText(QApplication::translate("MainWindowForm", "Feature", Q_NULLPTR));
+        toolBox->setItemText(toolBox->indexOf(_featureSetting), QApplication::translate("MainWindowForm", "Feature Setting", Q_NULLPTR));
+        toolBox->setItemText(toolBox->indexOf(_s), QApplication::translate("MainWindowForm", "123", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowForm", "Camera", Q_NULLPTR));
         menuPico_Flexx->setTitle(QApplication::translate("MainWindowForm", "Pico Flexx", Q_NULLPTR));
         menuIntel_Realsense->setTitle(QApplication::translate("MainWindowForm", "Intel Realsense", Q_NULLPTR));

@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QVTKWidget" name="_qvtkWidget">
+   <widget class="QVTKWidget" name="_qvtkWidget" native="true">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -28,50 +28,50 @@
     <property name="geometry">
      <rect>
       <x>790</x>
-      <y>30</y>
+      <y>270</y>
       <width>460</width>
-      <height>500</height>
+      <height>490</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
-    <widget class="QWidget" name="_pointCloudPage">
+    <widget class="QWidget" name="_featureSetting">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
        <width>460</width>
-       <height>448</height>
+       <height>438</height>
       </rect>
      </property>
      <attribute name="label">
-      <string>Point Cloud</string>
+      <string>Feature Setting</string>
      </attribute>
-     <widget class="QTableWidget" name="_pointCloudTable">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>30</y>
-        <width>460</width>
-        <height>200</height>
-       </rect>
-      </property>
-     </widget>
     </widget>
-    <widget class="QWidget" name="page_2">
+    <widget class="QWidget" name="_s">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
        <width>460</width>
-       <height>448</height>
+       <height>438</height>
       </rect>
      </property>
      <attribute name="label">
-      <string>Page 2</string>
+      <string>123</string>
      </attribute>
     </widget>
+   </widget>
+   <widget class="QTableWidget" name="_pointCloudTable">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>30</y>
+      <width>460</width>
+      <height>200</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -145,6 +145,7 @@
      <addaction name="_keepContinueFrameAction"/>
     </widget>
     <addaction name="menuKeep_PointCloud"/>
+    <addaction name="actionFeature"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuCamera"/>
@@ -228,6 +229,11 @@
   <action name="_keepContinueFrameAction">
    <property name="text">
     <string>Continue Frame</string>
+   </property>
+  </action>
+  <action name="actionFeature">
+   <property name="text">
+    <string>Feature</string>
    </property>
   </action>
  </widget>
