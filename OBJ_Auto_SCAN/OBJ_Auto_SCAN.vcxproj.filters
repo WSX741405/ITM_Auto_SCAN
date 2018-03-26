@@ -61,6 +61,12 @@
     <Filter Include="include\grabber\rs\rsgrabber">
       <UniqueIdentifier>{0c57734f-93e9-4c4a-94cb-54ce8794a411}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\pointCloudProcessing">
+      <UniqueIdentifier>{8b14c8f6-74f7-4053-8a55-51ae727dc3c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\pointCloudProcessing\feature">
+      <UniqueIdentifier>{828e12c0-c8d7-4f87-b9e5-638f0e2d0c85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\main.cpp">
@@ -101,6 +107,15 @@
     </ClCompile>
     <ClCompile Include="include\grabber\rs\rsgrabber\real_sense_grabber.cpp">
       <Filter>include\grabber\rs\rsgrabber</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\feature\FeatureFactory.cpp">
+      <Filter>include\pointCloudProcessing\feature</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\feature\FeatureProcessing.cpp">
+      <Filter>include\pointCloudProcessing\feature</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\feature\MyPFH.cpp">
+      <Filter>include\pointCloudProcessing\feature</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +201,15 @@
     </ClInclude>
     <ClInclude Include="include\grabber\rs\rsgrabber\time.h">
       <Filter>include\grabber\rs\rsgrabber</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\feature\FeatureFactory.h">
+      <Filter>include\pointCloudProcessing\feature</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\feature\FeatureProcessing.h">
+      <Filter>include\pointCloudProcessing\feature</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\feature\MyPFH.h">
+      <Filter>include\pointCloudProcessing\feature</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

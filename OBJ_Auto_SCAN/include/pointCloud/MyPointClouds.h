@@ -4,8 +4,6 @@
 #include <vector>
 #include <pointCloud/MyPointCloud.h>
 
-typedef pcl::PointXYZRGBA PointT;
-
 class MyPointClouds
 {
 public:

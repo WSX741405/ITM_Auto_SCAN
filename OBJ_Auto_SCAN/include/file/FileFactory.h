@@ -6,8 +6,6 @@
 #include "file/plyFile.h";
 #include "file/pcdFile.h";
 
-typedef pcl::PointXYZRGBA PointT;
-
 class FileFactory
 {
 public:

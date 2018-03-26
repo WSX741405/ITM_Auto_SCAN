@@ -5,8 +5,6 @@
 #include "flexx/Flexx.h"
 #include "rs/RS.h"
 
-typedef pcl::PointXYZRGBA PointT;
-
 class IGrabber;
 class Flexx;
 class Realsense;

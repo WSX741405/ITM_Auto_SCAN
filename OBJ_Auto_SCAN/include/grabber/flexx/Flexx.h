@@ -11,8 +11,6 @@
 #include "grabber/Grabber.h"
 #include "observer/IObserver.h"
 
-typedef pcl::PointXYZRGBA PointT;
-
 class ISubject;
 
 //		*****************************************************************

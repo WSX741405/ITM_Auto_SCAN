@@ -4,8 +4,6 @@
 #include <string>
 #include <pcl/io/io.h>
 
-typedef pcl::PointXYZRGBA PointT;
-
 class ThreeDFile
 {
 public:

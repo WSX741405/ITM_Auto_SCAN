@@ -4,8 +4,6 @@
 #include <pcl/visualization/cloud_viewer.h>
 #include <vtkRenderWindow.h>
 
-typedef pcl::PointXYZRGBA PointT;
-
 class Viewer
 {
 public:

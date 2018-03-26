@@ -90,6 +90,9 @@
     <ClCompile Include="include\main.cpp" />
     <ClCompile Include="include\observer\IObserver.cpp" />
     <ClCompile Include="include\observer\ObserverFactory.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\feature\FeatureFactory.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\feature\FeatureProcessing.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\feature\MyPFH.cpp" />
     <ClCompile Include="include\ui\MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +137,9 @@
     <ClInclude Include="include\grabber\rs\rsgrabber\real_sense_grabber.h" />
     <ClInclude Include="include\grabber\rs\rsgrabber\time.h" />
     <ClInclude Include="include\observer\ObserverFactory.h" />
+    <ClInclude Include="include\pointCloudProcessing\feature\FeatureFactory.h" />
+    <ClInclude Include="include\pointCloudProcessing\feature\FeatureProcessing.h" />
+    <ClInclude Include="include\pointCloudProcessing\feature\MyPFH.h" />
     <ClInclude Include="include\pointCloud\MyPointCloud.h" />
     <ClInclude Include="include\pointCloud\MyPointClouds.h" />
     <ClInclude Include="include\Conversion.h" />

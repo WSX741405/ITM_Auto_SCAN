@@ -8,8 +8,6 @@
 #include "observer/IObserver.h"
 #include <mutex>
 
-typedef pcl::PointXYZRGBA PointT;
-
 class ISubject;
 
 class Realsense : IGrabber
