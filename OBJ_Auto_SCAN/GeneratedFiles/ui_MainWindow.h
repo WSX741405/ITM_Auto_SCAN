@@ -13,11 +13,15 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBar>
@@ -48,8 +52,18 @@ public:
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QToolBox *toolBox;
-    QWidget *_featureSetting;
-    QWidget *_s;
+    QWidget *_filterProcessingPage;
+    QPushButton *_filterProcessingButton;
+    QComboBox *comboBox;
+    QLabel *label_3;
+    QLabel *label;
+    QLabel *label_2;
+    QDoubleSpinBox *_filterXSpinBox;
+    QDoubleSpinBox *_filterYSpinBox;
+    QDoubleSpinBox *_filterZSpinBox;
+    QWidget *_featureProcessingPage;
+    QComboBox *_selectedProcessComboBox;
+    QPushButton *_featureProcessingButton;
     QTableWidget *_pointCloudTable;
     QMenuBar *menuBar;
     QMenu *menuCamera;
@@ -107,14 +121,56 @@ public:
         toolBox = new QToolBox(centralWidget);
         toolBox->setObjectName(QStringLiteral("toolBox"));
         toolBox->setGeometry(QRect(790, 270, 460, 490));
-        _featureSetting = new QWidget();
-        _featureSetting->setObjectName(QStringLiteral("_featureSetting"));
-        _featureSetting->setGeometry(QRect(0, 0, 460, 438));
-        toolBox->addItem(_featureSetting, QStringLiteral("Feature Setting"));
-        _s = new QWidget();
-        _s->setObjectName(QStringLiteral("_s"));
-        _s->setGeometry(QRect(0, 0, 460, 438));
-        toolBox->addItem(_s, QStringLiteral("123"));
+        _filterProcessingPage = new QWidget();
+        _filterProcessingPage->setObjectName(QStringLiteral("_filterProcessingPage"));
+        _filterProcessingPage->setGeometry(QRect(0, 0, 460, 438));
+        _filterProcessingButton = new QPushButton(_filterProcessingPage);
+        _filterProcessingButton->setObjectName(QStringLiteral("_filterProcessingButton"));
+        _filterProcessingButton->setGeometry(QRect(30, 300, 150, 40));
+        QFont font;
+        font.setPointSize(20);
+        _filterProcessingButton->setFont(font);
+        comboBox = new QComboBox(_filterProcessingPage);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox->setGeometry(QRect(30, 30, 150, 40));
+        comboBox->setFont(font);
+        label_3 = new QLabel(_filterProcessingPage);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(30, 200, 50, 30));
+        label_3->setFont(font);
+        label = new QLabel(_filterProcessingPage);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(30, 100, 50, 30));
+        label->setFont(font);
+        label_2 = new QLabel(_filterProcessingPage);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(30, 150, 50, 30));
+        label_2->setFont(font);
+        _filterXSpinBox = new QDoubleSpinBox(_filterProcessingPage);
+        _filterXSpinBox->setObjectName(QStringLiteral("_filterXSpinBox"));
+        _filterXSpinBox->setGeometry(QRect(80, 100, 80, 30));
+        _filterXSpinBox->setFont(font);
+        _filterYSpinBox = new QDoubleSpinBox(_filterProcessingPage);
+        _filterYSpinBox->setObjectName(QStringLiteral("_filterYSpinBox"));
+        _filterYSpinBox->setGeometry(QRect(80, 150, 80, 30));
+        _filterYSpinBox->setFont(font);
+        _filterZSpinBox = new QDoubleSpinBox(_filterProcessingPage);
+        _filterZSpinBox->setObjectName(QStringLiteral("_filterZSpinBox"));
+        _filterZSpinBox->setGeometry(QRect(80, 200, 80, 30));
+        _filterZSpinBox->setFont(font);
+        toolBox->addItem(_filterProcessingPage, QStringLiteral("Filter Processing"));
+        _featureProcessingPage = new QWidget();
+        _featureProcessingPage->setObjectName(QStringLiteral("_featureProcessingPage"));
+        _featureProcessingPage->setGeometry(QRect(0, 0, 460, 438));
+        _selectedProcessComboBox = new QComboBox(_featureProcessingPage);
+        _selectedProcessComboBox->setObjectName(QStringLiteral("_selectedProcessComboBox"));
+        _selectedProcessComboBox->setGeometry(QRect(30, 30, 150, 40));
+        _selectedProcessComboBox->setFont(font);
+        _featureProcessingButton = new QPushButton(_featureProcessingPage);
+        _featureProcessingButton->setObjectName(QStringLiteral("_featureProcessingButton"));
+        _featureProcessingButton->setGeometry(QRect(30, 300, 150, 40));
+        _featureProcessingButton->setFont(font);
+        toolBox->addItem(_featureProcessingPage, QStringLiteral("Feature Processing"));
         _pointCloudTable = new QTableWidget(centralWidget);
         _pointCloudTable->setObjectName(QStringLiteral("_pointCloudTable"));
         _pointCloudTable->setGeometry(QRect(790, 30, 460, 200));
@@ -168,13 +224,12 @@ public:
         menuFile->addAction(_openFileAction);
         menuFile->addAction(_saveFileAction);
         menuPointCloud->addAction(menuKeep_PointCloud->menuAction());
-        menuPointCloud->addAction(actionFeature);
         menuKeep_PointCloud->addAction(_keepOneFrameAction);
         menuKeep_PointCloud->addAction(_keepContinueFrameAction);
 
         retranslateUi(MainWindowForm);
 
-        toolBox->setCurrentIndex(1);
+        toolBox->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindowForm);
@@ -198,8 +253,22 @@ public:
         _keepOneFrameAction->setText(QApplication::translate("MainWindowForm", "One Frame", Q_NULLPTR));
         _keepContinueFrameAction->setText(QApplication::translate("MainWindowForm", "Continue Frame", Q_NULLPTR));
         actionFeature->setText(QApplication::translate("MainWindowForm", "Feature", Q_NULLPTR));
-        toolBox->setItemText(toolBox->indexOf(_featureSetting), QApplication::translate("MainWindowForm", "Feature Setting", Q_NULLPTR));
-        toolBox->setItemText(toolBox->indexOf(_s), QApplication::translate("MainWindowForm", "123", Q_NULLPTR));
+        _filterProcessingButton->setText(QApplication::translate("MainWindowForm", "Processing", Q_NULLPTR));
+        comboBox->clear();
+        comboBox->insertItems(0, QStringList()
+         << QApplication::translate("MainWindowForm", "Voxel Grid", Q_NULLPTR)
+        );
+        label_3->setText(QApplication::translate("MainWindowForm", "Z\357\274\232", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindowForm", "X\357\274\232", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindowForm", "Y\357\274\232", Q_NULLPTR));
+        toolBox->setItemText(toolBox->indexOf(_filterProcessingPage), QApplication::translate("MainWindowForm", "Filter Processing", Q_NULLPTR));
+        _selectedProcessComboBox->clear();
+        _selectedProcessComboBox->insertItems(0, QStringList()
+         << QApplication::translate("MainWindowForm", "SIFT3D", Q_NULLPTR)
+        );
+        _selectedProcessComboBox->setCurrentText(QApplication::translate("MainWindowForm", "SIFT3D", Q_NULLPTR));
+        _featureProcessingButton->setText(QApplication::translate("MainWindowForm", "Processing", Q_NULLPTR));
+        toolBox->setItemText(toolBox->indexOf(_featureProcessingPage), QApplication::translate("MainWindowForm", "Feature Processing", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowForm", "Camera", Q_NULLPTR));
         menuPico_Flexx->setTitle(QApplication::translate("MainWindowForm", "Pico Flexx", Q_NULLPTR));
         menuIntel_Realsense->setTitle(QApplication::translate("MainWindowForm", "Intel Realsense", Q_NULLPTR));

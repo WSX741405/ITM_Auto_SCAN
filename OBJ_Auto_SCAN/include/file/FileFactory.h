@@ -1,7 +1,7 @@
 #ifndef FILE_FACTORY
 #define FILE_FACTORY
 
-#include "file/3DFile.h";
+#include "file/MyFile.h";
 #include "file/objFile.h";
 #include "file/plyFile.h";
 #include "file/pcdFile.h";
@@ -13,7 +13,7 @@ public:
 	{
 	}
 
-	ThreeDFile* GetFileByFilter(std::string dir, std::string filter)
+	MyFile* GetFileByFilter(std::string dir, std::string filter)
 	{
 		if (filter == std::string("OBJ(*.obj)"))
 		{
@@ -30,22 +30,22 @@ public:
 		return NULL;
 	}
 
-	ThreeDFile* GetObjFile(std::string dir)
+	MyFile* GetObjFile(std::string dir)
 	{
 		ObjFile* file = new ObjFile(dir);
-		return (ThreeDFile*)file;
+		return (MyFile*)file;
 	}
 
-	ThreeDFile* GetPlyFile(std::string dir)
+	MyFile* GetPlyFile(std::string dir)
 	{
 		PlyFile* file = new PlyFile(dir);
-		return (ThreeDFile*)file;
+		return (MyFile*)file;
 	}
 
-	ThreeDFile* GetPcdFile(std::string dir)
+	MyFile* GetPcdFile(std::string dir)
 	{
 		PcdFile* file = new PcdFile(dir);
-		return (ThreeDFile*)file;
+		return (MyFile*)file;
 	}
 };
 

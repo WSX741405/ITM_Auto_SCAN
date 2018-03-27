@@ -27,6 +27,8 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include "pointCloud/MyPointClouds.h"
 #include "arduino/Arduino.h"
 #include "Conversion.h"
+#include "pointCloudProcessing/feature/FeatureFactory.h"
+#include "pointCloudProcessing/filter/FilterFactory.h"
 
 class UIObserver;
 class ISubject;
@@ -74,6 +76,11 @@ public slots:
 	void KeepOneFrameSlot();
 	void KeepContinueFrameSlot();
 	void KeepFrameSlot(pcl::PointCloud<PointT>::Ptr pointCloud);
+	//	Feature
+	void ProcessFeatureSlot();
+	//	Filter
+	void ProcessFilterSlot();
+	void SetFilterXYZSlot();
 
 private:
 	void InitialConnectSlots();
@@ -100,6 +107,11 @@ private:
 	MyPointClouds* _pointClouds;
 	Arduino* _arduino;
 	Ui::MainWindowForm* _ui;
+
+	FeatureFactory* _featureFactory;
+	FeatureProcessing* _featureProcessing;
+	FilterFactory* _filterFactory;
+	FilterProcessing* _filterProcessing;
 };
 
 #endif

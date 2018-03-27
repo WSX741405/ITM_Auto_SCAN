@@ -67,6 +67,9 @@
     <Filter Include="include\pointCloudProcessing\feature">
       <UniqueIdentifier>{828e12c0-c8d7-4f87-b9e5-638f0e2d0c85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\pointCloudProcessing\filter">
+      <UniqueIdentifier>{b5f2f3f6-3017-4dd0-bdf9-55fb9ccfc379}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\main.cpp">
@@ -111,10 +114,13 @@
     <ClCompile Include="include\pointCloudProcessing\feature\FeatureFactory.cpp">
       <Filter>include\pointCloudProcessing\feature</Filter>
     </ClCompile>
-    <ClCompile Include="include\pointCloudProcessing\feature\FeatureProcessing.cpp">
-      <Filter>include\pointCloudProcessing\feature</Filter>
+    <ClCompile Include="include\pointCloudProcessing\filter\VoxelGridFilter.cpp">
+      <Filter>include\pointCloudProcessing\filter</Filter>
     </ClCompile>
-    <ClCompile Include="include\pointCloudProcessing\feature\MyPFH.cpp">
+    <ClCompile Include="include\pointCloudProcessing\filter\FilterFactory.cpp">
+      <Filter>include\pointCloudProcessing\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\feature\MySift3D.cpp">
       <Filter>include\pointCloudProcessing\feature</Filter>
     </ClCompile>
   </ItemGroup>
@@ -150,9 +156,6 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
       <Filter>Generated Files\Release</Filter>
-    </ClInclude>
-    <ClInclude Include="include\file\3DFile.h">
-      <Filter>include\file</Filter>
     </ClInclude>
     <ClInclude Include="include\file\FileFactory.h">
       <Filter>include\file</Filter>
@@ -208,8 +211,20 @@
     <ClInclude Include="include\pointCloudProcessing\feature\FeatureProcessing.h">
       <Filter>include\pointCloudProcessing\feature</Filter>
     </ClInclude>
-    <ClInclude Include="include\pointCloudProcessing\feature\MyPFH.h">
+    <ClInclude Include="include\pointCloudProcessing\filter\VoxelGridFilter.h">
+      <Filter>include\pointCloudProcessing\filter</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\filter\FilterProcessing.h">
+      <Filter>include\pointCloudProcessing\filter</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\filter\FilterFactory.h">
+      <Filter>include\pointCloudProcessing\filter</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\feature\MySift3D.h">
       <Filter>include\pointCloudProcessing\feature</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\MyFile.h">
+      <Filter>include\file</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

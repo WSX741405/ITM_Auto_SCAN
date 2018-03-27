@@ -3,12 +3,12 @@
 
 #include <pcl/io/io.h>
 #include <pcl/io/ply_io.h>
-#include "file/3DFile.h";
+#include "file/MyFile.h";
 
-class PlyFile : ThreeDFile
+class PlyFile : MyFile
 {
 public:
-	PlyFile(std::string dir = "") : ThreeDFile(dir)
+	PlyFile(std::string dir = "") : MyFile(dir)
 	{
 		_cloud.reset(new pcl::PointCloud<PointT>);
 	}

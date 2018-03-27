@@ -49,7 +49,7 @@ public:
 
 	pcl::PointCloud<PointT>::Ptr GetPointCloudById(int id)
 	{
-		return _pointClouds[id]->GetCloud();
+		return _pointClouds[id]->GetPointCloud();
 	}
 
 	void SetIsSelectedById(int id, bool isShow)

@@ -1,13 +1,13 @@
-#ifndef THREE_D_FILE
-#define THREE_D_FILE
+#ifndef MY_FILE
+#define MY_FILE
 
 #include <string>
 #include <pcl/io/io.h>
 
-class ThreeDFile
+class MyFile
 {
 public:
-	ThreeDFile(std::string dir) : _dir(dir)
+	MyFile(std::string dir) : _dir(dir)
 	{
 	}
 

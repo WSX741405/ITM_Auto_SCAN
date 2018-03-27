@@ -1,9 +1,10 @@
 #include "ui/MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-	QMainWindow(parent), _ui(new Ui::MainWindowForm), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory())
+	QMainWindow(parent), _ui(new Ui::MainWindowForm), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory()), _featureFactory(new FeatureFactory()), _filterFactory(new FilterFactory())
 {
 	qRegisterMetaType<pcl::PointCloud<PointT>::Ptr>("pcl::PointCloud<PointT>::Ptr");
+	_filterProcessing = _filterFactory->GetVoixelGridFilter();
 	_ui->setupUi(this);
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
@@ -38,6 +39,13 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_keepContinueFrameAction, SIGNAL(triggered()), this, SLOT(KeepContinueFrameSlot()));
 	connect(_ui->_IterativeClosestPointAction, SIGNAL(triggered()), this, SLOT(IterativeClosestPointSlot()));
 	connect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
+	//		Feature
+	connect(_ui->_featureProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessFeatureSlot()));
+	//		Filter
+	connect(_ui->_filterProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessFilterSlot()));
+	connect(_ui->_filterXSpinBox, SIGNAL(textChanged()), this, SLOT(SetFilterXYZSlot()));
+	connect(_ui->_filterYSpinBox, SIGNAL(textChanged()), this, SLOT(SetFilterXYZSlot()));
+	connect(_ui->_filterZSpinBox, SIGNAL(textChanged()), this, SLOT(SetFilterXYZSlot()));
 }
 
 //****************************************************************
@@ -159,7 +167,7 @@ void MainWindow::OpenFileSlot()
 
 void MainWindow::OpenFile(std::string dir, std::string filter)
 {
-	ThreeDFile* file = _fileFactory->GetFileByFilter(dir, filter);
+	MyFile* file = _fileFactory->GetFileByFilter(dir, filter);
 	file->LoadFile();
 	_pointClouds->AddPointCloud(file->GetPointCloud(), dir);
 	UpdatePointCloudTable();
@@ -180,15 +188,15 @@ void MainWindow::SaveFileSlot()
 	}
 	else
 	{
-		QMessageBox::about(this, tr("Save File"), tr("Selected Point Cloud More Than One"));
+		QMessageBox::about(this, tr("Save File"), tr("Select Only One Point Cloud"));
 	}
 }
 
 void MainWindow::SaveFile(std::string dir, std::string filter)
 {
 	std::vector<MyPointCloud*> pointClouds = _pointClouds->GetPointCloudsByIsSelected();
-	ThreeDFile* file = _fileFactory->GetFileByFilter(dir, filter);
-	file->SaveFile(pointClouds[0]->GetCloud());
+	MyFile* file = _fileFactory->GetFileByFilter(dir, filter);
+	file->SaveFile(pointClouds[0]->GetPointCloud());
 }
 
 //****************************************************************
@@ -327,4 +335,35 @@ void MainWindow::KeepFrameSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 	_pointClouds->AddPointCloud(pointCloud, _keepCloudName + std::string("_") + TypeConversion::Int2String(_keepFrameNumber));
 	UpdatePointCloudTable();
 	_keepFrameNumber++;
+}
+
+//****************************************************************
+//								Slots : Filter Processing
+//****************************************************************
+void MainWindow::ProcessFilterSlot()
+{
+	std::vector<MyPointCloud*> clouds = _pointClouds->GetPointCloudsByIsSelected();
+	for (int counter = 0; counter < clouds.size(); counter++)
+	{
+		_filterProcessing->Processing(clouds[counter]->GetPointCloud());
+		_pointClouds->AddPointCloud(_filterProcessing->GetResult(), clouds[counter]->GetName() + std::string("_VoxelGridFiltered"));
+		UpdatePointCloudTable();
+	}
+}
+
+void MainWindow::SetFilterXYZSlot()
+{
+	
+}
+
+//****************************************************************
+//								Slots : KeyPoint Processing
+//****************************************************************
+void MainWindow::ProcessFeatureSlot()
+{
+	std::vector<MyPointCloud*> clouds = _pointClouds->GetPointCloudsByIsSelected();
+	for (int counter = 0; counter < clouds.size(); counter++)
+	{
+		//_featureProcessing->Processing(clouds[counter]->GetPointCloud());
+	}
 }

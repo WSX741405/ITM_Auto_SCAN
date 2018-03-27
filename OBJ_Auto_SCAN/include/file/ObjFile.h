@@ -6,12 +6,12 @@
 #include <pcl/io/io.h>
 #include <pcl/io/obj_io.h>
 #include <pcl/io/vtk_lib_io.h>
-#include "file/3DFile.h";
+#include "file/MyFile.h";
 
-class ObjFile : ThreeDFile
+class ObjFile : MyFile
 {
 public:
-	ObjFile(std::string dir = "") : ThreeDFile(dir)
+	ObjFile(std::string dir = "") : MyFile(dir)
 	{
 		_cloud.reset(new pcl::PointCloud<PointT>);
 	}

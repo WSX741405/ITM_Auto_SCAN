@@ -50,13 +50,13 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>lib;D:\Code\QT5.9.1\5.9.1\msvc2015_64\lib;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\lib;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\lib;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\lib;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\lib;C:\Program Files (x86)\Intel\RSSDK\lib\x64;D:\Code\rs-master\cmake_build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>pcl_io_debug.lib;pcl_common_debug.lib;pcl_visualization_debug.lib;pcl_kdtree_debug.lib;pcl_search_debug.lib;libboost_thread-vc140-mt-gd-1_61.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;vtkGUISupportQt-7.0-gd.lib;vtkCommonCore-7.0-gd.lib;vtkCommonDataModel-7.0-gd.lib;vtkCommonMath-7.0-gd.lib;vtkRenderingCore-7.0-gd.lib;vtkRenderingOpenGL-7.0-gd.lib;vtkInteractionStyle-7.0-gd.lib;libpxc_d.lib;royale.lib;real_sense-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>pcl_io_debug.lib;pcl_common_debug.lib;pcl_visualization_debug.lib;pcl_kdtree_debug.lib;pcl_features_debug.lib;pcl_filters_debug.lib;pcl_search_debug.lib;libboost_thread-vc140-mt-gd-1_61.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;vtkGUISupportQt-7.0-gd.lib;vtkCommonCore-7.0-gd.lib;vtkCommonDataModel-7.0-gd.lib;vtkCommonMath-7.0-gd.lib;vtkRenderingCore-7.0-gd.lib;vtkRenderingOpenGL-7.0-gd.lib;vtkInteractionStyle-7.0-gd.lib;libpxc_d.lib;royale.lib;real_sense-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;include;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Eigen\eigen3;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\include\vtk-7.0;D:\Software\QT5.9.1\5.9.1\msvc2015_64\include;D:\Software\QT5.9.1\5.9.1\msvc2015_64\include\QtCore;D:\Software\QT5.9.1\5.9.1\msvc2015_64\include\QtGui;D:\Software\QT5.9.1\5.9.1\msvc2015_64\include\QtWidgets;C:\Program Files (x86)\Intel\RSSDK\include;D:\Software\Royale3.11.0.42\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;include;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Eigen\eigen3;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\include\vtk-7.0;D:\Code\QT5.9.1\5.9.1\msvc2015_64\include;D:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtCore;D:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtGui;D:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtWidgets;C:\Program Files (x86)\Intel\RSSDK\include;D:\Code\Royale3.11.0.42\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -64,9 +64,9 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>lib;D:\Software\QT5.9.1\5.9.1\msvc2015_64\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\lib;D:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\lib;C:\Program Files (x86)\Intel\RSSDK\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>lib;D:\Code\QT5.9.1\5.9.1\msvc2015_64\lib;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\lib;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\lib;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\lib;D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\lib;C:\Program Files (x86)\Intel\RSSDK\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>pcl_io_release.lib;pcl_common_release.lib;pcl_visualization_release.lib;pcl_kdtree_release.lib;pcl_search_release.lib;libboost_thread-vc140-mt-1_61.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;vtkGUISupportQt-7.0.lib;vtkCommonCore-7.0.lib;vtkCommonDataModel-7.0.lib;vtkCommonMath-7.0.lib;vtkRenderingCore-7.0.lib;vtkRenderingOpenGL-7.0.lib;vtkInteractionStyle-7.0.lib;libpxc.lib;royale.lib;real_sense.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>pcl_io_release.lib;pcl_common_release.lib;pcl_visualization_release.lib;pcl_kdtree_release.lib;pcl_search_release.lib;pcl_filters_release.lib;pcl_features_release.lib;libboost_thread-vc140-mt-1_61.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;vtkGUISupportQt-7.0.lib;vtkCommonCore-7.0.lib;vtkCommonDataModel-7.0.lib;vtkCommonMath-7.0.lib;vtkRenderingCore-7.0.lib;vtkRenderingOpenGL-7.0.lib;vtkInteractionStyle-7.0.lib;libpxc.lib;royale.lib;real_sense.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -91,8 +91,9 @@
     <ClCompile Include="include\observer\IObserver.cpp" />
     <ClCompile Include="include\observer\ObserverFactory.cpp" />
     <ClCompile Include="include\pointCloudProcessing\feature\FeatureFactory.cpp" />
-    <ClCompile Include="include\pointCloudProcessing\feature\FeatureProcessing.cpp" />
-    <ClCompile Include="include\pointCloudProcessing\feature\MyPFH.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\feature\MySift3D.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\filter\FilterFactory.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\filter\VoxelGridFilter.cpp" />
     <ClCompile Include="include\ui\MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -111,7 +112,7 @@
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h" />
     <ClInclude Include="include\arduino\Arduino.h" />
     <ClInclude Include="include\arduino\tserial.h" />
-    <ClInclude Include="include\file\3DFile.h" />
+    <ClInclude Include="include\file\MyFile.h" />
     <ClInclude Include="include\file\FileFactory.h" />
     <ClInclude Include="include\file\ObjFile.h" />
     <ClInclude Include="include\file\PcdFile.h" />
@@ -125,7 +126,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB  "-I." "-I.\include" "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Eigen\eigen3" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\include\vtk-7.0" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtCore" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtGui" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtWidgets" "-IC:\Program Files (x86)\Intel\RSSDK\include" "-ID:\Code\Royale3.11.0.42\include"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing IObserver.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB  "-I." "-I.\include" "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-ID:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8" "-ID:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Eigen\eigen3" "-ID:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61" "-ID:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include" "-ID:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\include\vtk-7.0" "-ID:\Software\QT5.9.1\5.9.1\msvc2015_64\include" "-ID:\Software\QT5.9.1\5.9.1\msvc2015_64\include\QtCore" "-ID:\Software\QT5.9.1\5.9.1\msvc2015_64\include\QtGui" "-ID:\Software\QT5.9.1\5.9.1\msvc2015_64\include\QtWidgets" "-IC:\Program Files (x86)\Intel\RSSDK\include" "-ID:\Software\Royale3.11.0.42\include"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB  "-I." "-I.\include" "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Eigen\eigen3" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\include\vtk-7.0" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtCore" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtGui" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtWidgets" "-IC:\Program Files (x86)\Intel\RSSDK\include" "-ID:\Code\Royale3.11.0.42\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
@@ -139,7 +140,10 @@
     <ClInclude Include="include\observer\ObserverFactory.h" />
     <ClInclude Include="include\pointCloudProcessing\feature\FeatureFactory.h" />
     <ClInclude Include="include\pointCloudProcessing\feature\FeatureProcessing.h" />
-    <ClInclude Include="include\pointCloudProcessing\feature\MyPFH.h" />
+    <ClInclude Include="include\pointCloudProcessing\feature\MySift3D.h" />
+    <ClInclude Include="include\pointCloudProcessing\filter\FilterFactory.h" />
+    <ClInclude Include="include\pointCloudProcessing\filter\FilterProcessing.h" />
+    <ClInclude Include="include\pointCloudProcessing\filter\VoxelGridFilter.h" />
     <ClInclude Include="include\pointCloud\MyPointCloud.h" />
     <ClInclude Include="include\pointCloud\MyPointClouds.h" />
     <ClInclude Include="include\Conversion.h" />
@@ -152,7 +156,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing MainWindow.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB  "-I." "-I.\include" "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-ID:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8" "-ID:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Eigen\eigen3" "-ID:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61" "-ID:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include" "-ID:\Software\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\include\vtk-7.0" "-ID:\Software\QT5.9.1\5.9.1\msvc2015_64\include" "-ID:\Software\QT5.9.1\5.9.1\msvc2015_64\include\QtCore" "-ID:\Software\QT5.9.1\5.9.1\msvc2015_64\include\QtGui" "-ID:\Software\QT5.9.1\5.9.1\msvc2015_64\include\QtWidgets" "-IC:\Program Files (x86)\Intel\RSSDK\include" "-ID:\Software\Royale3.11.0.42\include"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB  "-I." "-I.\include" "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Eigen\eigen3" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\include\vtk-7.0" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtCore" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtGui" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtWidgets" "-IC:\Program Files (x86)\Intel\RSSDK\include" "-ID:\Code\Royale3.11.0.42\include"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

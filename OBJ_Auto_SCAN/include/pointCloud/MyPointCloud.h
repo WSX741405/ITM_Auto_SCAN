@@ -18,7 +18,7 @@ public:
 		return _name;
 	}
 
-	pcl::PointCloud<PointT>::Ptr GetCloud()
+	pcl::PointCloud<PointT>::Ptr GetPointCloud()
 	{
 		return _cloud;
 	}
