@@ -12,7 +12,7 @@ public:
 		_viewer.reset(new pcl::visualization::PCLVisualizer(_title, false));
 	}
 
-	void Show(boost::shared_ptr<pcl::PointCloud<PointT>> cloud, std::string name = "")
+	void Show(pcl::PointCloud<PointT>::Ptr cloud, std::string name = "")
 	{
 		if (!_viewer->updatePointCloud(cloud, name))
 			//_viewer->removeAllPointClouds();

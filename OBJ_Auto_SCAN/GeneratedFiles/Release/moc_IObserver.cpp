@@ -79,7 +79,7 @@ void UIObserver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (UIObserver::*_t)(boost::shared_ptr<pcl::PointCloud<PointT>> );
+            typedef void (UIObserver::*_t)(pcl::PointCloud<PointT>::Ptr );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&UIObserver::UpdateViewer)) {
                 *result = 0;
                 return;
@@ -127,7 +127,7 @@ int UIObserver::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void UIObserver::UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> _t1)
+void UIObserver::UpdateViewer(pcl::PointCloud<PointT>::Ptr _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

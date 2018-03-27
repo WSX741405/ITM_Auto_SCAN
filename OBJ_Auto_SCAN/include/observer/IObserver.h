@@ -13,7 +13,7 @@ class MainWindow;
 class IObserver
 {
 public:
-	virtual void Update(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud) = 0;
+	virtual void Update(pcl::PointCloud<PointT>::Ptr pointCloud) = 0;
 };
 
 class UIObserver : public QObject, public IObserver
@@ -21,11 +21,11 @@ class UIObserver : public QObject, public IObserver
 	Q_OBJECT
 public:
 	UIObserver(MainWindow* window) : _mainWindow(window){}
-	void Update(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+	void Update(pcl::PointCloud<PointT>::Ptr pointCloud);
 
 signals:
-	void UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
-	void KeepFrame(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+	void UpdateViewer(pcl::PointCloud<PointT>::Ptr pointCloud);
+	void KeepFrame(pcl::PointCloud<PointT>::Ptr pointCloud);
 
 private:
 	MainWindow* _mainWindow;
@@ -40,7 +40,7 @@ class ISubject
 {
 public:
 	virtual void RegisterObserver(IObserver* observer) = 0;
-	virtual void NotifyObservers(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud) = 0;
+	virtual void NotifyObservers(pcl::PointCloud<PointT>::Ptr pointCloud) = 0;
 
 protected:
 	std::vector<IObserver*> _observers;
@@ -50,13 +50,13 @@ class FlexxSubject : ISubject
 {
 public:
 	void RegisterObserver(IObserver* observer);
-	void NotifyObservers(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+	void NotifyObservers(pcl::PointCloud<PointT>::Ptr pointCloud);
 };
 
 class RSSubject : ISubject
 {
 public:
 	void RegisterObserver(IObserver* observer);
-	void NotifyObservers(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+	void NotifyObservers(pcl::PointCloud<PointT>::Ptr pointCloud);
 };
 #endif

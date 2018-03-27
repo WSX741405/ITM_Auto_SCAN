@@ -33,7 +33,7 @@ private:
 	const royale::Vector<royale::StreamId> _streamIds;
 	std::mutex _lockForReceivedData;
 	ISubject* _subject;
-	boost::shared_ptr<pcl::PointCloud<PointT>> _pointCloud;
+	pcl::PointCloud<PointT>::Ptr _pointCloud;
 };
 
 //		*****************************************************************

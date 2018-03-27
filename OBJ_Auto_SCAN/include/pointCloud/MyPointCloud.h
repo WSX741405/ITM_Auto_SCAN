@@ -7,7 +7,7 @@
 class MyPointCloud
 {
 public:
-	MyPointCloud(boost::shared_ptr<pcl::PointCloud<PointT>> cloud, std::string name = "Name") : _name(name)
+	MyPointCloud(pcl::PointCloud<PointT>::Ptr cloud, std::string name = "Name") : _name(name)
 	{
 		_cloud.reset(new pcl::PointCloud<PointT>(*cloud));
 		_isSelected = false;		//default
@@ -18,7 +18,7 @@ public:
 		return _name;
 	}
 
-	boost::shared_ptr<pcl::PointCloud<PointT>> GetCloud()
+	pcl::PointCloud<PointT>::Ptr GetCloud()
 	{
 		return _cloud;
 	}
@@ -36,7 +36,7 @@ public:
 private:
 	std::string _name;
 	bool _isSelected;
-	boost::shared_ptr<pcl::PointCloud<PointT>> _cloud;
+	pcl::PointCloud<PointT>::Ptr _cloud;
 };
 
 #endif

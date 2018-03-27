@@ -12,8 +12,8 @@ public:
 	}
 
 	virtual void LoadFile() = 0;
-	virtual void SaveFile(boost::shared_ptr<pcl::PointCloud<PointT>> cloud) = 0;
-	virtual boost::shared_ptr<pcl::PointCloud<PointT>> GetPointCloud() = 0;
+	virtual void SaveFile(pcl::PointCloud<PointT>::Ptr cloud) = 0;
+	virtual pcl::PointCloud<PointT>::Ptr GetPointCloud() = 0;
 protected:
 	std::string _dir;
 };

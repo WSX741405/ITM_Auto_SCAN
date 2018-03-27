@@ -3,7 +3,7 @@
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent), _ui(new Ui::MainWindowForm), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory())
 {
-	qRegisterMetaType<boost::shared_ptr<pcl::PointCloud<PointT>>>("boost::shared_ptr<pcl::PointCloud<PointT>>");
+	qRegisterMetaType<pcl::PointCloud<PointT>::Ptr>("pcl::PointCloud<PointT>::Ptr");
 	_ui->setupUi(this);
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
@@ -27,7 +27,7 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_startRSAction, SIGNAL(triggered()), this, SLOT(StartRSCameraSlot()));
 	connect(_ui->_stopRSAction, SIGNAL(triggered()), this, SLOT(StopCameraSlot()));
 	connect(_ui->_setConfidenceAction, SIGNAL(triggered()), this, SLOT(SetCameraDepthConfidenceSlot()));
-	connect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
+	connect(this->_uiObserver, SIGNAL(UpdateViewer(pcl::PointCloud<PointT>::Ptr)), this, SLOT(UpdateViewerSlot(pcl::PointCloud<PointT>::Ptr)));
 	//		Arduino
 	connect(_ui->_getNumberOfBytesAction, SIGNAL(triggered()), this, SLOT(GetNumberOfBytesSlot()));
 	connect(_ui->_getCharAction, SIGNAL(triggered()), this, SLOT(GetCharSlot()));
@@ -109,7 +109,7 @@ void MainWindow::RegisterObserver()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-	disconnect(this->_uiObserver, SIGNAL(UpdateViewer(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
+	disconnect(this->_uiObserver, SIGNAL(UpdateViewer(pcl::PointCloud<PointT>::Ptr)), this, SLOT(UpdateViewerSlot(pcl::PointCloud<PointT>::Ptr)));
 	delete _grabberFactory;
 }
 
@@ -125,7 +125,7 @@ std::string MainWindow::InputDialog(bool* ok, const char* title, const char* lab
 //****************************************************************
 //								Slots : UI
 //****************************************************************
-void MainWindow::UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
+void MainWindow::UpdateViewerSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
 	_tmpPointCloud = pointCloud;
 	std::unique_lock<std::mutex> lock(_grabber->GetMutex());
@@ -289,7 +289,7 @@ void MainWindow::ControlMotorSlot()
 void MainWindow::KeepOneFrameSlot()
 {
 	if (_grabber == NULL)	return;
-	boost::shared_ptr<pcl::PointCloud<PointT>> copyCloud;
+	pcl::PointCloud<PointT>::Ptr copyCloud;
 	copyCloud.reset(new pcl::PointCloud<PointT>(*_tmpPointCloud));
 	bool ok;
 	std::string cloudName = InputDialog(&ok, "Keep PointCloud", "Cloud Name");
@@ -312,17 +312,17 @@ void MainWindow::KeepContinueFrameSlot()
 		_keepCloudName = InputDialog(&ok, "Keep PointCloud", "Cloud Name");
 		if (!ok)	return;
 		_keepFrameNumber = 0;
-		connect(this->_uiObserver, SIGNAL(KeepFrame(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(KeepFrameSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
+		connect(this->_uiObserver, SIGNAL(KeepFrame(pcl::PointCloud<PointT>::Ptr)), this, SLOT(KeepFrameSlot(pcl::PointCloud<PointT>::Ptr)));
 		_ui->_keepContinueFrameAction->setText(QString("Stop"));
 	}
 	else if (TypeConversion::QString2String(_ui->_keepContinueFrameAction->text()) == "Stop")
 	{
-		disconnect(this->_uiObserver, SIGNAL(KeepFrame(boost::shared_ptr<pcl::PointCloud<PointT>>)), this, SLOT(KeepFrameSlot(boost::shared_ptr<pcl::PointCloud<PointT>>)));
+		disconnect(this->_uiObserver, SIGNAL(KeepFrame(pcl::PointCloud<PointT>::Ptr)), this, SLOT(KeepFrameSlot(pcl::PointCloud<PointT>::Ptr)));
 		_ui->_keepContinueFrameAction->setText(QString("Continue Frame"));
 	}
 }
 
-void MainWindow::KeepFrameSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud)
+void MainWindow::KeepFrameSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
 	_pointClouds->AddPointCloud(pointCloud, _keepCloudName + std::string("_") + TypeConversion::Int2String(_keepFrameNumber));
 	UpdatePointCloudTable();

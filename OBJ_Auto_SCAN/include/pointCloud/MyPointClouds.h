@@ -12,7 +12,7 @@ public:
 		_pointClouds = std::vector<MyPointCloud*>();
 	}
 
-	void AddPointCloud(boost::shared_ptr<pcl::PointCloud<PointT>> cloud, std::string name = "Name")
+	void AddPointCloud(pcl::PointCloud<PointT>::Ptr cloud, std::string name = "Name")
 	{
 		MyPointCloud* myCloud = new MyPointCloud(cloud, name);
 		_pointClouds.push_back(myCloud);
@@ -47,7 +47,7 @@ public:
 		return _pointClouds[id]->GetName();
 	}
 
-	boost::shared_ptr<pcl::PointCloud<PointT>> GetPointCloudById(int id)
+	pcl::PointCloud<PointT>::Ptr GetPointCloudById(int id)
 	{
 		return _pointClouds[id]->GetCloud();
 	}

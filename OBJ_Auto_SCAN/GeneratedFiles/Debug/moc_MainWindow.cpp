@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[21];
-    char stringdata0[352];
+    char stringdata0[337];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,33 +34,32 @@ static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 16), // "UpdateViewerSlot"
 QT_MOC_LITERAL(2, 28, 0), // ""
-QT_MOC_LITERAL(3, 29, 43), // "boost::shared_ptr<pcl::PointC..."
-QT_MOC_LITERAL(4, 73, 10), // "pointCloud"
-QT_MOC_LITERAL(5, 84, 19), // "TableItemChangeSlot"
-QT_MOC_LITERAL(6, 104, 17), // "QTableWidgetItem*"
-QT_MOC_LITERAL(7, 122, 4), // "item"
-QT_MOC_LITERAL(8, 127, 12), // "OpenFileSlot"
-QT_MOC_LITERAL(9, 140, 12), // "SaveFileSlot"
-QT_MOC_LITERAL(10, 153, 20), // "StartFlexxCameraSlot"
-QT_MOC_LITERAL(11, 174, 17), // "StartRSCameraSlot"
-QT_MOC_LITERAL(12, 192, 14), // "StopCameraSlot"
-QT_MOC_LITERAL(13, 207, 28), // "SetCameraDepthConfidenceSlot"
-QT_MOC_LITERAL(14, 236, 20), // "GetNumberOfBytesSlot"
-QT_MOC_LITERAL(15, 257, 11), // "GetCharSlot"
-QT_MOC_LITERAL(16, 269, 12), // "GetArraySlot"
-QT_MOC_LITERAL(17, 282, 16), // "ControlMotorSlot"
-QT_MOC_LITERAL(18, 299, 16), // "KeepOneFrameSlot"
-QT_MOC_LITERAL(19, 316, 21), // "KeepContinueFrameSlot"
-QT_MOC_LITERAL(20, 338, 13) // "KeepFrameSlot"
+QT_MOC_LITERAL(3, 29, 28), // "pcl::PointCloud<PointT>::Ptr"
+QT_MOC_LITERAL(4, 58, 10), // "pointCloud"
+QT_MOC_LITERAL(5, 69, 19), // "TableItemChangeSlot"
+QT_MOC_LITERAL(6, 89, 17), // "QTableWidgetItem*"
+QT_MOC_LITERAL(7, 107, 4), // "item"
+QT_MOC_LITERAL(8, 112, 12), // "OpenFileSlot"
+QT_MOC_LITERAL(9, 125, 12), // "SaveFileSlot"
+QT_MOC_LITERAL(10, 138, 20), // "StartFlexxCameraSlot"
+QT_MOC_LITERAL(11, 159, 17), // "StartRSCameraSlot"
+QT_MOC_LITERAL(12, 177, 14), // "StopCameraSlot"
+QT_MOC_LITERAL(13, 192, 28), // "SetCameraDepthConfidenceSlot"
+QT_MOC_LITERAL(14, 221, 20), // "GetNumberOfBytesSlot"
+QT_MOC_LITERAL(15, 242, 11), // "GetCharSlot"
+QT_MOC_LITERAL(16, 254, 12), // "GetArraySlot"
+QT_MOC_LITERAL(17, 267, 16), // "ControlMotorSlot"
+QT_MOC_LITERAL(18, 284, 16), // "KeepOneFrameSlot"
+QT_MOC_LITERAL(19, 301, 21), // "KeepContinueFrameSlot"
+QT_MOC_LITERAL(20, 323, 13) // "KeepFrameSlot"
 
     },
     "MainWindow\0UpdateViewerSlot\0\0"
-    "boost::shared_ptr<pcl::PointCloud<PointT> >\0"
-    "pointCloud\0TableItemChangeSlot\0"
-    "QTableWidgetItem*\0item\0OpenFileSlot\0"
-    "SaveFileSlot\0StartFlexxCameraSlot\0"
-    "StartRSCameraSlot\0StopCameraSlot\0"
-    "SetCameraDepthConfidenceSlot\0"
+    "pcl::PointCloud<PointT>::Ptr\0pointCloud\0"
+    "TableItemChangeSlot\0QTableWidgetItem*\0"
+    "item\0OpenFileSlot\0SaveFileSlot\0"
+    "StartFlexxCameraSlot\0StartRSCameraSlot\0"
+    "StopCameraSlot\0SetCameraDepthConfidenceSlot\0"
     "GetNumberOfBytesSlot\0GetCharSlot\0"
     "GetArraySlot\0ControlMotorSlot\0"
     "KeepOneFrameSlot\0KeepContinueFrameSlot\0"
@@ -124,7 +123,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         MainWindow *_t = static_cast<MainWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->UpdateViewerSlot((*reinterpret_cast< boost::shared_ptr<pcl::PointCloud<PointT> >(*)>(_a[1]))); break;
+        case 0: _t->UpdateViewerSlot((*reinterpret_cast< pcl::PointCloud<PointT>::Ptr(*)>(_a[1]))); break;
         case 1: _t->TableItemChangeSlot((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
         case 2: _t->OpenFileSlot(); break;
         case 3: _t->SaveFileSlot(); break;
@@ -138,8 +137,26 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 11: _t->ControlMotorSlot(); break;
         case 12: _t->KeepOneFrameSlot(); break;
         case 13: _t->KeepContinueFrameSlot(); break;
-        case 14: _t->KeepFrameSlot((*reinterpret_cast< boost::shared_ptr<pcl::PointCloud<PointT> >(*)>(_a[1]))); break;
+        case 14: _t->KeepFrameSlot((*reinterpret_cast< pcl::PointCloud<PointT>::Ptr(*)>(_a[1]))); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 0:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< pcl::PointCloud<PointT>::Ptr >(); break;
+            }
+            break;
+        case 14:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< pcl::PointCloud<PointT>::Ptr >(); break;
+            }
+            break;
         }
     }
 }
@@ -174,7 +191,7 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 15;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 15)
-            *reinterpret_cast<int*>(_a[0]) = -1;
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 15;
     }
     return _id;

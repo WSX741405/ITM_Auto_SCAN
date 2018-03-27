@@ -11,7 +11,7 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 
 typedef pcl::PointXYZRGBA PointT;
 #include <QMetaType>
-Q_DECLARE_METATYPE(boost::shared_ptr<pcl::PointCloud<PointT>>);
+Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 
 #include <QVTKWidget.h>
 #include<QMessageBox>
@@ -47,7 +47,7 @@ public slots:
 	//****************************************************************
 	//										UI
 	//****************************************************************
-	void UpdateViewerSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+	void UpdateViewerSlot(pcl::PointCloud<PointT>::Ptr pointCloud);
 	void TableItemChangeSlot(QTableWidgetItem* item);
 	//****************************************************************
 	//										File
@@ -73,7 +73,7 @@ public slots:
 	//****************************************************************
 	void KeepOneFrameSlot();
 	void KeepContinueFrameSlot();
-	void KeepFrameSlot(boost::shared_ptr<pcl::PointCloud<PointT>> pointCloud);
+	void KeepFrameSlot(pcl::PointCloud<PointT>::Ptr pointCloud);
 
 private:
 	void InitialConnectSlots();
@@ -96,7 +96,7 @@ private:
 	SubjectFactory* _subjectFactory;
 	int _keepFrameNumber;
 	std::string _keepCloudName;
-	boost::shared_ptr<pcl::PointCloud<PointT>> _tmpPointCloud;
+	pcl::PointCloud<PointT>::Ptr _tmpPointCloud;
 	MyPointClouds* _pointClouds;
 	Arduino* _arduino;
 	Ui::MainWindowForm* _ui;
