@@ -61,6 +61,7 @@ public:
     QDoubleSpinBox *_filterXSpinBox;
     QDoubleSpinBox *_filterYSpinBox;
     QDoubleSpinBox *_filterZSpinBox;
+    QLabel *label_4;
     QWidget *_featureProcessingPage;
     QComboBox *_selectedProcessComboBox;
     QPushButton *_featureProcessingButton;
@@ -132,7 +133,7 @@ public:
         _filterProcessingButton->setFont(font);
         comboBox = new QComboBox(_filterProcessingPage);
         comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(30, 30, 150, 40));
+        comboBox->setGeometry(QRect(140, 30, 150, 40));
         comboBox->setFont(font);
         label_3 = new QLabel(_filterProcessingPage);
         label_3->setObjectName(QStringLiteral("label_3"));
@@ -150,14 +151,24 @@ public:
         _filterXSpinBox->setObjectName(QStringLiteral("_filterXSpinBox"));
         _filterXSpinBox->setGeometry(QRect(80, 100, 80, 30));
         _filterXSpinBox->setFont(font);
+        _filterXSpinBox->setSingleStep(0.01);
+        _filterXSpinBox->setValue(0.01);
         _filterYSpinBox = new QDoubleSpinBox(_filterProcessingPage);
         _filterYSpinBox->setObjectName(QStringLiteral("_filterYSpinBox"));
         _filterYSpinBox->setGeometry(QRect(80, 150, 80, 30));
         _filterYSpinBox->setFont(font);
+        _filterYSpinBox->setSingleStep(0.01);
+        _filterYSpinBox->setValue(0.01);
         _filterZSpinBox = new QDoubleSpinBox(_filterProcessingPage);
         _filterZSpinBox->setObjectName(QStringLiteral("_filterZSpinBox"));
         _filterZSpinBox->setGeometry(QRect(80, 200, 80, 30));
         _filterZSpinBox->setFont(font);
+        _filterZSpinBox->setSingleStep(0.01);
+        _filterZSpinBox->setValue(0.01);
+        label_4 = new QLabel(_filterProcessingPage);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(30, 35, 100, 30));
+        label_4->setFont(font);
         toolBox->addItem(_filterProcessingPage, QStringLiteral("Filter Processing"));
         _featureProcessingPage = new QWidget();
         _featureProcessingPage->setObjectName(QStringLiteral("_featureProcessingPage"));
@@ -261,6 +272,7 @@ public:
         label_3->setText(QApplication::translate("MainWindowForm", "Z\357\274\232", Q_NULLPTR));
         label->setText(QApplication::translate("MainWindowForm", "X\357\274\232", Q_NULLPTR));
         label_2->setText(QApplication::translate("MainWindowForm", "Y\357\274\232", Q_NULLPTR));
+        label_4->setText(QApplication::translate("MainWindowForm", "Method\357\274\232", Q_NULLPTR));
         toolBox->setItemText(toolBox->indexOf(_filterProcessingPage), QApplication::translate("MainWindowForm", "Filter Processing", Q_NULLPTR));
         _selectedProcessComboBox->clear();
         _selectedProcessComboBox->insertItems(0, QStringList()

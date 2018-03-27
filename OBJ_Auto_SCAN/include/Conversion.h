@@ -16,6 +16,12 @@ public:
 		return str;
 	}
 
+	static float QString2Float(QString qs)
+	{
+		float f = qs.toFloat();
+		return f;
+	}
+
 	static int String2Int(std::string str)
 	{
 		int number = std::stoi(str);

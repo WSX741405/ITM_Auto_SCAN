@@ -353,7 +353,7 @@ void MainWindow::ProcessFilterSlot()
 
 void MainWindow::SetFilterXYZSlot()
 {
-	
+	_filterProcessing->SetLeafSize(TypeConversion::QString2Float(_ui->_filterXSpinBox->text()), TypeConversion::QString2Float(_ui->_filterYSpinBox->text()), TypeConversion::QString2Float(_ui->_filterZSpinBox->text()));
 }
 
 //****************************************************************
