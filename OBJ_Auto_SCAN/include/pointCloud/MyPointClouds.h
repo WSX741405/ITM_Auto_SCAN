@@ -18,6 +18,26 @@ public:
 		_pointClouds.push_back(myCloud);
 	}
 
+	void AddPointCloud(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, int r, int g, int b, std::string name = "Name")
+	{
+		pcl::PointCloud<PointT>::Ptr tmpCloud;
+		tmpCloud.reset(new pcl::PointCloud<PointT>());
+		for (int counter = 0; counter < cloud->size(); counter++)
+		{
+			PointT point;
+			point.x = cloud->points[counter].x;
+			point.y = cloud->points[counter].y;
+			point.z = cloud->points[counter].z;
+
+			point.r = r;
+			point.g = g;
+			point.b = b;
+			tmpCloud->push_back(point);
+		}
+		MyPointCloud* myCloud = new MyPointCloud(tmpCloud, name);
+		_pointClouds.push_back(myCloud);
+	}
+
 	bool IsNameExist(std::string name)
 	{
 		for (int counter = 0; counter < GetNumberOfPointCloud(); counter++)

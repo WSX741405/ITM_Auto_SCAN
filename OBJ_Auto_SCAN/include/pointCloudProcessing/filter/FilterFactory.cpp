@@ -6,6 +6,12 @@ FilterFactory::FilterFactory()
 
 FilterProcessing* FilterFactory::GetVoixelGridFilter()
 {
-	VoxelGridFilter* filter = new VoxelGridFilter();
+	static VoxelGridFilter* filter = new VoxelGridFilter();
+	return filter;
+}
+
+FilterProcessing* FilterFactory::GetBoundingBoxFilter()
+{
+	static BoundingBoxFilter* filter = new BoundingBoxFilter();
 	return filter;
 }

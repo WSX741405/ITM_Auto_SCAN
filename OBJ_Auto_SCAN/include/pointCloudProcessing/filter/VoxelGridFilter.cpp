@@ -24,6 +24,11 @@ void VoxelGridFilter::SetLeafSize(float x, float y, float z)
 	_z = z;
 }
 
+void VoxelGridFilter::SetBoundingBox(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
+{
+	return;
+}
+
 pcl::PointCloud<PointT>::Ptr VoxelGridFilter::GetResult()
 {
 	return _filteredCloud;

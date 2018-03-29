@@ -22,6 +22,12 @@ public:
 		return f;
 	}
 
+	static int QString2Int(QString qs)
+	{
+		int i = qs.toInt();
+		return i;
+	}
+
 	static int String2Int(std::string str)
 	{
 		int number = std::stoi(str);

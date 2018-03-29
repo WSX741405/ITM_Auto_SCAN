@@ -3,6 +3,7 @@
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include <pcl/keypoints/harris_3d.h>
 
 #include <vtkAutoInit.h>
 VTK_MODULE_INIT(vtkRenderingOpenGL);
@@ -17,6 +18,7 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include<QMessageBox>
 #include <QFileDialog>
 #include<QInputDialog>
+#include <QSpinBox>
 #include <QCloseEvent>
 
 #include "ui_MainWindow.h"
@@ -27,7 +29,7 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include "pointCloud/MyPointClouds.h"
 #include "arduino/Arduino.h"
 #include "Conversion.h"
-#include "pointCloudProcessing/feature/FeatureFactory.h"
+#include "pointCloudProcessing/keypoint/KeypointFactory.h"
 #include "pointCloudProcessing/filter/FilterFactory.h"
 
 class UIObserver;
@@ -76,11 +78,22 @@ public slots:
 	void KeepOneFrameSlot();
 	void KeepContinueFrameSlot();
 	void KeepFrameSlot(pcl::PointCloud<PointT>::Ptr pointCloud);
-	//	Feature
-	void ProcessFeatureSlot();
-	//	Filter
+	//****************************************************************
+	//										Keypoint
+	//****************************************************************
+	void ProcessKeypointSlot();
+	void ChangeKeypointTabSlot (int index);
+	void SetSIFTScalesSlot();
+	void SetSIFTMinContrastSlot();
+	void SetHarrisRadiusSlot();
+	void SetHarrisRadiusSearchSlot();
+	void SetHarrisMethodSlot(int index);
+	//****************************************************************
+	//										Filter
+	//****************************************************************
+	void ChangeFilterTabSlot(int index);
 	void ProcessFilterSlot();
-	void SetFilterXYZSlot();
+	void SetVoxelGridXYZSlot();
 
 private:
 	void InitialConnectSlots();
@@ -101,15 +114,15 @@ private:
 	GrabberFactory* _grabberFactory;
 	IGrabber* _grabber;
 	SubjectFactory* _subjectFactory;
-	int _keepFrameNumber;
+	int _nameNumber;
 	std::string _keepCloudName;
 	pcl::PointCloud<PointT>::Ptr _tmpPointCloud;
 	MyPointClouds* _pointClouds;
 	Arduino* _arduino;
 	Ui::MainWindowForm* _ui;
 
-	FeatureFactory* _featureFactory;
-	FeatureProcessing* _featureProcessing;
+	KeypointFactory* _keypointFactory;
+	KeypointProcessing* _keypointProcessing;
 	FilterFactory* _filterFactory;
 	FilterProcessing* _filterProcessing;
 };

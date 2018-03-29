@@ -1,10 +1,12 @@
 #include "ui/MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-	QMainWindow(parent), _ui(new Ui::MainWindowForm), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory()), _featureFactory(new FeatureFactory()), _filterFactory(new FilterFactory())
+	QMainWindow(parent), _ui(new Ui::MainWindowForm), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory()), _keypointFactory(new KeypointFactory()), _filterFactory(new FilterFactory())
 {
+	_nameNumber = 0;
 	qRegisterMetaType<pcl::PointCloud<PointT>::Ptr>("pcl::PointCloud<PointT>::Ptr");
 	_filterProcessing = _filterFactory->GetVoixelGridFilter();
+	_keypointProcessing = _keypointFactory->GetSIFT();
 	_ui->setupUi(this);
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
@@ -39,13 +41,24 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_keepContinueFrameAction, SIGNAL(triggered()), this, SLOT(KeepContinueFrameSlot()));
 	connect(_ui->_IterativeClosestPointAction, SIGNAL(triggered()), this, SLOT(IterativeClosestPointSlot()));
 	connect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
-	//		Feature
-	connect(_ui->_featureProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessFeatureSlot()));
+	//		Keypoint
+	connect(_ui->_keypointProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessKeypointSlot()));
+	connect(_ui->_keypointTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeKeypointTabSlot(int)));
+	//		Keypoint : SIFT
+	connect(_ui->_siftMinScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSIFTScalesSlot()));
+	connect(_ui->_siftNROctavesSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetSIFTScalesSlot()));
+	connect(_ui->_siftNRScalesPerOctaveSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetSIFTScalesSlot()));
+	connect(_ui->_siftMinContrastSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSIFTMinContrastSlot()));
+	//		Keypoint : harris
+	connect(_ui->_harrisRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetHarrisRadiusSlot()));
+	connect(_ui->_harrisRadiusSearchSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetHarrisRadiusSearchSlot()));
+	connect(_ui->_harrisMethodComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(SetHarrisMethodSlot(int)));
 	//		Filter
+	connect(_ui->_filterTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeFilterTabSlot(int)));
 	connect(_ui->_filterProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessFilterSlot()));
-	connect(_ui->_filterXSpinBox, SIGNAL(textChanged()), this, SLOT(SetFilterXYZSlot()));
-	connect(_ui->_filterYSpinBox, SIGNAL(textChanged()), this, SLOT(SetFilterXYZSlot()));
-	connect(_ui->_filterZSpinBox, SIGNAL(textChanged()), this, SLOT(SetFilterXYZSlot()));
+	connect(_ui->_voxelGridXSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetVoxelGridXYZSlot()));
+	connect(_ui->_voxelGridYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetVoxelGridXYZSlot()));
+	connect(_ui->_voxelGridZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetVoxelGridXYZSlot()));
 }
 
 //****************************************************************
@@ -319,7 +332,6 @@ void MainWindow::KeepContinueFrameSlot()
 		bool ok;
 		_keepCloudName = InputDialog(&ok, "Keep PointCloud", "Cloud Name");
 		if (!ok)	return;
-		_keepFrameNumber = 0;
 		connect(this->_uiObserver, SIGNAL(KeepFrame(pcl::PointCloud<PointT>::Ptr)), this, SLOT(KeepFrameSlot(pcl::PointCloud<PointT>::Ptr)));
 		_ui->_keepContinueFrameAction->setText(QString("Stop"));
 	}
@@ -332,38 +344,125 @@ void MainWindow::KeepContinueFrameSlot()
 
 void MainWindow::KeepFrameSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
-	_pointClouds->AddPointCloud(pointCloud, _keepCloudName + std::string("_") + TypeConversion::Int2String(_keepFrameNumber));
+	_pointClouds->AddPointCloud(pointCloud, _keepCloudName + std::string("_") + TypeConversion::Int2String(_nameNumber));
 	UpdatePointCloudTable();
-	_keepFrameNumber++;
+	_nameNumber++;
 }
 
 //****************************************************************
 //								Slots : Filter Processing
 //****************************************************************
+void MainWindow::ChangeFilterTabSlot(int index)
+{
+	if (index == 0)
+	{
+		_filterProcessing = _filterFactory->GetVoixelGridFilter();
+	}
+	else if (index == 1)
+	{
+		_filterProcessing = _filterFactory->GetBoundingBoxFilter();
+	}
+}
+
 void MainWindow::ProcessFilterSlot()
 {
 	std::vector<MyPointCloud*> clouds = _pointClouds->GetPointCloudsByIsSelected();
 	for (int counter = 0; counter < clouds.size(); counter++)
 	{
 		_filterProcessing->Processing(clouds[counter]->GetPointCloud());
-		_pointClouds->AddPointCloud(_filterProcessing->GetResult(), clouds[counter]->GetName() + std::string("_VoxelGridFiltered"));
+		std::string name = clouds[counter]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Filter");
+		_pointClouds->AddPointCloud(_filterProcessing->GetResult(), name);
+		_nameNumber++;
 		UpdatePointCloudTable();
 	}
 }
 
-void MainWindow::SetFilterXYZSlot()
+void MainWindow::SetVoxelGridXYZSlot()
 {
-	_filterProcessing->SetLeafSize(TypeConversion::QString2Float(_ui->_filterXSpinBox->text()), TypeConversion::QString2Float(_ui->_filterYSpinBox->text()), TypeConversion::QString2Float(_ui->_filterZSpinBox->text()));
+	float x = TypeConversion::QString2Float(_ui->_voxelGridXSpinBox->text());
+	float y = TypeConversion::QString2Float(_ui->_voxelGridYSpinBox->text());
+	float z = TypeConversion::QString2Float(_ui->_voxelGridZSpinBox->text());
+	_filterProcessing->SetLeafSize(x, y, z);
 }
 
 //****************************************************************
-//								Slots : KeyPoint Processing
+//								Slots : Keypoint Processing
 //****************************************************************
-void MainWindow::ProcessFeatureSlot()
+void MainWindow::ProcessKeypointSlot()
 {
+	//		default
+	int r = 255;
+	int g = 0;
+	int b = 0;
 	std::vector<MyPointCloud*> clouds = _pointClouds->GetPointCloudsByIsSelected();
 	for (int counter = 0; counter < clouds.size(); counter++)
 	{
-		//_featureProcessing->Processing(clouds[counter]->GetPointCloud());
+		_keypointProcessing->Processing(clouds[counter]->GetPointCloud());
+		std::string name = clouds[counter]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_keypoint");
+		_pointClouds->AddPointCloud(_keypointProcessing->GetResult(), r, g, b, name);
+		_nameNumber++;
+		UpdatePointCloudTable();
 	}
+}
+
+void MainWindow::ChangeKeypointTabSlot(int index)
+{
+	if (index == 0)
+	{
+		_keypointProcessing = _keypointFactory->GetSIFT();
+	}
+	else if (index == 1)
+	{
+		_keypointProcessing = _keypointFactory->GetHarris();
+	}
+}
+
+void MainWindow::SetSIFTScalesSlot()
+{
+	float minScale = TypeConversion::QString2Float(_ui->_siftMinScaleSpinBox->text());
+	int nrOctaves = TypeConversion::QString2Int(_ui->_siftNROctavesSpinBox->text());
+	int nrScalesPerOctave = TypeConversion::QString2Int(_ui->_siftNRScalesPerOctaveSpinBox->text());
+	_keypointProcessing->SetScales(minScale, nrOctaves, nrScalesPerOctave);
+}
+
+void MainWindow::SetSIFTMinContrastSlot()
+{
+	float siftMinContrast = TypeConversion::QString2Float(_ui->_siftMinContrastSpinBox->text());
+	_keypointProcessing->SetMinContrast(siftMinContrast);
+}
+
+void MainWindow::SetHarrisMethodSlot(int index)
+{
+	if (index == 0)
+	{
+		_keypointProcessing = _keypointFactory->GetHarris();
+	}
+	else if (index == 1)
+	{
+		_keypointProcessing = _keypointFactory->GetTomasi();
+	}
+	else if (index == 2)
+	{
+		_keypointProcessing = _keypointFactory->GetNoble();
+	}
+	else if(index == 3)
+	{
+		_keypointProcessing = _keypointFactory->Lowe();
+	}
+	else
+	{
+		_keypointProcessing = _keypointFactory->Curvature();
+	}
+}
+
+void MainWindow::SetHarrisRadiusSlot()
+{
+	float harrisRadius = TypeConversion::QString2Float(_ui->_harrisRadiusSpinBox->text());
+	_keypointProcessing->SetRadius(harrisRadius);
+}
+
+void MainWindow::SetHarrisRadiusSearchSlot()
+{
+	float harrisRadiusSearch = TypeConversion::QString2Float(_ui->_harrisRadiusSearchSpinBox->text());
+	_keypointProcessing->SetRadiusSearch(harrisRadiusSearch);
 }

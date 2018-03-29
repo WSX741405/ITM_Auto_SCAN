@@ -14,6 +14,7 @@ public:
 	VoxelGridFilter();
 	void Processing(pcl::PointCloud<PointT>::Ptr cloud);
 	void SetLeafSize(float x, float y, float z);
+	void SetBoundingBox(float minX, float maxX, float minY, float maxY, float minZ, float maxZ);
 	pcl::PointCloud<PointT>::Ptr GetResult();
 
 private:

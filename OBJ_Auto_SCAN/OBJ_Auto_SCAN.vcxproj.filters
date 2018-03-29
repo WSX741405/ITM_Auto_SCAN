@@ -64,11 +64,11 @@
     <Filter Include="include\pointCloudProcessing">
       <UniqueIdentifier>{8b14c8f6-74f7-4053-8a55-51ae727dc3c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\pointCloudProcessing\feature">
-      <UniqueIdentifier>{828e12c0-c8d7-4f87-b9e5-638f0e2d0c85}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\pointCloudProcessing\filter">
       <UniqueIdentifier>{b5f2f3f6-3017-4dd0-bdf9-55fb9ccfc379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\pointCloudProcessing\keypoint">
+      <UniqueIdentifier>{828e12c0-c8d7-4f87-b9e5-638f0e2d0c85}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -111,17 +111,23 @@
     <ClCompile Include="include\grabber\rs\rsgrabber\real_sense_grabber.cpp">
       <Filter>include\grabber\rs\rsgrabber</Filter>
     </ClCompile>
-    <ClCompile Include="include\pointCloudProcessing\feature\FeatureFactory.cpp">
-      <Filter>include\pointCloudProcessing\feature</Filter>
-    </ClCompile>
     <ClCompile Include="include\pointCloudProcessing\filter\VoxelGridFilter.cpp">
       <Filter>include\pointCloudProcessing\filter</Filter>
     </ClCompile>
     <ClCompile Include="include\pointCloudProcessing\filter\FilterFactory.cpp">
       <Filter>include\pointCloudProcessing\filter</Filter>
     </ClCompile>
-    <ClCompile Include="include\pointCloudProcessing\feature\MySift3D.cpp">
-      <Filter>include\pointCloudProcessing\feature</Filter>
+    <ClCompile Include="include\pointCloudProcessing\keypoint\MyHarris3D.cpp">
+      <Filter>include\pointCloudProcessing\keypoint</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\keypoint\MySIFT3D.cpp">
+      <Filter>include\pointCloudProcessing\keypoint</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\keypoint\KeypointFactory.cpp">
+      <Filter>include\pointCloudProcessing\keypoint</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\filter\BoundingBoxFilter.cpp">
+      <Filter>include\pointCloudProcessing\filter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -153,9 +159,6 @@
     </ClInclude>
     <ClInclude Include="include\arduino\tserial.h">
       <Filter>include\arduino</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
-      <Filter>Generated Files\Release</Filter>
     </ClInclude>
     <ClInclude Include="include\file\FileFactory.h">
       <Filter>include\file</Filter>
@@ -205,12 +208,6 @@
     <ClInclude Include="include\grabber\rs\rsgrabber\time.h">
       <Filter>include\grabber\rs\rsgrabber</Filter>
     </ClInclude>
-    <ClInclude Include="include\pointCloudProcessing\feature\FeatureFactory.h">
-      <Filter>include\pointCloudProcessing\feature</Filter>
-    </ClInclude>
-    <ClInclude Include="include\pointCloudProcessing\feature\FeatureProcessing.h">
-      <Filter>include\pointCloudProcessing\feature</Filter>
-    </ClInclude>
     <ClInclude Include="include\pointCloudProcessing\filter\VoxelGridFilter.h">
       <Filter>include\pointCloudProcessing\filter</Filter>
     </ClInclude>
@@ -220,11 +217,26 @@
     <ClInclude Include="include\pointCloudProcessing\filter\FilterFactory.h">
       <Filter>include\pointCloudProcessing\filter</Filter>
     </ClInclude>
-    <ClInclude Include="include\pointCloudProcessing\feature\MySift3D.h">
-      <Filter>include\pointCloudProcessing\feature</Filter>
-    </ClInclude>
     <ClInclude Include="include\file\MyFile.h">
       <Filter>include\file</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\keypoint\MyHarris3D.h">
+      <Filter>include\pointCloudProcessing\keypoint</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\keypoint\MySIFT3D.h">
+      <Filter>include\pointCloudProcessing\keypoint</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\keypoint\KeypointFactory.h">
+      <Filter>include\pointCloudProcessing\keypoint</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\keypoint\KeypointProcessing.h">
+      <Filter>include\pointCloudProcessing\keypoint</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\filter\BoundingBoxFilter.h">
+      <Filter>include\pointCloudProcessing\filter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
