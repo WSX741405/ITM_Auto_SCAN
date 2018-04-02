@@ -15,16 +15,16 @@ public:
 	void SetMinContrast(float minContrast);
 	void SetRadius(float radius);
 	void SetRadiusSearch(float radiusSearch);
-	void SetMethod(pcl::HarrisKeypoint3D<PointT, pcl::PointXYZI>::ResponseMethod method);
-	pcl::PointCloud<pcl::PointXYZI>::Ptr GetResult();
+	void SetMethod(pcl::HarrisKeypoint3D<PointT, KeypointT>::ResponseMethod method);
+	pcl::PointCloud<KeypointT>::Ptr GetResult();
 
 private:
-	pcl::HarrisKeypoint3D<PointT, pcl::PointXYZI>* _harris3D;
-	pcl::PointCloud<pcl::PointXYZI>::Ptr _keypoints;
+	pcl::HarrisKeypoint3D<PointT, KeypointT>* _harris3D;
+	pcl::PointCloud<KeypointT>::Ptr _keypoints;
 
 	float _radius;
 	float _radiusSearch;
-	pcl::HarrisKeypoint3D<PointT, pcl::PointXYZI>::ResponseMethod _method;
+	pcl::HarrisKeypoint3D<PointT, KeypointT>::ResponseMethod _method;
 };
 
 #endif

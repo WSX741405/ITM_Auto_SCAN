@@ -1,5 +1,7 @@
-﻿  MainWindow.cpp
+﻿  Moc'ing MainWindow.h...
+  moc_IObserver.cpp
 D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/interactor_style.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/pcl_visualizer.h(1618): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 include\file/FileFactory.h(4): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
@@ -9,6 +11,126 @@ include\file/FileFactory.h(6): warning C4067: 未預期的語彙基元，接著�
 include\file/plyFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
 include\file/FileFactory.h(7): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
 include\file/pcdFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+  moc_MainWindow.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/interactor_style.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/pcl_visualizer.h(1618): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+include\file/FileFactory.h(4): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(5): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/objFile.h(9): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/plyFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(7): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/pcdFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+  Flexx.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/interactor_style.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/pcl_visualizer.h(1618): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+include\file/FileFactory.h(4): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(5): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/objFile.h(9): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/plyFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(7): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/pcdFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\grabber\flexx\Flexx.cpp(72): warning C4297: 'Flexx::~Flexx': 函式預設並不會擲回例外狀況，但卻擲回例外狀況
+  include\grabber\flexx\Flexx.cpp(72): note: 解構函式或釋放器 (可能隱含) 非擲回例外狀況的規格
+  GrabberFactory.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/interactor_style.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/pcl_visualizer.h(1618): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+include\file/FileFactory.h(4): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(5): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/objFile.h(9): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/plyFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(7): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/pcdFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+  RS.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/interactor_style.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/pcl_visualizer.h(1618): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+include\file/FileFactory.h(4): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(5): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/objFile.h(9): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/plyFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(7): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/pcdFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+  main.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/interactor_style.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/pcl_visualizer.h(1618): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\github\obj_auto_scan\obj_auto_scan\include\file/FileFactory.h(4): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+d:\github\obj_auto_scan\obj_auto_scan\include\file/FileFactory.h(5): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+d:\github\obj_auto_scan\obj_auto_scan\include\file/objFile.h(9): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+d:\github\obj_auto_scan\obj_auto_scan\include\file/FileFactory.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+d:\github\obj_auto_scan\obj_auto_scan\include\file/plyFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+d:\github\obj_auto_scan\obj_auto_scan\include\file/FileFactory.h(7): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+d:\github\obj_auto_scan\obj_auto_scan\include\file/pcdFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+  IObserver.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/interactor_style.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/pcl_visualizer.h(1618): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+include\file/FileFactory.h(4): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(5): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/objFile.h(9): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/plyFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(7): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/pcdFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+  ObserverFactory.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/interactor_style.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/pcl_visualizer.h(1618): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+include\file/FileFactory.h(4): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(5): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/objFile.h(9): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/plyFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(7): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/pcdFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+  MyFPFH.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/ransac.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/sample_consensus/sac_model_registration.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+  BoundingBoxFilter.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+  FilterFactory.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+  VoxelGridFilter.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+  KeypointFactory.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+  MyHarris3D.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+  MySIFT3D.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+  MainWindow.cpp
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/interactor_style.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/visualization/pcl_visualizer.h(1618): warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+include\file/FileFactory.h(4): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(5): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/objFile.h(9): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/plyFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/FileFactory.h(7): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+include\file/pcdFile.h(6): warning C4067: 未預期的語彙基元，接著前置處理器指示詞 - 必須是新行
+  正在產生程式碼...
      正在建立程式庫 D:\github\OBJ_Auto_Scan\x64\Release\OBJ_Auto_SCAN.lib 和物件 D:\github\OBJ_Auto_Scan\x64\Release\OBJ_Auto_SCAN.exp
 MSVCRT.lib(initializers.obj) : warning LNK4098: 預設的程式庫 'libcmt.lib' 與其他使用的程式庫衝突，請使用 /NODEFAULTLIB:library
   OBJ_Auto_SCAN.vcxproj -> D:\github\OBJ_Auto_Scan\x64\Release\OBJ_Auto_SCAN.exe

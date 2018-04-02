@@ -11,6 +11,7 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 #include <QtWidgets/QMainWindow>
 
 typedef pcl::PointXYZRGBA PointT;
+typedef pcl::PointXYZI KeypointT;
 #include <QMetaType>
 Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 
@@ -31,6 +32,7 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include "Conversion.h"
 #include "pointCloudProcessing/keypoint/KeypointFactory.h"
 #include "pointCloudProcessing/filter/FilterFactory.h"
+#include "pointCloudProcessing/correspondences/CorrespondencesFactory.h"
 
 class UIObserver;
 class ISubject;
@@ -94,11 +96,20 @@ public slots:
 	void ChangeFilterTabSlot(int index);
 	void ProcessFilterSlot();
 	void SetVoxelGridXYZSlot();
+	void SetBoundingBoxSlot();
+	//****************************************************************
+	//										Correspondences
+	//****************************************************************
+	void ProcessCorrespondencesSlot();
+	void SetFPFHDescriptorRadiusSlot(double descriptorRadius);
+	void SetFPFHNormalRadiusSlot(double normalRadius);
+	void SetFPFHCorrespondencesKSlot(int correspondencesK);
 
 private:
 	void InitialConnectSlots();
 	void InitialPointCloudViewer();
 	void InitialPointCloudTable();
+	void InitialTabWidget();
 	void UpdatePointCloudViewer();
 	void UpdatePointCloudTable();
 	void RegisterObserver();
@@ -125,6 +136,8 @@ private:
 	KeypointProcessing* _keypointProcessing;
 	FilterFactory* _filterFactory;
 	FilterProcessing* _filterProcessing;
+	CorrespondencesFactory* _correspondencesFactory;
+	CorrespondencesProcessing* _correspondencesProcessing;
 };
 
 #endif

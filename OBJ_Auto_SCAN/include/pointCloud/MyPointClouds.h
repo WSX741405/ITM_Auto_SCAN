@@ -18,7 +18,7 @@ public:
 		_pointClouds.push_back(myCloud);
 	}
 
-	void AddPointCloud(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, int r, int g, int b, std::string name = "Name")
+	void AddPointCloud(pcl::PointCloud<KeypointT>::Ptr cloud, int r, int g, int b, std::string name = "Name")
 	{
 		pcl::PointCloud<PointT>::Ptr tmpCloud;
 		tmpCloud.reset(new pcl::PointCloud<PointT>());
@@ -72,9 +72,9 @@ public:
 		return _pointClouds[id]->GetPointCloud();
 	}
 
-	void SetIsSelectedById(int id, bool isShow)
+	void SetIsSelectedById(int id, bool isSelected)
 	{
-		_pointClouds[id]->SetIsSelected(isShow);
+		_pointClouds[id]->SetIsSelected(isSelected);
 	}
 
 	bool GetIsSelectedById(int id)

@@ -5,17 +5,20 @@ BoundingBoxFilter::BoundingBoxFilter()
 	_filteredCloud.reset(new pcl::PointCloud<PointT>());
 
 	//	default
-	_minX = 0.01f;
-	_maxX = 0.09f;
-	_minY = 0.01f;
-	_maxY = 0.09f;
-	_minZ = 0.01f;
-	_maxZ = 0.09f;
+	_minX = -1;
+	_maxX = 1;
+	_minY = -1;
+	_maxY = 1;
+	_minZ = -1;
+	_maxZ = 1;
 }
 
 void BoundingBoxFilter::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 {
-
+	_boxFilter.setMin(Eigen::Vector4f(_minX, _minY, _minZ, 1.0));
+	_boxFilter.setMax(Eigen::Vector4f(_maxX, _maxY, _maxZ, 1.0));
+	_boxFilter.setInputCloud(cloud);
+	_boxFilter.filter(*_filteredCloud);
 }
 
 pcl::PointCloud<PointT>::Ptr BoundingBoxFilter::GetResult()

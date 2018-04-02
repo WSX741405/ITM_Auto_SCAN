@@ -3,7 +3,7 @@
 MyHarris::MyHarris()
 {
 	_harris3D = NULL;
-	_keypoints.reset(new pcl::PointCloud<pcl::PointXYZI>());
+	_keypoints.reset(new pcl::PointCloud<KeypointT>());
 
 	//	default
 	_radius = 0.01;
@@ -12,9 +12,9 @@ MyHarris::MyHarris()
 
 void MyHarris::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 {
-	_harris3D = new pcl::HarrisKeypoint3D<PointT, pcl::PointXYZI>();
+	_harris3D = new pcl::HarrisKeypoint3D<PointT, KeypointT>();
 	_harris3D->setMethod(_method);
-	boost::shared_ptr<pcl::Keypoint<PointT, pcl::PointXYZI> > keypointDetector;
+	boost::shared_ptr<pcl::Keypoint<PointT, KeypointT> > keypointDetector;
 	_harris3D->setNonMaxSupression(true);
 	_harris3D->setRadius(_radius);
 	_harris3D->setRadiusSearch(_radiusSearch);
@@ -43,12 +43,12 @@ void MyHarris::SetRadiusSearch(float radiusSearch)
 	_radiusSearch = radiusSearch;
 }
 
-void MyHarris::SetMethod(pcl::HarrisKeypoint3D<PointT, pcl::PointXYZI>::ResponseMethod method)
+void MyHarris::SetMethod(pcl::HarrisKeypoint3D<PointT, KeypointT>::ResponseMethod method)
 {
 	_method = method;
 }
 
-pcl::PointCloud<pcl::PointXYZI>::Ptr MyHarris::GetResult()
+pcl::PointCloud<KeypointT>::Ptr MyHarris::GetResult()
 {
 	return _keypoints;
 }

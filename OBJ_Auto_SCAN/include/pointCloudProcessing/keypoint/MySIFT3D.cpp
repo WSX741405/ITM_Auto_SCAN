@@ -3,7 +3,7 @@
 MySIFT::MySIFT()
 {
 	_sift3D = NULL;
-	_keypoints.reset(new pcl::PointCloud<pcl::PointXYZI>());
+	_keypoints.reset(new pcl::PointCloud<KeypointT>());
 
 	//		Default
 	_minScale = 0.01f;
@@ -14,8 +14,8 @@ MySIFT::MySIFT()
 
 void MySIFT::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 {
-	_sift3D = new pcl::SIFTKeypoint<PointT, pcl::PointXYZI>();
-	boost::shared_ptr<pcl::Keypoint<PointT, pcl::PointXYZI> > keypointDetector;
+	_sift3D = new pcl::SIFTKeypoint<PointT, KeypointT>();
+	boost::shared_ptr<pcl::Keypoint<PointT, KeypointT> > keypointDetector;
 	_sift3D->setScales(_minScale, _nrOctaves, _nrScalesPerOctave);
 	_sift3D->setMinimumContrast(_minContrast);
 	keypointDetector.reset(_sift3D);
@@ -45,7 +45,7 @@ void MySIFT::SetRadiusSearch(float radiusSearch)
 	return;
 }
 
-pcl::PointCloud<pcl::PointXYZI>::Ptr MySIFT::GetResult()
+pcl::PointCloud<KeypointT>::Ptr MySIFT::GetResult()
 {
 	return _keypoints;
 }

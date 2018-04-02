@@ -1,20 +1,22 @@
 #include "ui/MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-	QMainWindow(parent), _ui(new Ui::MainWindowForm), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory()), _keypointFactory(new KeypointFactory()), _filterFactory(new FilterFactory())
+	QMainWindow(parent), _ui(new Ui::MainWindowForm), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory()), _keypointFactory(new KeypointFactory()), _filterFactory(new FilterFactory()), _correspondencesFactory(new CorrespondencesFactory())
 {
 	_nameNumber = 0;
 	qRegisterMetaType<pcl::PointCloud<PointT>::Ptr>("pcl::PointCloud<PointT>::Ptr");
 	_filterProcessing = _filterFactory->GetVoixelGridFilter();
 	_keypointProcessing = _keypointFactory->GetSIFT();
-	_ui->setupUi(this);
+	_correspondencesProcessing = _correspondencesFactory->GetFPFH();
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
 	_fileFactory = new FileFactory();
 	_arduino = new Arduino(COM_PORT);
 	_pointClouds = new MyPointClouds();
+	_ui->setupUi(this);
 	InitialPointCloudViewer();
 	InitialPointCloudTable();
+	InitialTabWidget();
 	RegisterObserver();
 	InitialConnectSlots();
 }
@@ -56,9 +58,22 @@ void MainWindow::InitialConnectSlots()
 	//		Filter
 	connect(_ui->_filterTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeFilterTabSlot(int)));
 	connect(_ui->_filterProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessFilterSlot()));
+	//		Filter : Voxel Grid
 	connect(_ui->_voxelGridXSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetVoxelGridXYZSlot()));
 	connect(_ui->_voxelGridYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetVoxelGridXYZSlot()));
 	connect(_ui->_voxelGridZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetVoxelGridXYZSlot()));
+	//		Filter : Bounding Box
+	connect(_ui->_boundingBoxMinXSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMaxXSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMinYSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMaxYSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMinZSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMaxZSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
+	//		Correspondences : FPFH
+	connect(_ui->_correspondencesProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessCorrespondencesSlot()));
+	connect(_ui->_fpfhDescriptorRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFPFHDescriptorRadiusSlot(double)));
+	connect(_ui->_fpfhNormalRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFPFHNormalRadiusSlot(double)));
+	connect(_ui->_fpfhCorrespondencesKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetFPFHCorrespondencesKSlot(int)));
 }
 
 //****************************************************************
@@ -86,6 +101,14 @@ void MainWindow::InitialPointCloudTable()
 	}
 	_ui->_pointCloudTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	_ui->_pointCloudTable->setHorizontalHeaderLabels(tableTitle);
+}
+
+void MainWindow::InitialTabWidget()
+{
+	_ui->_processingTabWidget->setCurrentIndex(0);
+	_ui->_filterTabWidget->setCurrentIndex(0);
+	_ui->_keypointTabWidget->setCurrentIndex(0);
+	_ui->_correspondencesTabWidget->setCurrentIndex(0);
 }
 
 void MainWindow::UpdatePointCloudViewer()
@@ -385,6 +408,17 @@ void MainWindow::SetVoxelGridXYZSlot()
 	_filterProcessing->SetLeafSize(x, y, z);
 }
 
+void MainWindow::SetBoundingBoxSlot()
+{
+	int minX = TypeConversion::QString2Float(_ui->_boundingBoxMinXSpinBox->text());
+	int maxX = TypeConversion::QString2Float(_ui->_boundingBoxMaxXSpinBox->text());
+	int minY = TypeConversion::QString2Float(_ui->_boundingBoxMinYSpinBox->text());
+	int maxY = TypeConversion::QString2Float(_ui->_boundingBoxMaxYSpinBox->text());
+	int minZ = TypeConversion::QString2Float(_ui->_boundingBoxMinZSpinBox->text());
+	int maxZ = TypeConversion::QString2Float(_ui->_boundingBoxMaxZSpinBox->text());
+	_filterProcessing->SetBoundingBox(minX, maxX, minY, maxY, minZ, maxZ);
+}
+
 //****************************************************************
 //								Slots : Keypoint Processing
 //****************************************************************
@@ -465,4 +499,28 @@ void MainWindow::SetHarrisRadiusSearchSlot()
 {
 	float harrisRadiusSearch = TypeConversion::QString2Float(_ui->_harrisRadiusSearchSpinBox->text());
 	_keypointProcessing->SetRadiusSearch(harrisRadiusSearch);
+}
+
+//****************************************************************
+//								Slots : Correspondences Processing
+//****************************************************************
+
+void MainWindow::ProcessCorrespondencesSlot()
+{
+
+}
+
+void MainWindow::SetFPFHDescriptorRadiusSlot(double descriptorRadius)
+{
+	_correspondencesProcessing->SetDescriptorRadius(descriptorRadius);
+}
+
+void MainWindow::SetFPFHNormalRadiusSlot(double normalRadius)
+{
+	_correspondencesProcessing->SetNormalRadius(normalRadius);
+}
+
+void MainWindow::SetFPFHCorrespondencesKSlot(int correspondencesK)
+{
+	_correspondencesProcessing->SetCorrespondencesK(correspondencesK);
 }

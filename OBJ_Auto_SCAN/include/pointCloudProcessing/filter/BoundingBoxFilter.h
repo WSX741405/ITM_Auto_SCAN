@@ -2,6 +2,9 @@
 #define BOUNDING_BOX_FILTER
 
 #include "FilterProcessing.h"
+#include <pcl/filters/crop_box.h>
+
+typedef pcl::PointXYZRGBA PointT;
 
 class BoundingBoxFilter : public FilterProcessing
 {
@@ -14,6 +17,7 @@ public:
 
 private:
 	pcl::PointCloud<PointT>::Ptr _filteredCloud;
+	pcl::CropBox<PointT> _boxFilter;
 	float _minX;
 	float _maxX;
 	float _minY;

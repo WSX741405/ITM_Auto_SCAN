@@ -1,0 +1,100 @@
+#include "MyFPFH.h"
+
+MyFPFH::MyFPFH()
+{
+	//	default
+	_descriptorRadiusSearch = 0.05;
+	_normalRadiusSearch = 0.01;
+	_correspondencesK = 1;
+}
+
+void MyFPFH::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<PointT>::Ptr target, pcl::PointCloud<KeypointT>::Ptr targetKpts)
+{
+	pcl::PointCloud<pcl::FPFHSignature33>::Ptr sourceDescriptor = ProessingDescriptor(source, sourceKpts);
+	pcl::PointCloud<pcl::FPFHSignature33>::Ptr targetDescriptor = ProessingDescriptor(target, targetKpts);
+	std::vector<int> source2Target = ProcessingCorrespondences(sourceDescriptor, targetDescriptor);
+	std::vector<int> target2Source = ProcessingCorrespondences(targetDescriptor, sourceDescriptor);
+	ProcessingFilterCorrespondences(sourceKpts, targetKpts, source2Target, target2Source);
+}
+
+pcl::PointCloud<pcl::FPFHSignature33>::Ptr MyFPFH::ProessingDescriptor(pcl::PointCloud<PointT>::Ptr cloud, pcl::PointCloud<KeypointT>::Ptr keypoints)
+{
+	pcl::PointCloud<pcl::FPFHSignature33>::Ptr descriptor;
+	_featureExtractor.reset(new pcl::FPFHEstimationOMP<PointT, pcl::Normal, pcl::FPFHSignature33>());
+	_featureExtractor->setSearchMethod(pcl::search::Search<PointT>::Ptr(new pcl::search::KdTree<PointT>));
+	_featureExtractor->setRadiusSearch(_descriptorRadiusSearch);
+	pcl::PointCloud<PointT>::Ptr kpts(new pcl::PointCloud<PointT>);
+	kpts->points.resize(keypoints->points.size());
+	pcl::copyPointCloud(*keypoints, *kpts);
+	pcl::FeatureFromNormals<PointT, pcl::Normal, pcl::FPFHSignature33>::Ptr featureFromNormals = boost::dynamic_pointer_cast<pcl::FeatureFromNormals<PointT, pcl::Normal, pcl::FPFHSignature33> > (_featureExtractor);
+	_featureExtractor->setSearchSurface(cloud);
+	_featureExtractor->setInputCloud(kpts);
+	if (featureFromNormals)
+	{
+		typename pcl::PointCloud<pcl::Normal>::Ptr normals(new  pcl::PointCloud<pcl::Normal>);
+		pcl::NormalEstimation<PointT, pcl::Normal> normalEstimation;
+		normalEstimation.setSearchMethod(pcl::search::Search<PointT>::Ptr(new pcl::search::KdTree<PointT>));
+		normalEstimation.setRadiusSearch(_normalRadiusSearch);
+		normalEstimation.setInputCloud(cloud);
+		normalEstimation.compute(*normals);
+		featureFromNormals->setInputNormals(normals);
+	}
+	_featureExtractor->compute(*descriptor);
+	return descriptor;
+}
+
+std::vector<int> MyFPFH::ProcessingCorrespondences(pcl::PointCloud<pcl::FPFHSignature33>::Ptr source, pcl::PointCloud<pcl::FPFHSignature33>::Ptr target)
+{
+	std::vector<int> correspondences;
+	correspondences.resize(source->size());
+	// Use a KdTree to search for the nearest matches in feature space
+	pcl::KdTreeFLANN<pcl::FPFHSignature33> descriptorKdtree;
+	descriptorKdtree.setInputCloud(target);
+	// Find the index of the best match for each keypoint, and store it in "correspondences_out"
+	std::vector<int> kIndices(_correspondencesK);
+	std::vector<float> kSquaredDistances(_correspondencesK);
+	for (int i = 0; i < static_cast<int> (source->size()); ++i)
+	{
+		descriptorKdtree.nearestKSearch(*source, i, _correspondencesK, kIndices, kSquaredDistances);
+		correspondences[i] = kIndices[0];
+	}
+	return correspondences;
+}
+
+void MyFPFH::ProcessingFilterCorrespondences(pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<KeypointT>::Ptr targetKpts, std::vector<int> source2Target, std::vector<int> target2Source)
+{
+	pcl::CorrespondencesPtr result;
+	result.reset(new pcl::Correspondences());
+	std::vector<std::pair<unsigned, unsigned> > correspondences;
+	for (unsigned cIdx = 0; cIdx < source2Target.size(); ++cIdx)
+		if (target2Source[source2Target[cIdx]] == static_cast<int> (cIdx))
+			correspondences.push_back(std::make_pair(cIdx, source2Target[cIdx]));
+
+	result->resize(correspondences.size());
+	for (unsigned cIdx = 0; cIdx < correspondences.size(); ++cIdx)
+	{
+		(*result)[cIdx].index_query = correspondences[cIdx].first;
+		(*result)[cIdx].index_match = correspondences[cIdx].second;
+	}
+
+	pcl::registration::CorrespondenceRejectorSampleConsensus<KeypointT> rejector;
+	rejector.setInputSource(sourceKpts);
+	rejector.setInputTarget(targetKpts);
+	rejector.setInputCorrespondences(result);
+	rejector.getCorrespondences(*result);
+}
+
+void MyFPFH::SetDescriptorRadius(float descriptorRadiusSearch)
+{
+	_descriptorRadiusSearch = descriptorRadiusSearch;
+}
+
+void MyFPFH::SetNormalRadius(float normalRadiusSearch)
+{
+	_normalRadiusSearch = normalRadiusSearch;
+}
+
+void MyFPFH::SetCorrespondencesK(float correspondencesK)
+{
+	_correspondencesK = correspondencesK;
+}

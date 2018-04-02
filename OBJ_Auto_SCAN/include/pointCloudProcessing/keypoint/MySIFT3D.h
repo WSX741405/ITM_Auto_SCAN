@@ -15,11 +15,11 @@ public:
 	void SetMinContrast(float minContrast);
 	void SetRadius(float radius);
 	void SetRadiusSearch(float radiusSearch);
-	pcl::PointCloud<pcl::PointXYZI>::Ptr GetResult();
+	pcl::PointCloud<KeypointT>::Ptr GetResult();
 
 private:
-	pcl::SIFTKeypoint<PointT, pcl::PointXYZI>* _sift3D;
-	pcl::PointCloud<pcl::PointXYZI>::Ptr _keypoints;
+	pcl::SIFTKeypoint<PointT, KeypointT>* _sift3D;
+	pcl::PointCloud<KeypointT>::Ptr _keypoints;
 
 	float _minContrast;
 	float _minScale;

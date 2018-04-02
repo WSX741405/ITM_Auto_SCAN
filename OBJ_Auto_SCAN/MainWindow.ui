@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1300</width>
+    <width>1280</width>
     <height>850</height>
    </rect>
   </property>
@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -63,7 +63,7 @@
     <property name="tabBarAutoHide">
      <bool>false</bool>
     </property>
-    <widget class="QWidget" name="tab_3">
+    <widget class="QWidget" name="_filterTab">
      <attribute name="title">
       <string>Filter</string>
      </attribute>
@@ -79,11 +79,11 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="_voxelGridTab">
        <attribute name="title">
         <string>Voxel Grid</string>
        </attribute>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="_voxelGridXLabel">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -101,7 +101,7 @@
          <string>X：</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="_voxelGridYLabel">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -200,7 +200,7 @@
          <double>0.010000000000000</double>
         </property>
        </widget>
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="_voxelGridZLabel">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -238,19 +238,19 @@
          </font>
         </property>
         <property name="minimum">
-         <double>0.010000000000000</double>
+         <double>-1.000000000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.010000000000000</double>
+         <double>0.100000000000000</double>
         </property>
         <property name="value">
-         <double>0.010000000000000</double>
+         <double>-1.000000000000000</double>
         </property>
        </widget>
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="_boundingBoxZLabel">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -283,19 +283,19 @@
          </font>
         </property>
         <property name="minimum">
-         <double>0.010000000000000</double>
+         <double>-1.000000000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.010000000000000</double>
+         <double>0.100000000000000</double>
         </property>
         <property name="value">
-         <double>0.010000000000000</double>
+         <double>-1.000000000000000</double>
         </property>
        </widget>
-       <widget class="QLabel" name="label_6">
+       <widget class="QLabel" name="_boundingBoxXLabel">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -328,19 +328,19 @@
          </font>
         </property>
         <property name="minimum">
-         <double>0.010000000000000</double>
+         <double>-1.000000000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.010000000000000</double>
+         <double>0.100000000000000</double>
         </property>
         <property name="value">
-         <double>0.010000000000000</double>
+         <double>-1.000000000000000</double>
         </property>
        </widget>
-       <widget class="QLabel" name="label_7">
+       <widget class="QLabel" name="_boundingBoxYLabel">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -379,10 +379,10 @@
          <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.010000000000000</double>
+         <double>0.100000000000000</double>
         </property>
         <property name="value">
-         <double>0.090000000000000</double>
+         <double>1.000000000000000</double>
         </property>
        </widget>
        <widget class="QDoubleSpinBox" name="_boundingBoxMaxZSpinBox">
@@ -406,10 +406,10 @@
          <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.010000000000000</double>
+         <double>0.100000000000000</double>
         </property>
         <property name="value">
-         <double>0.090000000000000</double>
+         <double>1.000000000000000</double>
         </property>
        </widget>
        <widget class="QDoubleSpinBox" name="_boundingBoxMaxYSpinBox">
@@ -433,13 +433,13 @@
          <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.010000000000000</double>
+         <double>0.100000000000000</double>
         </property>
         <property name="value">
-         <double>0.090000000000000</double>
+         <double>1.000000000000000</double>
         </property>
        </widget>
-       <widget class="QLabel" name="label_8">
+       <widget class="QLabel" name="_boundingBoxXShiftLabel">
         <property name="geometry">
          <rect>
           <x>190</x>
@@ -457,7 +457,7 @@
          <string>~</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_9">
+       <widget class="QLabel" name="_boundingBoxYShiftLabel">
         <property name="geometry">
          <rect>
           <x>190</x>
@@ -475,7 +475,7 @@
          <string>~</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_10">
+       <widget class="QLabel" name="_boundingBoxZShiftLabel">
         <property name="geometry">
          <rect>
           <x>190</x>
@@ -514,7 +514,7 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_4">
+    <widget class="QWidget" name="_keypointTab">
      <attribute name="title">
       <string>Keypoint</string>
      </attribute>
@@ -797,6 +797,154 @@
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="_correspondencesTab">
+     <attribute name="title">
+      <string>Correspondences</string>
+     </attribute>
+     <widget class="QTabWidget" name="_correspondencesTabWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>420</width>
+        <height>360</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="_fpfhTab">
+       <attribute name="title">
+        <string>FPFH</string>
+       </attribute>
+       <widget class="QLabel" name="_fpfhNormalRadiusLabel">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>70</y>
+          <width>180</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Normal Radius：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_fpfhdescriptorRadiusLabel">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>220</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Descriptor Radius：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_fpfhDescriptorRadiusSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>20</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.050000000000000</double>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="_fpfhCorrespondencesKSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>120</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>10</number>
+        </property>
+        <property name="value">
+         <number>1</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_fpfhCorrespondencesKLabel">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>120</y>
+          <width>220</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Correspondences K：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_fpfhNormalRadiusSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>70</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.010000000000000</double>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_8">
+       <attribute name="title">
+        <string>SHOTRGB</string>
+       </attribute>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="_correspondencesProcessingButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>400</y>
+        <width>150</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Processing</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -804,7 +952,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1300</width>
+     <width>1280</width>
      <height>21</height>
     </rect>
    </property>

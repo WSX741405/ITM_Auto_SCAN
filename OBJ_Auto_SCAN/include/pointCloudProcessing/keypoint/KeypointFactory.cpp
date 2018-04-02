@@ -13,34 +13,34 @@ KeypointProcessing* KeypointFactory::GetSIFT()
 KeypointProcessing* KeypointFactory::GetHarris()
 {
 	static MyHarris* harris = new MyHarris();
-	harris->SetMethod(pcl::HarrisKeypoint3D<PointT, pcl::PointXYZI>::HARRIS);
+	harris->SetMethod(pcl::HarrisKeypoint3D<PointT, KeypointT>::HARRIS);
 	return harris;
 }
 
 KeypointProcessing* KeypointFactory::GetTomasi()
 {
 	static MyHarris* harris = new MyHarris();
-	harris->SetMethod(pcl::HarrisKeypoint3D<PointT, pcl::PointXYZI>::TOMASI);
+	harris->SetMethod(pcl::HarrisKeypoint3D<PointT, KeypointT>::TOMASI);
 	return harris;
 }
 
 KeypointProcessing* KeypointFactory::GetNoble()
 {
 	static MyHarris* harris = new MyHarris();
-	harris->SetMethod(pcl::HarrisKeypoint3D<PointT, pcl::PointXYZI>::NOBLE);
+	harris->SetMethod(pcl::HarrisKeypoint3D<PointT, KeypointT>::NOBLE);
 	return harris;
 }
 
 KeypointProcessing* KeypointFactory::Lowe()
 {
 	static MyHarris* harris = new MyHarris();
-	harris->SetMethod(pcl::HarrisKeypoint3D<PointT, pcl::PointXYZI>::LOWE);
+	harris->SetMethod(pcl::HarrisKeypoint3D<PointT, KeypointT>::LOWE);
 	return harris;
 }
 
 KeypointProcessing* KeypointFactory::Curvature()
 {
 	static MyHarris* harris = new MyHarris();
-	harris->SetMethod(pcl::HarrisKeypoint3D<PointT, pcl::PointXYZI>::CURVATURE);
+	harris->SetMethod(pcl::HarrisKeypoint3D<PointT, KeypointT>::CURVATURE);
 	return harris;
 }
