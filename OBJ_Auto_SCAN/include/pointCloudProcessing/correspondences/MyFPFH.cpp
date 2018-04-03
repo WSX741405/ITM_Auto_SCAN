@@ -2,6 +2,7 @@
 
 MyFPFH::MyFPFH()
 {
+	_transformedSource.reset(new pcl::PointCloud<PointT>);
 	//	default
 	_descriptorRadiusSearch = 0.05;
 	_normalRadiusSearch = 0.01;
@@ -20,6 +21,7 @@ void MyFPFH::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<Key
 pcl::PointCloud<pcl::FPFHSignature33>::Ptr MyFPFH::ProessingDescriptor(pcl::PointCloud<PointT>::Ptr cloud, pcl::PointCloud<KeypointT>::Ptr keypoints)
 {
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr descriptor;
+	descriptor.reset(new pcl::PointCloud<pcl::FPFHSignature33>());
 	_featureExtractor.reset(new pcl::FPFHEstimationOMP<PointT, pcl::Normal, pcl::FPFHSignature33>());
 	_featureExtractor->setSearchMethod(pcl::search::Search<PointT>::Ptr(new pcl::search::KdTree<PointT>));
 	_featureExtractor->setRadiusSearch(_descriptorRadiusSearch);
@@ -61,7 +63,7 @@ std::vector<int> MyFPFH::ProcessingCorrespondences(pcl::PointCloud<pcl::FPFHSign
 	return correspondences;
 }
 
-void MyFPFH::ProcessingFilterCorrespondences(pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<KeypointT>::Ptr targetKpts, std::vector<int> source2Target, std::vector<int> target2Source)
+pcl::CorrespondencesPtr MyFPFH::ProcessingFilterCorrespondences(pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<KeypointT>::Ptr targetKpts, std::vector<int> source2Target, std::vector<int> target2Source)
 {
 	pcl::CorrespondencesPtr result;
 	result.reset(new pcl::Correspondences());
@@ -82,6 +84,16 @@ void MyFPFH::ProcessingFilterCorrespondences(pcl::PointCloud<KeypointT>::Ptr sou
 	rejector.setInputTarget(targetKpts);
 	rejector.setInputCorrespondences(result);
 	rejector.getCorrespondences(*result);
+	return result;
+}
+
+void MyFPFH::DetermineInitialTransformation(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<KeypointT>::Ptr targetKpts, pcl::CorrespondencesPtr correspondences)
+{
+	Eigen::Matrix4f initialTransformationMatrix;
+	pcl::registration::TransformationEstimation<KeypointT, KeypointT>::Ptr transformationEstimation(new pcl::registration::TransformationEstimationSVD<KeypointT, KeypointT>);
+	transformationEstimation->estimateRigidTransformation(*sourceKpts, *targetKpts, *correspondences, initialTransformationMatrix);
+
+	pcl::transformPointCloud(*source, *_transformedSource, initialTransformationMatrix);
 }
 
 void MyFPFH::SetDescriptorRadius(float descriptorRadiusSearch)
@@ -97,4 +109,9 @@ void MyFPFH::SetNormalRadius(float normalRadiusSearch)
 void MyFPFH::SetCorrespondencesK(float correspondencesK)
 {
 	_correspondencesK = correspondencesK;
+}
+
+pcl::PointCloud<PointT>::Ptr MyFPFH::GetResult()
+{
+	return _transformedSource;
 }

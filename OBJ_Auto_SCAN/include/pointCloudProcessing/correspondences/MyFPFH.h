@@ -7,6 +7,7 @@
 #include <pcl/features/fpfh.h>
 #include <pcl/features/fpfh_omp.h>
 #include <pcl/registration/correspondence_rejection_sample_consensus.h>
+#include <pcl/registration/icp.h>
 
 #include "CorrespondencesProcessing.h"
 
@@ -21,16 +22,19 @@ public:
 	void SetDescriptorRadius(float descriptorRadiusSearch);
 	void SetNormalRadius(float normalRadiusSearch);
 	void SetCorrespondencesK(float correspondencesK);
-	//pcl::PointCloud<pcl::FPFHSignature33>::Ptr GetResult();
+	pcl::PointCloud<PointT>::Ptr GetResult();
 
 private:
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr ProessingDescriptor(pcl::PointCloud<PointT>::Ptr cloud, pcl::PointCloud<KeypointT>::Ptr keypoints);
 	std::vector<int> ProcessingCorrespondences(pcl::PointCloud<pcl::FPFHSignature33>::Ptr source, pcl::PointCloud<pcl::FPFHSignature33>::Ptr target);
-	void ProcessingFilterCorrespondences(pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<KeypointT>::Ptr targetKpts, std::vector<int> source2Target, std::vector<int> target2Source);
+	pcl::CorrespondencesPtr ProcessingFilterCorrespondences(pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<KeypointT>::Ptr targetKpts, std::vector<int> source2Target, std::vector<int> target2Source);
+	void DetermineInitialTransformation(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<KeypointT>::Ptr targetKpts, pcl::CorrespondencesPtr correspondences);
+
 
 	pcl::Feature<PointT, pcl::FPFHSignature33>::Ptr _featureExtractor;
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr _sourceDescriptor;
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr _targetDescriptor;
+	pcl::PointCloud<PointT>::Ptr _transformedSource;
 
 	float _descriptorRadiusSearch;
 	float _normalRadiusSearch;

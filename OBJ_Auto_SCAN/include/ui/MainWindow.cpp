@@ -507,7 +507,22 @@ void MainWindow::SetHarrisRadiusSearchSlot()
 
 void MainWindow::ProcessCorrespondencesSlot()
 {
-
+	std::vector<MyPointCloud*> clouds = _pointClouds->GetPointCloudsByIsSelected();
+	pcl::PointCloud<PointT>::Ptr sourceCloud = clouds[0]->GetPointCloud();
+	pcl::PointCloud<PointT>::Ptr targetCloud = clouds[1]->GetPointCloud();
+	if (clouds.size() != 2)
+	{
+		QMessageBox::about(this, tr("Process Correspondences"), tr("Selecct Two Point Cloud!"));
+		return;
+	}
+	else
+	{
+		_keypointProcessing->Processing(sourceCloud);
+		pcl::PointCloud<KeypointT>::Ptr sourceKeypoint = _keypointProcessing->GetResult();
+		_keypointProcessing->Processing(targetCloud);
+		pcl::PointCloud<KeypointT>::Ptr targetKeypoint = _keypointProcessing->GetResult();
+		_correspondencesProcessing->Processing(sourceCloud, sourceKeypoint, targetCloud, targetKeypoint);
+	}
 }
 
 void MainWindow::SetFPFHDescriptorRadiusSlot(double descriptorRadius)
