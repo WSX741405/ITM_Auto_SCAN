@@ -22,6 +22,7 @@ public:
 	void SetDescriptorRadius(float descriptorRadiusSearch);
 	void SetNormalRadius(float normalRadiusSearch);
 	void SetCorrespondencesK(float correspondencesK);
+	pcl::CorrespondencesPtr GetCorrespondencesResult();
 	pcl::PointCloud<PointT>::Ptr GetResult();
 
 private:
@@ -30,15 +31,15 @@ private:
 	pcl::CorrespondencesPtr ProcessingFilterCorrespondences(pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<KeypointT>::Ptr targetKpts, std::vector<int> source2Target, std::vector<int> target2Source);
 	void DetermineInitialTransformation(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<KeypointT>::Ptr targetKpts, pcl::CorrespondencesPtr correspondences);
 
-
-	pcl::Feature<PointT, pcl::FPFHSignature33>::Ptr _featureExtractor;
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr _sourceDescriptor;
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr _targetDescriptor;
 	pcl::PointCloud<PointT>::Ptr _transformedSource;
+	pcl::CorrespondencesPtr _correspondencesResult;
 
 	float _descriptorRadiusSearch;
 	float _normalRadiusSearch;
 	int _correspondencesK;
+	float _rejectorInlierThreshold;
 };
 
 #endif

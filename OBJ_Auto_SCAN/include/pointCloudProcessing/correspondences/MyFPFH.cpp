@@ -2,11 +2,13 @@
 
 MyFPFH::MyFPFH()
 {
+	_correspondencesResult.reset(new pcl::Correspondences());
 	_transformedSource.reset(new pcl::PointCloud<PointT>);
 	//	default
 	_descriptorRadiusSearch = 0.05;
 	_normalRadiusSearch = 0.01;
 	_correspondencesK = 1;
+	_rejectorInlierThreshold = 1.0;
 }
 
 void MyFPFH::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<PointT>::Ptr target, pcl::PointCloud<KeypointT>::Ptr targetKpts)
@@ -20,17 +22,18 @@ void MyFPFH::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<Key
 
 pcl::PointCloud<pcl::FPFHSignature33>::Ptr MyFPFH::ProessingDescriptor(pcl::PointCloud<PointT>::Ptr cloud, pcl::PointCloud<KeypointT>::Ptr keypoints)
 {
+	pcl::Feature<PointT, pcl::FPFHSignature33>::Ptr featureExtractor;
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr descriptor;
 	descriptor.reset(new pcl::PointCloud<pcl::FPFHSignature33>());
-	_featureExtractor.reset(new pcl::FPFHEstimationOMP<PointT, pcl::Normal, pcl::FPFHSignature33>());
-	_featureExtractor->setSearchMethod(pcl::search::Search<PointT>::Ptr(new pcl::search::KdTree<PointT>));
-	_featureExtractor->setRadiusSearch(_descriptorRadiusSearch);
+	featureExtractor.reset(new pcl::FPFHEstimationOMP<PointT, pcl::Normal, pcl::FPFHSignature33>());
+	featureExtractor->setSearchMethod(pcl::search::Search<PointT>::Ptr(new pcl::search::KdTree<PointT>));
+	featureExtractor->setRadiusSearch(_descriptorRadiusSearch);
 	pcl::PointCloud<PointT>::Ptr kpts(new pcl::PointCloud<PointT>);
 	kpts->points.resize(keypoints->points.size());
 	pcl::copyPointCloud(*keypoints, *kpts);
-	pcl::FeatureFromNormals<PointT, pcl::Normal, pcl::FPFHSignature33>::Ptr featureFromNormals = boost::dynamic_pointer_cast<pcl::FeatureFromNormals<PointT, pcl::Normal, pcl::FPFHSignature33> > (_featureExtractor);
-	_featureExtractor->setSearchSurface(cloud);
-	_featureExtractor->setInputCloud(kpts);
+	pcl::FeatureFromNormals<PointT, pcl::Normal, pcl::FPFHSignature33>::Ptr featureFromNormals = boost::dynamic_pointer_cast<pcl::FeatureFromNormals<PointT, pcl::Normal, pcl::FPFHSignature33> > (featureExtractor);
+	featureExtractor->setSearchSurface(cloud);
+	featureExtractor->setInputCloud(kpts);
 	if (featureFromNormals)
 	{
 		typename pcl::PointCloud<pcl::Normal>::Ptr normals(new  pcl::PointCloud<pcl::Normal>);
@@ -41,7 +44,7 @@ pcl::PointCloud<pcl::FPFHSignature33>::Ptr MyFPFH::ProessingDescriptor(pcl::Poin
 		normalEstimation.compute(*normals);
 		featureFromNormals->setInputNormals(normals);
 	}
-	_featureExtractor->compute(*descriptor);
+	featureExtractor->compute(*descriptor);
 	return descriptor;
 }
 
@@ -65,26 +68,25 @@ std::vector<int> MyFPFH::ProcessingCorrespondences(pcl::PointCloud<pcl::FPFHSign
 
 pcl::CorrespondencesPtr MyFPFH::ProcessingFilterCorrespondences(pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<KeypointT>::Ptr targetKpts, std::vector<int> source2Target, std::vector<int> target2Source)
 {
-	pcl::CorrespondencesPtr result;
-	result.reset(new pcl::Correspondences());
 	std::vector<std::pair<unsigned, unsigned> > correspondences;
 	for (unsigned cIdx = 0; cIdx < source2Target.size(); ++cIdx)
 		if (target2Source[source2Target[cIdx]] == static_cast<int> (cIdx))
 			correspondences.push_back(std::make_pair(cIdx, source2Target[cIdx]));
 
-	result->resize(correspondences.size());
+	_correspondencesResult->resize(correspondences.size());
 	for (unsigned cIdx = 0; cIdx < correspondences.size(); ++cIdx)
 	{
-		(*result)[cIdx].index_query = correspondences[cIdx].first;
-		(*result)[cIdx].index_match = correspondences[cIdx].second;
+		(*_correspondencesResult)[cIdx].index_query = correspondences[cIdx].first;
+		(*_correspondencesResult)[cIdx].index_match = correspondences[cIdx].second;
 	}
 
 	pcl::registration::CorrespondenceRejectorSampleConsensus<KeypointT> rejector;
 	rejector.setInputSource(sourceKpts);
 	rejector.setInputTarget(targetKpts);
-	rejector.setInputCorrespondences(result);
-	rejector.getCorrespondences(*result);
-	return result;
+	rejector.setInputCorrespondences(_correspondencesResult);
+	rejector.setInlierThreshold(_rejectorInlierThreshold);
+	rejector.getCorrespondences(*_correspondencesResult);
+	return _correspondencesResult;
 }
 
 void MyFPFH::DetermineInitialTransformation(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<KeypointT>::Ptr targetKpts, pcl::CorrespondencesPtr correspondences)
@@ -109,6 +111,11 @@ void MyFPFH::SetNormalRadius(float normalRadiusSearch)
 void MyFPFH::SetCorrespondencesK(float correspondencesK)
 {
 	_correspondencesK = correspondencesK;
+}
+
+pcl::CorrespondencesPtr MyFPFH::GetCorrespondencesResult()
+{
+	return _correspondencesResult;
 }
 
 pcl::PointCloud<PointT>::Ptr MyFPFH::GetResult()

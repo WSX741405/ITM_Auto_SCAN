@@ -16,7 +16,7 @@ public:
 	void SetRadius(float radius);
 	void SetRadiusSearch(float radiusSearch);
 	pcl::PointCloud<KeypointT>::Ptr GetResult();
-
+	
 private:
 	pcl::SIFTKeypoint<PointT, KeypointT>* _sift3D;
 	pcl::PointCloud<KeypointT>::Ptr _keypoints;

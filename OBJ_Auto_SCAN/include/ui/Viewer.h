@@ -19,6 +19,11 @@ public:
 			_viewer->addPointCloud(cloud, name);
 	}
 
+	void Show(pcl::CorrespondencesPtr correspondences, std::string name = "")
+	{
+		_viewer->addCorrespondences(correspondences, name);
+	}
+
 	void Clear()
 	{
 		_viewer->removeAllPointClouds();

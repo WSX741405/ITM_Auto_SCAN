@@ -41,7 +41,6 @@ void MainWindow::InitialConnectSlots()
 	//		PointClouds
 	connect(_ui->_keepOneFrameAction, SIGNAL(triggered()), this, SLOT(KeepOneFrameSlot()));
 	connect(_ui->_keepContinueFrameAction, SIGNAL(triggered()), this, SLOT(KeepContinueFrameSlot()));
-	connect(_ui->_IterativeClosestPointAction, SIGNAL(triggered()), this, SLOT(IterativeClosestPointSlot()));
 	connect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
 	//		Keypoint
 	connect(_ui->_keypointProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessKeypointSlot()));
@@ -63,12 +62,12 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_voxelGridYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetVoxelGridXYZSlot()));
 	connect(_ui->_voxelGridZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetVoxelGridXYZSlot()));
 	//		Filter : Bounding Box
-	connect(_ui->_boundingBoxMinXSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
-	connect(_ui->_boundingBoxMaxXSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
-	connect(_ui->_boundingBoxMinYSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
-	connect(_ui->_boundingBoxMaxYSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
-	connect(_ui->_boundingBoxMinZSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
-	connect(_ui->_boundingBoxMaxZSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMinXSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMaxXSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMinYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMaxYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMinZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMaxZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
 	//		Correspondences : FPFH
 	connect(_ui->_correspondencesProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessCorrespondencesSlot()));
 	connect(_ui->_fpfhDescriptorRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFPFHDescriptorRadiusSlot(double)));
@@ -432,7 +431,7 @@ void MainWindow::ProcessKeypointSlot()
 	for (int counter = 0; counter < clouds.size(); counter++)
 	{
 		_keypointProcessing->Processing(clouds[counter]->GetPointCloud());
-		std::string name = clouds[counter]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_keypoint");
+		std::string name = clouds[counter]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Keypoint");
 		_pointClouds->AddPointCloud(_keypointProcessing->GetResult(), r, g, b, name);
 		_nameNumber++;
 		UpdatePointCloudTable();
@@ -518,10 +517,16 @@ void MainWindow::ProcessCorrespondencesSlot()
 	else
 	{
 		_keypointProcessing->Processing(sourceCloud);
-		pcl::PointCloud<KeypointT>::Ptr sourceKeypoint = _keypointProcessing->GetResult();
+		pcl::PointCloud<KeypointT>::Ptr sourceKeypoint;
+		sourceKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
 		_keypointProcessing->Processing(targetCloud);
-		pcl::PointCloud<KeypointT>::Ptr targetKeypoint = _keypointProcessing->GetResult();
+		pcl::PointCloud<KeypointT>::Ptr targetKeypoint;
+		targetKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
 		_correspondencesProcessing->Processing(sourceCloud, sourceKeypoint, targetCloud, targetKeypoint);
+		std::string name = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Correspondences");
+		_pointClouds->AddPointCloud(_correspondencesProcessing->GetResult(), name);
+		_nameNumber++;
+		UpdatePointCloudTable();
 	}
 }
 
