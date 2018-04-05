@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[40];
-    char stringdata0[723];
+    QByteArrayData data[49];
+    char stringdata0[939];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -70,7 +70,16 @@ QT_MOC_LITERAL(35, 624, 16), // "descriptorRadius"
 QT_MOC_LITERAL(36, 641, 23), // "SetFPFHNormalRadiusSlot"
 QT_MOC_LITERAL(37, 665, 12), // "normalRadius"
 QT_MOC_LITERAL(38, 678, 27), // "SetFPFHCorrespondencesKSlot"
-QT_MOC_LITERAL(39, 706, 16) // "correspondencesK"
+QT_MOC_LITERAL(39, 706, 16), // "correspondencesK"
+QT_MOC_LITERAL(40, 723, 23), // "ProcessRegestrationSlot"
+QT_MOC_LITERAL(41, 747, 32), // "SetICPCorrespondenceDistanceSlot"
+QT_MOC_LITERAL(42, 780, 22), // "correspondenceDistance"
+QT_MOC_LITERAL(43, 803, 26), // "SetICPOutlierThresholdSlot"
+QT_MOC_LITERAL(44, 830, 16), // "outlierThreshold"
+QT_MOC_LITERAL(45, 847, 31), // "SetICPTransformationEpsilonSlot"
+QT_MOC_LITERAL(46, 879, 21), // "transformationEpsilon"
+QT_MOC_LITERAL(47, 901, 23), // "SetICPMaxIterationsSlot"
+QT_MOC_LITERAL(48, 925, 13) // "maxIterations"
 
     },
     "MainWindow\0UpdateViewerSlot\0\0"
@@ -92,7 +101,13 @@ QT_MOC_LITERAL(39, 706, 16) // "correspondencesK"
     "SetFPFHDescriptorRadiusSlot\0"
     "descriptorRadius\0SetFPFHNormalRadiusSlot\0"
     "normalRadius\0SetFPFHCorrespondencesKSlot\0"
-    "correspondencesK"
+    "correspondencesK\0ProcessRegestrationSlot\0"
+    "SetICPCorrespondenceDistanceSlot\0"
+    "correspondenceDistance\0"
+    "SetICPOutlierThresholdSlot\0outlierThreshold\0"
+    "SetICPTransformationEpsilonSlot\0"
+    "transformationEpsilon\0SetICPMaxIterationsSlot\0"
+    "maxIterations"
 };
 #undef QT_MOC_LITERAL
 
@@ -102,7 +117,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      30,   14, // methods
+      35,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -110,36 +125,41 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,  164,    2, 0x0a /* Public */,
-       5,    1,  167,    2, 0x0a /* Public */,
-       8,    0,  170,    2, 0x0a /* Public */,
-       9,    0,  171,    2, 0x0a /* Public */,
-      10,    0,  172,    2, 0x0a /* Public */,
-      11,    0,  173,    2, 0x0a /* Public */,
-      12,    0,  174,    2, 0x0a /* Public */,
-      13,    0,  175,    2, 0x0a /* Public */,
-      14,    0,  176,    2, 0x0a /* Public */,
-      15,    0,  177,    2, 0x0a /* Public */,
-      16,    0,  178,    2, 0x0a /* Public */,
-      17,    0,  179,    2, 0x0a /* Public */,
-      18,    0,  180,    2, 0x0a /* Public */,
-      19,    0,  181,    2, 0x0a /* Public */,
-      20,    1,  182,    2, 0x0a /* Public */,
-      21,    0,  185,    2, 0x0a /* Public */,
-      22,    1,  186,    2, 0x0a /* Public */,
-      24,    0,  189,    2, 0x0a /* Public */,
-      25,    0,  190,    2, 0x0a /* Public */,
-      26,    0,  191,    2, 0x0a /* Public */,
-      27,    0,  192,    2, 0x0a /* Public */,
-      28,    1,  193,    2, 0x0a /* Public */,
-      29,    1,  196,    2, 0x0a /* Public */,
-      30,    0,  199,    2, 0x0a /* Public */,
-      31,    0,  200,    2, 0x0a /* Public */,
-      32,    0,  201,    2, 0x0a /* Public */,
-      33,    0,  202,    2, 0x0a /* Public */,
-      34,    1,  203,    2, 0x0a /* Public */,
-      36,    1,  206,    2, 0x0a /* Public */,
-      38,    1,  209,    2, 0x0a /* Public */,
+       1,    1,  189,    2, 0x0a /* Public */,
+       5,    1,  192,    2, 0x0a /* Public */,
+       8,    0,  195,    2, 0x0a /* Public */,
+       9,    0,  196,    2, 0x0a /* Public */,
+      10,    0,  197,    2, 0x0a /* Public */,
+      11,    0,  198,    2, 0x0a /* Public */,
+      12,    0,  199,    2, 0x0a /* Public */,
+      13,    0,  200,    2, 0x0a /* Public */,
+      14,    0,  201,    2, 0x0a /* Public */,
+      15,    0,  202,    2, 0x0a /* Public */,
+      16,    0,  203,    2, 0x0a /* Public */,
+      17,    0,  204,    2, 0x0a /* Public */,
+      18,    0,  205,    2, 0x0a /* Public */,
+      19,    0,  206,    2, 0x0a /* Public */,
+      20,    1,  207,    2, 0x0a /* Public */,
+      21,    0,  210,    2, 0x0a /* Public */,
+      22,    1,  211,    2, 0x0a /* Public */,
+      24,    0,  214,    2, 0x0a /* Public */,
+      25,    0,  215,    2, 0x0a /* Public */,
+      26,    0,  216,    2, 0x0a /* Public */,
+      27,    0,  217,    2, 0x0a /* Public */,
+      28,    1,  218,    2, 0x0a /* Public */,
+      29,    1,  221,    2, 0x0a /* Public */,
+      30,    0,  224,    2, 0x0a /* Public */,
+      31,    0,  225,    2, 0x0a /* Public */,
+      32,    0,  226,    2, 0x0a /* Public */,
+      33,    0,  227,    2, 0x0a /* Public */,
+      34,    1,  228,    2, 0x0a /* Public */,
+      36,    1,  231,    2, 0x0a /* Public */,
+      38,    1,  234,    2, 0x0a /* Public */,
+      40,    0,  237,    2, 0x0a /* Public */,
+      41,    1,  238,    2, 0x0a /* Public */,
+      43,    1,  241,    2, 0x0a /* Public */,
+      45,    1,  244,    2, 0x0a /* Public */,
+      47,    1,  247,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -172,6 +192,11 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Double,   35,
     QMetaType::Void, QMetaType::Double,   37,
     QMetaType::Void, QMetaType::Int,   39,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Double,   42,
+    QMetaType::Void, QMetaType::Double,   44,
+    QMetaType::Void, QMetaType::Double,   46,
+    QMetaType::Void, QMetaType::Int,   48,
 
        0        // eod
 };
@@ -212,6 +237,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 27: _t->SetFPFHDescriptorRadiusSlot((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 28: _t->SetFPFHNormalRadiusSlot((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 29: _t->SetFPFHCorrespondencesKSlot((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 30: _t->ProcessRegestrationSlot(); break;
+        case 31: _t->SetICPCorrespondenceDistanceSlot((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 32: _t->SetICPOutlierThresholdSlot((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 33: _t->SetICPTransformationEpsilonSlot((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 34: _t->SetICPMaxIterationsSlot((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -260,13 +290,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 30)
+        if (_id < 35)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 30;
+        _id -= 35;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 30)
+        if (_id < 35)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 30;
+        _id -= 35;
     }
     return _id;
 }

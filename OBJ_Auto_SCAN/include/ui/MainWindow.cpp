@@ -73,6 +73,12 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_fpfhDescriptorRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFPFHDescriptorRadiusSlot(double)));
 	connect(_ui->_fpfhNormalRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFPFHNormalRadiusSlot(double)));
 	connect(_ui->_fpfhCorrespondencesKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetFPFHCorrespondencesKSlot(int)));
+	//		Regestration : ICP
+	connect(_ui->_regestrationProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessRegestrationSlot()));
+	connect(_ui->_icpCorrespondenceDistanceSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetICPCorrespondenceDistanceSlot(double)));
+	connect(_ui->_icpOutlierThresholdSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetICPOutlierThresholdSlot(double)));
+	connect(_ui->_icpTransformationEpsilonSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetICPTransformationEpsilonSlot(double)));
+	connect(_ui->_icpMaxIterationsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetICPMaxIterationsSlot(int)));
 }
 
 //****************************************************************
@@ -523,8 +529,10 @@ void MainWindow::ProcessCorrespondencesSlot()
 		pcl::PointCloud<KeypointT>::Ptr targetKeypoint;
 		targetKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
 		_correspondencesProcessing->Processing(sourceCloud, sourceKeypoint, targetCloud, targetKeypoint);
-		std::string name = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Correspondences");
+		std::string name = clouds[0]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Transform");
 		_pointClouds->AddPointCloud(_correspondencesProcessing->GetResult(), name);
+		//std::string correspondencesName = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Correspondences");
+		//_viewer->Show(sourceCloud, targetCloud, _correspondencesProcessing->GetCorrespondencesResult(), correspondencesName);
 		_nameNumber++;
 		UpdatePointCloudTable();
 	}
@@ -543,4 +551,33 @@ void MainWindow::SetFPFHNormalRadiusSlot(double normalRadius)
 void MainWindow::SetFPFHCorrespondencesKSlot(int correspondencesK)
 {
 	_correspondencesProcessing->SetCorrespondencesK(correspondencesK);
+}
+
+//****************************************************************
+//								Slots : Regestration
+//****************************************************************
+
+void MainWindow::ProcessRegestrationSlot()
+{
+
+}
+
+void MainWindow::SetICPCorrespondenceDistanceSlot(double correspondenceDistance)
+{
+
+}
+
+void MainWindow::SetICPOutlierThresholdSlot(double outlierThreshold)
+{
+
+}
+
+void MainWindow::SetICPTransformationEpsilonSlot(double transformationEpsilon)
+{
+
+}
+
+void MainWindow::SetICPMaxIterationsSlot(int maxIterations)
+{
+
 }

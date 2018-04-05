@@ -44,12 +44,12 @@ class Arduino;
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
-	int ARDUINO_SLEEP_TIME = 300;
+		int ARDUINO_SLEEP_TIME = 300;
 	char* COM_PORT = "com4";
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 
-public slots:
+	public slots:
 	//****************************************************************
 	//										UI
 	//****************************************************************
@@ -84,7 +84,7 @@ public slots:
 	//										Keypoint
 	//****************************************************************
 	void ProcessKeypointSlot();
-	void ChangeKeypointTabSlot (int index);
+	void ChangeKeypointTabSlot(int index);
 	void SetSIFTScalesSlot();
 	void SetSIFTMinContrastSlot();
 	void SetHarrisRadiusSlot();
@@ -104,6 +104,14 @@ public slots:
 	void SetFPFHDescriptorRadiusSlot(double descriptorRadius);
 	void SetFPFHNormalRadiusSlot(double normalRadius);
 	void SetFPFHCorrespondencesKSlot(int correspondencesK);
+	//****************************************************************
+	//										Regestration
+	//****************************************************************
+	void ProcessRegestrationSlot();
+	void SetICPCorrespondenceDistanceSlot(double correspondenceDistance);
+	void SetICPOutlierThresholdSlot(double outlierThreshold);
+	void SetICPTransformationEpsilonSlot(double transformationEpsilon);
+	void SetICPMaxIterationsSlot(int maxIterations);
 
 private:
 	void InitialConnectSlots();

@@ -3,6 +3,7 @@
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include <pcl/registration/correspondence_rejection_sample_consensus.h>
 
 typedef pcl::PointXYZRGBA PointT;
 typedef pcl::PointXYZI KeypointT;
@@ -14,6 +15,7 @@ public:
 	virtual void SetDescriptorRadius(float descriptorRadiusSearch) = 0;
 	virtual void SetNormalRadius(float normalRadiusSearch) = 0;
 	virtual void SetCorrespondencesK(float correspondencesK) = 0;
+	virtual pcl::CorrespondencesPtr GetCorrespondencesResult() = 0;
 	virtual pcl::PointCloud<PointT>::Ptr GetResult() = 0;
 private:
 

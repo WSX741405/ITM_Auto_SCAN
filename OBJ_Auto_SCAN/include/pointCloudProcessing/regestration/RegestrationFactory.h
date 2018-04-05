@@ -1,0 +1,7 @@
+#ifndef REGESTRATION_FACTORY
+#define REGESTRATION_FACTORY
+
+
+
+
+#endif

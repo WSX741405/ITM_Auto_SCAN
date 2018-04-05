@@ -19,9 +19,9 @@ public:
 			_viewer->addPointCloud(cloud, name);
 	}
 
-	void Show(pcl::CorrespondencesPtr correspondences, std::string name = "")
+	void Show(pcl::PointCloud<PointT>::Ptr sourceCloud, pcl::PointCloud<PointT>::ConstPtr targetCloud, pcl::CorrespondencesPtr correspondences, std::string name = "")
 	{
-		_viewer->addCorrespondences(correspondences, name);
+		_viewer->addCorrespondences<PointT>(sourceCloud, targetCloud, *correspondences, name);
 	}
 
 	void Clear()

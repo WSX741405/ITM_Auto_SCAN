@@ -73,6 +73,9 @@
     <Filter Include="include\pointCloudProcessing\correspondences">
       <UniqueIdentifier>{f36c09d6-aa30-4253-bf50-2d207c745062}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\pointCloudProcessing\regestration">
+      <UniqueIdentifier>{9a42cf8c-96c6-4169-9b36-3e0120a88c4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\main.cpp">
@@ -137,6 +140,12 @@
     </ClCompile>
     <ClCompile Include="include\pointCloudProcessing\correspondences\CorrespondencesFactory.cpp">
       <Filter>include\pointCloudProcessing\correspondences</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\regestration\RegestrationFactory.cpp">
+      <Filter>include\pointCloudProcessing\regestration</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\correspondence\MyICP.cpp">
+      <Filter>include\pointCloudProcessing\regestration</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +264,15 @@
     </ClInclude>
     <ClInclude Include="include\pointCloudProcessing\correspondences\CorrespondencesFactory.h">
       <Filter>include\pointCloudProcessing\correspondences</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\regestration\RegestrationFactory.h">
+      <Filter>include\pointCloudProcessing\regestration</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\correspondence\RegestrationProcessing.h">
+      <Filter>include\pointCloudProcessing\regestration</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\correspondence\MyICP.h">
+      <Filter>include\pointCloudProcessing\regestration</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

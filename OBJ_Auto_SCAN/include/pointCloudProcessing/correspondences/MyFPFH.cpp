@@ -17,7 +17,8 @@ void MyFPFH::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<Key
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr targetDescriptor = ProessingDescriptor(target, targetKpts);
 	std::vector<int> source2Target = ProcessingCorrespondences(sourceDescriptor, targetDescriptor);
 	std::vector<int> target2Source = ProcessingCorrespondences(targetDescriptor, sourceDescriptor);
-	ProcessingFilterCorrespondences(sourceKpts, targetKpts, source2Target, target2Source);
+	pcl::CorrespondencesPtr correspondences = ProcessingFilterCorrespondences(sourceKpts, targetKpts, source2Target, target2Source);
+	DetermineInitialTransformation(source, sourceKpts, targetKpts, correspondences);
 }
 
 pcl::PointCloud<pcl::FPFHSignature33>::Ptr MyFPFH::ProessingDescriptor(pcl::PointCloud<PointT>::Ptr cloud, pcl::PointCloud<KeypointT>::Ptr keypoints)
