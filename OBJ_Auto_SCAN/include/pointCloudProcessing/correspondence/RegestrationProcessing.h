@@ -1,7 +1,0 @@
-#ifndef REGESTRATION_PROCESSING
-#define REGESTRATION_PROCESSING
-
-
-
-
-#endif

@@ -107,7 +107,7 @@ public:
     QPushButton *_correspondencesProcessingButton;
     QWidget *_regestrationTab;
     QPushButton *_regestrationProcessingButton;
-    QTabWidget *_correspondencesTabWidget_2;
+    QTabWidget *_regestrationTabWidget;
     QWidget *_icpTab;
     QLabel *_icpOutlierThresholdLabel;
     QLabel *_icpCorrespondenceDistanceLabel;
@@ -432,9 +432,9 @@ public:
         _regestrationProcessingButton->setObjectName(QStringLiteral("_regestrationProcessingButton"));
         _regestrationProcessingButton->setGeometry(QRect(10, 395, 150, 40));
         _regestrationProcessingButton->setFont(font1);
-        _correspondencesTabWidget_2 = new QTabWidget(_regestrationTab);
-        _correspondencesTabWidget_2->setObjectName(QStringLiteral("_correspondencesTabWidget_2"));
-        _correspondencesTabWidget_2->setGeometry(QRect(20, 20, 420, 360));
+        _regestrationTabWidget = new QTabWidget(_regestrationTab);
+        _regestrationTabWidget->setObjectName(QStringLiteral("_regestrationTabWidget"));
+        _regestrationTabWidget->setGeometry(QRect(20, 20, 420, 360));
         _icpTab = new QWidget();
         _icpTab->setObjectName(QStringLiteral("_icpTab"));
         _icpOutlierThresholdLabel = new QLabel(_icpTab);
@@ -477,7 +477,7 @@ public:
         _icpTransformationEpsilonSpinBox->setMaximum(1);
         _icpTransformationEpsilonSpinBox->setSingleStep(1e-6);
         _icpTransformationEpsilonSpinBox->setValue(1e-6);
-        _correspondencesTabWidget_2->addTab(_icpTab, QString());
+        _regestrationTabWidget->addTab(_icpTab, QString());
         _processingTabWidget->addTab(_regestrationTab, QString());
         MainWindowForm->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowForm);
@@ -538,7 +538,7 @@ public:
         _filterTabWidget->setCurrentIndex(1);
         _keypointTabWidget->setCurrentIndex(0);
         _correspondencesTabWidget->setCurrentIndex(0);
-        _correspondencesTabWidget_2->setCurrentIndex(0);
+        _regestrationTabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindowForm);
@@ -605,7 +605,7 @@ public:
         _icpCorrespondenceDistanceLabel->setText(QApplication::translate("MainWindowForm", "Correspondence Distance\357\274\232", Q_NULLPTR));
         _icpTransformationEpsilonLabel->setText(QApplication::translate("MainWindowForm", "Transformation Epsilon\357\274\232", Q_NULLPTR));
         _icpMaxIterationsLabel->setText(QApplication::translate("MainWindowForm", "Max Iterations\357\274\232", Q_NULLPTR));
-        _correspondencesTabWidget_2->setTabText(_correspondencesTabWidget_2->indexOf(_icpTab), QApplication::translate("MainWindowForm", "ICP", Q_NULLPTR));
+        _regestrationTabWidget->setTabText(_regestrationTabWidget->indexOf(_icpTab), QApplication::translate("MainWindowForm", "ICP", Q_NULLPTR));
         _processingTabWidget->setTabText(_processingTabWidget->indexOf(_regestrationTab), QApplication::translate("MainWindowForm", "Regestration", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("MainWindowForm", "Camera", Q_NULLPTR));
         menuPico_Flexx->setTitle(QApplication::translate("MainWindowForm", "Pico Flexx", Q_NULLPTR));

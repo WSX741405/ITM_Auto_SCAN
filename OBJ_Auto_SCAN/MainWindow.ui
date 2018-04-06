@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -77,7 +77,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="_voxelGridTab">
        <attribute name="title">
@@ -947,7 +947,7 @@
      <widget class="QPushButton" name="_regestrationProcessingButton">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>395</y>
         <width>150</width>
         <height>40</height>
@@ -962,7 +962,7 @@
        <string>Processing</string>
       </property>
      </widget>
-     <widget class="QTabWidget" name="_correspondencesTabWidget_2">
+     <widget class="QTabWidget" name="_regestrationTabWidget">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -1119,6 +1119,187 @@
         </property>
        </widget>
       </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="_reconstructTab">
+     <attribute name="title">
+      <string>Reconstruct</string>
+     </attribute>
+     <widget class="QTabWidget" name="_reconstructTabWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>420</width>
+        <height>360</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="_greedyProjectionTab">
+       <attribute name="title">
+        <string>Greedy Projection</string>
+       </attribute>
+       <widget class="QLabel" name="_icpOutlierThresholdLabel_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>280</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Outlier Threshold：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_icpCorrespondenceDistanceLabel_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>280</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Correspondence Distance：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_icpCorrespondenceDistanceSpinBox_2">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>20</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.050000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_icpTransformationEpsilonLabel_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>120</y>
+          <width>280</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Transformation Epsilon：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_icpOutlierThresholdSpinBox_2">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>70</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.050000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_icpMaxIterationsLabel_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>280</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Max Iterations：</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="_icpMaxIterationsSpinBox_2">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>170</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>10000</number>
+        </property>
+        <property name="value">
+         <number>1000</number>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_icpTransformationEpsilonSpinBox_2">
+        <property name="geometry">
+         <rect>
+          <x>275</x>
+          <y>120</y>
+          <width>125</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="decimals">
+         <number>6</number>
+        </property>
+        <property name="minimum">
+         <double>0.000001000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.000001000000000</double>
+        </property>
+        <property name="value">
+         <double>0.000001000000000</double>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="_reconstructProcessingButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>395</y>
+        <width>150</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Processing</string>
+      </property>
      </widget>
     </widget>
    </widget>

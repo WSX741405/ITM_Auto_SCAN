@@ -1,13 +1,14 @@
 #include "ui/MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-	QMainWindow(parent), _ui(new Ui::MainWindowForm), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory()), _keypointFactory(new KeypointFactory()), _filterFactory(new FilterFactory()), _correspondencesFactory(new CorrespondencesFactory())
+	QMainWindow(parent), _ui(new Ui::MainWindowForm), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory()), _keypointFactory(new KeypointFactory()), _filterFactory(new FilterFactory()), _correspondencesFactory(new CorrespondencesFactory()), _regestrationFactory(new RegestrationFactory())
 {
 	_nameNumber = 0;
 	qRegisterMetaType<pcl::PointCloud<PointT>::Ptr>("pcl::PointCloud<PointT>::Ptr");
 	_filterProcessing = _filterFactory->GetVoixelGridFilter();
 	_keypointProcessing = _keypointFactory->GetSIFT();
 	_correspondencesProcessing = _correspondencesFactory->GetFPFH();
+	_regestrationProcessing = _regestrationFactory->GetICP();
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
 	_fileFactory = new FileFactory();
@@ -114,6 +115,7 @@ void MainWindow::InitialTabWidget()
 	_ui->_filterTabWidget->setCurrentIndex(0);
 	_ui->_keypointTabWidget->setCurrentIndex(0);
 	_ui->_correspondencesTabWidget->setCurrentIndex(0);
+	_ui->_regestrationTabWidget->setCurrentIndex(0);
 }
 
 void MainWindow::UpdatePointCloudViewer()
@@ -398,9 +400,8 @@ void MainWindow::ProcessFilterSlot()
 	for (int counter = 0; counter < clouds.size(); counter++)
 	{
 		_filterProcessing->Processing(clouds[counter]->GetPointCloud());
-		std::string name = clouds[counter]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Filter");
+		std::string name = clouds[counter]->GetName() + std::string("_Filter");
 		_pointClouds->AddPointCloud(_filterProcessing->GetResult(), name);
-		_nameNumber++;
 		UpdatePointCloudTable();
 	}
 }
@@ -437,9 +438,8 @@ void MainWindow::ProcessKeypointSlot()
 	for (int counter = 0; counter < clouds.size(); counter++)
 	{
 		_keypointProcessing->Processing(clouds[counter]->GetPointCloud());
-		std::string name = clouds[counter]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Keypoint");
+		std::string name = clouds[counter]->GetName() + std::string("_Keypoint");
 		_pointClouds->AddPointCloud(_keypointProcessing->GetResult(), r, g, b, name);
-		_nameNumber++;
 		UpdatePointCloudTable();
 	}
 }
@@ -529,11 +529,10 @@ void MainWindow::ProcessCorrespondencesSlot()
 		pcl::PointCloud<KeypointT>::Ptr targetKeypoint;
 		targetKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
 		_correspondencesProcessing->Processing(sourceCloud, sourceKeypoint, targetCloud, targetKeypoint);
-		std::string name = clouds[0]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Transform");
+		std::string name = clouds[0]->GetName() + "_" + std::string("_Transform");
 		_pointClouds->AddPointCloud(_correspondencesProcessing->GetResult(), name);
 		//std::string correspondencesName = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Correspondences");
 		//_viewer->Show(sourceCloud, targetCloud, _correspondencesProcessing->GetCorrespondencesResult(), correspondencesName);
-		_nameNumber++;
 		UpdatePointCloudTable();
 	}
 }
@@ -559,25 +558,39 @@ void MainWindow::SetFPFHCorrespondencesKSlot(int correspondencesK)
 
 void MainWindow::ProcessRegestrationSlot()
 {
-
+	std::vector<MyPointCloud*> clouds = _pointClouds->GetPointCloudsByIsSelected();
+	pcl::PointCloud<PointT>::Ptr sourceCloud = clouds[0]->GetPointCloud();
+	pcl::PointCloud<PointT>::Ptr targetCloud = clouds[1]->GetPointCloud();
+	if (clouds.size() != 2)
+	{
+		QMessageBox::about(this, tr("Process Regestration"), tr("Selecct Two Point Cloud!"));
+		return;
+	}
+	else
+	{
+		_regestrationProcessing->Processing(sourceCloud, targetCloud);
+		std::string name = clouds[0]->GetName() + "_" + std::string("_ProcessRegestration");
+		_pointClouds->AddPointCloud(_regestrationProcessing->GetResult(), name);
+		UpdatePointCloudTable();
+	}
 }
 
 void MainWindow::SetICPCorrespondenceDistanceSlot(double correspondenceDistance)
 {
-
+	_regestrationProcessing->SetCorrespondenceDistance(correspondenceDistance);
 }
 
 void MainWindow::SetICPOutlierThresholdSlot(double outlierThreshold)
 {
-
+	_regestrationProcessing->SetRansacOutlierRejectionThreshold(outlierThreshold);
 }
 
 void MainWindow::SetICPTransformationEpsilonSlot(double transformationEpsilon)
 {
-
+	_regestrationProcessing->SetTransformationEpsilon(transformationEpsilon);
 }
 
 void MainWindow::SetICPMaxIterationsSlot(int maxIterations)
 {
-
+	_regestrationProcessing->SetMaximumIterations(maxIterations);
 }

@@ -33,6 +33,7 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include "pointCloudProcessing/keypoint/KeypointFactory.h"
 #include "pointCloudProcessing/filter/FilterFactory.h"
 #include "pointCloudProcessing/correspondences/CorrespondencesFactory.h"
+#include "pointCloudProcessing/regestration/RegestrationFactory.h"
 
 class UIObserver;
 class ISubject;
@@ -146,6 +147,8 @@ private:
 	FilterProcessing* _filterProcessing;
 	CorrespondencesFactory* _correspondencesFactory;
 	CorrespondencesProcessing* _correspondencesProcessing;
+	RegestrationFactory* _regestrationFactory;
+	RegestrationProcessing* _regestrationProcessing;
 };
 
 #endif
