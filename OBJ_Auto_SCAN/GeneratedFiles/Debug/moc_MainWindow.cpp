@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[49];
-    char stringdata0[939];
+    QByteArrayData data[62];
+    char stringdata0[1124];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -79,7 +79,20 @@ QT_MOC_LITERAL(44, 830, 16), // "outlierThreshold"
 QT_MOC_LITERAL(45, 847, 31), // "SetICPTransformationEpsilonSlot"
 QT_MOC_LITERAL(46, 879, 21), // "transformationEpsilon"
 QT_MOC_LITERAL(47, 901, 23), // "SetICPMaxIterationsSlot"
-QT_MOC_LITERAL(48, 925, 13) // "maxIterations"
+QT_MOC_LITERAL(48, 925, 13), // "maxIterations"
+QT_MOC_LITERAL(49, 939, 22), // "ProcessReconstructSlot"
+QT_MOC_LITERAL(50, 962, 19), // "SetSearchRadiusSlot"
+QT_MOC_LITERAL(51, 982, 12), // "searchRadius"
+QT_MOC_LITERAL(52, 995, 5), // "SetMu"
+QT_MOC_LITERAL(53, 1001, 2), // "mu"
+QT_MOC_LITERAL(54, 1004, 22), // "SetMaxNearestNeighbors"
+QT_MOC_LITERAL(55, 1027, 19), // "maxNearestNeighbors"
+QT_MOC_LITERAL(56, 1047, 18), // "SetMaxSurfaceAngle"
+QT_MOC_LITERAL(57, 1066, 15), // "maxSurfaceAngle"
+QT_MOC_LITERAL(58, 1082, 11), // "SetMinAngle"
+QT_MOC_LITERAL(59, 1094, 8), // "minAngle"
+QT_MOC_LITERAL(60, 1103, 11), // "SetMaxAngle"
+QT_MOC_LITERAL(61, 1115, 8) // "maxAngle"
 
     },
     "MainWindow\0UpdateViewerSlot\0\0"
@@ -107,7 +120,12 @@ QT_MOC_LITERAL(48, 925, 13) // "maxIterations"
     "SetICPOutlierThresholdSlot\0outlierThreshold\0"
     "SetICPTransformationEpsilonSlot\0"
     "transformationEpsilon\0SetICPMaxIterationsSlot\0"
-    "maxIterations"
+    "maxIterations\0ProcessReconstructSlot\0"
+    "SetSearchRadiusSlot\0searchRadius\0SetMu\0"
+    "mu\0SetMaxNearestNeighbors\0maxNearestNeighbors\0"
+    "SetMaxSurfaceAngle\0maxSurfaceAngle\0"
+    "SetMinAngle\0minAngle\0SetMaxAngle\0"
+    "maxAngle"
 };
 #undef QT_MOC_LITERAL
 
@@ -117,7 +135,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      35,   14, // methods
+      42,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -125,41 +143,48 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,  189,    2, 0x0a /* Public */,
-       5,    1,  192,    2, 0x0a /* Public */,
-       8,    0,  195,    2, 0x0a /* Public */,
-       9,    0,  196,    2, 0x0a /* Public */,
-      10,    0,  197,    2, 0x0a /* Public */,
-      11,    0,  198,    2, 0x0a /* Public */,
-      12,    0,  199,    2, 0x0a /* Public */,
-      13,    0,  200,    2, 0x0a /* Public */,
-      14,    0,  201,    2, 0x0a /* Public */,
-      15,    0,  202,    2, 0x0a /* Public */,
-      16,    0,  203,    2, 0x0a /* Public */,
-      17,    0,  204,    2, 0x0a /* Public */,
-      18,    0,  205,    2, 0x0a /* Public */,
-      19,    0,  206,    2, 0x0a /* Public */,
-      20,    1,  207,    2, 0x0a /* Public */,
-      21,    0,  210,    2, 0x0a /* Public */,
-      22,    1,  211,    2, 0x0a /* Public */,
-      24,    0,  214,    2, 0x0a /* Public */,
-      25,    0,  215,    2, 0x0a /* Public */,
-      26,    0,  216,    2, 0x0a /* Public */,
-      27,    0,  217,    2, 0x0a /* Public */,
-      28,    1,  218,    2, 0x0a /* Public */,
-      29,    1,  221,    2, 0x0a /* Public */,
-      30,    0,  224,    2, 0x0a /* Public */,
-      31,    0,  225,    2, 0x0a /* Public */,
-      32,    0,  226,    2, 0x0a /* Public */,
-      33,    0,  227,    2, 0x0a /* Public */,
-      34,    1,  228,    2, 0x0a /* Public */,
-      36,    1,  231,    2, 0x0a /* Public */,
-      38,    1,  234,    2, 0x0a /* Public */,
-      40,    0,  237,    2, 0x0a /* Public */,
-      41,    1,  238,    2, 0x0a /* Public */,
-      43,    1,  241,    2, 0x0a /* Public */,
-      45,    1,  244,    2, 0x0a /* Public */,
-      47,    1,  247,    2, 0x0a /* Public */,
+       1,    1,  224,    2, 0x0a /* Public */,
+       5,    1,  227,    2, 0x0a /* Public */,
+       8,    0,  230,    2, 0x0a /* Public */,
+       9,    0,  231,    2, 0x0a /* Public */,
+      10,    0,  232,    2, 0x0a /* Public */,
+      11,    0,  233,    2, 0x0a /* Public */,
+      12,    0,  234,    2, 0x0a /* Public */,
+      13,    0,  235,    2, 0x0a /* Public */,
+      14,    0,  236,    2, 0x0a /* Public */,
+      15,    0,  237,    2, 0x0a /* Public */,
+      16,    0,  238,    2, 0x0a /* Public */,
+      17,    0,  239,    2, 0x0a /* Public */,
+      18,    0,  240,    2, 0x0a /* Public */,
+      19,    0,  241,    2, 0x0a /* Public */,
+      20,    1,  242,    2, 0x0a /* Public */,
+      21,    0,  245,    2, 0x0a /* Public */,
+      22,    1,  246,    2, 0x0a /* Public */,
+      24,    0,  249,    2, 0x0a /* Public */,
+      25,    0,  250,    2, 0x0a /* Public */,
+      26,    0,  251,    2, 0x0a /* Public */,
+      27,    0,  252,    2, 0x0a /* Public */,
+      28,    1,  253,    2, 0x0a /* Public */,
+      29,    1,  256,    2, 0x0a /* Public */,
+      30,    0,  259,    2, 0x0a /* Public */,
+      31,    0,  260,    2, 0x0a /* Public */,
+      32,    0,  261,    2, 0x0a /* Public */,
+      33,    0,  262,    2, 0x0a /* Public */,
+      34,    1,  263,    2, 0x0a /* Public */,
+      36,    1,  266,    2, 0x0a /* Public */,
+      38,    1,  269,    2, 0x0a /* Public */,
+      40,    0,  272,    2, 0x0a /* Public */,
+      41,    1,  273,    2, 0x0a /* Public */,
+      43,    1,  276,    2, 0x0a /* Public */,
+      45,    1,  279,    2, 0x0a /* Public */,
+      47,    1,  282,    2, 0x0a /* Public */,
+      49,    0,  285,    2, 0x0a /* Public */,
+      50,    1,  286,    2, 0x0a /* Public */,
+      52,    1,  289,    2, 0x0a /* Public */,
+      54,    1,  292,    2, 0x0a /* Public */,
+      56,    1,  295,    2, 0x0a /* Public */,
+      58,    1,  298,    2, 0x0a /* Public */,
+      60,    1,  301,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -197,6 +222,13 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Double,   44,
     QMetaType::Void, QMetaType::Double,   46,
     QMetaType::Void, QMetaType::Int,   48,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Double,   51,
+    QMetaType::Void, QMetaType::Double,   53,
+    QMetaType::Void, QMetaType::Int,   55,
+    QMetaType::Void, QMetaType::Int,   57,
+    QMetaType::Void, QMetaType::Int,   59,
+    QMetaType::Void, QMetaType::Int,   61,
 
        0        // eod
 };
@@ -242,6 +274,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 32: _t->SetICPOutlierThresholdSlot((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 33: _t->SetICPTransformationEpsilonSlot((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 34: _t->SetICPMaxIterationsSlot((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 35: _t->ProcessReconstructSlot(); break;
+        case 36: _t->SetSearchRadiusSlot((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 37: _t->SetMu((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 38: _t->SetMaxNearestNeighbors((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 39: _t->SetMaxSurfaceAngle((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 40: _t->SetMinAngle((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 41: _t->SetMaxAngle((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -290,13 +329,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 35)
+        if (_id < 42)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 35;
+        _id -= 42;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 35)
+        if (_id < 42)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 35;
+        _id -= 42;
     }
     return _id;
 }

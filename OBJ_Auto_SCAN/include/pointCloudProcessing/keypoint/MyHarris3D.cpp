@@ -8,6 +8,7 @@ MyHarris::MyHarris()
 	//	default
 	_radius = 0.01;
 	_radiusSearch = 0.01;
+	_nonMaxSupression = true;
 }
 
 void MyHarris::Processing(pcl::PointCloud<PointT>::Ptr cloud)
@@ -15,7 +16,7 @@ void MyHarris::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 	_harris3D = new pcl::HarrisKeypoint3D<PointT, KeypointT>();
 	_harris3D->setMethod(_method);
 	boost::shared_ptr<pcl::Keypoint<PointT, KeypointT> > keypointDetector;
-	_harris3D->setNonMaxSupression(true);
+	_harris3D->setNonMaxSupression(_nonMaxSupression);
 	_harris3D->setRadius(_radius);
 	_harris3D->setRadiusSearch(_radiusSearch);
 	keypointDetector.reset(_harris3D);

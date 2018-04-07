@@ -26,7 +26,8 @@ pcl::PointCloud<pcl::FPFHSignature33>::Ptr MyFPFH::ProessingDescriptor(pcl::Poin
 	pcl::Feature<PointT, pcl::FPFHSignature33>::Ptr featureExtractor;
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr descriptor;
 	descriptor.reset(new pcl::PointCloud<pcl::FPFHSignature33>());
-	featureExtractor.reset(new pcl::FPFHEstimationOMP<PointT, pcl::Normal, pcl::FPFHSignature33>());
+
+	featureExtractor.reset(new pcl::FPFHEstimation<PointT, pcl::Normal, pcl::FPFHSignature33>());
 	featureExtractor->setSearchMethod(pcl::search::Search<PointT>::Ptr(new pcl::search::KdTree<PointT>));
 	featureExtractor->setRadiusSearch(_descriptorRadiusSearch);
 	pcl::PointCloud<PointT>::Ptr kpts(new pcl::PointCloud<PointT>);
@@ -37,7 +38,7 @@ pcl::PointCloud<pcl::FPFHSignature33>::Ptr MyFPFH::ProessingDescriptor(pcl::Poin
 	featureExtractor->setInputCloud(kpts);
 	if (featureFromNormals)
 	{
-		typename pcl::PointCloud<pcl::Normal>::Ptr normals(new  pcl::PointCloud<pcl::Normal>);
+		pcl::PointCloud<pcl::Normal>::Ptr normals(new  pcl::PointCloud<pcl::Normal>);
 		pcl::NormalEstimation<PointT, pcl::Normal> normalEstimation;
 		normalEstimation.setSearchMethod(pcl::search::Search<PointT>::Ptr(new pcl::search::KdTree<PointT>));
 		normalEstimation.setRadiusSearch(_normalRadiusSearch);
@@ -46,6 +47,19 @@ pcl::PointCloud<pcl::FPFHSignature33>::Ptr MyFPFH::ProessingDescriptor(pcl::Poin
 		featureFromNormals->setInputNormals(normals);
 	}
 	featureExtractor->compute(*descriptor);
+	std::cout << "input descriptor points size before removeNaN descriptor: " << descriptor->points.size() << std::endl;
+	for (int j = 0, i = static_cast<int> (descriptor->size()) - 1; i >= 0; --i)
+	{
+		if (!pcl_isfinite(descriptor->at(i).histogram[0])) //skipping NaNs
+		{
+			descriptor->erase(descriptor->begin() + i);
+			keypoints->erase(keypoints->begin() + i);
+			j++;
+			//cout << "erase" << std::flush;
+			continue;
+		}
+	}
+	std::cout << "input descriptor points size after removeNaN descriptor: " << descriptor->points.size() << std::endl << std::endl;
 	return descriptor;
 }
 

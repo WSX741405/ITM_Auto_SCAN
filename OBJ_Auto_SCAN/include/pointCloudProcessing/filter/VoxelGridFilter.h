@@ -6,7 +6,7 @@
 #include <pcl/filters/voxel_grid.h>
 #include "FilterProcessing.h"
 
-typedef pcl::PointXYZRGBA PointT;
+typedef pcl::PointXYZRGB PointT;
 
 class VoxelGridFilter : public FilterProcessing
 {

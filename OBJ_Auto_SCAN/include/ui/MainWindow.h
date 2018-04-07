@@ -10,8 +10,9 @@ VTK_MODULE_INIT(vtkRenderingOpenGL);
 VTK_MODULE_INIT(vtkInteractionStyle);
 #include <QtWidgets/QMainWindow>
 
-typedef pcl::PointXYZRGBA PointT;
+typedef pcl::PointXYZRGB PointT;
 typedef pcl::PointXYZI KeypointT;
+typedef pcl::PointXYZRGBNormal SurfacePointT;
 #include <QMetaType>
 Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 
@@ -34,6 +35,7 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include "pointCloudProcessing/filter/FilterFactory.h"
 #include "pointCloudProcessing/correspondences/CorrespondencesFactory.h"
 #include "pointCloudProcessing/regestration/RegestrationFactory.h"
+#include "pointCloudProcessing/reconstruct/ReconstructFactory.h"
 
 class UIObserver;
 class ISubject;
@@ -113,8 +115,19 @@ public:
 	void SetICPOutlierThresholdSlot(double outlierThreshold);
 	void SetICPTransformationEpsilonSlot(double transformationEpsilon);
 	void SetICPMaxIterationsSlot(int maxIterations);
+	//****************************************************************
+	//										Reconstruct
+	//****************************************************************
+	void ProcessReconstructSlot();
+	void SetSearchRadiusSlot(double searchRadius);
+	void SetMu(double mu);
+	void SetMaxNearestNeighbors(int maxNearestNeighbors);
+	void SetMaxSurfaceAngle(int maxSurfaceAngle);
+	void SetMinAngle(int minAngle);
+	void SetMaxAngle(int maxAngle);
 
 private:
+	void InitialMemberVariable();
 	void InitialConnectSlots();
 	void InitialPointCloudViewer();
 	void InitialPointCloudTable();
@@ -149,6 +162,8 @@ private:
 	CorrespondencesProcessing* _correspondencesProcessing;
 	RegestrationFactory* _regestrationFactory;
 	RegestrationProcessing* _regestrationProcessing;
+	ReconstructFactory* _reconstructFactory;
+	ReconstructProcessing* _reconstructProcessing;
 };
 
 #endif

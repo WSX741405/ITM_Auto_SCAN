@@ -7,7 +7,7 @@
 
 #include "RegestrationProcessing.h"
 
-typedef pcl::PointXYZRGBA PointT;
+typedef pcl::PointXYZRGB PointT;
 
 class MyICP : public RegestrationProcessing
 {

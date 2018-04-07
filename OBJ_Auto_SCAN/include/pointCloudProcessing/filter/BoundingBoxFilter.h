@@ -4,7 +4,7 @@
 #include "FilterProcessing.h"
 #include <pcl/filters/crop_box.h>
 
-typedef pcl::PointXYZRGBA PointT;
+typedef pcl::PointXYZRGB PointT;
 
 class BoundingBoxFilter : public FilterProcessing
 {

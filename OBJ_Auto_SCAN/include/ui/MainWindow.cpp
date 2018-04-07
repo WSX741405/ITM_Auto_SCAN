@@ -1,25 +1,38 @@
 #include "ui/MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-	QMainWindow(parent), _ui(new Ui::MainWindowForm), _grabberFactory(new GrabberFactory()), _subjectFactory(new SubjectFactory()), _keypointFactory(new KeypointFactory()), _filterFactory(new FilterFactory()), _correspondencesFactory(new CorrespondencesFactory()), _regestrationFactory(new RegestrationFactory())
+	QMainWindow(parent), _ui(new Ui::MainWindowForm)
 {
 	_nameNumber = 0;
 	qRegisterMetaType<pcl::PointCloud<PointT>::Ptr>("pcl::PointCloud<PointT>::Ptr");
-	_filterProcessing = _filterFactory->GetVoixelGridFilter();
-	_keypointProcessing = _keypointFactory->GetSIFT();
-	_correspondencesProcessing = _correspondencesFactory->GetFPFH();
-	_regestrationProcessing = _regestrationFactory->GetICP();
-	_viewer = new Viewer();
-	_uiObserver = new UIObserver(this);
-	_fileFactory = new FileFactory();
-	_arduino = new Arduino(COM_PORT);
-	_pointClouds = new MyPointClouds();
 	_ui->setupUi(this);
+	InitialMemberVariable();
 	InitialPointCloudViewer();
 	InitialPointCloudTable();
 	InitialTabWidget();
 	RegisterObserver();
 	InitialConnectSlots();
+}
+
+void MainWindow::InitialMemberVariable()
+{
+	_viewer = new Viewer();
+	_uiObserver = new UIObserver(this);
+	_fileFactory = new FileFactory();
+	_arduino = new Arduino(COM_PORT);
+	_pointClouds = new MyPointClouds();
+	_grabberFactory = new GrabberFactory();
+	_subjectFactory = new SubjectFactory();
+	_keypointFactory = new KeypointFactory();
+	_filterFactory = new FilterFactory();
+	_correspondencesFactory = new CorrespondencesFactory();
+	_regestrationFactory = new RegestrationFactory();
+	_reconstructFactory = new ReconstructFactory();
+	_filterProcessing = _filterFactory->GetVoixelGridFilter();
+	_keypointProcessing = _keypointFactory->GetSIFT();
+	_correspondencesProcessing = _correspondencesFactory->GetFPFH();
+	_regestrationProcessing = _regestrationFactory->GetICP();
+	_reconstructProcessing = _reconstructFactory->GetGreedyProjection();
 }
 
 void MainWindow::InitialConnectSlots()
@@ -80,6 +93,14 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_icpOutlierThresholdSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetICPOutlierThresholdSlot(double)));
 	connect(_ui->_icpTransformationEpsilonSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetICPTransformationEpsilonSlot(double)));
 	connect(_ui->_icpMaxIterationsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetICPMaxIterationsSlot(int)));
+	//		Reconstruct : Greedy Projection
+	connect(_ui->_reconstructProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessReconstructSlot()));
+	connect(_ui->_greedyProjectionSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSearchRadiusSlot(double)));
+	connect(_ui->_greedyProjectionMuSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetMu(double)));
+	connect(_ui->_greedyProjectionMaxNearestNeighborsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxNearestNeighbors(int)));
+	connect(_ui->_greedyProjectionMaxSurfaceAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxSurfaceAngle(int)));
+	connect(_ui->_greedyProjectionMinAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMinAngle(int)));
+	connect(_ui->_greedyProjectionMaxAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxAngle(int)));
 }
 
 //****************************************************************
@@ -531,8 +552,8 @@ void MainWindow::ProcessCorrespondencesSlot()
 		_correspondencesProcessing->Processing(sourceCloud, sourceKeypoint, targetCloud, targetKeypoint);
 		std::string name = clouds[0]->GetName() + "_" + std::string("_Transform");
 		_pointClouds->AddPointCloud(_correspondencesProcessing->GetResult(), name);
-		//std::string correspondencesName = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Correspondences");
-		//_viewer->Show(sourceCloud, targetCloud, _correspondencesProcessing->GetCorrespondencesResult(), correspondencesName);
+		std::string correspondencesName = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Correspondences");
+		_viewer->Show(sourceCloud, targetCloud, _correspondencesProcessing->GetCorrespondencesResult(), correspondencesName);
 		UpdatePointCloudTable();
 	}
 }
@@ -593,4 +614,43 @@ void MainWindow::SetICPTransformationEpsilonSlot(double transformationEpsilon)
 void MainWindow::SetICPMaxIterationsSlot(int maxIterations)
 {
 	_regestrationProcessing->SetMaximumIterations(maxIterations);
+}
+
+//****************************************************************
+//								Slots : Reconstruct
+//****************************************************************
+
+void MainWindow::ProcessReconstructSlot()
+{
+
+}
+
+void MainWindow::SetSearchRadiusSlot(double searchRadius)
+{
+
+}
+
+void MainWindow::SetMu(double mu)
+{
+
+}
+
+void MainWindow::SetMaxNearestNeighbors(int maxNearestNeighbors)
+{
+
+}
+
+void MainWindow::SetMaxSurfaceAngle(int maxSurfaceAngle)
+{
+
+}
+
+void MainWindow::SetMinAngle(int minAngle)
+{
+
+}
+
+void MainWindow::SetMaxAngle(int maxAngle)
+{
+
 }

@@ -25,6 +25,7 @@ private:
 	float _radius;
 	float _radiusSearch;
 	pcl::HarrisKeypoint3D<PointT, KeypointT>::ResponseMethod _method;
+	bool _nonMaxSupression;
 };
 
 #endif

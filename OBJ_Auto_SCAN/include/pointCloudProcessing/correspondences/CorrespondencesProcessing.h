@@ -5,7 +5,7 @@
 #include <pcl/point_types.h>
 #include <pcl/registration/correspondence_rejection_sample_consensus.h>
 
-typedef pcl::PointXYZRGBA PointT;
+typedef pcl::PointXYZRGB PointT;
 typedef pcl::PointXYZI KeypointT;
 
 class CorrespondencesProcessing

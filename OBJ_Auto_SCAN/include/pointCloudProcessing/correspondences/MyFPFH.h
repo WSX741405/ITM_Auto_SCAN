@@ -8,10 +8,12 @@
 #include <pcl/features/fpfh_omp.h>
 #include <pcl/registration/correspondence_rejection_sample_consensus.h>
 #include <pcl/registration/icp.h>
+#include <pcl/features/normal_3d_omp.h>
+#include <pcl/filters/filter.h>
 
 #include "CorrespondencesProcessing.h"
 
-typedef pcl::PointXYZRGBA PointT;
+typedef pcl::PointXYZRGB PointT;
 typedef pcl::PointXYZI KeypointT;
 
 class MyFPFH : public CorrespondencesProcessing
