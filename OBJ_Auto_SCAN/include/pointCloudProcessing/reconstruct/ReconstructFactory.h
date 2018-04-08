@@ -4,6 +4,8 @@
 #include "ReconstructProcessing.h"
 #include "GreedyProjection.h"
 
+typedef pcl::PointXYZRGB PointT;
+
 class ReconstructFactory
 {
 public:

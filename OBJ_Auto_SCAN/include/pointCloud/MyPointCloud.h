@@ -3,12 +3,16 @@
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include "PointCloudElement.h"
 
-class MyPointCloud
+#include "ui/Viewer.h"
+
+class MyPointCloud : public PointCloudElement
 {
 public:
-	MyPointCloud(pcl::PointCloud<PointT>::Ptr cloud, std::string name = "Name") : _name(name)
+	MyPointCloud(pcl::PointCloud<PointT>::Ptr cloud, std::string name = "Name")
 	{
+		_name = name;
 		_cloud.reset(new pcl::PointCloud<PointT>(*cloud));
 		_isSelected = false;		//default
 	}
@@ -16,6 +20,11 @@ public:
 	std::string GetName()
 	{
 		return _name;
+	}
+
+	void Show(Viewer& viewer)
+	{
+		viewer.ShowPointCloud(GetPointCloud(), GetName());
 	}
 
 	pcl::PointCloud<PointT>::Ptr GetPointCloud()
@@ -34,8 +43,6 @@ public:
 	}
 
 private:
-	std::string _name;
-	bool _isSelected;
 	pcl::PointCloud<PointT>::Ptr _cloud;
 };
 

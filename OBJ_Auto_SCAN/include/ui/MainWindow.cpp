@@ -20,7 +20,7 @@ void MainWindow::InitialMemberVariable()
 	_uiObserver = new UIObserver(this);
 	_fileFactory = new FileFactory();
 	_arduino = new Arduino(COM_PORT);
-	_pointClouds = new MyPointClouds();
+	_elements = new PointCloudElements();
 	_grabberFactory = new GrabberFactory();
 	_subjectFactory = new SubjectFactory();
 	_keypointFactory = new KeypointFactory();
@@ -137,15 +137,16 @@ void MainWindow::InitialTabWidget()
 	_ui->_keypointTabWidget->setCurrentIndex(0);
 	_ui->_correspondencesTabWidget->setCurrentIndex(0);
 	_ui->_regestrationTabWidget->setCurrentIndex(0);
+	_ui->_reconstructTabWidget->setCurrentIndex(0);
 }
 
 void MainWindow::UpdatePointCloudViewer()
 {
 	_viewer->Clear();
-	for (int counter = 0; counter < _pointClouds->GetNumberOfPointCloud(); counter++)
+	for (int counter = 0; counter < _elements->GetNumberOfElements(); counter++)
 	{
-		if (_pointClouds->GetIsSelectedById(counter))
-			_viewer->Show(_pointClouds->GetPointCloudById(counter), _pointClouds->GetNameById(counter));
+		if (_elements->GetIsSelectedById(counter))
+			_elements->ShowPointCloudElementById(*_viewer, counter);
 	}
 	_ui->_qvtkWidget->update();
 }
@@ -153,14 +154,14 @@ void MainWindow::UpdatePointCloudViewer()
 void MainWindow::UpdatePointCloudTable()
 {
 	disconnect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
-	_ui->_pointCloudTable->setRowCount(_pointClouds->GetNumberOfPointCloud());
-	for (int counter = 0; counter < _pointClouds->GetNumberOfPointCloud(); counter++)
+	_ui->_pointCloudTable->setRowCount(_elements->GetNumberOfElements());
+	for (int counter = 0; counter < _elements->GetNumberOfElements(); counter++)
 	{
 		//		Name Column
-		QString name = QString::fromStdString(_pointClouds->GetNameById(counter));
+		QString name = QString::fromStdString(_elements->GetNameById(counter));
 		//		Show Column
 		QTableWidgetItem *showPointCloudItem = new QTableWidgetItem();
-		if (_pointClouds->GetIsSelectedById(counter))
+		if (_elements->GetIsSelectedById(counter))
 			showPointCloudItem->setCheckState(Qt::Checked);
 		else
 			showPointCloudItem->setCheckState(Qt::Unchecked);
@@ -201,14 +202,14 @@ void MainWindow::UpdateViewerSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
 	_tmpPointCloud = pointCloud;
 	std::unique_lock<std::mutex> lock(_grabber->GetMutex());
-	_viewer->Show(_tmpPointCloud = pointCloud);
+	_viewer->ShowPointCloud(_tmpPointCloud = pointCloud);
 	//_viewer->ResetCamera();
 	_ui->_qvtkWidget->update();
 }
 
 void MainWindow::TableItemChangeSlot(QTableWidgetItem* item)
 {
-	_pointClouds->SetIsSelectedById(item->row(), item->checkState() == Qt::Checked);
+	_elements->SetIsSelectedById(item->row(), item->checkState() == Qt::Checked);
 	UpdatePointCloudViewer();
 }
 
@@ -233,14 +234,16 @@ void MainWindow::OpenFile(std::string dir, std::string filter)
 {
 	MyFile* file = _fileFactory->GetFileByFilter(dir, filter);
 	file->LoadFile();
-	_pointClouds->AddPointCloud(file->GetPointCloud(), dir);
+	//_pointClouds->AddPointCloud(file->GetPointCloud(), dir);
+	MyPointCloud* cloud = new MyPointCloud(file->GetPointCloud(), dir);
+	_elements->AddPointCloudElement(cloud);
 	UpdatePointCloudTable();
 	UpdatePointCloudViewer();
 }
 
 void MainWindow::SaveFileSlot()
 {
-	if (_pointClouds->GetPointCloudsByIsSelected().size() == 1)
+	if (_elements->GetElementsByIsSelected().size() == 1)
 	{
 		QString filter;
 		QString dir = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("OBJ(*.obj);; PLY(*.ply);; PCD(*.pcd)"), &filter);
@@ -258,9 +261,9 @@ void MainWindow::SaveFileSlot()
 
 void MainWindow::SaveFile(std::string dir, std::string filter)
 {
-	std::vector<MyPointCloud*> pointClouds = _pointClouds->GetPointCloudsByIsSelected();
+	std::vector<PointCloudElement*> elements = _elements->GetElementsByIsSelected();
 	MyFile* file = _fileFactory->GetFileByFilter(dir, filter);
-	file->SaveFile(pointClouds[0]->GetPointCloud());
+	file->SaveFile(elements[0]->GetPointCloud());
 }
 
 //****************************************************************
@@ -366,12 +369,13 @@ void MainWindow::KeepOneFrameSlot()
 	bool ok;
 	std::string cloudName = InputDialog(&ok, "Keep PointCloud", "Cloud Name");
 	if (!ok)	return;
-	if (_pointClouds->IsNameExist(cloudName) || cloudName == "")
+	if (_elements->IsNameExist(cloudName) || cloudName == "")
 	{
 		QMessageBox::about(this, tr("Keep PointCloud"), tr("Name is exist/empty!"));
 		return;
 	}
-	_pointClouds->AddPointCloud(_tmpPointCloud, cloudName);
+	MyPointCloud* cloud = new MyPointCloud(_tmpPointCloud, cloudName);
+	_elements->AddPointCloudElement(cloud);
 	UpdatePointCloudTable();
 }
 
@@ -395,7 +399,9 @@ void MainWindow::KeepContinueFrameSlot()
 
 void MainWindow::KeepFrameSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
-	_pointClouds->AddPointCloud(pointCloud, _keepCloudName + std::string("_") + TypeConversion::Int2String(_nameNumber));
+	std::string cloudName = _keepCloudName + std::string("_") + TypeConversion::Int2String(_nameNumber);
+	MyPointCloud* cloud = new MyPointCloud(_tmpPointCloud, cloudName);
+	_elements->AddPointCloudElement(cloud);
 	UpdatePointCloudTable();
 	_nameNumber++;
 }
@@ -417,12 +423,13 @@ void MainWindow::ChangeFilterTabSlot(int index)
 
 void MainWindow::ProcessFilterSlot()
 {
-	std::vector<MyPointCloud*> clouds = _pointClouds->GetPointCloudsByIsSelected();
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
 	for (int counter = 0; counter < clouds.size(); counter++)
 	{
 		_filterProcessing->Processing(clouds[counter]->GetPointCloud());
 		std::string name = clouds[counter]->GetName() + std::string("_Filter");
-		_pointClouds->AddPointCloud(_filterProcessing->GetResult(), name);
+		MyPointCloud* cloud = new MyPointCloud(_filterProcessing->GetResult(), name);
+		_elements->AddPointCloudElement(cloud);
 		UpdatePointCloudTable();
 	}
 }
@@ -455,12 +462,13 @@ void MainWindow::ProcessKeypointSlot()
 	int r = 255;
 	int g = 0;
 	int b = 0;
-	std::vector<MyPointCloud*> clouds = _pointClouds->GetPointCloudsByIsSelected();
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
 	for (int counter = 0; counter < clouds.size(); counter++)
 	{
 		_keypointProcessing->Processing(clouds[counter]->GetPointCloud());
 		std::string name = clouds[counter]->GetName() + std::string("_Keypoint");
-		_pointClouds->AddPointCloud(_keypointProcessing->GetResult(), r, g, b, name);
+		MyKeyPoint* cloud = new MyKeyPoint(_keypointProcessing->GetResult(), name);
+		_elements->AddPointCloudElement(cloud);
 		UpdatePointCloudTable();
 	}
 }
@@ -533,7 +541,7 @@ void MainWindow::SetHarrisRadiusSearchSlot()
 
 void MainWindow::ProcessCorrespondencesSlot()
 {
-	std::vector<MyPointCloud*> clouds = _pointClouds->GetPointCloudsByIsSelected();
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
 	pcl::PointCloud<PointT>::Ptr sourceCloud = clouds[0]->GetPointCloud();
 	pcl::PointCloud<PointT>::Ptr targetCloud = clouds[1]->GetPointCloud();
 	if (clouds.size() != 2)
@@ -551,7 +559,8 @@ void MainWindow::ProcessCorrespondencesSlot()
 		targetKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
 		_correspondencesProcessing->Processing(sourceCloud, sourceKeypoint, targetCloud, targetKeypoint);
 		std::string name = clouds[0]->GetName() + "_" + std::string("_Transform");
-		_pointClouds->AddPointCloud(_correspondencesProcessing->GetResult(), name);
+		MyPointCloud* cloud = new MyPointCloud(_correspondencesProcessing->GetResult(), name);
+		_elements->AddPointCloudElement(cloud);
 		std::string correspondencesName = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Correspondences");
 		_viewer->Show(sourceCloud, targetCloud, _correspondencesProcessing->GetCorrespondencesResult(), correspondencesName);
 		UpdatePointCloudTable();
@@ -579,7 +588,7 @@ void MainWindow::SetFPFHCorrespondencesKSlot(int correspondencesK)
 
 void MainWindow::ProcessRegestrationSlot()
 {
-	std::vector<MyPointCloud*> clouds = _pointClouds->GetPointCloudsByIsSelected();
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
 	pcl::PointCloud<PointT>::Ptr sourceCloud = clouds[0]->GetPointCloud();
 	pcl::PointCloud<PointT>::Ptr targetCloud = clouds[1]->GetPointCloud();
 	if (clouds.size() != 2)
@@ -590,8 +599,9 @@ void MainWindow::ProcessRegestrationSlot()
 	else
 	{
 		_regestrationProcessing->Processing(sourceCloud, targetCloud);
-		std::string name = clouds[0]->GetName() + "_" + std::string("_ProcessRegestration");
-		_pointClouds->AddPointCloud(_regestrationProcessing->GetResult(), name);
+		std::string name = clouds[0]->GetName() + "_" + std::string("_Regestration");
+		MyPointCloud* cloud = new MyPointCloud(_regestrationProcessing->GetResult(), name);
+		_elements->AddPointCloudElement(cloud);
 		UpdatePointCloudTable();
 	}
 }
@@ -622,35 +632,52 @@ void MainWindow::SetICPMaxIterationsSlot(int maxIterations)
 
 void MainWindow::ProcessReconstructSlot()
 {
-
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	pcl::PointCloud<PointT>::Ptr sourceCloud = clouds[0]->GetPointCloud();
+	pcl::PointCloud<PointT>::Ptr targetCloud = clouds[1]->GetPointCloud();
+	if (clouds.size() != 2)
+	{
+		QMessageBox::about(this, tr("Process Regestration"), tr("Selecct Two Point Cloud!"));
+		return;
+	}
+	else
+	{
+		_reconstructProcessing->Processing(sourceCloud, targetCloud);
+		std::string name = clouds[0]->GetName() + "_" + std::string("_Reconstruct");
+		//MyPointCloud* cloud = new MyPointCloud(_reconstructProcessing->GetSurface(), name);
+		//_elements->AddPointCloudElement(cloud);
+		MySurface* surface = new MySurface(_reconstructProcessing->GetSurface(), name);
+		_elements->AddPointCloudElement(surface);
+		UpdatePointCloudTable();
+	}
 }
 
 void MainWindow::SetSearchRadiusSlot(double searchRadius)
 {
-
+	_reconstructProcessing->SetSearchRadius(searchRadius);
 }
 
 void MainWindow::SetMu(double mu)
 {
-
+	_reconstructProcessing->SetMu(mu);
 }
 
 void MainWindow::SetMaxNearestNeighbors(int maxNearestNeighbors)
 {
-
+	_reconstructProcessing->SetMaxNearestNeighbors(maxNearestNeighbors);
 }
 
 void MainWindow::SetMaxSurfaceAngle(int maxSurfaceAngle)
 {
-
+	_reconstructProcessing->SetMaxSurfaceAngle(maxSurfaceAngle);
 }
 
 void MainWindow::SetMinAngle(int minAngle)
 {
-
+	_reconstructProcessing->SetMinAngle(minAngle);
 }
 
 void MainWindow::SetMaxAngle(int maxAngle)
 {
-
+	_reconstructProcessing->SetMaxAngle(maxAngle);
 }

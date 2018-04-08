@@ -1,6 +1,14 @@
 #ifndef RECONSTRUCT_PROCESSING
 #define RECONSTRUCT_PROCESSING
 
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/surface/grid_projection.h>
+#include <pcl/surface/gp3.h>
+#include <pcl/features/normal_3d.h>
+
+typedef pcl::PointXYZRGB PointT;
+
 class ReconstructProcessing
 {
 public:

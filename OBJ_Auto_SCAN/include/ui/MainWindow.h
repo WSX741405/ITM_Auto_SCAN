@@ -13,6 +13,7 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 typedef pcl::PointXYZRGB PointT;
 typedef pcl::PointXYZI KeypointT;
 typedef pcl::PointXYZRGBNormal SurfacePointT;
+
 #include <QMetaType>
 Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 
@@ -28,7 +29,7 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include "observer/ObserverFactory.h"
 #include "file/FileFactory.h"
 #include "grabber/GrabberFactory.h"
-#include "pointCloud/MyPointClouds.h"
+#include "pointCloud/PointCloudElements.h"
 #include "arduino/Arduino.h"
 #include "Conversion.h"
 #include "pointCloudProcessing/keypoint/KeypointFactory.h"
@@ -150,7 +151,7 @@ private:
 	int _nameNumber;
 	std::string _keepCloudName;
 	pcl::PointCloud<PointT>::Ptr _tmpPointCloud;
-	MyPointClouds* _pointClouds;
+	PointCloudElements* _elements;
 	Arduino* _arduino;
 	Ui::MainWindowForm* _ui;
 

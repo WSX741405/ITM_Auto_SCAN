@@ -205,12 +205,6 @@
     <ClInclude Include="include\Conversion.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\pointCloud\MyPointCloud.h">
-      <Filter>include\pointCloud</Filter>
-    </ClInclude>
-    <ClInclude Include="include\pointCloud\MyPointClouds.h">
-      <Filter>include\pointCloud</Filter>
-    </ClInclude>
     <ClInclude Include="include\grabber\flexx\Flexx.h">
       <Filter>include\grabber\flexx</Filter>
     </ClInclude>
@@ -291,6 +285,21 @@
     </ClInclude>
     <ClInclude Include="include\pointCloudProcessing\reconstruct\ReconstructFactory.h">
       <Filter>include\pointCloudProcessing\reconstruct</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloud\MyPointCloud.h">
+      <Filter>include\pointCloud</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloud\PointCloudElement.h">
+      <Filter>include\pointCloud</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloud\PointCloudElements.h">
+      <Filter>include\pointCloud</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloud\MyKeypoint.h">
+      <Filter>include\pointCloud</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloud\MySurface.h">
+      <Filter>include\pointCloud</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
