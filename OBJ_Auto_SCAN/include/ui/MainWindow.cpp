@@ -82,11 +82,17 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_boundingBoxMaxYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
 	connect(_ui->_boundingBoxMinZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
 	connect(_ui->_boundingBoxMaxZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
-	//		Correspondences : FPFH
+	//		Correspondences
+	connect(_ui->_correspondencesTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeCorrespondencesTabSlot(int)));
 	connect(_ui->_correspondencesProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessCorrespondencesSlot()));
-	connect(_ui->_fpfhDescriptorRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFPFHDescriptorRadiusSlot(double)));
-	connect(_ui->_fpfhNormalRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFPFHNormalRadiusSlot(double)));
-	connect(_ui->_fpfhCorrespondencesKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetFPFHCorrespondencesKSlot(int)));
+	//		Correspondences : FPFH
+	connect(_ui->_fpfhDescriptorRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetCorrespondenceDescriptorRadiusSlot(double)));
+	connect(_ui->_fpfhNormalRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetCorrespondenceNormalRadiusSlot(double)));
+	connect(_ui->_fpfhCorrespondencesKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetCorrespondencesKSlot(int)));
+	//		Correspondences : SHOT
+	connect(_ui->_shotDescriptorRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetCorrespondenceDescriptorRadiusSlot(double)));
+	connect(_ui->_shotNormalRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetCorrespondenceNormalRadiusSlot(double)));
+	connect(_ui->_shotCorrespondencesKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetCorrespondencesKSlot(int)));
 	//		Regestration : ICP
 	connect(_ui->_regestrationProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessRegestrationSlot()));
 	connect(_ui->_icpCorrespondenceDistanceSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetICPCorrespondenceDistanceSlot(double)));
@@ -538,6 +544,17 @@ void MainWindow::SetHarrisRadiusSearchSlot()
 //****************************************************************
 //								Slots : Correspondences Processing
 //****************************************************************
+void MainWindow::ChangeCorrespondencesTabSlot(int index)
+{
+	if (index == 0)
+	{
+		_correspondencesProcessing = _correspondencesFactory->GetFPFH();
+	}
+	else if (index == 1)
+	{
+		_correspondencesProcessing = _correspondencesFactory->GetMySHOTRGB();
+	}
+}
 
 void MainWindow::ProcessCorrespondencesSlot()
 {
@@ -561,23 +578,23 @@ void MainWindow::ProcessCorrespondencesSlot()
 		std::string name = clouds[0]->GetName() + "_" + std::string("_Transform");
 		MyPointCloud* cloud = new MyPointCloud(_correspondencesProcessing->GetResult(), name);
 		_elements->AddPointCloudElement(cloud);
-		std::string correspondencesName = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Correspondences");
-		_viewer->Show(sourceCloud, targetCloud, _correspondencesProcessing->GetCorrespondencesResult(), correspondencesName);
+		//std::string correspondencesName = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Correspondences");
+		//_viewer->Show(sourceCloud, targetCloud, _correspondencesProcessing->GetCorrespondencesResult(), correspondencesName);
 		UpdatePointCloudTable();
 	}
 }
 
-void MainWindow::SetFPFHDescriptorRadiusSlot(double descriptorRadius)
+void MainWindow::SetCorrespondenceDescriptorRadiusSlot(double descriptorRadius)
 {
 	_correspondencesProcessing->SetDescriptorRadius(descriptorRadius);
 }
 
-void MainWindow::SetFPFHNormalRadiusSlot(double normalRadius)
+void MainWindow::SetCorrespondenceNormalRadiusSlot(double normalRadius)
 {
 	_correspondencesProcessing->SetNormalRadius(normalRadius);
 }
 
-void MainWindow::SetFPFHCorrespondencesKSlot(int correspondencesK)
+void MainWindow::SetCorrespondencesKSlot(int correspondencesK)
 {
 	_correspondencesProcessing->SetCorrespondencesK(correspondencesK);
 }
@@ -585,7 +602,6 @@ void MainWindow::SetFPFHCorrespondencesKSlot(int correspondencesK)
 //****************************************************************
 //								Slots : Regestration
 //****************************************************************
-
 void MainWindow::ProcessRegestrationSlot()
 {
 	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
@@ -629,7 +645,6 @@ void MainWindow::SetICPMaxIterationsSlot(int maxIterations)
 //****************************************************************
 //								Slots : Reconstruct
 //****************************************************************
-
 void MainWindow::ProcessReconstructSlot()
 {
 	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
@@ -644,8 +659,6 @@ void MainWindow::ProcessReconstructSlot()
 	{
 		_reconstructProcessing->Processing(sourceCloud, targetCloud);
 		std::string name = clouds[0]->GetName() + "_" + std::string("_Reconstruct");
-		//MyPointCloud* cloud = new MyPointCloud(_reconstructProcessing->GetSurface(), name);
-		//_elements->AddPointCloudElement(cloud);
 		MySurface* surface = new MySurface(_reconstructProcessing->GetSurface(), name);
 		_elements->AddPointCloudElement(surface);
 		UpdatePointCloudTable();

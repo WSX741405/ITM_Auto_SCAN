@@ -104,10 +104,11 @@ public:
 	//****************************************************************
 	//										Correspondences
 	//****************************************************************
+	void ChangeCorrespondencesTabSlot(int index);
 	void ProcessCorrespondencesSlot();
-	void SetFPFHDescriptorRadiusSlot(double descriptorRadius);
-	void SetFPFHNormalRadiusSlot(double normalRadius);
-	void SetFPFHCorrespondencesKSlot(int correspondencesK);
+	void SetCorrespondenceDescriptorRadiusSlot(double descriptorRadius);
+	void SetCorrespondenceNormalRadiusSlot(double normalRadius);
+	void SetCorrespondencesKSlot(int correspondencesK);
 	//****************************************************************
 	//										Regestration
 	//****************************************************************

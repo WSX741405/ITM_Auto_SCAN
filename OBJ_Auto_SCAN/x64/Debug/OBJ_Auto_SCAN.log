@@ -1,4 +1,5 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (ITM_Auto_SCAN.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Moc'ing MainWindow.h...
   moc_IObserver.cpp
 D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8\pcl/point_traits.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
 D:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include\flann/algorithms/dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失

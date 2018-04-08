@@ -92,6 +92,7 @@
     <ClCompile Include="include\observer\ObserverFactory.cpp" />
     <ClCompile Include="include\pointCloudProcessing\correspondences\CorrespondencesFactory.cpp" />
     <ClCompile Include="include\pointCloudProcessing\correspondences\MyFPFH.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\correspondences\MySHOTRGB.cpp" />
     <ClCompile Include="include\pointCloudProcessing\filter\BoundingBoxFilter.cpp" />
     <ClCompile Include="include\pointCloudProcessing\filter\FilterFactory.cpp" />
     <ClCompile Include="include\pointCloudProcessing\filter\VoxelGridFilter.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="include\pointCloudProcessing\correspondences\CorrespondencesFactory.h" />
     <ClInclude Include="include\pointCloudProcessing\correspondences\CorrespondencesProcessing.h" />
     <ClInclude Include="include\pointCloudProcessing\correspondences\MyFPFH.h" />
+    <ClInclude Include="include\pointCloudProcessing\correspondences\MySHOTRGB.h" />
     <ClInclude Include="include\pointCloudProcessing\filter\BoundingBoxFilter.h" />
     <ClInclude Include="include\pointCloudProcessing\filter\FilterFactory.h" />
     <ClInclude Include="include\pointCloudProcessing\filter\FilterProcessing.h" />

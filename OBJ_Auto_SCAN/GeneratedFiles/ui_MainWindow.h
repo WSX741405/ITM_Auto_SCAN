@@ -104,6 +104,13 @@ public:
     QSpinBox *_fpfhCorrespondencesKSpinBox;
     QLabel *_fpfhCorrespondencesKLabel;
     QDoubleSpinBox *_fpfhNormalRadiusSpinBox;
+    QWidget *_shotRGBTab;
+    QLabel *_shotdescriptorRadiusLabel;
+    QSpinBox *_shotCorrespondencesKSpinBox;
+    QLabel *_shotNormalRadiusLabel;
+    QDoubleSpinBox *_shotNormalRadiusSpinBox;
+    QLabel *_shotCorrespondencesKLabel;
+    QDoubleSpinBox *_shotDescriptorRadiusSpinBox;
     QPushButton *_correspondencesProcessingButton;
     QWidget *_regestrationTab;
     QPushButton *_regestrationProcessingButton;
@@ -437,6 +444,38 @@ public:
         _fpfhNormalRadiusSpinBox->setSingleStep(0.01);
         _fpfhNormalRadiusSpinBox->setValue(0.01);
         _correspondencesTabWidget->addTab(_fpfhTab, QString());
+        _shotRGBTab = new QWidget();
+        _shotRGBTab->setObjectName(QStringLiteral("_shotRGBTab"));
+        _shotdescriptorRadiusLabel = new QLabel(_shotRGBTab);
+        _shotdescriptorRadiusLabel->setObjectName(QStringLiteral("_shotdescriptorRadiusLabel"));
+        _shotdescriptorRadiusLabel->setGeometry(QRect(10, 20, 220, 30));
+        _shotCorrespondencesKSpinBox = new QSpinBox(_shotRGBTab);
+        _shotCorrespondencesKSpinBox->setObjectName(QStringLiteral("_shotCorrespondencesKSpinBox"));
+        _shotCorrespondencesKSpinBox->setGeometry(QRect(260, 120, 80, 30));
+        _shotCorrespondencesKSpinBox->setMinimum(1);
+        _shotCorrespondencesKSpinBox->setMaximum(10);
+        _shotCorrespondencesKSpinBox->setValue(1);
+        _shotNormalRadiusLabel = new QLabel(_shotRGBTab);
+        _shotNormalRadiusLabel->setObjectName(QStringLiteral("_shotNormalRadiusLabel"));
+        _shotNormalRadiusLabel->setGeometry(QRect(10, 70, 180, 30));
+        _shotNormalRadiusSpinBox = new QDoubleSpinBox(_shotRGBTab);
+        _shotNormalRadiusSpinBox->setObjectName(QStringLiteral("_shotNormalRadiusSpinBox"));
+        _shotNormalRadiusSpinBox->setGeometry(QRect(260, 70, 80, 30));
+        _shotNormalRadiusSpinBox->setMinimum(0.01);
+        _shotNormalRadiusSpinBox->setMaximum(1);
+        _shotNormalRadiusSpinBox->setSingleStep(0.01);
+        _shotNormalRadiusSpinBox->setValue(0.01);
+        _shotCorrespondencesKLabel = new QLabel(_shotRGBTab);
+        _shotCorrespondencesKLabel->setObjectName(QStringLiteral("_shotCorrespondencesKLabel"));
+        _shotCorrespondencesKLabel->setGeometry(QRect(10, 120, 220, 30));
+        _shotDescriptorRadiusSpinBox = new QDoubleSpinBox(_shotRGBTab);
+        _shotDescriptorRadiusSpinBox->setObjectName(QStringLiteral("_shotDescriptorRadiusSpinBox"));
+        _shotDescriptorRadiusSpinBox->setGeometry(QRect(260, 20, 80, 30));
+        _shotDescriptorRadiusSpinBox->setMinimum(0.01);
+        _shotDescriptorRadiusSpinBox->setMaximum(1);
+        _shotDescriptorRadiusSpinBox->setSingleStep(0.01);
+        _shotDescriptorRadiusSpinBox->setValue(0.04);
+        _correspondencesTabWidget->addTab(_shotRGBTab, QString());
         _correspondencesProcessingButton = new QPushButton(_correspondencesTab);
         _correspondencesProcessingButton->setObjectName(QStringLiteral("_correspondencesProcessingButton"));
         _correspondencesProcessingButton->setGeometry(QRect(20, 395, 150, 40));
@@ -617,10 +656,10 @@ public:
 
         retranslateUi(MainWindowForm);
 
-        _processingTabWidget->setCurrentIndex(4);
+        _processingTabWidget->setCurrentIndex(2);
         _filterTabWidget->setCurrentIndex(0);
         _keypointTabWidget->setCurrentIndex(0);
-        _correspondencesTabWidget->setCurrentIndex(0);
+        _correspondencesTabWidget->setCurrentIndex(1);
         _regestrationTabWidget->setCurrentIndex(0);
         _reconstructTabWidget->setCurrentIndex(0);
 
@@ -682,6 +721,10 @@ public:
         _fpfhdescriptorRadiusLabel->setText(QApplication::translate("MainWindowForm", "Descriptor Radius\357\274\232", Q_NULLPTR));
         _fpfhCorrespondencesKLabel->setText(QApplication::translate("MainWindowForm", "Correspondences K\357\274\232", Q_NULLPTR));
         _correspondencesTabWidget->setTabText(_correspondencesTabWidget->indexOf(_fpfhTab), QApplication::translate("MainWindowForm", "FPFH", Q_NULLPTR));
+        _shotdescriptorRadiusLabel->setText(QApplication::translate("MainWindowForm", "Descriptor Radius\357\274\232", Q_NULLPTR));
+        _shotNormalRadiusLabel->setText(QApplication::translate("MainWindowForm", "Normal Radius\357\274\232", Q_NULLPTR));
+        _shotCorrespondencesKLabel->setText(QApplication::translate("MainWindowForm", "Correspondences K\357\274\232", Q_NULLPTR));
+        _correspondencesTabWidget->setTabText(_correspondencesTabWidget->indexOf(_shotRGBTab), QApplication::translate("MainWindowForm", "SHOTRGB", Q_NULLPTR));
         _correspondencesProcessingButton->setText(QApplication::translate("MainWindowForm", "Processing", Q_NULLPTR));
         _processingTabWidget->setTabText(_processingTabWidget->indexOf(_correspondencesTab), QApplication::translate("MainWindowForm", "Correspondences", Q_NULLPTR));
         _regestrationProcessingButton->setText(QApplication::translate("MainWindowForm", "Processing", Q_NULLPTR));

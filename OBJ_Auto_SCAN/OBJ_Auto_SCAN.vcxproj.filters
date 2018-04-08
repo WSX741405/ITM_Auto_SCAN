@@ -156,6 +156,9 @@
     <ClCompile Include="include\pointCloudProcessing\reconstruct\ReconstructFactory.cpp">
       <Filter>include\pointCloudProcessing\reconstruct</Filter>
     </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\correspondences\MySHOTRGB.cpp">
+      <Filter>include\pointCloudProcessing\correspondences</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">
@@ -300,6 +303,9 @@
     </ClInclude>
     <ClInclude Include="include\pointCloud\MySurface.h">
       <Filter>include\pointCloud</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\correspondences\MySHOTRGB.h">
+      <Filter>include\pointCloudProcessing\correspondences</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
