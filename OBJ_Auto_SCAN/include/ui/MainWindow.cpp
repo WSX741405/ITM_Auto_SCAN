@@ -89,10 +89,22 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_fpfhDescriptorRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetCorrespondenceDescriptorRadiusSlot(double)));
 	connect(_ui->_fpfhNormalRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetCorrespondenceNormalRadiusSlot(double)));
 	connect(_ui->_fpfhCorrespondencesKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetCorrespondencesKSlot(int)));
+	connect(_ui->_fpfhRejectorInlierThresholdSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetRejectorInlierThresholdSlot(double)));
 	//		Correspondences : SHOT
 	connect(_ui->_shotDescriptorRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetCorrespondenceDescriptorRadiusSlot(double)));
 	connect(_ui->_shotNormalRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetCorrespondenceNormalRadiusSlot(double)));
 	connect(_ui->_shotCorrespondencesKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetCorrespondencesKSlot(int)));
+	connect(_ui->_shotRejectorInlierThresholdSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetRejectorInlierThresholdSlot(double)));
+	//		Correspondences : PFH
+	connect(_ui->_pfhDescriptorKSearchSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetCorrespondenceDescriptorKSearchSpinBoxSlot(int)));
+	connect(_ui->_pfhNormalRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetCorrespondenceNormalRadiusSlot(double)));
+	connect(_ui->_pfhCorrespondencesKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetCorrespondencesKSlot(int)));
+	connect(_ui->_pfhRejectorInlierThresholdSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetRejectorInlierThresholdSlot(double)));
+	//		Correspondences : PFHRGB
+	connect(_ui->_pfhrgbDescriptorKSearchSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetCorrespondenceDescriptorKSearchSpinBoxSlot(int)));
+	connect(_ui->_pfhrgbNormalRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetCorrespondenceNormalRadiusSlot(double)));
+	connect(_ui->_pfhrgbCorrespondencesKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetCorrespondencesKSlot(int)));
+	connect(_ui->_pfhrgbRejectorInlierThresholdSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetRejectorInlierThresholdSlot(double)));
 	//		Regestration : ICP
 	connect(_ui->_regestrationProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessRegestrationSlot()));
 	connect(_ui->_icpCorrespondenceDistanceSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetICPCorrespondenceDistanceSlot(double)));
@@ -102,11 +114,16 @@ void MainWindow::InitialConnectSlots()
 	//		Reconstruct : Greedy Projection
 	connect(_ui->_reconstructProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessReconstructSlot()));
 	connect(_ui->_greedyProjectionSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSearchRadiusSlot(double)));
-	connect(_ui->_greedyProjectionMuSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetMu(double)));
-	connect(_ui->_greedyProjectionMaxNearestNeighborsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxNearestNeighbors(int)));
-	connect(_ui->_greedyProjectionMaxSurfaceAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxSurfaceAngle(int)));
-	connect(_ui->_greedyProjectionMinAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMinAngle(int)));
-	connect(_ui->_greedyProjectionMaxAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxAngle(int)));
+	connect(_ui->_greedyProjectionMuSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetMuSlot(double)));
+	connect(_ui->_greedyProjectionMaxNearestNeighborsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxNearestNeighborsSlot(int)));
+	connect(_ui->_greedyProjectionMaxSurfaceAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxSurfaceAngleSlot(int)));
+	connect(_ui->_greedyProjectionMinAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMinAngleSlot(int)));
+	connect(_ui->_greedyProjectionMaxAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxAngleSlot(int)));
+	//		Reconstruct : Marching Cubes
+	connect(_ui->_marchingCubesGridResolutionXSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMarchingCubesGridResolutionXYZSlot()));
+	connect(_ui->_marchingCubesGridResolutionYSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMarchingCubesGridResolutionXYZSlot()));
+	connect(_ui->_marchingCubesGridResolutionZSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMarchingCubesGridResolutionXYZSlot()));
+	connect(_ui->_marchingCubesIsoLevelSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetMarchingCubesIsoLevelSlot(double)));
 }
 
 //****************************************************************
@@ -552,7 +569,15 @@ void MainWindow::ChangeCorrespondencesTabSlot(int index)
 	}
 	else if (index == 1)
 	{
-		_correspondencesProcessing = _correspondencesFactory->GetMySHOTRGB();
+		_correspondencesProcessing = _correspondencesFactory->GetSHOTRGB();
+	}
+	else if (index == 2)
+	{
+		_correspondencesProcessing = _correspondencesFactory->GetPFH();
+	}
+	else if (index == 3)
+	{
+		_correspondencesProcessing = _correspondencesFactory->GetPFHRGB();
 	}
 }
 
@@ -597,6 +622,16 @@ void MainWindow::SetCorrespondenceNormalRadiusSlot(double normalRadius)
 void MainWindow::SetCorrespondencesKSlot(int correspondencesK)
 {
 	_correspondencesProcessing->SetCorrespondencesK(correspondencesK);
+}
+
+void MainWindow::SetRejectorInlierThresholdSlot(double rejectorInlierThreshold)
+{
+	_correspondencesProcessing->SetRejectorInlierThreshold(rejectorInlierThreshold);
+}
+
+void MainWindow::SetCorrespondenceDescriptorKSearchSpinBoxSlot(int kSearch)
+{
+	_correspondencesProcessing->SetDescriptorKSearch(kSearch);
 }
 
 //****************************************************************
@@ -670,27 +705,40 @@ void MainWindow::SetSearchRadiusSlot(double searchRadius)
 	_reconstructProcessing->SetSearchRadius(searchRadius);
 }
 
-void MainWindow::SetMu(double mu)
+void MainWindow::SetMuSlot(double mu)
 {
 	_reconstructProcessing->SetMu(mu);
 }
 
-void MainWindow::SetMaxNearestNeighbors(int maxNearestNeighbors)
+void MainWindow::SetMaxNearestNeighborsSlot(int maxNearestNeighbors)
 {
 	_reconstructProcessing->SetMaxNearestNeighbors(maxNearestNeighbors);
 }
 
-void MainWindow::SetMaxSurfaceAngle(int maxSurfaceAngle)
+void MainWindow::SetMaxSurfaceAngleSlot(int maxSurfaceAngle)
 {
 	_reconstructProcessing->SetMaxSurfaceAngle(maxSurfaceAngle);
 }
 
-void MainWindow::SetMinAngle(int minAngle)
+void MainWindow::SetMinAngleSlot(int minAngle)
 {
 	_reconstructProcessing->SetMinAngle(minAngle);
 }
 
-void MainWindow::SetMaxAngle(int maxAngle)
+void MainWindow::SetMaxAngleSlot(int maxAngle)
 {
 	_reconstructProcessing->SetMaxAngle(maxAngle);
+}
+
+void MainWindow::SetMarchingCubesGridResolutionXYZSlot()
+{
+	float x = TypeConversion::QString2Float(_ui->_marchingCubesGridResolutionXSpinBox->text());
+	float y = TypeConversion::QString2Float(_ui->_marchingCubesGridResolutionYSpinBox->text());
+	float z = TypeConversion::QString2Float(_ui->_marchingCubesGridResolutionZSpinBox->text());
+	_reconstructProcessing->SetGridResolution(x, y, z);
+}
+
+void MainWindow::SetMarchingCubesIsoLevelSlot(double isoLevel)
+{
+	_reconstructProcessing->SetIsoLevel(isoLevel);
 }

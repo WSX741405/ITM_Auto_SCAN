@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>4</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -528,9 +528,9 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
-      <widget class="QWidget" name="tab_5">
+      <widget class="QWidget" name="_sift3DTab">
        <attribute name="title">
         <string>SIFT3D</string>
        </attribute>
@@ -654,7 +654,7 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab_6">
+      <widget class="QWidget" name="_harris3DTab">
        <attribute name="title">
         <string>Harris3D</string>
        </attribute>
@@ -728,7 +728,7 @@
          <double>0.010000000000000</double>
         </property>
        </widget>
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="_harrisMethodLabel">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -811,7 +811,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="_fpfhTab">
        <attribute name="title">
@@ -846,7 +846,7 @@
        <widget class="QDoubleSpinBox" name="_fpfhDescriptorRadiusSpinBox">
         <property name="geometry">
          <rect>
-          <x>260</x>
+          <x>300</x>
           <y>20</y>
           <width>80</width>
           <height>30</height>
@@ -868,7 +868,7 @@
        <widget class="QSpinBox" name="_fpfhCorrespondencesKSpinBox">
         <property name="geometry">
          <rect>
-          <x>260</x>
+          <x>300</x>
           <y>120</y>
           <width>80</width>
           <height>30</height>
@@ -900,7 +900,7 @@
        <widget class="QDoubleSpinBox" name="_fpfhNormalRadiusSpinBox">
         <property name="geometry">
          <rect>
-          <x>260</x>
+          <x>300</x>
           <y>70</y>
           <width>80</width>
           <height>30</height>
@@ -917,6 +917,38 @@
         </property>
         <property name="value">
          <double>0.010000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_fpfhRejectorInlierThresholdLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>280</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Rejector Inlier Threshold：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_fpfhRejectorInlierThresholdSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>170</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
         </property>
        </widget>
       </widget>
@@ -940,7 +972,7 @@
        <widget class="QSpinBox" name="_shotCorrespondencesKSpinBox">
         <property name="geometry">
          <rect>
-          <x>260</x>
+          <x>300</x>
           <y>120</y>
           <width>80</width>
           <height>30</height>
@@ -972,7 +1004,7 @@
        <widget class="QDoubleSpinBox" name="_shotNormalRadiusSpinBox">
         <property name="geometry">
          <rect>
-          <x>260</x>
+          <x>300</x>
           <y>70</y>
           <width>80</width>
           <height>30</height>
@@ -1007,7 +1039,7 @@
        <widget class="QDoubleSpinBox" name="_shotDescriptorRadiusSpinBox">
         <property name="geometry">
          <rect>
-          <x>260</x>
+          <x>300</x>
           <y>20</y>
           <width>80</width>
           <height>30</height>
@@ -1024,6 +1056,304 @@
         </property>
         <property name="value">
          <double>0.040000000000000</double>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_shotRejectorInlierThresholdSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>170</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_shotRejectorInlierThresholdLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>280</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Rejector Inlier Threshold：</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="_pfhTab">
+       <attribute name="title">
+        <string>PFH</string>
+       </attribute>
+       <widget class="QLabel" name="_pfhdescriptorKSearchLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>220</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>K Search：</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="_pfhCorrespondencesKSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>120</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>10</number>
+        </property>
+        <property name="value">
+         <number>1</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_pfhNormalRadiusLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>180</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Normal Radius：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_pfhCorrespondencesKLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>120</y>
+          <width>220</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Correspondences K：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_pfhNormalRadiusSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>70</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.010000000000000</double>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="_pfhDescriptorKSearchSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>20</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="value">
+         <number>50</number>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_pfhRejectorInlierThresholdSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>170</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_pfhRejectorInlierThresholdLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>280</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Rejector Inlier Threshold：</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="_pfhrgbTab">
+       <attribute name="title">
+        <string>PFHRGB</string>
+       </attribute>
+       <widget class="QLabel" name="_pfhrgbRejectorInlierThresholdLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>280</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Rejector Inlier Threshold：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_pfhrgbRejectorInlierThresholdSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>170</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="_pfhrgbDescriptorKSearchSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>20</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="value">
+         <number>50</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_pfhrgbCorrespondencesKLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>120</y>
+          <width>220</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Correspondences K：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_pfhrgbNormalRadiusSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>70</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.010000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_pfhrgbdescriptorKSearchLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>220</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>K Search：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_pfhrgbNormalRadiusLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>180</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Normal Radius：</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="_pfhrgbCorrespondencesKSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>120</y>
+          <width>80</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>10</number>
+        </property>
+        <property name="value">
+         <number>1</number>
         </property>
        </widget>
       </widget>
@@ -1242,7 +1572,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="_greedyProjectionTab">
        <attribute name="title">
@@ -1438,6 +1768,145 @@
         </property>
         <property name="value">
          <number>120</number>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="_marchingCubesTab">
+       <attribute name="title">
+        <string>Marching Cubes</string>
+       </attribute>
+       <widget class="QLabel" name="_marchingCubesGridResolutionXLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>280</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Grid Resolution X：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_marchingCubesGridResolutionZLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>120</y>
+          <width>280</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Grid Resolution Ｚ：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_marchingCubesGridResolutionYLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>280</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Grid Resolution Ｙ：</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="_marchingCubesGridResolutionYSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>70</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="value">
+         <number>50</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="_marchingCubesGridResolutionXSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>20</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="value">
+         <number>50</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="_marchingCubesGridResolutionZSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>120</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="value">
+         <number>50</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_marchingCubesIsoLevelLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>200</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Iso Level：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_marchingCubesIsoLevelSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>170</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>0.001000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.001000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.001000000000000</double>
         </property>
        </widget>
       </widget>

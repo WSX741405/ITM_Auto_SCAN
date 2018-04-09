@@ -22,8 +22,10 @@ public:
 	MyFPFH();
 	void Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<KeypointT>::Ptr sourceKpts, pcl::PointCloud<PointT>::Ptr target, pcl::PointCloud<KeypointT>::Ptr targetKpts);
 	void SetDescriptorRadius(float descriptorRadiusSearch);
+	void SetDescriptorKSearch(int kSearch);
 	void SetNormalRadius(float normalRadiusSearch);
 	void SetCorrespondencesK(float correspondencesK);
+	void SetRejectorInlierThreshold(float rejectorInlierThreshold);
 	pcl::CorrespondencesPtr GetCorrespondencesResult();
 	pcl::PointCloud<PointT>::Ptr GetResult();
 

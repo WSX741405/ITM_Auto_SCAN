@@ -15,6 +15,8 @@ public:
 	virtual void SetDescriptorRadius(float descriptorRadiusSearch) = 0;
 	virtual void SetNormalRadius(float normalRadiusSearch) = 0;
 	virtual void SetCorrespondencesK(float correspondencesK) = 0;
+	virtual void SetRejectorInlierThreshold(float rejectorInlierThreshold) = 0;
+	virtual void SetDescriptorKSearch(int kSearch) = 0;
 	virtual pcl::CorrespondencesPtr GetCorrespondencesResult() = 0;
 	virtual pcl::PointCloud<PointT>::Ptr GetResult() = 0;
 private:

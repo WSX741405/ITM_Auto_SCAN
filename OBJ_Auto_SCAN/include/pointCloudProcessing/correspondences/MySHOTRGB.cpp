@@ -47,11 +47,9 @@ pcl::PointCloud<pcl::SHOT1344>::Ptr MySHOTRGB::ProessingDescriptor(pcl::PointClo
 		featureFromNormals->setInputNormals(normals);
 	}
 	featureExtractor->compute(*descriptor);
-	std::cout << "input descriptor points size before removeNaN descriptor: " << descriptor->points.size() << std::endl;
-	/*
 	for (int j = 0, i = static_cast<int> (descriptor->size()) - 1; i >= 0; --i)
 	{
-		if (!pcl_isfinite(descriptor->at(i).histogram[0])) //skipping NaNs
+		if (!pcl_isfinite(descriptor->at(i).descriptor[0])) //skipping NaNs
 		{
 			descriptor->erase(descriptor->begin() + i);
 			keypoints->erase(keypoints->begin() + i);
@@ -60,8 +58,6 @@ pcl::PointCloud<pcl::SHOT1344>::Ptr MySHOTRGB::ProessingDescriptor(pcl::PointClo
 			continue;
 		}
 	}
-	std::cout << "input descriptor points size after removeNaN descriptor: " << descriptor->points.size() << std::endl << std::endl;
-	*/
 	return descriptor;
 }
 
@@ -120,6 +116,11 @@ void MySHOTRGB::SetDescriptorRadius(float descriptorRadiusSearch)
 	_descriptorRadiusSearch = descriptorRadiusSearch;
 }
 
+void MySHOTRGB::SetDescriptorKSearch(int kSearch)
+{
+	return;
+}
+
 void MySHOTRGB::SetNormalRadius(float normalRadiusSearch)
 {
 	_normalRadiusSearch = normalRadiusSearch;
@@ -128,6 +129,11 @@ void MySHOTRGB::SetNormalRadius(float normalRadiusSearch)
 void MySHOTRGB::SetCorrespondencesK(float correspondencesK)
 {
 	_correspondencesK = correspondencesK;
+}
+
+void MySHOTRGB::SetRejectorInlierThreshold(float rejectorInlierThreshold)
+{
+	_rejectorInlierThreshold = rejectorInlierThreshold;
 }
 
 pcl::CorrespondencesPtr MySHOTRGB::GetCorrespondencesResult()

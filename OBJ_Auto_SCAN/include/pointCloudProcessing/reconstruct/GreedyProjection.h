@@ -24,6 +24,8 @@ public:
 	void SetMaxSurfaceAngle(double maxSurfaceAngle);
 	void SetMinAngle(double minAngle);
 	void SetMaxAngle(double maxAngle);
+	void SetGridResolution(int gridResolutionX, int gridResolutionY, int gridResolutionZ);
+	void SetIsoLevel(float isoLevel);
 
 private:
 	pcl::PCLSurfaceBase<pcl::PointXYZRGBNormal>::Ptr _reconstructSurface;

@@ -92,6 +92,8 @@
     <ClCompile Include="include\observer\ObserverFactory.cpp" />
     <ClCompile Include="include\pointCloudProcessing\correspondences\CorrespondencesFactory.cpp" />
     <ClCompile Include="include\pointCloudProcessing\correspondences\MyFPFH.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\correspondences\MyPFH.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\correspondences\MyPFHRGB.cpp" />
     <ClCompile Include="include\pointCloudProcessing\correspondences\MySHOTRGB.cpp" />
     <ClCompile Include="include\pointCloudProcessing\filter\BoundingBoxFilter.cpp" />
     <ClCompile Include="include\pointCloudProcessing\filter\FilterFactory.cpp" />
@@ -100,6 +102,7 @@
     <ClCompile Include="include\pointCloudProcessing\keypoint\MyHarris3D.cpp" />
     <ClCompile Include="include\pointCloudProcessing\keypoint\MySIFT3D.cpp" />
     <ClCompile Include="include\pointCloudProcessing\reconstruct\GreedyProjection.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\reconstruct\MarchingCubes.cpp" />
     <ClCompile Include="include\pointCloudProcessing\reconstruct\ReconstructFactory.cpp" />
     <ClCompile Include="include\pointCloudProcessing\regestration\MyICP.cpp" />
     <ClCompile Include="include\pointCloudProcessing\regestration\RegestrationFactory.cpp" />
@@ -150,6 +153,8 @@
     <ClInclude Include="include\pointCloudProcessing\correspondences\CorrespondencesFactory.h" />
     <ClInclude Include="include\pointCloudProcessing\correspondences\CorrespondencesProcessing.h" />
     <ClInclude Include="include\pointCloudProcessing\correspondences\MyFPFH.h" />
+    <ClInclude Include="include\pointCloudProcessing\correspondences\MyPFH.h" />
+    <ClInclude Include="include\pointCloudProcessing\correspondences\MyPFHRGB.h" />
     <ClInclude Include="include\pointCloudProcessing\correspondences\MySHOTRGB.h" />
     <ClInclude Include="include\pointCloudProcessing\filter\BoundingBoxFilter.h" />
     <ClInclude Include="include\pointCloudProcessing\filter\FilterFactory.h" />
@@ -160,6 +165,7 @@
     <ClInclude Include="include\pointCloudProcessing\keypoint\MyHarris3D.h" />
     <ClInclude Include="include\pointCloudProcessing\keypoint\MySIFT3D.h" />
     <ClInclude Include="include\pointCloudProcessing\reconstruct\GreedyProjection.h" />
+    <ClInclude Include="include\pointCloudProcessing\reconstruct\MarchingCubes.h" />
     <ClInclude Include="include\pointCloudProcessing\reconstruct\ReconstructFactory.h" />
     <ClInclude Include="include\pointCloudProcessing\reconstruct\ReconstructProcessing.h" />
     <ClInclude Include="include\pointCloudProcessing\regestration\MyICP.h" />

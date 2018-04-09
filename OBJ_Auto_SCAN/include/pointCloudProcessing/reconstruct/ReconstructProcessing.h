@@ -20,6 +20,8 @@ public:
 	virtual void SetMaxSurfaceAngle(double maxSurfaceAngle) = 0;
 	virtual void SetMinAngle(double minAngle) = 0;
 	virtual void SetMaxAngle(double maxAngle) = 0;
+	virtual void SetGridResolution(int gridResolutionX, int gridResolutionY, int gridResolutionZ) = 0;
+	virtual void SetIsoLevel(float isoLevel) = 0;
 
 private:
 

@@ -47,7 +47,6 @@ pcl::PointCloud<pcl::FPFHSignature33>::Ptr MyFPFH::ProessingDescriptor(pcl::Poin
 		featureFromNormals->setInputNormals(normals);
 	}
 	featureExtractor->compute(*descriptor);
-	std::cout << "input descriptor points size before removeNaN descriptor: " << descriptor->points.size() << std::endl;
 	for (int j = 0, i = static_cast<int> (descriptor->size()) - 1; i >= 0; --i)
 	{
 		if (!pcl_isfinite(descriptor->at(i).histogram[0])) //skipping NaNs
@@ -59,7 +58,6 @@ pcl::PointCloud<pcl::FPFHSignature33>::Ptr MyFPFH::ProessingDescriptor(pcl::Poin
 			continue;
 		}
 	}
-	std::cout << "input descriptor points size after removeNaN descriptor: " << descriptor->points.size() << std::endl << std::endl;
 	return descriptor;
 }
 
@@ -118,6 +116,11 @@ void MyFPFH::SetDescriptorRadius(float descriptorRadiusSearch)
 	_descriptorRadiusSearch = descriptorRadiusSearch;
 }
 
+void MyFPFH::SetDescriptorKSearch(int kSearch)
+{
+	return;
+}
+
 void MyFPFH::SetNormalRadius(float normalRadiusSearch)
 {
 	_normalRadiusSearch = normalRadiusSearch;
@@ -126,6 +129,11 @@ void MyFPFH::SetNormalRadius(float normalRadiusSearch)
 void MyFPFH::SetCorrespondencesK(float correspondencesK)
 {
 	_correspondencesK = correspondencesK;
+}
+
+void MyFPFH::SetRejectorInlierThreshold(float rejectorInlierThreshold)
+{
+	_rejectorInlierThreshold = rejectorInlierThreshold;
 }
 
 pcl::CorrespondencesPtr MyFPFH::GetCorrespondencesResult()

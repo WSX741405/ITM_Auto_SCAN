@@ -107,8 +107,10 @@ public:
 	void ChangeCorrespondencesTabSlot(int index);
 	void ProcessCorrespondencesSlot();
 	void SetCorrespondenceDescriptorRadiusSlot(double descriptorRadius);
+	void SetCorrespondenceDescriptorKSearchSpinBoxSlot(int kSearch);
 	void SetCorrespondenceNormalRadiusSlot(double normalRadius);
 	void SetCorrespondencesKSlot(int correspondencesK);
+	void SetRejectorInlierThresholdSlot(double rejectorInlierThreshold);
 	//****************************************************************
 	//										Regestration
 	//****************************************************************
@@ -122,11 +124,13 @@ public:
 	//****************************************************************
 	void ProcessReconstructSlot();
 	void SetSearchRadiusSlot(double searchRadius);
-	void SetMu(double mu);
-	void SetMaxNearestNeighbors(int maxNearestNeighbors);
-	void SetMaxSurfaceAngle(int maxSurfaceAngle);
-	void SetMinAngle(int minAngle);
-	void SetMaxAngle(int maxAngle);
+	void SetMuSlot(double mu);
+	void SetMaxNearestNeighborsSlot(int maxNearestNeighbors);
+	void SetMaxSurfaceAngleSlot(int maxSurfaceAngle);
+	void SetMinAngleSlot(int minAngle);
+	void SetMaxAngleSlot(int maxAngle);
+	void SetMarchingCubesGridResolutionXYZSlot();
+	void SetMarchingCubesIsoLevelSlot(double isoLevel);
 
 private:
 	void InitialMemberVariable();

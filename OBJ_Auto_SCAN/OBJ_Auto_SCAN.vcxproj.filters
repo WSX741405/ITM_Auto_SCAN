@@ -159,6 +159,15 @@
     <ClCompile Include="include\pointCloudProcessing\correspondences\MySHOTRGB.cpp">
       <Filter>include\pointCloudProcessing\correspondences</Filter>
     </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\correspondences\MyPFH.cpp">
+      <Filter>include\pointCloudProcessing\correspondences</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\correspondences\MyPFHRGB.cpp">
+      <Filter>include\pointCloudProcessing\correspondences</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\reconstruct\MarchingCubes.cpp">
+      <Filter>include\pointCloudProcessing\reconstruct</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">
@@ -244,9 +253,6 @@
     <ClInclude Include="include\file\MyFile.h">
       <Filter>include\file</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\pointCloudProcessing\keypoint\MyHarris3D.h">
       <Filter>include\pointCloudProcessing\keypoint</Filter>
     </ClInclude>
@@ -306,6 +312,18 @@
     </ClInclude>
     <ClInclude Include="include\pointCloudProcessing\correspondences\MySHOTRGB.h">
       <Filter>include\pointCloudProcessing\correspondences</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\correspondences\MyPFH.h">
+      <Filter>include\pointCloudProcessing\correspondences</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\correspondences\MyPFHRGB.h">
+      <Filter>include\pointCloudProcessing\correspondences</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\reconstruct\MarchingCubes.h">
+      <Filter>include\pointCloudProcessing\reconstruct</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

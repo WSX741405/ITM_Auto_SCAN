@@ -25,20 +25,20 @@ void GreedyProjection::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::Poin
 	gp3->setNormalConsistency(_normalConsistency);
 	surfaceReconstruction.reset(gp3);
 
-	pcl::PointCloud<PointT>::Ptr merged(new pcl::PointCloud<pcl::PointXYZRGB>);
+	pcl::PointCloud<PointT>::Ptr merged(new pcl::PointCloud<PointT>);
 	*merged = *source;
 	*merged += *target;
 
-	pcl::PointCloud<pcl::PointXYZRGBNormal>::Ptr vertices(new pcl::PointCloud<pcl::PointXYZRGBNormal>);
+	pcl::PointCloud<SurfacePointT>::Ptr vertices(new pcl::PointCloud<SurfacePointT>);
 	pcl::copyPointCloud(*merged, *vertices);
 
 	pcl::NormalEstimation<PointT, SurfacePointT> normalEstimation;
-	normalEstimation.setSearchMethod(pcl::search::Search<pcl::PointXYZRGB>::Ptr(new pcl::search::KdTree<pcl::PointXYZRGB>));
+	normalEstimation.setSearchMethod(pcl::search::Search<PointT>::Ptr(new pcl::search::KdTree<PointT>));
 	normalEstimation.setRadiusSearch(0.01);
 	normalEstimation.setInputCloud(merged);
 	normalEstimation.compute(*vertices);
 
-	pcl::search::KdTree<pcl::PointXYZRGBNormal>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZRGBNormal>);
+	pcl::search::KdTree<SurfacePointT>::Ptr tree(new pcl::search::KdTree<SurfacePointT>);
 	tree->setInputCloud(vertices);
 
 	surfaceReconstruction->setSearchMethod(tree);
@@ -79,4 +79,14 @@ void GreedyProjection::SetMinAngle(double minAngle)
 void GreedyProjection::SetMaxAngle(double maxAngle)
 {
 	_maxAngle = maxAngle * M_PI / 180;
+}
+
+void GreedyProjection::SetGridResolution(int gridResolutionX, int gridResolutionY, int gridResolutionZ)
+{
+	return;
+}
+
+void GreedyProjection::SetIsoLevel(float isoLevel)
+{
+	return;
 }
