@@ -3,8 +3,6 @@
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent), _ui(new Ui::MainWindowForm)
 {
-	_keepFrameNumber = 0;
-	_scanProcessingIndex = 0;
 	qRegisterMetaType<pcl::PointCloud<PointT>::Ptr>("pcl::PointCloud<PointT>::Ptr");
 	_ui->setupUi(this);
 	InitialMemberVariable();
@@ -17,6 +15,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::InitialMemberVariable()
 {
+	_keepFrameNumber = 0;
+	_preFrameTime = clock();
+	_grabber = NULL;
+
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
 	_fileFactory = new FileFactory();
@@ -34,7 +36,6 @@ void MainWindow::InitialMemberVariable()
 	_correspondencesProcessing = _correspondencesFactory->GetFPFH();
 	_regestrationProcessing = _regestrationFactory->GetICP();
 	_reconstructProcessing = _reconstructFactory->GetGreedyProjection();
-	_scanClouds = new PointCloudElements();
 }
 
 void MainWindow::InitialConnectSlots()
@@ -59,8 +60,12 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_keepOneFrameAction, SIGNAL(triggered()), this, SLOT(KeepOneFrameSlot()));
 	connect(_ui->_keepContinueFrameAction, SIGNAL(triggered()), this, SLOT(KeepContinueFrameSlot()));
 	connect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
-	//		Auto Scan
-	connect(_ui->_autoScanAction, SIGNAL(triggered()), this, SLOT(AutoScanSlot()));
+	connect(_ui->_removeSelectedPointCloudsAction, SIGNAL(triggered()), this, SLOT(RemoveSelectedPointCloudSlot()));
+	connect(_ui->_removeAllPointCloudsAction, SIGNAL(triggered()), this, SLOT(RemoveAllPointCloudSlot()));
+	connect(_ui->_selectAllPointCloudsAction, SIGNAL(triggered()), this, SLOT(SelectAllPointCloudSlot()));
+	connect(_ui->_unselectAllPointCloudsAction, SIGNAL(triggered()), this, SLOT(UnselectAllPointCloudSlot()));
+	//		Processing
+	connect(_ui->_processKeypoint2ICPAction, SIGNAL(triggered()), this, SLOT(ProcessKeypoint2ICPSlot()));
 	//		Keypoint
 	connect(_ui->_keypointProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessKeypointSlot()));
 	connect(_ui->_keypointTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeKeypointTabSlot(int)));
@@ -233,7 +238,7 @@ void MainWindow::UpdateViewerSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
 	_tmpPointCloud = pointCloud;
 	std::unique_lock<std::mutex> lock(_grabber->GetMutex());
-	_viewer->ShowPointCloud(_tmpPointCloud = pointCloud);
+	_viewer->ShowPointCloud(pointCloud);
 	//_viewer->ResetCamera();
 	_ui->_qvtkWidget->update();
 }
@@ -253,6 +258,8 @@ void MainWindow::OpenFileSlot()
 	QStringList filenames = QFileDialog::getOpenFileNames(this, tr("Open File"), "", tr("OBJ(*.obj);;PLY(*.ply);;PCD(*.pcd)"), &filter);
 	for (int counter = 0; counter < filenames.count(); counter++)
 		OpenFile(TypeConversion::QString2String(filenames.at(counter)), TypeConversion::QString2String(filter));
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
 }
 
 void MainWindow::OpenFile(std::string dir, std::string filter)
@@ -262,8 +269,6 @@ void MainWindow::OpenFile(std::string dir, std::string filter)
 	//_pointClouds->AddPointCloud(file->GetPointCloud(), dir);
 	MyPointCloud* cloud = new MyPointCloud(file->GetPointCloud(), dir);
 	_elements->AddPointCloudElement(cloud);
-	UpdatePointCloudTable();
-	UpdatePointCloudViewer();
 }
 
 void MainWindow::SaveFileSlot()
@@ -275,6 +280,8 @@ void MainWindow::SaveFileSlot()
 	{
 		SaveFile(TypeConversion::QString2String(dir.split(".").at(0)), TypeConversion::QString2String(filter));
 	}
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
 }
 
 void MainWindow::SaveFile(std::string dir, std::string filter)
@@ -321,7 +328,9 @@ void MainWindow::StopCameraSlot()
 	if (_grabber == NULL)	return;
 	_grabber->StopCamera();
 	_viewer->Clear();
+	UpdatePointCloudTable();
 	UpdatePointCloudViewer();
+	_grabber = NULL;
 }
 
 void MainWindow::SetCameraDepthConfidenceSlot()
@@ -411,6 +420,7 @@ void MainWindow::KeepOneFrameSlot()
 	MyPointCloud* cloud = new MyPointCloud(_tmpPointCloud, cloudName);
 	_elements->AddPointCloudElement(cloud);
 	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
 }
 
 void MainWindow::KeepContinueFrameSlot()
@@ -433,11 +443,45 @@ void MainWindow::KeepContinueFrameSlot()
 
 void MainWindow::KeepFrameArrivedSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
+	clock_t nowFrameTime = clock();
+	if ((nowFrameTime - _preFrameTime) / (double)(CLOCKS_PER_SEC) <= FRAME_PITCH)
+		return;
 	std::string cloudName = _keepCloudName + std::string("_") + TypeConversion::Int2String(_keepFrameNumber);
-	MyPointCloud* cloud = new MyPointCloud(_tmpPointCloud, cloudName);
+	MyPointCloud* cloud = new MyPointCloud(pointCloud, cloudName);
 	_elements->AddPointCloudElement(cloud);
+	_viewer->ShowPointCloud(pointCloud);
+	_ui->_qvtkWidget->update();
 	UpdatePointCloudTable();
 	_keepFrameNumber++;
+	_preFrameTime = nowFrameTime;
+}
+
+void MainWindow::RemoveSelectedPointCloudSlot()
+{
+	_elements->RemoveSelectedPointCloud();
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
+}
+
+void MainWindow::RemoveAllPointCloudSlot()
+{
+	_elements->RemoveAllPointCloud();
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
+}
+
+void MainWindow::SelectAllPointCloudSlot()
+{
+	_elements->SelectAllPointCloud();
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
+}
+
+void MainWindow::UnselectAllPointCloudSlot()
+{
+	_elements->UnselectAllPointCloud();
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
 }
 
 //****************************************************************
@@ -465,6 +509,7 @@ void MainWindow::ProcessFilterSlot()
 		MyPointCloud* cloud = new MyPointCloud(_filterProcessing->GetResult(), name);
 		_elements->AddPointCloudElement(cloud);
 		UpdatePointCloudTable();
+		UpdatePointCloudViewer();
 	}
 }
 
@@ -487,6 +532,32 @@ void MainWindow::SetBoundingBoxSlot()
 	_filterProcessing->SetBoundingBox(minX, maxX, minY, maxY, minZ, maxZ);
 }
 
+void MainWindow::ProcessKeypoint2ICPSlot()
+{
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	pcl::PointCloud<PointT>::Ptr corSource = clouds[0]->GetPointCloud();
+	if (clouds.size() < 2)
+		return;
+	for (int counter = 1; counter < clouds.size(); counter++)
+	{
+		pcl::PointCloud<PointT>::Ptr corTarget = clouds[counter]->GetPointCloud();
+		_keypointProcessing->Processing(corSource);
+		pcl::PointCloud<KeypointT>::Ptr corSourceKeypoint;
+		corSourceKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
+		_keypointProcessing->Processing(corTarget);
+		pcl::PointCloud<KeypointT>::Ptr corTargetKeypoint;
+		corTargetKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
+		_correspondencesProcessing->Processing(corSource, corSourceKeypoint, corTarget, corTargetKeypoint);
+		pcl::PointCloud<PointT>::Ptr corResult = _correspondencesProcessing->GetResult();
+		//	ICP
+		_regestrationProcessing->Processing(corTarget, corResult);
+		corSource = _regestrationProcessing->GetResult();
+	}
+	std::string name = std::string("Process");
+	MyPointCloud* cloud = new MyPointCloud(corSource, name);
+	UpdatePointCloudTable();
+}
+
 //****************************************************************
 //								Slots : Keypoint Processing
 //****************************************************************
@@ -503,8 +574,9 @@ void MainWindow::ProcessKeypointSlot()
 		std::string name = clouds[counter]->GetName() + std::string("_Keypoint");
 		MyKeyPoint* cloud = new MyKeyPoint(_keypointProcessing->GetResult(), name);
 		_elements->AddPointCloudElement(cloud);
-		UpdatePointCloudTable();
 	}
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
 }
 
 void MainWindow::ChangeKeypointTabSlot(int index)
@@ -611,13 +683,14 @@ void MainWindow::ProcessCorrespondencesSlot()
 		pcl::PointCloud<KeypointT>::Ptr targetKeypoint;
 		targetKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
 		_correspondencesProcessing->Processing(sourceCloud, sourceKeypoint, targetCloud, targetKeypoint);
-		std::string name = clouds[0]->GetName() + "_" + std::string("_Transform");
+		std::string name = clouds[0]->GetName() + "_" + std::string("_Correspondence");
 		MyPointCloud* cloud = new MyPointCloud(_correspondencesProcessing->GetResult(), name);
 		_elements->AddPointCloudElement(cloud);
 		//std::string correspondencesName = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_keepFrameNumber) + std::string("_Correspondences");
 		//_viewer->Show(sourceCloud, targetCloud, _correspondencesProcessing->GetCorrespondencesResult(), correspondencesName);
-		UpdatePointCloudTable();
 	}
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
 }
 
 void MainWindow::SetCorrespondenceDescriptorRadiusSlot(double descriptorRadius)
@@ -661,11 +734,12 @@ void MainWindow::ProcessRegestrationSlot()
 	else
 	{
 		_regestrationProcessing->Processing(sourceCloud, targetCloud);
-		std::string name = clouds[0]->GetName() + "_" + std::string("_Regestration");
+		std::string name = clouds[0]->GetName() + "_" + clouds[1]->GetName() + std::string("_Regestration");
 		MyPointCloud* cloud = new MyPointCloud(_regestrationProcessing->GetResult(), name);
 		_elements->AddPointCloudElement(cloud);
-		UpdatePointCloudTable();
 	}
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
 }
 
 void MainWindow::SetICPCorrespondenceDistanceSlot(double correspondenceDistance)
@@ -712,8 +786,9 @@ void MainWindow::ProcessReconstructSlot()
 		std::string name = clouds[0]->GetName() + "_" + std::string("_Reconstruct");
 		MySurface* surface = new MySurface(_reconstructProcessing->GetSurface(), name);
 		_elements->AddPointCloudElement(surface);
-		UpdatePointCloudTable();
 	}
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
 }
 
 void MainWindow::SetSearchRadiusSlot(double searchRadius)
@@ -762,34 +837,4 @@ void MainWindow::SetIsoLevelSlot(double isoLevel)
 void MainWindow::SetNormalSearchRadiusSlot(double normalSearchRadius)
 {
 	_reconstructProcessing->SetNormalSearchRadius(normalSearchRadius);
-}
-
-//****************************************************************
-//								Slots : Auto Scan
-//****************************************************************
-void MainWindow::AutoScanSlot()
-{
-	if (_grabber == NULL)	return;
-	if (TypeConversion::QString2String(_ui->_autoScanAction->text()) == "Auto Scan")
-	{
-		bool ok;
-		emit _keepCloudName = ShowDialog(&ok, "Keep PointCloud", "Cloud Name");
-		if (!ok)	return;
-		connect(this->_uiObserver, SIGNAL(AutoScanArrived(pcl::PointCloud<PointT>::Ptr)), this, SLOT(AutoScanArrivedSlot(pcl::PointCloud<PointT>::Ptr)));
-		_ui->_autoScanAction->setText(QString("Stop Scan"));
-	}
-	else if (TypeConversion::QString2String(_ui->_autoScanAction->text()) == "Stop Scan")
-	{
-		disconnect(this->_uiObserver, SIGNAL(AutoScanArrived(pcl::PointCloud<PointT>::Ptr)), this, SLOT(AutoScanArrivedSlot(pcl::PointCloud<PointT>::Ptr)));
-		_ui->_autoScanAction->setText(QString("Auto Scan"));
-	}
-}
-
-void MainWindow::AutoScanArrivedSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
-{
-	std::string cloudName = _keepCloudName + std::string("_") + TypeConversion::Int2String(_keepFrameNumber);
-	MyPointCloud* cloud = new MyPointCloud(_tmpPointCloud, cloudName);
-	_elements->AddPointCloudElement(cloud);
-	UpdatePointCloudTable();
-	_keepFrameNumber++;
 }

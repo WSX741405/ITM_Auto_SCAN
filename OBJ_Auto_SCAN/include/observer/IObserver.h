@@ -26,7 +26,6 @@ public:
 signals:
 	void UpdateViewer(pcl::PointCloud<PointT>::Ptr pointCloud);
 	void KeepFrameArrived(pcl::PointCloud<PointT>::Ptr pointCloud);
-	void AutoScanFrameArrived(pcl::PointCloud<PointT>::Ptr pointCloud);
 
 private:
 	MainWindow* _mainWindow;

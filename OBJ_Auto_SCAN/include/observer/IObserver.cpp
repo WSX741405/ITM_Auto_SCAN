@@ -9,7 +9,6 @@ void UIObserver::Update(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
 	emit UIObserver::UpdateViewer(pointCloud);
 	emit UIObserver::KeepFrameArrived(pointCloud);
-	emit UIObserver::AutoScanFrameArrived(pointCloud);
 }
 
 //		*****************************************************************

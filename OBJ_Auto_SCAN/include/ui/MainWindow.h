@@ -88,11 +88,11 @@ public slots:
 	void KeepOneFrameSlot();
 	void KeepContinueFrameSlot();
 	void KeepFrameArrivedSlot(pcl::PointCloud<PointT>::Ptr pointCloud);
-	//****************************************************************
-	//										Auto scan
-	//****************************************************************
-	void AutoScanSlot();
-	void AutoScanArrivedSlot(pcl::PointCloud<PointT>::Ptr pointCloud);
+	void RemoveSelectedPointCloudSlot();
+	void RemoveAllPointCloudSlot();
+	void SelectAllPointCloudSlot();
+	void UnselectAllPointCloudSlot();
+	void ProcessKeypoint2ICPSlot();
 	//****************************************************************
 	//										Keypoint
 	//****************************************************************
@@ -180,9 +180,8 @@ private:
 	ReconstructFactory* _reconstructFactory;
 	ReconstructProcessing* _reconstructProcessing;
 
-	//			Auto Scan
-	PointCloudElements* _scanClouds;
-	int _scanProcessingIndex;
+	const int FRAME_PITCH = 3;	//	(sec)
+	clock_t _preFrameTime;
 };
 
 #endif

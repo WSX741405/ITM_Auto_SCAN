@@ -50,6 +50,14 @@ public:
     QAction *_keepContinueFrameAction;
     QAction *actionFeature;
     QAction *_autoScanAction;
+    QAction *_removeSelectedPointCloudsAction;
+    QAction *_removeAllPointCloudsAction;
+    QAction *_selectAllAction;
+    QAction *action_2;
+    QAction *actionSelect_PointCloud_2;
+    QAction *_selectAllPointCloudsAction;
+    QAction *_unselectAllPointCloudsAction;
+    QAction *_processKeypoint2ICPAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QTableWidget *_pointCloudTable;
@@ -186,7 +194,9 @@ public:
     QMenu *menuFile;
     QMenu *menuPointCloud;
     QMenu *menuKeep_PointCloud;
-    QMenu *menuScan;
+    QMenu *menuRemove_PointCloud;
+    QMenu *menuSelectPointCloud;
+    QMenu *menuProcess;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -227,6 +237,22 @@ public:
         actionFeature->setObjectName(QStringLiteral("actionFeature"));
         _autoScanAction = new QAction(MainWindowForm);
         _autoScanAction->setObjectName(QStringLiteral("_autoScanAction"));
+        _removeSelectedPointCloudsAction = new QAction(MainWindowForm);
+        _removeSelectedPointCloudsAction->setObjectName(QStringLiteral("_removeSelectedPointCloudsAction"));
+        _removeAllPointCloudsAction = new QAction(MainWindowForm);
+        _removeAllPointCloudsAction->setObjectName(QStringLiteral("_removeAllPointCloudsAction"));
+        _selectAllAction = new QAction(MainWindowForm);
+        _selectAllAction->setObjectName(QStringLiteral("_selectAllAction"));
+        action_2 = new QAction(MainWindowForm);
+        action_2->setObjectName(QStringLiteral("action_2"));
+        actionSelect_PointCloud_2 = new QAction(MainWindowForm);
+        actionSelect_PointCloud_2->setObjectName(QStringLiteral("actionSelect_PointCloud_2"));
+        _selectAllPointCloudsAction = new QAction(MainWindowForm);
+        _selectAllPointCloudsAction->setObjectName(QStringLiteral("_selectAllPointCloudsAction"));
+        _unselectAllPointCloudsAction = new QAction(MainWindowForm);
+        _unselectAllPointCloudsAction->setObjectName(QStringLiteral("_unselectAllPointCloudsAction"));
+        _processKeypoint2ICPAction = new QAction(MainWindowForm);
+        _processKeypoint2ICPAction->setObjectName(QStringLiteral("_processKeypoint2ICPAction"));
         centralWidget = new QWidget(MainWindowForm);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
@@ -845,8 +871,12 @@ public:
         menuPointCloud->setObjectName(QStringLiteral("menuPointCloud"));
         menuKeep_PointCloud = new QMenu(menuPointCloud);
         menuKeep_PointCloud->setObjectName(QStringLiteral("menuKeep_PointCloud"));
-        menuScan = new QMenu(menuBar);
-        menuScan->setObjectName(QStringLiteral("menuScan"));
+        menuRemove_PointCloud = new QMenu(menuPointCloud);
+        menuRemove_PointCloud->setObjectName(QStringLiteral("menuRemove_PointCloud"));
+        menuSelectPointCloud = new QMenu(menuPointCloud);
+        menuSelectPointCloud->setObjectName(QStringLiteral("menuSelectPointCloud"));
+        menuProcess = new QMenu(menuBar);
+        menuProcess->setObjectName(QStringLiteral("menuProcess"));
         MainWindowForm->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindowForm);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -859,7 +889,7 @@ public:
         menuBar->addAction(menuCamera->menuAction());
         menuBar->addAction(menuArduino->menuAction());
         menuBar->addAction(menuPointCloud->menuAction());
-        menuBar->addAction(menuScan->menuAction());
+        menuBar->addAction(menuProcess->menuAction());
         menuCamera->addAction(menuPico_Flexx->menuAction());
         menuCamera->addAction(menuIntel_Realsense->menuAction());
         menuPico_Flexx->addAction(_startFlexxAction);
@@ -876,13 +906,19 @@ public:
         menuFile->addAction(_openFileAction);
         menuFile->addAction(_saveFileAction);
         menuPointCloud->addAction(menuKeep_PointCloud->menuAction());
+        menuPointCloud->addAction(menuRemove_PointCloud->menuAction());
+        menuPointCloud->addAction(menuSelectPointCloud->menuAction());
         menuKeep_PointCloud->addAction(_keepOneFrameAction);
         menuKeep_PointCloud->addAction(_keepContinueFrameAction);
-        menuScan->addAction(_autoScanAction);
+        menuRemove_PointCloud->addAction(_removeSelectedPointCloudsAction);
+        menuRemove_PointCloud->addAction(_removeAllPointCloudsAction);
+        menuSelectPointCloud->addAction(_selectAllPointCloudsAction);
+        menuSelectPointCloud->addAction(_unselectAllPointCloudsAction);
+        menuProcess->addAction(_processKeypoint2ICPAction);
 
         retranslateUi(MainWindowForm);
 
-        _processingTabWidget->setCurrentIndex(0);
+        _processingTabWidget->setCurrentIndex(3);
         _filterTabWidget->setCurrentIndex(0);
         _keypointTabWidget->setCurrentIndex(0);
         _correspondencesTabWidget->setCurrentIndex(0);
@@ -912,6 +948,14 @@ public:
         _keepContinueFrameAction->setText(QApplication::translate("MainWindowForm", "Continue Frame", Q_NULLPTR));
         actionFeature->setText(QApplication::translate("MainWindowForm", "Feature", Q_NULLPTR));
         _autoScanAction->setText(QApplication::translate("MainWindowForm", "Auto Scan", Q_NULLPTR));
+        _removeSelectedPointCloudsAction->setText(QApplication::translate("MainWindowForm", "Remove Selected", Q_NULLPTR));
+        _removeAllPointCloudsAction->setText(QApplication::translate("MainWindowForm", "Remove All", Q_NULLPTR));
+        _selectAllAction->setText(QApplication::translate("MainWindowForm", "Select All", Q_NULLPTR));
+        action_2->setText(QApplication::translate("MainWindowForm", "Select All", Q_NULLPTR));
+        actionSelect_PointCloud_2->setText(QApplication::translate("MainWindowForm", "Select PointCloud", Q_NULLPTR));
+        _selectAllPointCloudsAction->setText(QApplication::translate("MainWindowForm", "Select All", Q_NULLPTR));
+        _unselectAllPointCloudsAction->setText(QApplication::translate("MainWindowForm", "Unselect All", Q_NULLPTR));
+        _processKeypoint2ICPAction->setText(QApplication::translate("MainWindowForm", "Keypoint To ICP", Q_NULLPTR));
         _voxelGridXLabel->setText(QApplication::translate("MainWindowForm", "X\357\274\232", Q_NULLPTR));
         _voxelGridYLabel->setText(QApplication::translate("MainWindowForm", "Y\357\274\232", Q_NULLPTR));
         _voxelGridZLabel->setText(QApplication::translate("MainWindowForm", "Z\357\274\232", Q_NULLPTR));
@@ -998,7 +1042,9 @@ public:
         menuFile->setTitle(QApplication::translate("MainWindowForm", "File", Q_NULLPTR));
         menuPointCloud->setTitle(QApplication::translate("MainWindowForm", "PointClouds", Q_NULLPTR));
         menuKeep_PointCloud->setTitle(QApplication::translate("MainWindowForm", "Keep PointCloud", Q_NULLPTR));
-        menuScan->setTitle(QApplication::translate("MainWindowForm", "Scan", Q_NULLPTR));
+        menuRemove_PointCloud->setTitle(QApplication::translate("MainWindowForm", "Remove PointCloud", Q_NULLPTR));
+        menuSelectPointCloud->setTitle(QApplication::translate("MainWindowForm", "Select PointCloud", Q_NULLPTR));
+        menuProcess->setTitle(QApplication::translate("MainWindowForm", "Process", Q_NULLPTR));
     } // retranslateUi
 
 };

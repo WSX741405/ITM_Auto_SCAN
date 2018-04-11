@@ -28,6 +28,39 @@ public:
 		_elements[id]->Show(viewer);
 	}
 
+	void RemoveSelectedPointCloud()
+	{
+		for (int counter = 0; counter < GetNumberOfElements(); counter++)
+		{
+			if (_elements[counter]->GetIsSelected())
+			{
+				_elements.erase(_elements.begin() + counter);
+				counter--;
+			}
+		}
+	}
+
+	void RemoveAllPointCloud()
+	{
+		_elements.clear();
+	}
+
+	void SelectAllPointCloud()
+	{
+		for (int counter = 0; counter < GetNumberOfElements(); counter++)
+		{
+			_elements[counter]->SetIsSelected(true);
+		}
+	}
+
+	void UnselectAllPointCloud()
+	{
+		for (int counter = 0; counter < GetNumberOfElements(); counter++)
+		{
+			_elements[counter]->SetIsSelected(false);
+		}
+	}
+
 	bool IsNameExist(std::string name)
 	{
 		for (int counter = 0; counter < GetNumberOfElements(); counter++)

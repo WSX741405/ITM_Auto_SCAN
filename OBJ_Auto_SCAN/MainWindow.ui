@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -2150,19 +2150,35 @@
      <addaction name="_keepOneFrameAction"/>
      <addaction name="_keepContinueFrameAction"/>
     </widget>
+    <widget class="QMenu" name="menuRemove_PointCloud">
+     <property name="title">
+      <string>Remove PointCloud</string>
+     </property>
+     <addaction name="_removeSelectedPointCloudsAction"/>
+     <addaction name="_removeAllPointCloudsAction"/>
+    </widget>
+    <widget class="QMenu" name="menuSelectPointCloud">
+     <property name="title">
+      <string>Select PointCloud</string>
+     </property>
+     <addaction name="_selectAllPointCloudsAction"/>
+     <addaction name="_unselectAllPointCloudsAction"/>
+    </widget>
     <addaction name="menuKeep_PointCloud"/>
+    <addaction name="menuRemove_PointCloud"/>
+    <addaction name="menuSelectPointCloud"/>
    </widget>
-   <widget class="QMenu" name="menuScan">
+   <widget class="QMenu" name="menuProcess">
     <property name="title">
-     <string>Scan</string>
+     <string>Process</string>
     </property>
-    <addaction name="_autoScanAction"/>
+    <addaction name="_processKeypoint2ICPAction"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuCamera"/>
    <addaction name="menuArduino"/>
    <addaction name="menuPointCloud"/>
-   <addaction name="menuScan"/>
+   <addaction name="menuProcess"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -2251,6 +2267,46 @@
   <action name="_autoScanAction">
    <property name="text">
     <string>Auto Scan</string>
+   </property>
+  </action>
+  <action name="_removeSelectedPointCloudsAction">
+   <property name="text">
+    <string>Remove Selected</string>
+   </property>
+  </action>
+  <action name="_removeAllPointCloudsAction">
+   <property name="text">
+    <string>Remove All</string>
+   </property>
+  </action>
+  <action name="_selectAllAction">
+   <property name="text">
+    <string>Select All</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>Select All</string>
+   </property>
+  </action>
+  <action name="actionSelect_PointCloud_2">
+   <property name="text">
+    <string>Select PointCloud</string>
+   </property>
+  </action>
+  <action name="_selectAllPointCloudsAction">
+   <property name="text">
+    <string>Select All</string>
+   </property>
+  </action>
+  <action name="_unselectAllPointCloudsAction">
+   <property name="text">
+    <string>Unselect All</string>
+   </property>
+  </action>
+  <action name="_processKeypoint2ICPAction">
+   <property name="text">
+    <string>Keypoint To ICP</string>
    </property>
   </action>
  </widget>
