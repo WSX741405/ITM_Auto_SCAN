@@ -3,7 +3,8 @@
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent), _ui(new Ui::MainWindowForm)
 {
-	_nameNumber = 0;
+	_keepFrameNumber = 0;
+	_scanProcessingIndex = 0;
 	qRegisterMetaType<pcl::PointCloud<PointT>::Ptr>("pcl::PointCloud<PointT>::Ptr");
 	_ui->setupUi(this);
 	InitialMemberVariable();
@@ -33,10 +34,12 @@ void MainWindow::InitialMemberVariable()
 	_correspondencesProcessing = _correspondencesFactory->GetFPFH();
 	_regestrationProcessing = _regestrationFactory->GetICP();
 	_reconstructProcessing = _reconstructFactory->GetGreedyProjection();
+	_scanClouds = new PointCloudElements();
 }
 
 void MainWindow::InitialConnectSlots()
 {
+	connect(this, SIGNAL(ShowDialog(bool*, const char*, const char*, const char*)), this, SLOT(ShowInputDialogSlot(bool*, const char*, const char*, const char*)));
 	//		File
 	connect(_ui->_openFileAction, SIGNAL(triggered()), this, SLOT(OpenFileSlot()));
 	connect(_ui->_saveFileAction, SIGNAL(triggered()), this, SLOT(SaveFileSlot()));
@@ -56,6 +59,8 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_keepOneFrameAction, SIGNAL(triggered()), this, SLOT(KeepOneFrameSlot()));
 	connect(_ui->_keepContinueFrameAction, SIGNAL(triggered()), this, SLOT(KeepContinueFrameSlot()));
 	connect(_ui->_pointCloudTable, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(TableItemChangeSlot(QTableWidgetItem *)));
+	//		Auto Scan
+	connect(_ui->_autoScanAction, SIGNAL(triggered()), this, SLOT(AutoScanSlot()));
 	//		Keypoint
 	connect(_ui->_keypointProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessKeypointSlot()));
 	connect(_ui->_keypointTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeKeypointTabSlot(int)));
@@ -112,6 +117,7 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_icpTransformationEpsilonSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetICPTransformationEpsilonSlot(double)));
 	connect(_ui->_icpMaxIterationsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetICPMaxIterationsSlot(int)));
 	//		Reconstruct : Greedy Projection
+	connect(_ui->_reconstructTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeReconstructTabSlot(int)));
 	connect(_ui->_reconstructProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessReconstructSlot()));
 	connect(_ui->_greedyProjectionSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSearchRadiusSlot(double)));
 	connect(_ui->_greedyProjectionMuSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetMuSlot(double)));
@@ -119,11 +125,13 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_greedyProjectionMaxSurfaceAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxSurfaceAngleSlot(int)));
 	connect(_ui->_greedyProjectionMinAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMinAngleSlot(int)));
 	connect(_ui->_greedyProjectionMaxAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxAngleSlot(int)));
+	connect(_ui->_greedyProjectNormalSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetNormalSearchRadiusSlot(double)));
 	//		Reconstruct : Marching Cubes
-	connect(_ui->_marchingCubesGridResolutionXSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMarchingCubesGridResolutionXYZSlot()));
-	connect(_ui->_marchingCubesGridResolutionYSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMarchingCubesGridResolutionXYZSlot()));
-	connect(_ui->_marchingCubesGridResolutionZSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMarchingCubesGridResolutionXYZSlot()));
-	connect(_ui->_marchingCubesIsoLevelSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetMarchingCubesIsoLevelSlot(double)));
+	connect(_ui->_marchingCubesGridResolutionXSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetGridResolutionXYZSlot()));
+	connect(_ui->_marchingCubesGridResolutionYSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetGridResolutionXYZSlot()));
+	connect(_ui->_marchingCubesGridResolutionZSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetGridResolutionXYZSlot()));
+	connect(_ui->_marchingCubesIsoLevelSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetIsoLevelSlot(double)));
+	connect(_ui->_marchingCubesNormalSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetNormalSearchRadiusSlot(double)));
 }
 
 //****************************************************************
@@ -209,7 +217,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 	delete _grabberFactory;
 }
 
-std::string MainWindow::InputDialog(bool* ok, const char* title, const char* label, const char* text)
+std::string MainWindow::ShowInputDialogSlot(bool* ok, const char* title, const char* label, const char* text)
 {
 	QString input = QInputDialog::getText(this, tr(title), tr(label), QLineEdit::Normal, tr(text), ok);
 	if ((*ok) && !input.isEmpty()) {
@@ -241,16 +249,10 @@ void MainWindow::TableItemChangeSlot(QTableWidgetItem* item)
 //****************************************************************
 void MainWindow::OpenFileSlot()
 {
-	QFileDialog openFileDialog(this);
-	openFileDialog.setWindowTitle(tr("Open File"));
-	openFileDialog.setDirectory(".");
-	openFileDialog.setNameFilter(tr("OBJ(*.obj);;PLY(*.ply);;PCD(*.pcd)"));
-	if (openFileDialog.exec() == QDialog::Accepted)
-	{
-		QString dir = openFileDialog.selectedFiles()[0];
-		QString filter = openFileDialog.selectedNameFilter();
-		OpenFile(TypeConversion::QString2String(dir), TypeConversion::QString2String(filter));
-	}
+	QString filter;
+	QStringList filenames = QFileDialog::getOpenFileNames(this, tr("Open File"), "", tr("OBJ(*.obj);;PLY(*.ply);;PCD(*.pcd)"), &filter);
+	for (int counter = 0; counter < filenames.count(); counter++)
+		OpenFile(TypeConversion::QString2String(filenames.at(counter)), TypeConversion::QString2String(filter));
 }
 
 void MainWindow::OpenFile(std::string dir, std::string filter)
@@ -266,27 +268,35 @@ void MainWindow::OpenFile(std::string dir, std::string filter)
 
 void MainWindow::SaveFileSlot()
 {
-	if (_elements->GetElementsByIsSelected().size() == 1)
-	{
-		QString filter;
-		QString dir = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("OBJ(*.obj);; PLY(*.ply);; PCD(*.pcd)"), &filter);
-		if (dir.isEmpty()) return;
-		else
-		{
-			SaveFile(TypeConversion::QString2String(dir), TypeConversion::QString2String(filter));
-		}
-	}
+	QString filter;
+	QString dir = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("OBJ(*.obj);; PLY(*.ply);; PCD(*.pcd)"), &filter);
+	if (dir.isEmpty()) return;
 	else
 	{
-		QMessageBox::about(this, tr("Save File"), tr("Select Only One Point Cloud"));
+		SaveFile(TypeConversion::QString2String(dir.split(".").at(0)), TypeConversion::QString2String(filter));
 	}
 }
 
 void MainWindow::SaveFile(std::string dir, std::string filter)
 {
+	std::string convertFilter;
+	if (filter == "OBJ(*.obj)") convertFilter = ".obj";
+	else if (filter == "PLY(*.ply)") convertFilter = ".ply";
+	else if (filter == "PCD(*.pcd)") convertFilter = ".pcd";
 	std::vector<PointCloudElement*> elements = _elements->GetElementsByIsSelected();
-	MyFile* file = _fileFactory->GetFileByFilter(dir, filter);
-	file->SaveFile(elements[0]->GetPointCloud());
+	if (elements.size() == 1)
+	{
+		MyFile* file = _fileFactory->GetFileByFilter(dir + convertFilter, filter);
+		file->SaveFile(elements[0]->GetPointCloud());
+	}
+	else
+	{
+		for (int counter = 0; counter < elements.size(); counter++)
+		{
+			MyFile* file = _fileFactory->GetFileByFilter(dir + "_" + TypeConversion::Int2String(counter) + convertFilter, filter);
+			file->SaveFile(elements[counter]->GetPointCloud());
+		}
+	}
 }
 
 //****************************************************************
@@ -317,7 +327,7 @@ void MainWindow::StopCameraSlot()
 void MainWindow::SetCameraDepthConfidenceSlot()
 {
 	bool ok;
-	std::string str = InputDialog(&ok, "Set Camera Depth Confidence", "Depth Confidence");
+	emit std::string str = ShowDialog(&ok, "Set Camera Depth Confidence", "Depth Confidence");
 	if (!ok)	return;
 	if (_grabber == NULL)return;
 	_grabber->SetDepthConfidence(TypeConversion::String2Int(str));
@@ -329,7 +339,7 @@ void MainWindow::SetCameraDepthConfidenceSlot()
 void MainWindow::GetNumberOfBytesSlot()
 {
 	bool ok;
-	std::string str = InputDialog(&ok, "Communicate Arduino", "Data");
+	emit std::string str = ShowDialog(&ok, "Communicate Arduino", "Data");
 	if (!ok)	return;
 	int len = str.length();
 	_arduino->SendData(&str[0], len);
@@ -342,7 +352,7 @@ void MainWindow::GetNumberOfBytesSlot()
 void MainWindow::GetCharSlot()
 {
 	bool ok;
-	std::string str = InputDialog(&ok, "Communicate Arduino", "Data");
+	emit std::string str = ShowDialog(&ok, "Communicate Arduino", "Data");
 	if (!ok)	return;
 	_arduino->SendData(str[0]);
 	Sleep(ARDUINO_SLEEP_TIME);
@@ -353,7 +363,7 @@ void MainWindow::GetCharSlot()
 void MainWindow::GetArraySlot()
 {
 	bool ok;
-	std::string str = InputDialog(&ok, "Communicate Arduino", "Data");
+	emit std::string str = ShowDialog(&ok, "Communicate Arduino", "Data");
 	if (!ok)	return;
 	int len = str.length();
 	_arduino->SendData(&str[0], len);
@@ -365,10 +375,10 @@ void MainWindow::GetArraySlot()
 void MainWindow::ControlMotorSlot()
 {
 	bool motorOk;
-	std::string motorId = InputDialog(&motorOk, "Control Motor", "Motor Id");
+	emit std::string motorId = ShowDialog(&motorOk, "Control Motor", "Motor Id");
 	if (!motorOk)	return;
 	bool degreeOk;
-	std::string degree = InputDialog(&degreeOk, "Control Motor", "Degree");
+	emit std::string degree = ShowDialog(&degreeOk, "Control Motor", "Degree");
 	if (!degreeOk)	return;
 	int motorIdLen = motorId.length();
 	int degreeLen = degree.length();
@@ -386,11 +396,12 @@ void MainWindow::ControlMotorSlot()
 //****************************************************************
 void MainWindow::KeepOneFrameSlot()
 {
+	_keepFrameNumber = 0;
 	if (_grabber == NULL)	return;
 	pcl::PointCloud<PointT>::Ptr copyCloud;
 	copyCloud.reset(new pcl::PointCloud<PointT>(*_tmpPointCloud));
 	bool ok;
-	std::string cloudName = InputDialog(&ok, "Keep PointCloud", "Cloud Name");
+	emit std::string cloudName = ShowDialog(&ok, "Keep PointCloud", "Cloud Name");
 	if (!ok)	return;
 	if (_elements->IsNameExist(cloudName) || cloudName == "")
 	{
@@ -408,25 +419,25 @@ void MainWindow::KeepContinueFrameSlot()
 	if (TypeConversion::QString2String(_ui->_keepContinueFrameAction->text()) == "Continue Frame")
 	{
 		bool ok;
-		_keepCloudName = InputDialog(&ok, "Keep PointCloud", "Cloud Name");
+		emit _keepCloudName = ShowDialog(&ok, "Keep PointCloud", "Cloud Name");
 		if (!ok)	return;
-		connect(this->_uiObserver, SIGNAL(KeepFrame(pcl::PointCloud<PointT>::Ptr)), this, SLOT(KeepFrameSlot(pcl::PointCloud<PointT>::Ptr)));
+		connect(this->_uiObserver, SIGNAL(KeepFrameArrived(pcl::PointCloud<PointT>::Ptr)), this, SLOT(KeepFrameArrivedSlot(pcl::PointCloud<PointT>::Ptr)));
 		_ui->_keepContinueFrameAction->setText(QString("Stop"));
 	}
 	else if (TypeConversion::QString2String(_ui->_keepContinueFrameAction->text()) == "Stop")
 	{
-		disconnect(this->_uiObserver, SIGNAL(KeepFrame(pcl::PointCloud<PointT>::Ptr)), this, SLOT(KeepFrameSlot(pcl::PointCloud<PointT>::Ptr)));
+		disconnect(this->_uiObserver, SIGNAL(KeepFrameArrived(pcl::PointCloud<PointT>::Ptr)), this, SLOT(KeepFrameArrivedSlot(pcl::PointCloud<PointT>::Ptr)));
 		_ui->_keepContinueFrameAction->setText(QString("Continue Frame"));
 	}
 }
 
-void MainWindow::KeepFrameSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
+void MainWindow::KeepFrameArrivedSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
-	std::string cloudName = _keepCloudName + std::string("_") + TypeConversion::Int2String(_nameNumber);
+	std::string cloudName = _keepCloudName + std::string("_") + TypeConversion::Int2String(_keepFrameNumber);
 	MyPointCloud* cloud = new MyPointCloud(_tmpPointCloud, cloudName);
 	_elements->AddPointCloudElement(cloud);
 	UpdatePointCloudTable();
-	_nameNumber++;
+	_keepFrameNumber++;
 }
 
 //****************************************************************
@@ -467,12 +478,12 @@ void MainWindow::SetVoxelGridXYZSlot()
 
 void MainWindow::SetBoundingBoxSlot()
 {
-	int minX = TypeConversion::QString2Float(_ui->_boundingBoxMinXSpinBox->text());
-	int maxX = TypeConversion::QString2Float(_ui->_boundingBoxMaxXSpinBox->text());
-	int minY = TypeConversion::QString2Float(_ui->_boundingBoxMinYSpinBox->text());
-	int maxY = TypeConversion::QString2Float(_ui->_boundingBoxMaxYSpinBox->text());
-	int minZ = TypeConversion::QString2Float(_ui->_boundingBoxMinZSpinBox->text());
-	int maxZ = TypeConversion::QString2Float(_ui->_boundingBoxMaxZSpinBox->text());
+	float minX = TypeConversion::QString2Float(_ui->_boundingBoxMinXSpinBox->text());
+	float maxX = TypeConversion::QString2Float(_ui->_boundingBoxMaxXSpinBox->text());
+	float minY = TypeConversion::QString2Float(_ui->_boundingBoxMinYSpinBox->text());
+	float maxY = TypeConversion::QString2Float(_ui->_boundingBoxMaxYSpinBox->text());
+	float minZ = TypeConversion::QString2Float(_ui->_boundingBoxMinZSpinBox->text());
+	float maxZ = TypeConversion::QString2Float(_ui->_boundingBoxMaxZSpinBox->text());
 	_filterProcessing->SetBoundingBox(minX, maxX, minY, maxY, minZ, maxZ);
 }
 
@@ -536,7 +547,7 @@ void MainWindow::SetHarrisMethodSlot(int index)
 	{
 		_keypointProcessing = _keypointFactory->GetNoble();
 	}
-	else if(index == 3)
+	else if (index == 3)
 	{
 		_keypointProcessing = _keypointFactory->Lowe();
 	}
@@ -603,7 +614,7 @@ void MainWindow::ProcessCorrespondencesSlot()
 		std::string name = clouds[0]->GetName() + "_" + std::string("_Transform");
 		MyPointCloud* cloud = new MyPointCloud(_correspondencesProcessing->GetResult(), name);
 		_elements->AddPointCloudElement(cloud);
-		//std::string correspondencesName = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_nameNumber) + std::string("_Correspondences");
+		//std::string correspondencesName = clouds[0]->GetName() + "_" + clouds[1]->GetName() + "_" + TypeConversion::Int2String(_keepFrameNumber) + std::string("_Correspondences");
 		//_viewer->Show(sourceCloud, targetCloud, _correspondencesProcessing->GetCorrespondencesResult(), correspondencesName);
 		UpdatePointCloudTable();
 	}
@@ -680,19 +691,24 @@ void MainWindow::SetICPMaxIterationsSlot(int maxIterations)
 //****************************************************************
 //								Slots : Reconstruct
 //****************************************************************
+void MainWindow::ChangeReconstructTabSlot(int index)
+{
+	if (index == 0)
+	{
+		_reconstructProcessing = _reconstructFactory->GetGreedyProjection();
+	}
+	else if (index == 1)
+	{
+		_reconstructProcessing = _reconstructFactory->GetMarchingCubes();
+	}
+}
+
 void MainWindow::ProcessReconstructSlot()
 {
 	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
-	pcl::PointCloud<PointT>::Ptr sourceCloud = clouds[0]->GetPointCloud();
-	pcl::PointCloud<PointT>::Ptr targetCloud = clouds[1]->GetPointCloud();
-	if (clouds.size() != 2)
+	for (int counter = 0; counter < clouds.size(); counter++)
 	{
-		QMessageBox::about(this, tr("Process Regestration"), tr("Selecct Two Point Cloud!"));
-		return;
-	}
-	else
-	{
-		_reconstructProcessing->Processing(sourceCloud, targetCloud);
+		_reconstructProcessing->Processing(clouds[counter]->GetPointCloud());
 		std::string name = clouds[0]->GetName() + "_" + std::string("_Reconstruct");
 		MySurface* surface = new MySurface(_reconstructProcessing->GetSurface(), name);
 		_elements->AddPointCloudElement(surface);
@@ -730,7 +746,7 @@ void MainWindow::SetMaxAngleSlot(int maxAngle)
 	_reconstructProcessing->SetMaxAngle(maxAngle);
 }
 
-void MainWindow::SetMarchingCubesGridResolutionXYZSlot()
+void MainWindow::SetGridResolutionXYZSlot()
 {
 	float x = TypeConversion::QString2Float(_ui->_marchingCubesGridResolutionXSpinBox->text());
 	float y = TypeConversion::QString2Float(_ui->_marchingCubesGridResolutionYSpinBox->text());
@@ -738,7 +754,42 @@ void MainWindow::SetMarchingCubesGridResolutionXYZSlot()
 	_reconstructProcessing->SetGridResolution(x, y, z);
 }
 
-void MainWindow::SetMarchingCubesIsoLevelSlot(double isoLevel)
+void MainWindow::SetIsoLevelSlot(double isoLevel)
 {
 	_reconstructProcessing->SetIsoLevel(isoLevel);
+}
+
+void MainWindow::SetNormalSearchRadiusSlot(double normalSearchRadius)
+{
+	_reconstructProcessing->SetNormalSearchRadius(normalSearchRadius);
+}
+
+//****************************************************************
+//								Slots : Auto Scan
+//****************************************************************
+void MainWindow::AutoScanSlot()
+{
+	if (_grabber == NULL)	return;
+	if (TypeConversion::QString2String(_ui->_autoScanAction->text()) == "Auto Scan")
+	{
+		bool ok;
+		emit _keepCloudName = ShowDialog(&ok, "Keep PointCloud", "Cloud Name");
+		if (!ok)	return;
+		connect(this->_uiObserver, SIGNAL(AutoScanArrived(pcl::PointCloud<PointT>::Ptr)), this, SLOT(AutoScanArrivedSlot(pcl::PointCloud<PointT>::Ptr)));
+		_ui->_autoScanAction->setText(QString("Stop Scan"));
+	}
+	else if (TypeConversion::QString2String(_ui->_autoScanAction->text()) == "Stop Scan")
+	{
+		disconnect(this->_uiObserver, SIGNAL(AutoScanArrived(pcl::PointCloud<PointT>::Ptr)), this, SLOT(AutoScanArrivedSlot(pcl::PointCloud<PointT>::Ptr)));
+		_ui->_autoScanAction->setText(QString("Auto Scan"));
+	}
+}
+
+void MainWindow::AutoScanArrivedSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
+{
+	std::string cloudName = _keepCloudName + std::string("_") + TypeConversion::Int2String(_keepFrameNumber);
+	MyPointCloud* cloud = new MyPointCloud(_tmpPointCloud, cloudName);
+	_elements->AddPointCloudElement(cloud);
+	UpdatePointCloudTable();
+	_keepFrameNumber++;
 }

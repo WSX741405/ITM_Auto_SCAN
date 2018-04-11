@@ -53,12 +53,16 @@ class MainWindow : public QMainWindow
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 
-	public slots:
+signals:
+	std::string ShowDialog(bool* ok, const char* title = "", const char* label = "", const char* text = "");
+
+public slots:
 	//****************************************************************
 	//										UI
 	//****************************************************************
 	void UpdateViewerSlot(pcl::PointCloud<PointT>::Ptr pointCloud);
 	void TableItemChangeSlot(QTableWidgetItem* item);
+	std::string ShowInputDialogSlot(bool* ok, const char* title = "", const char* label = "", const char* text = "");
 	//****************************************************************
 	//										File
 	//****************************************************************
@@ -83,7 +87,12 @@ public:
 	//****************************************************************
 	void KeepOneFrameSlot();
 	void KeepContinueFrameSlot();
-	void KeepFrameSlot(pcl::PointCloud<PointT>::Ptr pointCloud);
+	void KeepFrameArrivedSlot(pcl::PointCloud<PointT>::Ptr pointCloud);
+	//****************************************************************
+	//										Auto scan
+	//****************************************************************
+	void AutoScanSlot();
+	void AutoScanArrivedSlot(pcl::PointCloud<PointT>::Ptr pointCloud);
 	//****************************************************************
 	//										Keypoint
 	//****************************************************************
@@ -122,6 +131,7 @@ public:
 	//****************************************************************
 	//										Reconstruct
 	//****************************************************************
+	void ChangeReconstructTabSlot(int index);
 	void ProcessReconstructSlot();
 	void SetSearchRadiusSlot(double searchRadius);
 	void SetMuSlot(double mu);
@@ -129,8 +139,9 @@ public:
 	void SetMaxSurfaceAngleSlot(int maxSurfaceAngle);
 	void SetMinAngleSlot(int minAngle);
 	void SetMaxAngleSlot(int maxAngle);
-	void SetMarchingCubesGridResolutionXYZSlot();
-	void SetMarchingCubesIsoLevelSlot(double isoLevel);
+	void SetGridResolutionXYZSlot();
+	void SetIsoLevelSlot(double isoLevel);
+	void SetNormalSearchRadiusSlot(double normalSearchRadius);
 
 private:
 	void InitialMemberVariable();
@@ -145,15 +156,13 @@ private:
 	void OpenFile(std::string dir, std::string filter);
 	void SaveFile(std::string dir, std::string filter);
 
-	std::string InputDialog(bool* ok, const char* title = "", const char* label = "", const char* text = "");
-
 	Viewer* _viewer;
 	UIObserver* _uiObserver;
 	FileFactory* _fileFactory;
 	GrabberFactory* _grabberFactory;
 	IGrabber* _grabber;
 	SubjectFactory* _subjectFactory;
-	int _nameNumber;
+	int _keepFrameNumber;
 	std::string _keepCloudName;
 	pcl::PointCloud<PointT>::Ptr _tmpPointCloud;
 	PointCloudElements* _elements;
@@ -170,6 +179,10 @@ private:
 	RegestrationProcessing* _regestrationProcessing;
 	ReconstructFactory* _reconstructFactory;
 	ReconstructProcessing* _reconstructProcessing;
+
+	//			Auto Scan
+	PointCloudElements* _scanClouds;
+	int _scanProcessingIndex;
 };
 
 #endif

@@ -22,10 +22,10 @@ public:
 			_viewer->addPointCloud(cloud, name);
 	}
 
-	void ShowSurface(pcl::PolygonMesh surface, std::string name = "")
+	void ShowSurface(pcl::PolygonMeshPtr surface, std::string name = "")
 	{
-		if (!_viewer->updatePolygonMesh(surface, name))
-			_viewer->addPolygonMesh(surface, name);
+		if (!_viewer->updatePolygonMesh(*surface, name))
+			_viewer->addPolygonMesh(*surface, name);
 	}
 
 	void Show(pcl::PointCloud<PointT>::Ptr sourceCloud, pcl::PointCloud<PointT>::ConstPtr targetCloud, pcl::CorrespondencesPtr correspondences, std::string name = "")

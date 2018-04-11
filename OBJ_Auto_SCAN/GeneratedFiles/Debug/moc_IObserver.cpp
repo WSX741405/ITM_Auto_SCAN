@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_UIObserver_t {
-    QByteArrayData data[6];
-    char stringdata0[75];
+    QByteArrayData data[7];
+    char stringdata0[103];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,12 +36,13 @@ QT_MOC_LITERAL(1, 11, 12), // "UpdateViewer"
 QT_MOC_LITERAL(2, 24, 0), // ""
 QT_MOC_LITERAL(3, 25, 28), // "pcl::PointCloud<PointT>::Ptr"
 QT_MOC_LITERAL(4, 54, 10), // "pointCloud"
-QT_MOC_LITERAL(5, 65, 9) // "KeepFrame"
+QT_MOC_LITERAL(5, 65, 16), // "KeepFrameArrived"
+QT_MOC_LITERAL(6, 82, 20) // "AutoScanFrameArrived"
 
     },
     "UIObserver\0UpdateViewer\0\0"
     "pcl::PointCloud<PointT>::Ptr\0pointCloud\0"
-    "KeepFrame"
+    "KeepFrameArrived\0AutoScanFrameArrived"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,18 +52,20 @@ static const uint qt_meta_data_UIObserver[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       2,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   24,    2, 0x06 /* Public */,
-       5,    1,   27,    2, 0x06 /* Public */,
+       1,    1,   29,    2, 0x06 /* Public */,
+       5,    1,   32,    2, 0x06 /* Public */,
+       6,    1,   35,    2, 0x06 /* Public */,
 
  // signals: parameters
+    QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, 0x80000000 | 3,    4,
 
@@ -76,7 +79,8 @@ void UIObserver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->UpdateViewer((*reinterpret_cast< pcl::PointCloud<PointT>::Ptr(*)>(_a[1]))); break;
-        case 1: _t->KeepFrame((*reinterpret_cast< pcl::PointCloud<PointT>::Ptr(*)>(_a[1]))); break;
+        case 1: _t->KeepFrameArrived((*reinterpret_cast< pcl::PointCloud<PointT>::Ptr(*)>(_a[1]))); break;
+        case 2: _t->AutoScanFrameArrived((*reinterpret_cast< pcl::PointCloud<PointT>::Ptr(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -96,6 +100,13 @@ void UIObserver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
                 *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< pcl::PointCloud<PointT>::Ptr >(); break;
             }
             break;
+        case 2:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< pcl::PointCloud<PointT>::Ptr >(); break;
+            }
+            break;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
@@ -109,8 +120,15 @@ void UIObserver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         }
         {
             typedef void (UIObserver::*_t)(pcl::PointCloud<PointT>::Ptr );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&UIObserver::KeepFrame)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&UIObserver::KeepFrameArrived)) {
                 *result = 1;
+                return;
+            }
+        }
+        {
+            typedef void (UIObserver::*_t)(pcl::PointCloud<PointT>::Ptr );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&UIObserver::AutoScanFrameArrived)) {
+                *result = 2;
                 return;
             }
         }
@@ -144,13 +162,13 @@ int UIObserver::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
@@ -163,10 +181,17 @@ void UIObserver::UpdateViewer(pcl::PointCloud<PointT>::Ptr _t1)
 }
 
 // SIGNAL 1
-void UIObserver::KeepFrame(pcl::PointCloud<PointT>::Ptr _t1)
+void UIObserver::KeepFrameArrived(pcl::PointCloud<PointT>::Ptr _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);
+}
+
+// SIGNAL 2
+void UIObserver::AutoScanFrameArrived(pcl::PointCloud<PointT>::Ptr _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

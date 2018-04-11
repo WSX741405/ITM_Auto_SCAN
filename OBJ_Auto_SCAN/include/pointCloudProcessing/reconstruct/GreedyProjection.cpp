@@ -2,6 +2,7 @@
 
 GreedyProjection::GreedyProjection()
 {
+	_surface.reset(new pcl::PolygonMesh());
 	_searchRadius = 0.025;
 	_mu = 2.5;
 	_maxNearestNeighbors = 100;
@@ -9,10 +10,10 @@ GreedyProjection::GreedyProjection()
 	_minAngle = M_PI / 18;
 	_maxAngle = 2 * M_PI / 3;
 	_normalConsistency = false;
-
+	_normalSearchRadius = 0.01;
 }
 
-void GreedyProjection::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<PointT>::Ptr target)
+void GreedyProjection::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 {
 	boost::shared_ptr<pcl::PCLSurfaceBase<SurfacePointT> > surfaceReconstruction;
 	pcl::GreedyProjectionTriangulation<SurfacePointT>* gp3 = new pcl::GreedyProjectionTriangulation<SurfacePointT>;
@@ -25,17 +26,13 @@ void GreedyProjection::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::Poin
 	gp3->setNormalConsistency(_normalConsistency);
 	surfaceReconstruction.reset(gp3);
 
-	pcl::PointCloud<PointT>::Ptr merged(new pcl::PointCloud<PointT>);
-	*merged = *source;
-	*merged += *target;
-
 	pcl::PointCloud<SurfacePointT>::Ptr vertices(new pcl::PointCloud<SurfacePointT>);
-	pcl::copyPointCloud(*merged, *vertices);
+	pcl::copyPointCloud(*cloud, *vertices);
 
 	pcl::NormalEstimation<PointT, SurfacePointT> normalEstimation;
 	normalEstimation.setSearchMethod(pcl::search::Search<PointT>::Ptr(new pcl::search::KdTree<PointT>));
-	normalEstimation.setRadiusSearch(0.01);
-	normalEstimation.setInputCloud(merged);
+	normalEstimation.setRadiusSearch(_normalSearchRadius);
+	normalEstimation.setInputCloud(cloud);
 	normalEstimation.compute(*vertices);
 
 	pcl::search::KdTree<SurfacePointT>::Ptr tree(new pcl::search::KdTree<SurfacePointT>);
@@ -43,10 +40,10 @@ void GreedyProjection::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::Poin
 
 	surfaceReconstruction->setSearchMethod(tree);
 	surfaceReconstruction->setInputCloud(vertices);
-	surfaceReconstruction->reconstruct(_surface);
+	surfaceReconstruction->reconstruct(*_surface);
 }
 
-pcl::PolygonMesh GreedyProjection::GetSurface()
+pcl::PolygonMeshPtr GreedyProjection::GetSurface()
 {
 	return _surface;
 }
@@ -89,4 +86,9 @@ void GreedyProjection::SetGridResolution(int gridResolutionX, int gridResolution
 void GreedyProjection::SetIsoLevel(float isoLevel)
 {
 	return;
+}
+
+void GreedyProjection::SetNormalSearchRadius(double normalSearchRadius)
+{
+	_normalSearchRadius = normalSearchRadius;
 }

@@ -40,7 +40,7 @@
       <x>790</x>
       <y>270</y>
       <width>460</width>
-      <height>490</height>
+      <height>510</height>
      </rect>
     </property>
     <property name="font">
@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -73,7 +73,7 @@
         <x>20</x>
         <y>20</y>
         <width>420</width>
-        <height>360</height>
+        <height>390</height>
        </rect>
       </property>
       <property name="currentIndex">
@@ -124,7 +124,7 @@
          <rect>
           <x>80</x>
           <y>70</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
         </property>
@@ -132,6 +132,9 @@
          <font>
           <pointsize>20</pointsize>
          </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -151,7 +154,7 @@
          <rect>
           <x>80</x>
           <y>120</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
         </property>
@@ -159,6 +162,9 @@
          <font>
           <pointsize>20</pointsize>
          </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -178,7 +184,7 @@
          <rect>
           <x>80</x>
           <y>20</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
         </property>
@@ -186,6 +192,9 @@
          <font>
           <pointsize>20</pointsize>
          </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -228,7 +237,7 @@
          <rect>
           <x>80</x>
           <y>70</y>
-          <width>80</width>
+          <width>95</width>
           <height>30</height>
          </rect>
         </property>
@@ -236,6 +245,9 @@
          <font>
           <pointsize>20</pointsize>
          </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>-1.000000000000000</double>
@@ -273,7 +285,7 @@
          <rect>
           <x>80</x>
           <y>20</y>
-          <width>80</width>
+          <width>95</width>
           <height>30</height>
          </rect>
         </property>
@@ -281,6 +293,9 @@
          <font>
           <pointsize>20</pointsize>
          </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>-1.000000000000000</double>
@@ -318,7 +333,7 @@
          <rect>
           <x>80</x>
           <y>120</y>
-          <width>80</width>
+          <width>95</width>
           <height>30</height>
          </rect>
         </property>
@@ -326,6 +341,9 @@
          <font>
           <pointsize>20</pointsize>
          </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>-1.000000000000000</double>
@@ -363,7 +381,7 @@
          <rect>
           <x>230</x>
           <y>20</y>
-          <width>80</width>
+          <width>95</width>
           <height>30</height>
          </rect>
         </property>
@@ -372,8 +390,11 @@
           <pointsize>20</pointsize>
          </font>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
         <property name="minimum">
-         <double>0.010000000000000</double>
+         <double>-1.000000000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -390,7 +411,7 @@
          <rect>
           <x>230</x>
           <y>120</y>
-          <width>80</width>
+          <width>95</width>
           <height>30</height>
          </rect>
         </property>
@@ -399,8 +420,11 @@
           <pointsize>20</pointsize>
          </font>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
         <property name="minimum">
-         <double>0.010000000000000</double>
+         <double>-1.000000000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -417,7 +441,7 @@
          <rect>
           <x>230</x>
           <y>70</y>
-          <width>80</width>
+          <width>95</width>
           <height>30</height>
          </rect>
         </property>
@@ -426,8 +450,11 @@
           <pointsize>20</pointsize>
          </font>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
         <property name="minimum">
-         <double>0.010000000000000</double>
+         <double>-1.000000000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -442,7 +469,7 @@
        <widget class="QLabel" name="_boundingBoxXShiftLabel">
         <property name="geometry">
          <rect>
-          <x>190</x>
+          <x>200</x>
           <y>20</y>
           <width>50</width>
           <height>30</height>
@@ -460,7 +487,7 @@
        <widget class="QLabel" name="_boundingBoxYShiftLabel">
         <property name="geometry">
          <rect>
-          <x>190</x>
+          <x>200</x>
           <y>70</y>
           <width>50</width>
           <height>30</height>
@@ -478,7 +505,7 @@
        <widget class="QLabel" name="_boundingBoxZShiftLabel">
         <property name="geometry">
          <rect>
-          <x>190</x>
+          <x>200</x>
           <y>120</y>
           <width>50</width>
           <height>30</height>
@@ -499,7 +526,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>395</y>
+        <y>420</y>
         <width>150</width>
         <height>40</height>
        </rect>
@@ -524,11 +551,11 @@
         <x>20</x>
         <y>20</y>
         <width>420</width>
-        <height>360</height>
+        <height>390</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="_sift3DTab">
        <attribute name="title">
@@ -578,9 +605,12 @@
          <rect>
           <x>260</x>
           <y>20</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -613,9 +643,12 @@
          <rect>
           <x>260</x>
           <y>170</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="singleStep">
          <double>0.100000000000000</double>
@@ -626,7 +659,7 @@
          <rect>
           <x>260</x>
           <y>70</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
         </property>
@@ -642,7 +675,7 @@
          <rect>
           <x>260</x>
           <y>120</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
         </property>
@@ -689,9 +722,12 @@
          <rect>
           <x>260</x>
           <y>70</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -711,9 +747,12 @@
          <rect>
           <x>260</x>
           <y>120</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -744,9 +783,9 @@
        <widget class="QComboBox" name="_harrisMethodComboBox">
         <property name="geometry">
          <rect>
-          <x>170</x>
+          <x>230</x>
           <y>20</y>
-          <width>170</width>
+          <width>120</width>
           <height>30</height>
          </rect>
         </property>
@@ -782,7 +821,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>395</y>
+        <y>420</y>
         <width>150</width>
         <height>40</height>
        </rect>
@@ -807,11 +846,11 @@
         <x>20</x>
         <y>20</y>
         <width>420</width>
-        <height>360</height>
+        <height>390</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="_fpfhTab">
        <attribute name="title">
@@ -848,9 +887,12 @@
          <rect>
           <x>300</x>
           <y>20</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -870,7 +912,7 @@
          <rect>
           <x>300</x>
           <y>120</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
         </property>
@@ -902,9 +944,12 @@
          <rect>
           <x>300</x>
           <y>70</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -937,9 +982,12 @@
          <rect>
           <x>300</x>
           <y>170</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.100000000000000</double>
@@ -974,7 +1022,7 @@
          <rect>
           <x>300</x>
           <y>120</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
         </property>
@@ -1006,9 +1054,12 @@
          <rect>
           <x>300</x>
           <y>70</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -1041,9 +1092,12 @@
          <rect>
           <x>300</x>
           <y>20</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -1063,9 +1117,12 @@
          <rect>
           <x>300</x>
           <y>170</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.100000000000000</double>
@@ -1113,7 +1170,7 @@
          <rect>
           <x>300</x>
           <y>120</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
         </property>
@@ -1158,9 +1215,12 @@
          <rect>
           <x>300</x>
           <y>70</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -1180,7 +1240,7 @@
          <rect>
           <x>300</x>
           <y>20</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
         </property>
@@ -1196,9 +1256,12 @@
          <rect>
           <x>300</x>
           <y>170</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.100000000000000</double>
@@ -1246,9 +1309,12 @@
          <rect>
           <x>300</x>
           <y>170</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.100000000000000</double>
@@ -1265,7 +1331,7 @@
          <rect>
           <x>300</x>
           <y>20</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
         </property>
@@ -1294,9 +1360,12 @@
          <rect>
           <x>300</x>
           <y>70</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -1342,7 +1411,7 @@
          <rect>
           <x>300</x>
           <y>120</y>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </rect>
         </property>
@@ -1362,7 +1431,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>395</y>
+        <y>420</y>
         <width>150</width>
         <height>40</height>
        </rect>
@@ -1385,7 +1454,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>395</y>
+        <y>420</y>
         <width>150</width>
         <height>40</height>
        </rect>
@@ -1405,7 +1474,7 @@
         <x>20</x>
         <y>20</y>
         <width>420</width>
-        <height>360</height>
+        <height>390</height>
        </rect>
       </property>
       <property name="currentIndex">
@@ -1568,11 +1637,11 @@
         <x>20</x>
         <y>20</y>
         <width>420</width>
-        <height>360</height>
+        <height>390</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="_greedyProjectionTab">
        <attribute name="title">
@@ -1614,7 +1683,7 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>4</number>
+         <number>3</number>
         </property>
         <property name="minimum">
          <double>0.001000000000000</double>
@@ -1650,6 +1719,9 @@
           <width>100</width>
           <height>30</height>
          </rect>
+        </property>
+        <property name="decimals">
+         <number>2</number>
         </property>
         <property name="minimum">
          <double>0.010000000000000</double>
@@ -1768,6 +1840,44 @@
         </property>
         <property name="value">
          <number>120</number>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_greedyProjectNormalSearchRadiusSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>310</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.010000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_GreedyProjectNormalSearchRadiusLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>310</y>
+          <width>250</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Normal Search Radius：</string>
         </property>
        </widget>
       </widget>
@@ -1909,13 +2019,51 @@
          <double>0.001000000000000</double>
         </property>
        </widget>
+       <widget class="QLabel" name="_marchingCubesNormalSearchRadiusLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>220</y>
+          <width>250</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Normal Search Radius：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_marchingCubesNormalSearchRadiusSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>220</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.010000000000000</double>
+        </property>
+       </widget>
       </widget>
      </widget>
      <widget class="QPushButton" name="_reconstructProcessingButton">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>395</y>
+        <y>420</y>
         <width>150</width>
         <height>40</height>
        </rect>
@@ -2004,10 +2152,17 @@
     </widget>
     <addaction name="menuKeep_PointCloud"/>
    </widget>
+   <widget class="QMenu" name="menuScan">
+    <property name="title">
+     <string>Scan</string>
+    </property>
+    <addaction name="_autoScanAction"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuCamera"/>
    <addaction name="menuArduino"/>
    <addaction name="menuPointCloud"/>
+   <addaction name="menuScan"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -2091,6 +2246,11 @@
   <action name="actionFeature">
    <property name="text">
     <string>Feature</string>
+   </property>
+  </action>
+  <action name="_autoScanAction">
+   <property name="text">
+    <string>Auto Scan</string>
    </property>
   </action>
  </widget>

@@ -15,10 +15,11 @@ typedef pcl::PointXYZRGB PointT;
 class MySurface : public PointCloudElement
 {
 public:
-	MySurface(pcl::PolygonMesh surface, std::string name = "Name")
+	MySurface(pcl::PolygonMeshPtr surface, std::string name = "Name")
 	{
-		_surface = surface;
+		_surface.reset(new pcl::PolygonMesh(*surface));
 		_name = name;
+		_isSelected = false;		//default
 	}
 
 	std::string GetName()
@@ -48,7 +49,7 @@ public:
 	}
 
 private:
-	pcl::PolygonMesh _surface;
+	pcl::PolygonMeshPtr _surface;
 };
 
 #endif

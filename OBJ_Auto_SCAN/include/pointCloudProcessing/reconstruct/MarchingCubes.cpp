@@ -2,13 +2,15 @@
 
 MarchingCubes::MarchingCubes()
 {
+	_surface.reset(new pcl::PolygonMesh());
 	_isoLevel = 0.001f;
 	_gridResolutionX = 50;
 	_gridResolutionY = 50;
 	_gridResolutionZ = 50;
+	_normalSearchRadius = 0.01;
 }
 
-void MarchingCubes::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<PointT>::Ptr target)
+void MarchingCubes::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 {
 	boost::shared_ptr<pcl::PCLSurfaceBase<SurfacePointT> > surfaceReconstruction;
 	pcl::MarchingCubes<SurfacePointT>* mc = new pcl::MarchingCubesHoppe<SurfacePointT>;
@@ -16,17 +18,13 @@ void MarchingCubes::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCl
 	mc->setGridResolution(_gridResolutionX, _gridResolutionY, _gridResolutionZ);
 	surfaceReconstruction.reset(mc);
 
-	pcl::PointCloud<PointT>::Ptr merged(new pcl::PointCloud<PointT>);
-	*merged = *source;
-	*merged += *target;
-
 	pcl::PointCloud<SurfacePointT>::Ptr vertices(new pcl::PointCloud<SurfacePointT>);
-	pcl::copyPointCloud(*merged, *vertices);
+	pcl::copyPointCloud(*cloud, *vertices);
 
 	pcl::NormalEstimation<PointT, SurfacePointT> normalEstimation;
 	normalEstimation.setSearchMethod(pcl::search::Search<PointT>::Ptr(new pcl::search::KdTree<PointT>));
-	normalEstimation.setRadiusSearch(0.01);
-	normalEstimation.setInputCloud(merged);
+	normalEstimation.setRadiusSearch(_normalSearchRadius);
+	normalEstimation.setInputCloud(cloud);
 	normalEstimation.compute(*vertices);
 
 	pcl::search::KdTree<SurfacePointT>::Ptr tree(new pcl::search::KdTree<SurfacePointT>);
@@ -34,10 +32,10 @@ void MarchingCubes::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCl
 
 	surfaceReconstruction->setSearchMethod(tree);
 	surfaceReconstruction->setInputCloud(vertices);
-	surfaceReconstruction->reconstruct(_surface);
+	surfaceReconstruction->reconstruct(*_surface);
 }
 
-pcl::PolygonMesh MarchingCubes::GetSurface()
+pcl::PolygonMeshPtr MarchingCubes::GetSurface()
 {
 	return _surface;
 }
@@ -82,4 +80,9 @@ void MarchingCubes::SetGridResolution(int gridResolutionX, int gridResolutionY, 
 void MarchingCubes::SetIsoLevel(float isoLevel)
 {
 	_isoLevel = isoLevel;
+}
+
+void MarchingCubes::SetNormalSearchRadius(double normalSearchRadius)
+{
+	_normalSearchRadius = normalSearchRadius;
 }

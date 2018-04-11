@@ -22,6 +22,7 @@ void MyICP::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<Poin
 	registration->setMaximumIterations(_maximumIterations);
 	registration->align(*_registeredCloud);
 	_registeredMatrix = registration->getFinalTransformation();
+	*_registeredCloud += *target;
 }
 
 void MyICP::SetCorrespondenceDistance(float maxCorrespondenceDistance)

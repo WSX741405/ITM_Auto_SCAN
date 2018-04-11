@@ -12,8 +12,8 @@ typedef pcl::PointXYZRGB PointT;
 class ReconstructProcessing
 {
 public:
-	virtual void Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<PointT>::Ptr target) = 0;
-	virtual pcl::PolygonMesh GetSurface() = 0;
+	virtual void Processing(pcl::PointCloud<PointT>::Ptr cloud) = 0;
+	virtual pcl::PolygonMeshPtr GetSurface() = 0;
 	virtual void SetSearchRadius(double searchRadius) = 0;
 	virtual void SetMu(double mu) = 0;
 	virtual void SetMaxNearestNeighbors(int maxNearestNeighbors)= 0;
@@ -22,6 +22,7 @@ public:
 	virtual void SetMaxAngle(double maxAngle) = 0;
 	virtual void SetGridResolution(int gridResolutionX, int gridResolutionY, int gridResolutionZ) = 0;
 	virtual void SetIsoLevel(float isoLevel) = 0;
+	virtual void SetNormalSearchRadius(double normalSearchRadius) = 0;
 
 private:
 
