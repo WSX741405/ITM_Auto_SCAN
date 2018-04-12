@@ -110,6 +110,8 @@ public slots:
 	void ProcessFilterSlot();
 	void SetVoxelGridXYZSlot();
 	void SetBoundingBoxSlot();
+	void SetOutlierRemovalMeanKSlot(int meanK);
+	void SetOutlierRemovalStddevMulThreshSlot(double stddevMulThresh);
 	//****************************************************************
 	//										Correspondences
 	//****************************************************************

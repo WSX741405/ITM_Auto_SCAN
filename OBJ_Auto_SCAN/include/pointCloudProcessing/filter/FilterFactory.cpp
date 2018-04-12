@@ -15,3 +15,9 @@ FilterProcessing* FilterFactory::GetBoundingBoxFilter()
 	static BoundingBoxFilter* filter = new BoundingBoxFilter();
 	return filter;
 }
+
+FilterProcessing* FilterFactory::GetOutlierRemovalFilter()
+{
+	static OutlierRemovalFilter* filter = new OutlierRemovalFilter();
+	return filter;
+}

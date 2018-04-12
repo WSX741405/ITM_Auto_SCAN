@@ -15,6 +15,8 @@ public:
 	void Processing(pcl::PointCloud<PointT>::Ptr cloud);
 	void SetLeafSize(float x, float y, float z);
 	void SetBoundingBox(float minX, float maxX, float minY, float maxY, float minZ, float maxZ);
+	void SetMeanK(int meanK);
+	void SetStddevMulThresh(float stddevMulThresh);
 	pcl::PointCloud<PointT>::Ptr GetResult();
 
 private:

@@ -92,6 +92,8 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_boundingBoxMaxYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
 	connect(_ui->_boundingBoxMinZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
 	connect(_ui->_boundingBoxMaxZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
+	connect(_ui->_outlierMeanKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetOutlierRemovalMeanKSlot(int)));
+	connect(_ui->_outlierStddevMulThreshSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetOutlierRemovalStddevMulThreshSlot(double)));
 	//		Correspondences
 	connect(_ui->_correspondencesTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeCorrespondencesTabSlot(int)));
 	connect(_ui->_correspondencesProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessCorrespondencesSlot()));
@@ -131,12 +133,12 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_greedyProjectionMinAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMinAngleSlot(int)));
 	connect(_ui->_greedyProjectionMaxAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxAngleSlot(int)));
 	connect(_ui->_greedyProjectNormalSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetNormalSearchRadiusSlot(double)));
-	//		Reconstruct : Marching Cubes
+	/*		Reconstruct : Marching Cubes
 	connect(_ui->_marchingCubesGridResolutionXSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetGridResolutionXYZSlot()));
 	connect(_ui->_marchingCubesGridResolutionYSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetGridResolutionXYZSlot()));
 	connect(_ui->_marchingCubesGridResolutionZSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetGridResolutionXYZSlot()));
 	connect(_ui->_marchingCubesIsoLevelSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetIsoLevelSlot(double)));
-	connect(_ui->_marchingCubesNormalSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetNormalSearchRadiusSlot(double)));
+	connect(_ui->_marchingCubesNormalSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetNormalSearchRadiusSlot(double)));*/
 }
 
 //****************************************************************
@@ -485,6 +487,40 @@ void MainWindow::UnselectAllPointCloudSlot()
 }
 
 //****************************************************************
+//								Slots : Processing
+//****************************************************************
+
+void MainWindow::ProcessKeypoint2ICPSlot()
+{
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	pcl::PointCloud<PointT>::Ptr corSource = clouds[0]->GetPointCloud();
+	if (clouds.size() < 2)
+		return;
+	for (int counter = 1; counter < clouds.size(); counter++)
+	{
+		pcl::PointCloud<PointT>::Ptr corTarget = clouds[counter]->GetPointCloud();
+		/*
+		_keypointProcessing->Processing(corSource);
+		pcl::PointCloud<KeypointT>::Ptr corSourceKeypoint;
+		corSourceKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
+		_keypointProcessing->Processing(corTarget);
+		pcl::PointCloud<KeypointT>::Ptr corTargetKeypoint;
+		corTargetKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
+		_correspondencesProcessing->Processing(corSource, corSourceKeypoint, corTarget, corTargetKeypoint);
+		pcl::PointCloud<PointT>::Ptr corResult = _correspondencesProcessing->GetResult();
+		//	ICP
+		_regestrationProcessing->Processing(corTarget, corResult);*/
+		_regestrationProcessing->Processing(corSource, corTarget);
+		corSource = _regestrationProcessing->GetResult();
+		std::cout << "Process : " << counter + 1 << " / " << clouds.size() << std::endl;
+		std::string name = std::string("Process") + TypeConversion::Int2String(counter);
+		MyPointCloud* cloud = new MyPointCloud(corSource, name);
+		_elements->AddPointCloudElement(cloud);
+	}
+	UpdatePointCloudTable();
+}
+
+//****************************************************************
 //								Slots : Filter Processing
 //****************************************************************
 void MainWindow::ChangeFilterTabSlot(int index)
@@ -496,6 +532,10 @@ void MainWindow::ChangeFilterTabSlot(int index)
 	else if (index == 1)
 	{
 		_filterProcessing = _filterFactory->GetBoundingBoxFilter();
+	}
+	else if (index == 2)
+	{
+		_filterProcessing = _filterFactory->GetOutlierRemovalFilter();
 	}
 }
 
@@ -532,30 +572,14 @@ void MainWindow::SetBoundingBoxSlot()
 	_filterProcessing->SetBoundingBox(minX, maxX, minY, maxY, minZ, maxZ);
 }
 
-void MainWindow::ProcessKeypoint2ICPSlot()
+void MainWindow::SetOutlierRemovalMeanKSlot(int meanK)
 {
-	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
-	pcl::PointCloud<PointT>::Ptr corSource = clouds[0]->GetPointCloud();
-	if (clouds.size() < 2)
-		return;
-	for (int counter = 1; counter < clouds.size(); counter++)
-	{
-		pcl::PointCloud<PointT>::Ptr corTarget = clouds[counter]->GetPointCloud();
-		_keypointProcessing->Processing(corSource);
-		pcl::PointCloud<KeypointT>::Ptr corSourceKeypoint;
-		corSourceKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
-		_keypointProcessing->Processing(corTarget);
-		pcl::PointCloud<KeypointT>::Ptr corTargetKeypoint;
-		corTargetKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
-		_correspondencesProcessing->Processing(corSource, corSourceKeypoint, corTarget, corTargetKeypoint);
-		pcl::PointCloud<PointT>::Ptr corResult = _correspondencesProcessing->GetResult();
-		//	ICP
-		_regestrationProcessing->Processing(corTarget, corResult);
-		corSource = _regestrationProcessing->GetResult();
-	}
-	std::string name = std::string("Process");
-	MyPointCloud* cloud = new MyPointCloud(corSource, name);
-	UpdatePointCloudTable();
+	_filterProcessing->SetMeanK(meanK);
+}
+
+void MainWindow::SetOutlierRemovalStddevMulThreshSlot(double stddevMulThresh)
+{
+	_filterProcessing->SetStddevMulThresh(stddevMulThresh);
 }
 
 //****************************************************************
@@ -773,7 +797,7 @@ void MainWindow::ChangeReconstructTabSlot(int index)
 	}
 	else if (index == 1)
 	{
-		_reconstructProcessing = _reconstructFactory->GetMarchingCubes();
+
 	}
 }
 
@@ -823,10 +847,12 @@ void MainWindow::SetMaxAngleSlot(int maxAngle)
 
 void MainWindow::SetGridResolutionXYZSlot()
 {
+	/*
 	float x = TypeConversion::QString2Float(_ui->_marchingCubesGridResolutionXSpinBox->text());
 	float y = TypeConversion::QString2Float(_ui->_marchingCubesGridResolutionYSpinBox->text());
 	float z = TypeConversion::QString2Float(_ui->_marchingCubesGridResolutionZSpinBox->text());
 	_reconstructProcessing->SetGridResolution(x, y, z);
+	*/
 }
 
 void MainWindow::SetIsoLevelSlot(double isoLevel)

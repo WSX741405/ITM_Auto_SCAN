@@ -97,12 +97,14 @@
     <ClCompile Include="include\pointCloudProcessing\correspondences\MySHOTRGB.cpp" />
     <ClCompile Include="include\pointCloudProcessing\filter\BoundingBoxFilter.cpp" />
     <ClCompile Include="include\pointCloudProcessing\filter\FilterFactory.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\filter\OutlierRemovalFilter.cpp" />
     <ClCompile Include="include\pointCloudProcessing\filter\VoxelGridFilter.cpp" />
     <ClCompile Include="include\pointCloudProcessing\keypoint\KeypointFactory.cpp" />
     <ClCompile Include="include\pointCloudProcessing\keypoint\MyHarris3D.cpp" />
     <ClCompile Include="include\pointCloudProcessing\keypoint\MySIFT3D.cpp" />
     <ClCompile Include="include\pointCloudProcessing\reconstruct\GreedyProjection.cpp" />
     <ClCompile Include="include\pointCloudProcessing\reconstruct\MarchingCubes.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\reconstruct\MyPoisson.cpp" />
     <ClCompile Include="include\pointCloudProcessing\reconstruct\ReconstructFactory.cpp" />
     <ClCompile Include="include\pointCloudProcessing\regestration\MyICP.cpp" />
     <ClCompile Include="include\pointCloudProcessing\regestration\RegestrationFactory.cpp" />
@@ -159,6 +161,7 @@
     <ClInclude Include="include\pointCloudProcessing\filter\BoundingBoxFilter.h" />
     <ClInclude Include="include\pointCloudProcessing\filter\FilterFactory.h" />
     <ClInclude Include="include\pointCloudProcessing\filter\FilterProcessing.h" />
+    <ClInclude Include="include\pointCloudProcessing\filter\OutlierRemovalFilter.h" />
     <ClInclude Include="include\pointCloudProcessing\filter\VoxelGridFilter.h" />
     <ClInclude Include="include\pointCloudProcessing\keypoint\KeypointFactory.h" />
     <ClInclude Include="include\pointCloudProcessing\keypoint\KeypointProcessing.h" />
@@ -166,6 +169,7 @@
     <ClInclude Include="include\pointCloudProcessing\keypoint\MySIFT3D.h" />
     <ClInclude Include="include\pointCloudProcessing\reconstruct\GreedyProjection.h" />
     <ClInclude Include="include\pointCloudProcessing\reconstruct\MarchingCubes.h" />
+    <ClInclude Include="include\pointCloudProcessing\reconstruct\MyPoisson.h" />
     <ClInclude Include="include\pointCloudProcessing\reconstruct\ReconstructFactory.h" />
     <ClInclude Include="include\pointCloudProcessing\reconstruct\ReconstructProcessing.h" />
     <ClInclude Include="include\pointCloudProcessing\regestration\MyICP.h" />

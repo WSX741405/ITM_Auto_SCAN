@@ -26,6 +26,7 @@ public:
 	void SetGridResolution(int gridResolutionX, int gridResolutionY, int gridResolutionZ);
 	void SetIsoLevel(float isoLevel);
 	void SetNormalSearchRadius(double normalSearchRadius);
+	void SetReconstructDepth(int depth);
 
 private:
 	pcl::PCLSurfaceBase<pcl::PointXYZRGBNormal>::Ptr _reconstructSurface;

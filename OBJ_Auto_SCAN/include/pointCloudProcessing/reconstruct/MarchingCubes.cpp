@@ -86,3 +86,8 @@ void MarchingCubes::SetNormalSearchRadius(double normalSearchRadius)
 {
 	_normalSearchRadius = normalSearchRadius;
 }
+
+void MarchingCubes::SetReconstructDepth(int depth)
+{
+	return;
+}

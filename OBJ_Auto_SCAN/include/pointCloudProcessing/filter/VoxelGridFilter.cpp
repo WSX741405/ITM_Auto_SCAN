@@ -33,3 +33,13 @@ pcl::PointCloud<PointT>::Ptr VoxelGridFilter::GetResult()
 {
 	return _filteredCloud;
 }
+
+void VoxelGridFilter::SetMeanK(int meanK)
+{
+	return;
+}
+
+void VoxelGridFilter::SetStddevMulThresh(float stddevMulThresh)
+{
+	return;
+}

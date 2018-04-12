@@ -92,3 +92,8 @@ void GreedyProjection::SetNormalSearchRadius(double normalSearchRadius)
 {
 	_normalSearchRadius = normalSearchRadius;
 }
+
+void GreedyProjection::SetReconstructDepth(int depth)
+{
+	return;
+}

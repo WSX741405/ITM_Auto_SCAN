@@ -8,6 +8,7 @@
 #include <pcl/features/normal_3d.h>
 
 typedef pcl::PointXYZRGB PointT;
+typedef pcl::PointXYZRGBNormal SurfacePointT;
 
 class ReconstructProcessing
 {
@@ -23,6 +24,7 @@ public:
 	virtual void SetGridResolution(int gridResolutionX, int gridResolutionY, int gridResolutionZ) = 0;
 	virtual void SetIsoLevel(float isoLevel) = 0;
 	virtual void SetNormalSearchRadius(double normalSearchRadius) = 0;
+	virtual void SetReconstructDepth(int depth) = 0;
 
 private:
 

@@ -43,3 +43,13 @@ void BoundingBoxFilter::SetBoundingBox(float minX, float maxX, float minY, float
 		_maxZ = maxZ;
 	}
 }
+
+void BoundingBoxFilter::SetMeanK(int meanK)
+{
+	return;
+}
+
+void BoundingBoxFilter::SetStddevMulThresh(float stddevMulThresh)
+{
+	return;
+}
