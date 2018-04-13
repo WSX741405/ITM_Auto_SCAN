@@ -4,6 +4,7 @@
 #include "ReconstructProcessing.h"
 #include "GreedyProjection.h"
 #include "MarchingCubes.h"
+#include "MyPoisson.h"
 
 typedef pcl::PointXYZRGB PointT;
 
@@ -13,6 +14,7 @@ public:
 	ReconstructFactory();
 	ReconstructProcessing* GetGreedyProjection();
 	ReconstructProcessing* GetMarchingCubes();
+	ReconstructProcessing* GetPoisson();
 
 private:
 

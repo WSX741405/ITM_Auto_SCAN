@@ -182,7 +182,7 @@ private:
 	ReconstructFactory* _reconstructFactory;
 	ReconstructProcessing* _reconstructProcessing;
 
-	const int FRAME_PITCH = 3;	//	(sec)
+	const int FRAME_PITCH = 1;	//	(sec)
 	clock_t _preFrameTime;
 };
 

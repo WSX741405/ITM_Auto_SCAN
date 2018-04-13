@@ -185,7 +185,7 @@ public:
     QPushButton *_reconstructProcessingButton;
     QWidget *_smoothingTab;
     QTabWidget *_smoothingTabWidget;
-    QWidget *tab_2;
+    QWidget *_meshSmoothingLaplacianTab;
     QWidget *tab_3;
     QPushButton *_smoothingProcessingButton;
     QMenuBar *menuBar;
@@ -849,9 +849,9 @@ public:
         _smoothingTabWidget = new QTabWidget(_smoothingTab);
         _smoothingTabWidget->setObjectName(QStringLiteral("_smoothingTabWidget"));
         _smoothingTabWidget->setGeometry(QRect(20, 20, 420, 390));
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QStringLiteral("tab_2"));
-        _smoothingTabWidget->addTab(tab_2, QString());
+        _meshSmoothingLaplacianTab = new QWidget();
+        _meshSmoothingLaplacianTab->setObjectName(QStringLiteral("_meshSmoothingLaplacianTab"));
+        _smoothingTabWidget->addTab(_meshSmoothingLaplacianTab, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QStringLiteral("tab_3"));
         _smoothingTabWidget->addTab(tab_3, QString());
@@ -929,12 +929,13 @@ public:
 
         retranslateUi(MainWindowForm);
 
-        _processingTabWidget->setCurrentIndex(4);
+        _processingTabWidget->setCurrentIndex(5);
         _filterTabWidget->setCurrentIndex(2);
         _keypointTabWidget->setCurrentIndex(0);
         _correspondencesTabWidget->setCurrentIndex(3);
         _regestrationTabWidget->setCurrentIndex(0);
         _reconstructTabWidget->setCurrentIndex(1);
+        _smoothingTabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindowForm);
@@ -1044,7 +1045,7 @@ public:
         _reconstructTabWidget->setTabText(_reconstructTabWidget->indexOf(_poissonTab), QApplication::translate("MainWindowForm", "Poisson", Q_NULLPTR));
         _reconstructProcessingButton->setText(QApplication::translate("MainWindowForm", "Processing", Q_NULLPTR));
         _processingTabWidget->setTabText(_processingTabWidget->indexOf(_reconstructTab), QApplication::translate("MainWindowForm", "Reconstruct", Q_NULLPTR));
-        _smoothingTabWidget->setTabText(_smoothingTabWidget->indexOf(tab_2), QApplication::translate("MainWindowForm", "Tab 1", Q_NULLPTR));
+        _smoothingTabWidget->setTabText(_smoothingTabWidget->indexOf(_meshSmoothingLaplacianTab), QApplication::translate("MainWindowForm", "MeshSmoothingLaplacian", Q_NULLPTR));
         _smoothingTabWidget->setTabText(_smoothingTabWidget->indexOf(tab_3), QApplication::translate("MainWindowForm", "Tab 2", Q_NULLPTR));
         _smoothingProcessingButton->setText(QApplication::translate("MainWindowForm", "Processing", Q_NULLPTR));
         _processingTabWidget->setTabText(_processingTabWidget->indexOf(_smoothingTab), QApplication::translate("MainWindowForm", "Smoothing", Q_NULLPTR));

@@ -176,6 +176,7 @@ void MainWindow::InitialTabWidget()
 	_ui->_correspondencesTabWidget->setCurrentIndex(0);
 	_ui->_regestrationTabWidget->setCurrentIndex(0);
 	_ui->_reconstructTabWidget->setCurrentIndex(0);
+	_ui->_smoothingTabWidget->setCurrentIndex(0);
 }
 
 void MainWindow::UpdatePointCloudViewer()
@@ -499,7 +500,7 @@ void MainWindow::ProcessKeypoint2ICPSlot()
 	for (int counter = 1; counter < clouds.size(); counter++)
 	{
 		pcl::PointCloud<PointT>::Ptr corTarget = clouds[counter]->GetPointCloud();
-		/*
+		//    @@@@@@@@    Extract Keypoint & Correspondence
 		_keypointProcessing->Processing(corSource);
 		pcl::PointCloud<KeypointT>::Ptr corSourceKeypoint;
 		corSourceKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
@@ -508,10 +509,13 @@ void MainWindow::ProcessKeypoint2ICPSlot()
 		corTargetKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
 		_correspondencesProcessing->Processing(corSource, corSourceKeypoint, corTarget, corTargetKeypoint);
 		pcl::PointCloud<PointT>::Ptr corResult = _correspondencesProcessing->GetResult();
-		//	ICP
-		_regestrationProcessing->Processing(corTarget, corResult);*/
-		_regestrationProcessing->Processing(corSource, corTarget);
-		corSource = _regestrationProcessing->GetResult();
+		_regestrationProcessing->Processing(corTarget, corResult);
+		//_regestrationProcessing->Processing(corSource, corTarget);
+		//     @@@@@@@@    Outlier Removal
+		FilterProcessing* filter = _filterFactory->GetOutlierRemovalFilter();
+		filter->Processing(_regestrationProcessing->GetResult());
+		corSource = filter->GetResult();
+		//corSource = _regestrationProcessing->GetResult();
 		std::cout << "Process : " << counter + 1 << " / " << clouds.size() << std::endl;
 		std::string name = std::string("Process") + TypeConversion::Int2String(counter);
 		MyPointCloud* cloud = new MyPointCloud(corSource, name);
@@ -797,7 +801,7 @@ void MainWindow::ChangeReconstructTabSlot(int index)
 	}
 	else if (index == 1)
 	{
-
+		_reconstructProcessing = _reconstructFactory->GetPoisson();
 	}
 }
 

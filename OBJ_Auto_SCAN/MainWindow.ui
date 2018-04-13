@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>5</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -2055,10 +2055,150 @@
         <height>390</height>
        </rect>
       </property>
-      <widget class="QWidget" name="tab_2">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="_meshSmoothingLaplacianTab">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>MeshSmoothingLaplacian</string>
        </attribute>
+       <widget class="QLabel" name="_smoothingLaplacianNumIterLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>200</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Num Iter：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_smoothingLaplacianConvergenceLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>200</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Convergence：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_smoothingLaplacianRelaxationFactorLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>120</y>
+          <width>200</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Relaxation Factor：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_smoothingLaplacianFeatureAngleLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>200</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Feature Angle：</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>20</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>10000</number>
+        </property>
+        <property name="value">
+         <number>1000</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_2">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>170</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="maximum">
+         <number>360</number>
+        </property>
+        <property name="value">
+         <number>60</number>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="doubleSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>70</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="decimals">
+         <number>4</number>
+        </property>
+        <property name="minimum">
+         <double>0.000100000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.001000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.001000000000000</double>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>120</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="decimals">
+         <number>4</number>
+        </property>
+        <property name="minimum">
+         <double>0.000100000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.001000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.001000000000000</double>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">

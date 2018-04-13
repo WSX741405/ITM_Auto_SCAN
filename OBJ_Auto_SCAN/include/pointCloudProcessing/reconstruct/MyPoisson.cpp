@@ -2,6 +2,7 @@
 
 MyPoisson::MyPoisson()
 {
+	_surface.reset(new pcl::PolygonMesh());
 	_normalSearchRadius = 0.01;
 	_depth = 9;
 }
@@ -20,12 +21,12 @@ void MyPoisson::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 	pcl::Poisson<SurfacePointT> poisson;
 	poisson.setDepth(_depth);
 	poisson.setInputCloud(vertices);
-	poisson.reconstruct(*_mesh);
+	poisson.reconstruct(*_surface);
 }
 
 pcl::PolygonMeshPtr MyPoisson::GetSurface()
 {
-	return _mesh;
+	return _surface;
 }
 
 void MyPoisson::SetSearchRadius(double searchRadius)

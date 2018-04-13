@@ -25,7 +25,7 @@ public:
 	void SetReconstructDepth(int depth);
 
 private:
-	pcl::PolygonMeshPtr _mesh;
+	pcl::PolygonMeshPtr _surface;
 
 	double _normalSearchRadius;
 	int _depth;
