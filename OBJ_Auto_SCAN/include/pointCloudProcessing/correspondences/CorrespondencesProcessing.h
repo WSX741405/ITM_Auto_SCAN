@@ -1,12 +1,8 @@
 #ifndef CORRESPONDENCES_PROCESSING
 #define CORRESPONDENCES_PROCESSING
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "Typedef.h"
 #include <pcl/registration/correspondence_rejection_sample_consensus.h>
-
-typedef pcl::PointXYZRGB PointT;
-typedef pcl::PointXYZI KeypointT;
 
 class CorrespondencesProcessing
 {

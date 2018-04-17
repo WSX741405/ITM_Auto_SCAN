@@ -24,7 +24,7 @@ void MyPoisson::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 	poisson.reconstruct(*_surface);
 }
 
-pcl::PolygonMeshPtr MyPoisson::GetSurface()
+pcl::PolygonMeshPtr MyPoisson::GetResult()
 {
 	return _surface;
 }
@@ -71,7 +71,7 @@ void MyPoisson::SetIsoLevel(float isoLevel)
 
 void MyPoisson::SetNormalSearchRadius(double normalSearchRadius)
 {
-	return;
+	_normalSearchRadius = normalSearchRadius;
 }
 
 void MyPoisson::SetReconstructDepth(int depth)

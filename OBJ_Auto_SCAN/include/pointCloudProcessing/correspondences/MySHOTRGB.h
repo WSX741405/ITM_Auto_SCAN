@@ -1,8 +1,7 @@
 #ifndef MY_SHOTRGB
 #define MY_SHOTRGB
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "Typedef.h"
 #include <pcl/features/normal_3d.h>
 #include <pcl/features/shot.h>
 #include <pcl/features/shot_omp.h>

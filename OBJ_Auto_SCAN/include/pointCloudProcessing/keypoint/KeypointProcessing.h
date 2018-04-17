@@ -2,11 +2,7 @@
 #define KEYPOINT_PROCESSING
 
 #include <pcl/keypoints/sift_keypoint.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
-typedef pcl::PointXYZRGB PointT;
-typedef pcl::PointXYZI KeypointT;
+#include "Typedef.h"
 
 class KeypointProcessing
 {

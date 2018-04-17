@@ -1,8 +1,7 @@
 #ifndef MY_FPFH
 #define MY_FPFH
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "Typedef.h"
 #include <pcl/features/normal_3d.h>
 #include <pcl/features/fpfh.h>
 #include <pcl/features/fpfh_omp.h>
@@ -12,9 +11,6 @@
 #include <pcl/filters/filter.h>
 
 #include "CorrespondencesProcessing.h"
-
-typedef pcl::PointXYZRGB PointT;
-typedef pcl::PointXYZI KeypointT;
 
 class MyFPFH : public CorrespondencesProcessing
 {

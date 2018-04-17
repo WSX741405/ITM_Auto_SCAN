@@ -1,13 +1,10 @@
 #ifndef OUTLIER_REMOVAL
 #define OUTLIER_REMOVAL
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "Typedef.h"
 #include <pcl/filters/statistical_outlier_removal.h>
 
 #include "FilterProcessing.h"
-
-typedef pcl::PointXYZRGB PointT;
 
 class OutlierRemovalFilter : public FilterProcessing
 {

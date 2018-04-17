@@ -1,12 +1,9 @@
 #ifndef VoxelGrid_Filter
 #define VoxelGrid_Filter
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "Typedef.h"
 #include <pcl/filters/voxel_grid.h>
 #include "FilterProcessing.h"
-
-typedef pcl::PointXYZRGB PointT;
 
 class VoxelGridFilter : public FilterProcessing
 {

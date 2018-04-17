@@ -1,8 +1,7 @@
 #ifndef MY_POISSON
 #define MY_POISSON
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "Typedef.h"
 #include <pcl/surface/poisson.h>
 
 #include "ReconstructProcessing.h"
@@ -12,7 +11,7 @@ class MyPoisson : public ReconstructProcessing
 public:
 	MyPoisson();
 	void Processing(pcl::PointCloud<PointT>::Ptr cloud);
-	pcl::PolygonMeshPtr GetSurface();
+	pcl::PolygonMeshPtr GetResult();
 	void SetSearchRadius(double searchRadius);
 	void SetMu(double mu);
 	void SetMaxNearestNeighbors(int maxNearestNeighbors);

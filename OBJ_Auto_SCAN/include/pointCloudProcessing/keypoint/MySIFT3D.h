@@ -2,8 +2,7 @@
 #define MY_SIFT3D
 
 #include <pcl/keypoints/sift_keypoint.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "Typedef.h"
 #include "KeypointProcessing.h"
 
 class MySIFT : public KeypointProcessing

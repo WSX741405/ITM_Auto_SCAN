@@ -1,8 +1,7 @@
 #ifndef MY_PFHRGB
 #define MY_PFHRGB
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "Typedef.h"
 #include <pcl/features/normal_3d.h>
 #include <pcl/features/pfhrgb.h>
 #include <pcl/registration/correspondence_rejection_sample_consensus.h>
@@ -11,9 +10,6 @@
 #include <pcl/filters/filter.h>
 
 #include "CorrespondencesProcessing.h"
-
-typedef pcl::PointXYZRGB PointT;
-typedef pcl::PointXYZI KeypointT;
 
 class MyPFHRGB : public CorrespondencesProcessing
 {

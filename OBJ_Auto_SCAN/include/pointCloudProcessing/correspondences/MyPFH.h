@@ -1,8 +1,7 @@
 #ifndef MY_PFH
 #define MY_PFH
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "Typedef.h"
 #include <pcl/features/normal_3d.h>
 #include <pcl/features/pfh.h>
 #include <pcl/registration/correspondence_rejection_sample_consensus.h>

@@ -1,13 +1,10 @@
 #ifndef MY_ICP
 #define MY_ICP
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "Typedef.h"
 #include <pcl/registration/icp.h>
 
 #include "RegestrationProcessing.h"
-
-typedef pcl::PointXYZRGB PointT;
 
 class MyICP : public RegestrationProcessing
 {

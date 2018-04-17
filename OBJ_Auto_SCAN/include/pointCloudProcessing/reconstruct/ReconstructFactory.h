@@ -6,8 +6,6 @@
 #include "MarchingCubes.h"
 #include "MyPoisson.h"
 
-typedef pcl::PointXYZRGB PointT;
-
 class ReconstructFactory
 {
 public:

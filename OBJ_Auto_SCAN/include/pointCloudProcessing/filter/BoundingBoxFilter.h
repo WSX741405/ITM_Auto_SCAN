@@ -1,10 +1,9 @@
 #ifndef BOUNDING_BOX_FILTER
 #define BOUNDING_BOX_FILTER
 
+#include "Typedef.h"
 #include "FilterProcessing.h"
 #include <pcl/filters/crop_box.h>
-
-typedef pcl::PointXYZRGB PointT;
 
 class BoundingBoxFilter : public FilterProcessing
 {

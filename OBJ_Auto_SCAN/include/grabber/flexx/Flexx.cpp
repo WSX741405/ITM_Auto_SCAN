@@ -23,7 +23,7 @@ void FlexxListener::onNewData(const royale::DepthData* data)
 	{
 		if (data->points[counter].depthConfidence < _depthConfidence)		//	資料不可靠
 			continue;
-		boost::shared_ptr<PointT> point(new pcl::PointXYZRGB);
+		boost::shared_ptr<PointT> point(new PointT);
 		point->r = 255;
 		point->g = 255;
 		point->b = 255;

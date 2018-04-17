@@ -108,6 +108,9 @@
     <ClCompile Include="include\pointCloudProcessing\reconstruct\ReconstructFactory.cpp" />
     <ClCompile Include="include\pointCloudProcessing\regestration\MyICP.cpp" />
     <ClCompile Include="include\pointCloudProcessing\regestration\RegestrationFactory.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\smoothing\MeshSmoothingLaplacian.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\smoothing\MyResampling.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\smoothing\SmoothingFactory.cpp" />
     <ClCompile Include="include\ui\MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -175,12 +178,17 @@
     <ClInclude Include="include\pointCloudProcessing\regestration\MyICP.h" />
     <ClInclude Include="include\pointCloudProcessing\regestration\RegestrationFactory.h" />
     <ClInclude Include="include\pointCloudProcessing\regestration\RegestrationProcessing.h" />
+    <ClInclude Include="include\pointCloudProcessing\smoothing\MeshSmoothingLaplacian.h" />
+    <ClInclude Include="include\pointCloudProcessing\smoothing\MyResampling.h" />
+    <ClInclude Include="include\pointCloudProcessing\smoothing\SmoothingFactory.h" />
+    <ClInclude Include="include\pointCloudProcessing\smoothing\SmoothingProcessing.h" />
     <ClInclude Include="include\pointCloud\MyKeypoint.h" />
     <ClInclude Include="include\pointCloud\MyPointCloud.h" />
     <ClInclude Include="include\pointCloud\MySurface.h" />
     <ClInclude Include="include\pointCloud\PointCloudElements.h" />
     <ClInclude Include="include\Conversion.h" />
     <ClInclude Include="include\pointCloud\PointCloudElement.h" />
+    <ClInclude Include="include\Typedef.h" />
     <ClInclude Include="include\ui\Viewer.h" />
     <CustomBuild Include="include\ui\MainWindow.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

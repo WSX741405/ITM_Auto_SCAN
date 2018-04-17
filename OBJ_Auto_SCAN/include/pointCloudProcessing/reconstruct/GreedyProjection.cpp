@@ -43,7 +43,7 @@ void GreedyProjection::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 	surfaceReconstruction->reconstruct(*_surface);
 }
 
-pcl::PolygonMeshPtr GreedyProjection::GetSurface()
+pcl::PolygonMeshPtr GreedyProjection::GetResult()
 {
 	return _surface;
 }

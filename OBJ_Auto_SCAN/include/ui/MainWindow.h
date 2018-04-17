@@ -1,18 +1,13 @@
 #ifndef MAIN_WINDOW
 #define MAIN_WINDOW
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
 #include <pcl/keypoints/harris_3d.h>
+#include "Typedef.h"
 
 #include <vtkAutoInit.h>
 VTK_MODULE_INIT(vtkRenderingOpenGL);
 VTK_MODULE_INIT(vtkInteractionStyle);
 #include <QtWidgets/QMainWindow>
-
-typedef pcl::PointXYZRGB PointT;
-typedef pcl::PointXYZI KeypointT;
-typedef pcl::PointXYZRGBNormal SurfacePointT;
 
 #include <QMetaType>
 Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
@@ -37,6 +32,7 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include "pointCloudProcessing/correspondences/CorrespondencesFactory.h"
 #include "pointCloudProcessing/regestration/RegestrationFactory.h"
 #include "pointCloudProcessing/reconstruct/ReconstructFactory.h"
+#include "pointCloudProcessing/smoothing/SmoothingFactory.h"
 
 class UIObserver;
 class ISubject;
@@ -98,20 +94,20 @@ public slots:
 	//****************************************************************
 	void ProcessKeypointSlot();
 	void ChangeKeypointTabSlot(int index);
-	void SetSIFTScalesSlot();
-	void SetSIFTMinContrastSlot();
-	void SetHarrisRadiusSlot();
-	void SetHarrisRadiusSearchSlot();
-	void SetHarrisMethodSlot(int index);
+	void SetKeypointScalesSlot();
+	void SetKeypointMinContrastSlot();
+	void SetKeypointRadiusSlot();
+	void SetKeypointRadiusSearchSlot();
+	void SetKeypointMethodSlot(int index);
 	//****************************************************************
 	//										Filter
 	//****************************************************************
 	void ChangeFilterTabSlot(int index);
 	void ProcessFilterSlot();
-	void SetVoxelGridXYZSlot();
-	void SetBoundingBoxSlot();
-	void SetOutlierRemovalMeanKSlot(int meanK);
-	void SetOutlierRemovalStddevMulThreshSlot(double stddevMulThresh);
+	void SetFilterVoxelGridXYZSlot();
+	void SetFilterBoundingBoxSlot();
+	void SetFilterMeanKSlot(int meanK);
+	void SetFilterStddevMulThreshSlot(double stddevMulThresh);
 	//****************************************************************
 	//										Correspondences
 	//****************************************************************
@@ -126,24 +122,35 @@ public slots:
 	//										Regestration
 	//****************************************************************
 	void ProcessRegestrationSlot();
-	void SetICPCorrespondenceDistanceSlot(double correspondenceDistance);
-	void SetICPOutlierThresholdSlot(double outlierThreshold);
-	void SetICPTransformationEpsilonSlot(double transformationEpsilon);
-	void SetICPMaxIterationsSlot(int maxIterations);
+	void SetRegestrationCorrespondenceDistanceSlot(double correspondenceDistance);
+	void SetRegestrationOutlierThresholdSlot(double outlierThreshold);
+	void SetRegestrationTransformationEpsilonSlot(double transformationEpsilon);
+	void SetRegestrationMaxIterationsSlot(int maxIterations);
 	//****************************************************************
 	//										Reconstruct
 	//****************************************************************
 	void ChangeReconstructTabSlot(int index);
 	void ProcessReconstructSlot();
-	void SetSearchRadiusSlot(double searchRadius);
-	void SetMuSlot(double mu);
-	void SetMaxNearestNeighborsSlot(int maxNearestNeighbors);
-	void SetMaxSurfaceAngleSlot(int maxSurfaceAngle);
-	void SetMinAngleSlot(int minAngle);
-	void SetMaxAngleSlot(int maxAngle);
-	void SetGridResolutionXYZSlot();
-	void SetIsoLevelSlot(double isoLevel);
-	void SetNormalSearchRadiusSlot(double normalSearchRadius);
+	void SetReconstructSearchRadiusSlot(double searchRadius);
+	void SetReconstructMuSlot(double mu);
+	void SetReconstructMaxNearestNeighborsSlot(int maxNearestNeighbors);
+	void SetReconstructMaxSurfaceAngleSlot(int maxSurfaceAngle);
+	void SetReconstructMinAngleSlot(int minAngle);
+	void SetReconstructMaxAngleSlot(int maxAngle);
+	void SetReconstructGridResolutionXYZSlot();
+	void SetReconstructIsoLevelSlot(double isoLevel);
+	void SetReconstructNormalSearchRadiusSlot(double normalSearchRadius);
+	void SetReconstructDepthSlot(int);
+	//****************************************************************
+	//										Smoothing
+	//****************************************************************
+	void ChangeSmoothingTabSlot(int index);
+	void ProcessSmoothingSlot();
+	void SetSmoothingNumIterSlot(int numIter);
+	void SetSmoothingConvergenceSlot(double convergence);
+	void SetSmoothingRelaxationFactorMaxAngleSlot(double relaxationFactor);
+	void SetSmoothingFeatureAngleSlot(int featureAngle);
+	void SetSmoothingSearchRadiusSlot(double searchRadius);
 
 private:
 	void InitialMemberVariable();
@@ -181,6 +188,8 @@ private:
 	RegestrationProcessing* _regestrationProcessing;
 	ReconstructFactory* _reconstructFactory;
 	ReconstructProcessing* _reconstructProcessing;
+	SmoothingFactory* _smoothingFactory;
+	SmoothingProcessing* _smoothingProcessing;
 
 	const int FRAME_PITCH = 1;	//	(sec)
 	clock_t _preFrameTime;

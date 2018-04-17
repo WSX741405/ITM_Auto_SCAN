@@ -79,6 +79,9 @@
     <Filter Include="include\pointCloudProcessing\reconstruct">
       <UniqueIdentifier>{c243a64e-57d8-459e-9d0e-c4eb231a487c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\pointCloudProcessing\smoothing">
+      <UniqueIdentifier>{32db98d9-0154-4240-86e8-9bac6809717f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\main.cpp">
@@ -173,6 +176,15 @@
     </ClCompile>
     <ClCompile Include="include\pointCloudProcessing\reconstruct\MyPoisson.cpp">
       <Filter>include\pointCloudProcessing\reconstruct</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\smoothing\SmoothingFactory.cpp">
+      <Filter>include\pointCloudProcessing\smoothing</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\smoothing\MeshSmoothingLaplacian.cpp">
+      <Filter>include\pointCloudProcessing\smoothing</Filter>
+    </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\smoothing\MyResampling.cpp">
+      <Filter>include\pointCloudProcessing\smoothing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -336,6 +348,21 @@
     </ClInclude>
     <ClInclude Include="include\pointCloudProcessing\reconstruct\MyPoisson.h">
       <Filter>include\pointCloudProcessing\reconstruct</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\smoothing\SmoothingProcessing.h">
+      <Filter>include\pointCloudProcessing\smoothing</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\smoothing\SmoothingFactory.h">
+      <Filter>include\pointCloudProcessing\smoothing</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\smoothing\MeshSmoothingLaplacian.h">
+      <Filter>include\pointCloudProcessing\smoothing</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\smoothing\MyResampling.h">
+      <Filter>include\pointCloudProcessing\smoothing</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Typedef.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

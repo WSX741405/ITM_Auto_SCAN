@@ -32,6 +32,11 @@ public:
 		return _cloud;
 	}
 
+	pcl::PolygonMeshPtr GetMesh()
+	{
+		return NULL;
+	}
+
 	void SetIsSelected(bool isSelected)
 	{
 		_isSelected = isSelected;

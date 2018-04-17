@@ -2,8 +2,7 @@
 #define MY_HARRIS3D
 
 #include <pcl/keypoints/harris_3d.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "Typedef.h"
 #include "KeypointProcessing.h"
 
 class MyHarris : public KeypointProcessing

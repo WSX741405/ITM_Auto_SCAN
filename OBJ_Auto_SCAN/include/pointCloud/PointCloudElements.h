@@ -7,9 +7,6 @@
 #include "MyKeypoint.h"
 #include "MySurface.h"
 
-typedef pcl::PointXYZRGB PointT;
-typedef pcl::PointXYZI KeypointT;
-
 class PointCloudElements
 {
 public:

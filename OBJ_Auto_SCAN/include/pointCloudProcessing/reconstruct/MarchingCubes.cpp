@@ -35,7 +35,7 @@ void MarchingCubes::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 	surfaceReconstruction->reconstruct(*_surface);
 }
 
-pcl::PolygonMeshPtr MarchingCubes::GetSurface()
+pcl::PolygonMeshPtr MarchingCubes::GetResult()
 {
 	return _surface;
 }

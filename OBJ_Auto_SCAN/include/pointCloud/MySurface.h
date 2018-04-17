@@ -10,8 +10,6 @@
 #include "ui/Viewer.h"
 #include "pointCloud/PointCloudElement.h"
 
-typedef pcl::PointXYZRGB PointT;
-
 class MySurface : public PointCloudElement
 {
 public:
@@ -36,6 +34,11 @@ public:
 	pcl::PointCloud<PointT>::Ptr GetPointCloud()
 	{
 		return NULL;
+	}
+
+	pcl::PolygonMeshPtr GetMesh()
+	{
+		return _surface;
 	}
 
 	void SetIsSelected(bool isSelected)

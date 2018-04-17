@@ -1,10 +1,7 @@
 #ifndef FILTER_PROCESSING
 #define FILTER_PROCESSING
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
-typedef pcl::PointXYZRGB PointT;
+#include "Typedef.h"
 
 class FilterProcessing
 {

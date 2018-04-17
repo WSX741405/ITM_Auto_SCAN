@@ -31,11 +31,13 @@ void MainWindow::InitialMemberVariable()
 	_correspondencesFactory = new CorrespondencesFactory();
 	_regestrationFactory = new RegestrationFactory();
 	_reconstructFactory = new ReconstructFactory();
+	_smoothingFactory = new SmoothingFactory();
 	_filterProcessing = _filterFactory->GetVoixelGridFilter();
 	_keypointProcessing = _keypointFactory->GetSIFT();
 	_correspondencesProcessing = _correspondencesFactory->GetFPFH();
 	_regestrationProcessing = _regestrationFactory->GetICP();
 	_reconstructProcessing = _reconstructFactory->GetGreedyProjection();
+	_smoothingProcessing = _smoothingFactory->GetMeshSmoothingLaplacian();
 }
 
 void MainWindow::InitialConnectSlots()
@@ -70,30 +72,30 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_keypointProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessKeypointSlot()));
 	connect(_ui->_keypointTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeKeypointTabSlot(int)));
 	//		Keypoint : SIFT
-	connect(_ui->_siftMinScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSIFTScalesSlot()));
-	connect(_ui->_siftNROctavesSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetSIFTScalesSlot()));
-	connect(_ui->_siftNRScalesPerOctaveSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetSIFTScalesSlot()));
-	connect(_ui->_siftMinContrastSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSIFTMinContrastSlot()));
+	connect(_ui->_siftMinScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetKeypointScalesSlot()));
+	connect(_ui->_siftNROctavesSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetKeypointScalesSlot()));
+	connect(_ui->_siftNRScalesPerOctaveSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetKeypointScalesSlot()));
+	connect(_ui->_siftMinContrastSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetKeypointMinContrastSlot()));
 	//		Keypoint : harris
-	connect(_ui->_harrisRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetHarrisRadiusSlot()));
-	connect(_ui->_harrisRadiusSearchSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetHarrisRadiusSearchSlot()));
-	connect(_ui->_harrisMethodComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(SetHarrisMethodSlot(int)));
+	connect(_ui->_harrisRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetKeypointRadiusSlot()));
+	connect(_ui->_harrisRadiusSearchSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetKeypointRadiusSearchSlot()));
+	connect(_ui->_harrisMethodComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(SetKeypointMethodSlot(int)));
 	//		Filter
 	connect(_ui->_filterTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeFilterTabSlot(int)));
 	connect(_ui->_filterProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessFilterSlot()));
 	//		Filter : Voxel Grid
-	connect(_ui->_voxelGridXSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetVoxelGridXYZSlot()));
-	connect(_ui->_voxelGridYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetVoxelGridXYZSlot()));
-	connect(_ui->_voxelGridZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetVoxelGridXYZSlot()));
+	connect(_ui->_voxelGridXSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterVoxelGridXYZSlot()));
+	connect(_ui->_voxelGridYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterVoxelGridXYZSlot()));
+	connect(_ui->_voxelGridZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterVoxelGridXYZSlot()));
 	//		Filter : Bounding Box
-	connect(_ui->_boundingBoxMinXSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
-	connect(_ui->_boundingBoxMaxXSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
-	connect(_ui->_boundingBoxMinYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
-	connect(_ui->_boundingBoxMaxYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
-	connect(_ui->_boundingBoxMinZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
-	connect(_ui->_boundingBoxMaxZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetBoundingBoxSlot()));
-	connect(_ui->_outlierMeanKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetOutlierRemovalMeanKSlot(int)));
-	connect(_ui->_outlierStddevMulThreshSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetOutlierRemovalStddevMulThreshSlot(double)));
+	connect(_ui->_boundingBoxMinXSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMaxXSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMinYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMaxYSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMinZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterBoundingBoxSlot()));
+	connect(_ui->_boundingBoxMaxZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterBoundingBoxSlot()));
+	connect(_ui->_outlierMeanKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetFilterMeanKSlot(int)));
+	connect(_ui->_outlierStddevMulThreshSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterStddevMulThreshSlot(double)));
 	//		Correspondences
 	connect(_ui->_correspondencesTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeCorrespondencesTabSlot(int)));
 	connect(_ui->_correspondencesProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessCorrespondencesSlot()));
@@ -119,26 +121,36 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_pfhrgbRejectorInlierThresholdSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetRejectorInlierThresholdSlot(double)));
 	//		Regestration : ICP
 	connect(_ui->_regestrationProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessRegestrationSlot()));
-	connect(_ui->_icpCorrespondenceDistanceSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetICPCorrespondenceDistanceSlot(double)));
-	connect(_ui->_icpOutlierThresholdSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetICPOutlierThresholdSlot(double)));
-	connect(_ui->_icpTransformationEpsilonSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetICPTransformationEpsilonSlot(double)));
-	connect(_ui->_icpMaxIterationsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetICPMaxIterationsSlot(int)));
+	connect(_ui->_icpCorrespondenceDistanceSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetRegestrationCorrespondenceDistanceSlot(double)));
+	connect(_ui->_icpOutlierThresholdSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetRegestrationOutlierThresholdSlot(double)));
+	connect(_ui->_icpTransformationEpsilonSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetRegestrationTransformationEpsilonSlot(double)));
+	connect(_ui->_icpMaxIterationsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetRegestrationMaxIterationsSlot(int)));
 	//		Reconstruct : Greedy Projection
 	connect(_ui->_reconstructTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeReconstructTabSlot(int)));
 	connect(_ui->_reconstructProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessReconstructSlot()));
-	connect(_ui->_greedyProjectionSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSearchRadiusSlot(double)));
-	connect(_ui->_greedyProjectionMuSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetMuSlot(double)));
-	connect(_ui->_greedyProjectionMaxNearestNeighborsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxNearestNeighborsSlot(int)));
-	connect(_ui->_greedyProjectionMaxSurfaceAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxSurfaceAngleSlot(int)));
-	connect(_ui->_greedyProjectionMinAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMinAngleSlot(int)));
-	connect(_ui->_greedyProjectionMaxAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetMaxAngleSlot(int)));
-	connect(_ui->_greedyProjectNormalSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetNormalSearchRadiusSlot(double)));
-	/*		Reconstruct : Marching Cubes
+	connect(_ui->_greedyProjectionSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetReconstructSearchRadiusSlot(double)));
+	connect(_ui->_greedyProjectionMuSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetReconstructMuSlot(double)));
+	connect(_ui->_greedyProjectionMaxNearestNeighborsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetReconstructMaxNearestNeighborsSlot(int)));
+	connect(_ui->_greedyProjectionMaxSurfaceAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetReconstructMaxSurfaceAngleSlot(int)));
+	connect(_ui->_greedyProjectionMinAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetReconstructMinAngleSlot(int)));
+	connect(_ui->_greedyProjectionMaxAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetReconstructMaxAngleSlot(int)));
+	connect(_ui->_greedyProjectNormalSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetReconstructNormalSearchRadiusSlot(double)));
+	connect(_ui->_poissonNormalRadiusSearchSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetReconstructNormalSearchRadiusSlot(double)));
+	connect(_ui->_poissonDepthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetReconstructDepthSlot(int)));
+	/*		@@@@@@@@    Reconstruct : Marching Cubes
 	connect(_ui->_marchingCubesGridResolutionXSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetGridResolutionXYZSlot()));
 	connect(_ui->_marchingCubesGridResolutionYSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetGridResolutionXYZSlot()));
 	connect(_ui->_marchingCubesGridResolutionZSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetGridResolutionXYZSlot()));
 	connect(_ui->_marchingCubesIsoLevelSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetIsoLevelSlot(double)));
 	connect(_ui->_marchingCubesNormalSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetNormalSearchRadiusSlot(double)));*/
+	//		Smoothing
+	connect(_ui->_smoothingTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeSmoothingTabSlot(int)));
+	connect(_ui->_smoothingProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessSmoothingSlot()));
+	connect(_ui->_smoothingLaplacianNumIterSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetSmoothingNumIterSlot(int)));
+	connect(_ui->_smoothingLaplacianConvergenceSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSmoothingConvergenceSlot(double)));
+	connect(_ui->_smoothingLaplacianRelaxationFactorSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSmoothingRelaxationFactorMaxAngleSlot(double)));
+	connect(_ui->_smoothingLaplacianFeatureAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetSmoothingFeatureAngleSlot(int)));
+	connect(_ui->_resampleingSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSmoothingSearchRadiusSlot(double)));
 }
 
 //****************************************************************
@@ -500,7 +512,7 @@ void MainWindow::ProcessKeypoint2ICPSlot()
 	for (int counter = 1; counter < clouds.size(); counter++)
 	{
 		pcl::PointCloud<PointT>::Ptr corTarget = clouds[counter]->GetPointCloud();
-		//    @@@@@@@@    Extract Keypoint & Correspondence
+		/*    @@@@@@@@    Extract Keypoint & Correspondence
 		_keypointProcessing->Processing(corSource);
 		pcl::PointCloud<KeypointT>::Ptr corSourceKeypoint;
 		corSourceKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
@@ -509,13 +521,13 @@ void MainWindow::ProcessKeypoint2ICPSlot()
 		corTargetKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
 		_correspondencesProcessing->Processing(corSource, corSourceKeypoint, corTarget, corTargetKeypoint);
 		pcl::PointCloud<PointT>::Ptr corResult = _correspondencesProcessing->GetResult();
-		_regestrationProcessing->Processing(corTarget, corResult);
-		//_regestrationProcessing->Processing(corSource, corTarget);
+		_regestrationProcessing->Processing(corTarget, corResult);*/
+		_regestrationProcessing->Processing(corSource, corTarget);
 		//     @@@@@@@@    Outlier Removal
-		FilterProcessing* filter = _filterFactory->GetOutlierRemovalFilter();
-		filter->Processing(_regestrationProcessing->GetResult());
-		corSource = filter->GetResult();
-		//corSource = _regestrationProcessing->GetResult();
+		//FilterProcessing* filter = _filterFactory->GetOutlierRemovalFilter();
+		//filter->Processing(_regestrationProcessing->GetResult());
+		//corSource = filter->GetResult();
+		corSource = _regestrationProcessing->GetResult();
 		std::cout << "Process : " << counter + 1 << " / " << clouds.size() << std::endl;
 		std::string name = std::string("Process") + TypeConversion::Int2String(counter);
 		MyPointCloud* cloud = new MyPointCloud(corSource, name);
@@ -557,7 +569,7 @@ void MainWindow::ProcessFilterSlot()
 	}
 }
 
-void MainWindow::SetVoxelGridXYZSlot()
+void MainWindow::SetFilterVoxelGridXYZSlot()
 {
 	float x = TypeConversion::QString2Float(_ui->_voxelGridXSpinBox->text());
 	float y = TypeConversion::QString2Float(_ui->_voxelGridYSpinBox->text());
@@ -565,7 +577,7 @@ void MainWindow::SetVoxelGridXYZSlot()
 	_filterProcessing->SetLeafSize(x, y, z);
 }
 
-void MainWindow::SetBoundingBoxSlot()
+void MainWindow::SetFilterBoundingBoxSlot()
 {
 	float minX = TypeConversion::QString2Float(_ui->_boundingBoxMinXSpinBox->text());
 	float maxX = TypeConversion::QString2Float(_ui->_boundingBoxMaxXSpinBox->text());
@@ -576,12 +588,12 @@ void MainWindow::SetBoundingBoxSlot()
 	_filterProcessing->SetBoundingBox(minX, maxX, minY, maxY, minZ, maxZ);
 }
 
-void MainWindow::SetOutlierRemovalMeanKSlot(int meanK)
+void MainWindow::SetFilterMeanKSlot(int meanK)
 {
 	_filterProcessing->SetMeanK(meanK);
 }
 
-void MainWindow::SetOutlierRemovalStddevMulThreshSlot(double stddevMulThresh)
+void MainWindow::SetFilterStddevMulThreshSlot(double stddevMulThresh)
 {
 	_filterProcessing->SetStddevMulThresh(stddevMulThresh);
 }
@@ -619,7 +631,7 @@ void MainWindow::ChangeKeypointTabSlot(int index)
 	}
 }
 
-void MainWindow::SetSIFTScalesSlot()
+void MainWindow::SetKeypointScalesSlot()
 {
 	float minScale = TypeConversion::QString2Float(_ui->_siftMinScaleSpinBox->text());
 	int nrOctaves = TypeConversion::QString2Int(_ui->_siftNROctavesSpinBox->text());
@@ -627,13 +639,13 @@ void MainWindow::SetSIFTScalesSlot()
 	_keypointProcessing->SetScales(minScale, nrOctaves, nrScalesPerOctave);
 }
 
-void MainWindow::SetSIFTMinContrastSlot()
+void MainWindow::SetKeypointMinContrastSlot()
 {
 	float siftMinContrast = TypeConversion::QString2Float(_ui->_siftMinContrastSpinBox->text());
 	_keypointProcessing->SetMinContrast(siftMinContrast);
 }
 
-void MainWindow::SetHarrisMethodSlot(int index)
+void MainWindow::SetKeypointMethodSlot(int index)
 {
 	if (index == 0)
 	{
@@ -657,13 +669,13 @@ void MainWindow::SetHarrisMethodSlot(int index)
 	}
 }
 
-void MainWindow::SetHarrisRadiusSlot()
+void MainWindow::SetKeypointRadiusSlot()
 {
 	float harrisRadius = TypeConversion::QString2Float(_ui->_harrisRadiusSpinBox->text());
 	_keypointProcessing->SetRadius(harrisRadius);
 }
 
-void MainWindow::SetHarrisRadiusSearchSlot()
+void MainWindow::SetKeypointRadiusSearchSlot()
 {
 	float harrisRadiusSearch = TypeConversion::QString2Float(_ui->_harrisRadiusSearchSpinBox->text());
 	_keypointProcessing->SetRadiusSearch(harrisRadiusSearch);
@@ -770,22 +782,22 @@ void MainWindow::ProcessRegestrationSlot()
 	UpdatePointCloudViewer();
 }
 
-void MainWindow::SetICPCorrespondenceDistanceSlot(double correspondenceDistance)
+void MainWindow::SetRegestrationCorrespondenceDistanceSlot(double correspondenceDistance)
 {
 	_regestrationProcessing->SetCorrespondenceDistance(correspondenceDistance);
 }
 
-void MainWindow::SetICPOutlierThresholdSlot(double outlierThreshold)
+void MainWindow::SetRegestrationOutlierThresholdSlot(double outlierThreshold)
 {
 	_regestrationProcessing->SetRansacOutlierRejectionThreshold(outlierThreshold);
 }
 
-void MainWindow::SetICPTransformationEpsilonSlot(double transformationEpsilon)
+void MainWindow::SetRegestrationTransformationEpsilonSlot(double transformationEpsilon)
 {
 	_regestrationProcessing->SetTransformationEpsilon(transformationEpsilon);
 }
 
-void MainWindow::SetICPMaxIterationsSlot(int maxIterations)
+void MainWindow::SetRegestrationMaxIterationsSlot(int maxIterations)
 {
 	_regestrationProcessing->SetMaximumIterations(maxIterations);
 }
@@ -812,44 +824,44 @@ void MainWindow::ProcessReconstructSlot()
 	{
 		_reconstructProcessing->Processing(clouds[counter]->GetPointCloud());
 		std::string name = clouds[0]->GetName() + "_" + std::string("_Reconstruct");
-		MySurface* surface = new MySurface(_reconstructProcessing->GetSurface(), name);
+		MySurface* surface = new MySurface(_reconstructProcessing->GetResult(), name);
 		_elements->AddPointCloudElement(surface);
 	}
 	UpdatePointCloudTable();
 	UpdatePointCloudViewer();
 }
 
-void MainWindow::SetSearchRadiusSlot(double searchRadius)
+void MainWindow::SetReconstructSearchRadiusSlot(double searchRadius)
 {
 	_reconstructProcessing->SetSearchRadius(searchRadius);
 }
 
-void MainWindow::SetMuSlot(double mu)
+void MainWindow::SetReconstructMuSlot(double mu)
 {
 	_reconstructProcessing->SetMu(mu);
 }
 
-void MainWindow::SetMaxNearestNeighborsSlot(int maxNearestNeighbors)
+void MainWindow::SetReconstructMaxNearestNeighborsSlot(int maxNearestNeighbors)
 {
 	_reconstructProcessing->SetMaxNearestNeighbors(maxNearestNeighbors);
 }
 
-void MainWindow::SetMaxSurfaceAngleSlot(int maxSurfaceAngle)
+void MainWindow::SetReconstructMaxSurfaceAngleSlot(int maxSurfaceAngle)
 {
 	_reconstructProcessing->SetMaxSurfaceAngle(maxSurfaceAngle);
 }
 
-void MainWindow::SetMinAngleSlot(int minAngle)
+void MainWindow::SetReconstructMinAngleSlot(int minAngle)
 {
 	_reconstructProcessing->SetMinAngle(minAngle);
 }
 
-void MainWindow::SetMaxAngleSlot(int maxAngle)
+void MainWindow::SetReconstructMaxAngleSlot(int maxAngle)
 {
 	_reconstructProcessing->SetMaxAngle(maxAngle);
 }
 
-void MainWindow::SetGridResolutionXYZSlot()
+void MainWindow::SetReconstructGridResolutionXYZSlot()
 {
 	/*
 	float x = TypeConversion::QString2Float(_ui->_marchingCubesGridResolutionXSpinBox->text());
@@ -859,12 +871,82 @@ void MainWindow::SetGridResolutionXYZSlot()
 	*/
 }
 
-void MainWindow::SetIsoLevelSlot(double isoLevel)
+void MainWindow::SetReconstructIsoLevelSlot(double isoLevel)
 {
 	_reconstructProcessing->SetIsoLevel(isoLevel);
 }
 
-void MainWindow::SetNormalSearchRadiusSlot(double normalSearchRadius)
+void MainWindow::SetReconstructNormalSearchRadiusSlot(double normalSearchRadius)
 {
 	_reconstructProcessing->SetNormalSearchRadius(normalSearchRadius);
+}
+
+void MainWindow::SetReconstructDepthSlot(int depth)
+{
+	_reconstructProcessing->SetReconstructDepth(depth);
+}
+
+//****************************************************************
+//								Slots : Smoothing Processing
+//****************************************************************
+void MainWindow::ProcessSmoothingSlot()
+{
+	int index = _ui->_smoothingTabWidget->currentIndex();
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	for (int counter = 0; counter < clouds.size(); counter++)
+	{
+		if (index == 0)
+		{
+			_smoothingProcessing->Processing(clouds[counter]->GetMesh());
+			std::string name = clouds[0]->GetName() + "_" + std::string("_Smoothing");
+			MySurface* surface = new MySurface(_smoothingProcessing->GetMeshResult(), name);
+			_elements->AddPointCloudElement(surface);
+		}
+		else
+		{
+			_smoothingProcessing->Processing(clouds[counter]->GetPointCloud());
+			std::string name = clouds[0]->GetName() + "_" + std::string("_Smoothing");
+			MyPointCloud* cloud = new MyPointCloud(_smoothingProcessing->GetCloudResult(), name);
+			_elements->AddPointCloudElement(cloud);
+		}
+	}
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
+}
+
+void MainWindow::ChangeSmoothingTabSlot(int index)
+{
+	if (index == 0)
+	{
+		_smoothingProcessing = _smoothingFactory->GetMeshSmoothingLaplacian();
+	}
+	else if (index == 1)
+	{
+		_smoothingProcessing = _smoothingFactory->GetResampling();
+	}
+}
+
+void MainWindow::SetSmoothingNumIterSlot(int numIter)
+{
+	_smoothingProcessing->SetNumIter(numIter);
+}
+
+void MainWindow::SetSmoothingConvergenceSlot(double convergence)
+{
+	_smoothingProcessing->SetConvergence(convergence);
+}
+
+void MainWindow::SetSmoothingRelaxationFactorMaxAngleSlot(double relaxationFactor)
+{
+	_smoothingProcessing->SetRelaxationFactor(relaxationFactor);
+}
+
+void MainWindow::SetSmoothingFeatureAngleSlot(int featureAngle)
+{
+	_smoothingProcessing->SetFeatureAngle(featureAngle);
+}
+
+void MainWindow::SetSmoothingSearchRadiusSlot(double searchRadius)
+{
+	_smoothingProcessing->SetSearchRadius(searchRadius);
 }
