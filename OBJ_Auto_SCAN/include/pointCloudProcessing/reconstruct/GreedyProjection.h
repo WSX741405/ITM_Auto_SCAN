@@ -13,7 +13,8 @@ class GreedyProjection : public ReconstructProcessing
 public:
 	GreedyProjection();
 	void Processing(pcl::PointCloud<PointT>::Ptr cloud);
-	pcl::PolygonMeshPtr GetResult();
+	pcl::PolygonMeshPtr GetMesh();
+	pcl::PointCloud<PointT>::Ptr GetCloud();
 	void SetSearchRadius(double searchRadius);
 	void SetMu(double mu);
 	void SetMaxNearestNeighbors(int maxNearestNeighbors);
@@ -24,6 +25,7 @@ public:
 	void SetIsoLevel(float isoLevel);
 	void SetNormalSearchRadius(double normalSearchRadius);
 	void SetReconstructDepth(int depth);
+	void SetReconstructAlpha(double alpha);
 
 private:
 	pcl::PCLSurfaceBase<SurfacePointT>::Ptr _reconstructSurface;

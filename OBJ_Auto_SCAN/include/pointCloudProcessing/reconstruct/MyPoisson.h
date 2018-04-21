@@ -2,6 +2,7 @@
 #define MY_POISSON
 
 #include "Typedef.h"
+#include <pcl/filters/passthrough.h>
 #include <pcl/surface/poisson.h>
 
 #include "ReconstructProcessing.h"
@@ -11,7 +12,8 @@ class MyPoisson : public ReconstructProcessing
 public:
 	MyPoisson();
 	void Processing(pcl::PointCloud<PointT>::Ptr cloud);
-	pcl::PolygonMeshPtr GetResult();
+	pcl::PolygonMeshPtr GetMesh();
+	pcl::PointCloud<PointT>::Ptr GetCloud();
 	void SetSearchRadius(double searchRadius);
 	void SetMu(double mu);
 	void SetMaxNearestNeighbors(int maxNearestNeighbors);
@@ -22,6 +24,7 @@ public:
 	void SetIsoLevel(float isoLevel);
 	void SetNormalSearchRadius(double normalSearchRadius);
 	void SetReconstructDepth(int depth);
+	void SetReconstructAlpha(double alpha);
 
 private:
 	pcl::PolygonMeshPtr _surface;

@@ -20,6 +20,7 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include <QCloseEvent>
 
 #include "ui_MainWindow.h"
+#include "ui/BoundingBoxTestDialog.h";
 #include "ui/Viewer.h"
 #include "observer/ObserverFactory.h"
 #include "file/FileFactory.h"
@@ -59,6 +60,7 @@ public slots:
 	void UpdateViewerSlot(pcl::PointCloud<PointT>::Ptr pointCloud);
 	void TableItemChangeSlot(QTableWidgetItem* item);
 	std::string ShowInputDialogSlot(bool* ok, const char* title = "", const char* label = "", const char* text = "");
+	void GetDialogResultSlot(float minX, float maxX, float minY, float maxY, float minZ, float maxZ);
 	//****************************************************************
 	//										File
 	//****************************************************************
@@ -88,7 +90,7 @@ public slots:
 	void RemoveAllPointCloudSlot();
 	void SelectAllPointCloudSlot();
 	void UnselectAllPointCloudSlot();
-	void ProcessKeypoint2ICPSlot();
+	void ProcessICPMultiFrameSlot();
 	//****************************************************************
 	//										Keypoint
 	//****************************************************************
@@ -108,6 +110,7 @@ public slots:
 	void SetFilterBoundingBoxSlot();
 	void SetFilterMeanKSlot(int meanK);
 	void SetFilterStddevMulThreshSlot(double stddevMulThresh);
+	void TestBoundingBoxSlot();
 	//****************************************************************
 	//										Correspondences
 	//****************************************************************
@@ -141,6 +144,7 @@ public slots:
 	void SetReconstructIsoLevelSlot(double isoLevel);
 	void SetReconstructNormalSearchRadiusSlot(double normalSearchRadius);
 	void SetReconstructDepthSlot(int);
+	void SetReconstructAlphaSlot(double);
 	//****************************************************************
 	//										Smoothing
 	//****************************************************************
@@ -165,6 +169,7 @@ private:
 	void OpenFile(std::string dir, std::string filter);
 	void SaveFile(std::string dir, std::string filter);
 
+	BoundingBoxTestDialog* _dialog;
 	Viewer* _viewer;
 	UIObserver* _uiObserver;
 	FileFactory* _fileFactory;

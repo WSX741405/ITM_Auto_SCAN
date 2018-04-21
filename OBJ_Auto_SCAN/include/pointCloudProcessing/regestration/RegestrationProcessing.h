@@ -12,6 +12,7 @@ public:
 	virtual void SetTransformationEpsilon(float transformationEpsilon) = 0;
 	virtual void SetMaximumIterations(int maximumIterations) = 0;
 	virtual pcl::PointCloud<PointT>::Ptr GetResult() = 0;
+	virtual Eigen::Matrix4f GetMatrix() = 0;
 
 private:
 

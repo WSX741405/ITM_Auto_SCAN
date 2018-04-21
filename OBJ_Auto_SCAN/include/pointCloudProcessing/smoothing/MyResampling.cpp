@@ -33,12 +33,12 @@ void MyResampling::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 	mls.process(*_result);
 }
 
-pcl::PolygonMeshPtr MyResampling::GetMeshResult()
+pcl::PolygonMeshPtr MyResampling::GetMesh()
 {
 	return NULL;
 }
 
-pcl::PointCloud<PointT>::Ptr MyResampling::GetCloudResult()
+pcl::PointCloud<PointT>::Ptr MyResampling::GetCloud()
 {
 	pcl::PointCloud<PointT>::Ptr result;
 	result.reset(new pcl::PointCloud<PointT>);

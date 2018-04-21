@@ -15,6 +15,7 @@ public:
 	void SetRansacOutlierRejectionThreshold(float ransacOutlierRejectionThreshold);
 	void SetTransformationEpsilon(float transformationEpsilon);
 	void SetMaximumIterations(int maximumIterations);
+	Eigen::Matrix4f GetMatrix();
 	pcl::PointCloud<PointT>::Ptr GetResult();
 
 private:

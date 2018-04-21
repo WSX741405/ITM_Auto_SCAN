@@ -35,9 +35,14 @@ void MarchingCubes::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 	surfaceReconstruction->reconstruct(*_surface);
 }
 
-pcl::PolygonMeshPtr MarchingCubes::GetResult()
+pcl::PolygonMeshPtr MarchingCubes::GetMesh()
 {
 	return _surface;
+}
+
+pcl::PointCloud<PointT>::Ptr MarchingCubes::GetCloud()
+{
+	return NULL;
 }
 
 void MarchingCubes::SetSearchRadius(double searchRadius)
@@ -88,6 +93,11 @@ void MarchingCubes::SetNormalSearchRadius(double normalSearchRadius)
 }
 
 void MarchingCubes::SetReconstructDepth(int depth)
+{
+	return;
+}
+
+void MarchingCubes::SetReconstructAlpha(double alpha)
 {
 	return;
 }

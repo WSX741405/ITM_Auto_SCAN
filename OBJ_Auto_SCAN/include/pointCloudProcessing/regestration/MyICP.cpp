@@ -45,6 +45,11 @@ void MyICP::SetMaximumIterations(int maximumIterations)
 	_maximumIterations = maximumIterations;
 }
 
+Eigen::Matrix4f MyICP::GetMatrix()
+{
+	return _registeredMatrix;
+}
+
 pcl::PointCloud<PointT>::Ptr MyICP::GetResult()
 {
 	return _registeredCloud;

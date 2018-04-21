@@ -70,11 +70,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BoundingBoxTestDialog.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_IObserver.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_MainWindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_BoundingBoxTestDialog.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_IObserver.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -102,6 +108,7 @@
     <ClCompile Include="include\pointCloudProcessing\keypoint\KeypointFactory.cpp" />
     <ClCompile Include="include\pointCloudProcessing\keypoint\MyHarris3D.cpp" />
     <ClCompile Include="include\pointCloudProcessing\keypoint\MySIFT3D.cpp" />
+    <ClCompile Include="include\pointCloudProcessing\reconstruct\ConcaveHull.cpp" />
     <ClCompile Include="include\pointCloudProcessing\reconstruct\GreedyProjection.cpp" />
     <ClCompile Include="include\pointCloudProcessing\reconstruct\MarchingCubes.cpp" />
     <ClCompile Include="include\pointCloudProcessing\reconstruct\MyPoisson.cpp" />
@@ -111,6 +118,7 @@
     <ClCompile Include="include\pointCloudProcessing\smoothing\MeshSmoothingLaplacian.cpp" />
     <ClCompile Include="include\pointCloudProcessing\smoothing\MyResampling.cpp" />
     <ClCompile Include="include\pointCloudProcessing\smoothing\SmoothingFactory.cpp" />
+    <ClCompile Include="include\ui\BoundingBoxTestDialog.cpp" />
     <ClCompile Include="include\ui\MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +134,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_BoundingBoxTestDialog.h" />
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h" />
     <ClInclude Include="include\arduino\Arduino.h" />
     <ClInclude Include="include\arduino\tserial.h" />
@@ -170,6 +179,7 @@
     <ClInclude Include="include\pointCloudProcessing\keypoint\KeypointProcessing.h" />
     <ClInclude Include="include\pointCloudProcessing\keypoint\MyHarris3D.h" />
     <ClInclude Include="include\pointCloudProcessing\keypoint\MySIFT3D.h" />
+    <ClInclude Include="include\pointCloudProcessing\reconstruct\ConcaveHull.h" />
     <ClInclude Include="include\pointCloudProcessing\reconstruct\GreedyProjection.h" />
     <ClInclude Include="include\pointCloudProcessing\reconstruct\MarchingCubes.h" />
     <ClInclude Include="include\pointCloudProcessing\reconstruct\MyPoisson.h" />
@@ -189,6 +199,16 @@
     <ClInclude Include="include\Conversion.h" />
     <ClInclude Include="include\pointCloud\PointCloudElement.h" />
     <ClInclude Include="include\Typedef.h" />
+    <CustomBuild Include="include\ui\BoundingBoxTestDialog.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing BoundingBoxTestDialog.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I." "-I.\include" "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Eigen\eigen3" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\include\vtk-7.0" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtCore" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtGui" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtWidgets" "-IC:\Program Files (x86)\Intel\RSSDK\include" "-ID:\Code\Royale3.11.0.42\include"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing BoundingBoxTestDialog.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I." "-I.\include" "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\include\pcl-1.8" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Eigen\eigen3" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\Boost\include\boost-1_61" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\FLANN\include" "-ID:\Code\PCL-1.8.0-vs2015\PCL 1.8.0\3rdParty\VTK\include\vtk-7.0" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtCore" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtGui" "-ID:\Code\QT5.9.1\5.9.1\msvc2015_64\include\QtWidgets" "-IC:\Program Files (x86)\Intel\RSSDK\include" "-ID:\Code\Royale3.11.0.42\include"</Command>
+    </CustomBuild>
     <ClInclude Include="include\ui\Viewer.h" />
     <CustomBuild Include="include\ui\MainWindow.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -211,6 +231,18 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Rcc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="BoundingBoxTestDialog.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -19,6 +19,7 @@ void MainWindow::InitialMemberVariable()
 	_preFrameTime = clock();
 	_grabber = NULL;
 
+	_dialog = new BoundingBoxTestDialog();
 	_viewer = new Viewer();
 	_uiObserver = new UIObserver(this);
 	_fileFactory = new FileFactory();
@@ -67,7 +68,7 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_selectAllPointCloudsAction, SIGNAL(triggered()), this, SLOT(SelectAllPointCloudSlot()));
 	connect(_ui->_unselectAllPointCloudsAction, SIGNAL(triggered()), this, SLOT(UnselectAllPointCloudSlot()));
 	//		Processing
-	connect(_ui->_processKeypoint2ICPAction, SIGNAL(triggered()), this, SLOT(ProcessKeypoint2ICPSlot()));
+	connect(_ui->_processICPMultiFrameAction, SIGNAL(triggered()), this, SLOT(ProcessICPMultiFrameSlot()));
 	//		Keypoint
 	connect(_ui->_keypointProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessKeypointSlot()));
 	connect(_ui->_keypointTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeKeypointTabSlot(int)));
@@ -96,6 +97,7 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_boundingBoxMaxZSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterBoundingBoxSlot()));
 	connect(_ui->_outlierMeanKSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetFilterMeanKSlot(int)));
 	connect(_ui->_outlierStddevMulThreshSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetFilterStddevMulThreshSlot(double)));
+	connect(_ui->_testBoundingBoxButton, SIGNAL(clicked()), this, SLOT(TestBoundingBoxSlot()));
 	//		Correspondences
 	connect(_ui->_correspondencesTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeCorrespondencesTabSlot(int)));
 	connect(_ui->_correspondencesProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessCorrespondencesSlot()));
@@ -151,6 +153,7 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_smoothingLaplacianRelaxationFactorSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSmoothingRelaxationFactorMaxAngleSlot(double)));
 	connect(_ui->_smoothingLaplacianFeatureAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetSmoothingFeatureAngleSlot(int)));
 	connect(_ui->_resampleingSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSmoothingSearchRadiusSlot(double)));
+	connect(_ui->_concaveHullAlphaSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetReconstructAlphaSlot(double)));
 }
 
 //****************************************************************
@@ -421,7 +424,11 @@ void MainWindow::ControlMotorSlot()
 void MainWindow::KeepOneFrameSlot()
 {
 	_keepFrameNumber = 0;
-	if (_grabber == NULL)	return;
+	if (_grabber == NULL)
+	{
+		QMessageBox::about(this, tr("Keep One Frame"), tr("Grabber is not open!"));
+		return;
+	}
 	pcl::PointCloud<PointT>::Ptr copyCloud;
 	copyCloud.reset(new pcl::PointCloud<PointT>(*_tmpPointCloud));
 	bool ok;
@@ -440,7 +447,11 @@ void MainWindow::KeepOneFrameSlot()
 
 void MainWindow::KeepContinueFrameSlot()
 {
-	if (_grabber == NULL)	return;
+	if (_grabber == NULL)
+	{
+		QMessageBox::about(this, tr("Keep Continue Frame"), tr("Grabber is not open!"));
+		return;
+	}
 	if (TypeConversion::QString2String(_ui->_keepContinueFrameAction->text()) == "Continue Frame")
 	{
 		bool ok;
@@ -503,32 +514,34 @@ void MainWindow::UnselectAllPointCloudSlot()
 //								Slots : Processing
 //****************************************************************
 
-void MainWindow::ProcessKeypoint2ICPSlot()
+void MainWindow::ProcessICPMultiFrameSlot()
 {
 	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
 	pcl::PointCloud<PointT>::Ptr corSource = clouds[0]->GetPointCloud();
+	std::vector<Eigen::Matrix4f> matrices;
 	if (clouds.size() < 2)
+	{
+		QMessageBox::about(this, tr("Process ICP"), tr("Selecct More Than Two Point Cloud!"));
 		return;
+	}
 	for (int counter = 1; counter < clouds.size(); counter++)
 	{
 		pcl::PointCloud<PointT>::Ptr corTarget = clouds[counter]->GetPointCloud();
-		/*    @@@@@@@@    Extract Keypoint & Correspondence
-		_keypointProcessing->Processing(corSource);
-		pcl::PointCloud<KeypointT>::Ptr corSourceKeypoint;
-		corSourceKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
-		_keypointProcessing->Processing(corTarget);
-		pcl::PointCloud<KeypointT>::Ptr corTargetKeypoint;
-		corTargetKeypoint.reset(new pcl::PointCloud<KeypointT>(*_keypointProcessing->GetResult()));
-		_correspondencesProcessing->Processing(corSource, corSourceKeypoint, corTarget, corTargetKeypoint);
-		pcl::PointCloud<PointT>::Ptr corResult = _correspondencesProcessing->GetResult();
-		_regestrationProcessing->Processing(corTarget, corResult);*/
 		_regestrationProcessing->Processing(corSource, corTarget);
-		//     @@@@@@@@    Outlier Removal
-		//FilterProcessing* filter = _filterFactory->GetOutlierRemovalFilter();
-		//filter->Processing(_regestrationProcessing->GetResult());
-		//corSource = filter->GetResult();
 		corSource = _regestrationProcessing->GetResult();
+		matrices.push_back(_regestrationProcessing->GetMatrix());
 		std::cout << "Process : " << counter + 1 << " / " << clouds.size() << std::endl;
+		//std::string name = std::string("Process") + TypeConversion::Int2String(counter);
+		//MyPointCloud* cloud = new MyPointCloud(corSource, name);
+		//_elements->AddPointCloudElement(cloud);
+	}
+	for (int counter = 0; counter < matrices.size(); counter++)
+	{
+		pcl::PointCloud<PointT>::Ptr result;
+		result.reset(new pcl::PointCloud<PointT>(*clouds[0]->GetPointCloud()));
+		pcl::transformPointCloud(*result, *result, matrices[counter]);
+		*result += *clouds[counter + 1]->GetPointCloud();
+		//std::cout << "Process : " << counter + 1 << " / " << clouds.size() << std::endl;
 		std::string name = std::string("Process") + TypeConversion::Int2String(counter);
 		MyPointCloud* cloud = new MyPointCloud(corSource, name);
 		_elements->AddPointCloudElement(cloud);
@@ -596,6 +609,29 @@ void MainWindow::SetFilterMeanKSlot(int meanK)
 void MainWindow::SetFilterStddevMulThreshSlot(double stddevMulThresh)
 {
 	_filterProcessing->SetStddevMulThresh(stddevMulThresh);
+}
+
+void MainWindow::TestBoundingBoxSlot()
+{
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	if (clouds.size() != 1)
+	{
+		QMessageBox::about(this, tr("Bounding Box Test"), tr("Selecct One Point Cloud!"));
+		return;
+	}
+	_dialog->SetPointCloud(clouds[0]);
+	_dialog->show();
+	connect(_dialog, SIGNAL(TestFinished(float, float, float, float, float, float)), this, SLOT(GetDialogResultSlot(float, float, float, float, float, float)));
+}
+
+void MainWindow::GetDialogResultSlot(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
+{
+	_ui->_boundingBoxMinXSpinBox->setValue(minX);
+	_ui->_boundingBoxMaxXSpinBox->setValue(maxX);
+	_ui->_boundingBoxMinYSpinBox->setValue(minY);
+	_ui->_boundingBoxMaxYSpinBox->setValue(maxY);
+	_ui->_boundingBoxMinZSpinBox->setValue(minZ);
+	_ui->_boundingBoxMaxZSpinBox->setValue(maxZ);
 }
 
 //****************************************************************
@@ -815,17 +851,30 @@ void MainWindow::ChangeReconstructTabSlot(int index)
 	{
 		_reconstructProcessing = _reconstructFactory->GetPoisson();
 	}
+	else if (index == 2)
+	{
+		_reconstructProcessing = _reconstructFactory->GetConcaveHull();
+	}
 }
 
 void MainWindow::ProcessReconstructSlot()
 {
+	int index = _ui->_reconstructTabWidget->currentIndex();
 	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
 	for (int counter = 0; counter < clouds.size(); counter++)
 	{
 		_reconstructProcessing->Processing(clouds[counter]->GetPointCloud());
 		std::string name = clouds[0]->GetName() + "_" + std::string("_Reconstruct");
-		MySurface* surface = new MySurface(_reconstructProcessing->GetResult(), name);
-		_elements->AddPointCloudElement(surface);
+		if (index == 0 || index == 1)
+		{
+			MySurface* surface = new MySurface(_reconstructProcessing->GetMesh(), name);
+			_elements->AddPointCloudElement(surface);
+		}
+		else
+		{
+			MyPointCloud* cloud = new MyPointCloud(_reconstructProcessing->GetCloud(), name);
+			_elements->AddPointCloudElement(cloud);
+		}
 	}
 	UpdatePointCloudTable();
 	UpdatePointCloudViewer();
@@ -886,6 +935,11 @@ void MainWindow::SetReconstructDepthSlot(int depth)
 	_reconstructProcessing->SetReconstructDepth(depth);
 }
 
+void MainWindow::SetReconstructAlphaSlot(double alpha)
+{
+	_reconstructProcessing->SetReconstructAlpha(alpha);
+}
+
 //****************************************************************
 //								Slots : Smoothing Processing
 //****************************************************************
@@ -899,14 +953,14 @@ void MainWindow::ProcessSmoothingSlot()
 		{
 			_smoothingProcessing->Processing(clouds[counter]->GetMesh());
 			std::string name = clouds[0]->GetName() + "_" + std::string("_Smoothing");
-			MySurface* surface = new MySurface(_smoothingProcessing->GetMeshResult(), name);
+			MySurface* surface = new MySurface(_smoothingProcessing->GetMesh(), name);
 			_elements->AddPointCloudElement(surface);
 		}
 		else
 		{
 			_smoothingProcessing->Processing(clouds[counter]->GetPointCloud());
 			std::string name = clouds[0]->GetName() + "_" + std::string("_Smoothing");
-			MyPointCloud* cloud = new MyPointCloud(_smoothingProcessing->GetCloudResult(), name);
+			MyPointCloud* cloud = new MyPointCloud(_smoothingProcessing->GetCloud(), name);
 			_elements->AddPointCloudElement(cloud);
 		}
 	}

@@ -43,9 +43,14 @@ void GreedyProjection::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 	surfaceReconstruction->reconstruct(*_surface);
 }
 
-pcl::PolygonMeshPtr GreedyProjection::GetResult()
+pcl::PolygonMeshPtr GreedyProjection::GetMesh()
 {
 	return _surface;
+}
+
+pcl::PointCloud<PointT>::Ptr GreedyProjection::GetCloud()
+{
+	return NULL;
 }
 
 void GreedyProjection::SetSearchRadius(double searchRadius)
@@ -94,6 +99,11 @@ void GreedyProjection::SetNormalSearchRadius(double normalSearchRadius)
 }
 
 void GreedyProjection::SetReconstructDepth(int depth)
+{
+	return;
+}
+
+void GreedyProjection::SetReconstructAlpha(double alpha)
 {
 	return;
 }

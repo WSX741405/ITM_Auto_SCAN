@@ -29,12 +29,12 @@ void MeshSmoothingLaplacian::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 	return;
 }
 
-pcl::PolygonMeshPtr MeshSmoothingLaplacian::GetMeshResult()
+pcl::PolygonMeshPtr MeshSmoothingLaplacian::GetMesh()
 {
 	return _result;
 }
 
-pcl::PointCloud<PointT>::Ptr MeshSmoothingLaplacian::GetCloudResult()
+pcl::PointCloud<PointT>::Ptr MeshSmoothingLaplacian::GetCloud()
 {
 	return NULL;
 }

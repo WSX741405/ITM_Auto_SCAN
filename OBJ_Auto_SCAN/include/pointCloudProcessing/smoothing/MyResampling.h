@@ -15,8 +15,8 @@ public:
 	MyResampling();
 	void Processing(pcl::PolygonMeshPtr mesh);
 	void Processing(pcl::PointCloud<PointT>::Ptr cloud);
-	pcl::PolygonMeshPtr GetMeshResult();
-	pcl::PointCloud<PointT>::Ptr GetCloudResult();
+	pcl::PolygonMeshPtr GetMesh();
+	pcl::PointCloud<PointT>::Ptr GetCloud();
 	void SetNumIter(int numIter);
 	void SetConvergence(double convergence);
 	void SetRelaxationFactor(double relaxationFactor);

@@ -6,6 +6,7 @@
 #include <pcl/surface/grid_projection.h>
 #include <pcl/surface/gp3.h>
 #include <pcl/features/normal_3d.h>
+#include <QVTKInteractor.h>
 
 class Viewer
 {

@@ -5,6 +5,7 @@
 #include <pcl/point_types.h>
 
 typedef pcl::PointXYZRGB PointT;
+typedef pcl::Normal NormalT;
 typedef pcl::PointXYZI KeypointT;
 typedef pcl::PointXYZRGBNormal SurfacePointT;
 

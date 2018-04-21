@@ -10,7 +10,8 @@ class ReconstructProcessing
 {
 public:
 	virtual void Processing(pcl::PointCloud<PointT>::Ptr cloud) = 0;
-	virtual pcl::PolygonMeshPtr GetResult() = 0;
+	virtual pcl::PolygonMeshPtr GetMesh() = 0;
+	virtual pcl::PointCloud<PointT>::Ptr GetCloud() = 0;
 	virtual void SetSearchRadius(double searchRadius) = 0;
 	virtual void SetMu(double mu) = 0;
 	virtual void SetMaxNearestNeighbors(int maxNearestNeighbors)= 0;
@@ -21,6 +22,7 @@ public:
 	virtual void SetIsoLevel(float isoLevel) = 0;
 	virtual void SetNormalSearchRadius(double normalSearchRadius) = 0;
 	virtual void SetReconstructDepth(int depth) = 0;
+	virtual void SetReconstructAlpha(double alpha) = 0;
 
 private:
 

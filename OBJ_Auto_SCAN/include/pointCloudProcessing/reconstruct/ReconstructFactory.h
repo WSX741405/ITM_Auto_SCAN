@@ -5,6 +5,7 @@
 #include "GreedyProjection.h"
 #include "MarchingCubes.h"
 #include "MyPoisson.h"
+#include "ConcaveHull.h"
 
 class ReconstructFactory
 {
@@ -13,6 +14,7 @@ public:
 	ReconstructProcessing* GetGreedyProjection();
 	ReconstructProcessing* GetMarchingCubes();
 	ReconstructProcessing* GetPoisson();
+	ReconstructProcessing* GetConcaveHull();
 
 private:
 

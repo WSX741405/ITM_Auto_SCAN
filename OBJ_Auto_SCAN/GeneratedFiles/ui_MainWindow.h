@@ -57,7 +57,7 @@ public:
     QAction *actionSelect_PointCloud_2;
     QAction *_selectAllPointCloudsAction;
     QAction *_unselectAllPointCloudsAction;
-    QAction *_processKeypoint2ICPAction;
+    QAction *_processICPMultiFrameAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QTableWidget *_pointCloudTable;
@@ -84,6 +84,7 @@ public:
     QLabel *_boundingBoxXShiftLabel;
     QLabel *_boundingBoxYShiftLabel;
     QLabel *_boundingBoxZShiftLabel;
+    QPushButton *_testBoundingBoxButton;
     QWidget *_outlierTab;
     QLabel *_outlierMeanKLabel;
     QLabel *_outlierStddevMulThreshLabel;
@@ -182,6 +183,9 @@ public:
     QLabel *_poissonDepthLabel;
     QDoubleSpinBox *_poissonNormalRadiusSearchSpinBox;
     QSpinBox *_poissonDepthSpinBox;
+    QWidget *_concaveHullTab;
+    QDoubleSpinBox *_concaveHullAlphaSpinBox;
+    QLabel *_concaveHullAlphaLabel;
     QPushButton *_reconstructProcessingButton;
     QWidget *_smoothingTab;
     QTabWidget *_smoothingTabWidget;
@@ -222,7 +226,7 @@ public:
     {
         if (MainWindowForm->objectName().isEmpty())
             MainWindowForm->setObjectName(QStringLiteral("MainWindowForm"));
-        MainWindowForm->resize(1280, 850);
+        MainWindowForm->resize(1279, 850);
         _startFlexxAction = new QAction(MainWindowForm);
         _startFlexxAction->setObjectName(QStringLiteral("_startFlexxAction"));
         _stopFlexxAction = new QAction(MainWindowForm);
@@ -269,8 +273,8 @@ public:
         _selectAllPointCloudsAction->setObjectName(QStringLiteral("_selectAllPointCloudsAction"));
         _unselectAllPointCloudsAction = new QAction(MainWindowForm);
         _unselectAllPointCloudsAction->setObjectName(QStringLiteral("_unselectAllPointCloudsAction"));
-        _processKeypoint2ICPAction = new QAction(MainWindowForm);
-        _processKeypoint2ICPAction->setObjectName(QStringLiteral("_processKeypoint2ICPAction"));
+        _processICPMultiFrameAction = new QAction(MainWindowForm);
+        _processICPMultiFrameAction->setObjectName(QStringLiteral("_processICPMultiFrameAction"));
         centralWidget = new QWidget(MainWindowForm);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
@@ -283,7 +287,7 @@ public:
         _processingTabWidget->setObjectName(QStringLiteral("_processingTabWidget"));
         _processingTabWidget->setGeometry(QRect(790, 270, 460, 510));
         QFont font;
-        font.setPointSize(20);
+        font.setPointSize(16);
         _processingTabWidget->setFont(font);
         _processingTabWidget->setDocumentMode(false);
         _processingTabWidget->setTabsClosable(false);
@@ -294,6 +298,7 @@ public:
         _filterTabWidget = new QTabWidget(_filterTab);
         _filterTabWidget->setObjectName(QStringLiteral("_filterTabWidget"));
         _filterTabWidget->setGeometry(QRect(10, 20, 420, 390));
+        _filterTabWidget->setFont(font);
         _voxelGridTab = new QWidget();
         _voxelGridTab->setObjectName(QStringLiteral("_voxelGridTab"));
         _voxelGridXLabel = new QLabel(_voxelGridTab);
@@ -416,6 +421,10 @@ public:
         _boundingBoxZShiftLabel->setObjectName(QStringLiteral("_boundingBoxZShiftLabel"));
         _boundingBoxZShiftLabel->setGeometry(QRect(200, 120, 50, 30));
         _boundingBoxZShiftLabel->setFont(font);
+        _testBoundingBoxButton = new QPushButton(_boundingBoxTab);
+        _testBoundingBoxButton->setObjectName(QStringLiteral("_testBoundingBoxButton"));
+        _testBoundingBoxButton->setGeometry(QRect(20, 300, 100, 30));
+        _testBoundingBoxButton->setFont(font);
         _filterTabWidget->addTab(_boundingBoxTab, QString());
         _outlierTab = new QWidget();
         _outlierTab->setObjectName(QStringLiteral("_outlierTab"));
@@ -442,9 +451,7 @@ public:
         _filterProcessingButton = new QPushButton(_filterTab);
         _filterProcessingButton->setObjectName(QStringLiteral("_filterProcessingButton"));
         _filterProcessingButton->setGeometry(QRect(20, 420, 150, 40));
-        QFont font1;
-        font1.setPointSize(16);
-        _filterProcessingButton->setFont(font1);
+        _filterProcessingButton->setFont(font);
         _processingTabWidget->addTab(_filterTab, QString());
         _keypointTab = new QWidget();
         _keypointTab->setObjectName(QStringLiteral("_keypointTab"));
@@ -523,7 +530,7 @@ public:
         _keypointProcessingButton = new QPushButton(_keypointTab);
         _keypointProcessingButton->setObjectName(QStringLiteral("_keypointProcessingButton"));
         _keypointProcessingButton->setGeometry(QRect(20, 420, 150, 40));
-        _keypointProcessingButton->setFont(font1);
+        _keypointProcessingButton->setFont(font);
         _processingTabWidget->addTab(_keypointTab, QString());
         _correspondencesTab = new QWidget();
         _correspondencesTab->setObjectName(QStringLiteral("_correspondencesTab"));
@@ -703,14 +710,14 @@ public:
         _correspondencesProcessingButton = new QPushButton(_correspondencesTab);
         _correspondencesProcessingButton->setObjectName(QStringLiteral("_correspondencesProcessingButton"));
         _correspondencesProcessingButton->setGeometry(QRect(20, 420, 150, 40));
-        _correspondencesProcessingButton->setFont(font1);
+        _correspondencesProcessingButton->setFont(font);
         _processingTabWidget->addTab(_correspondencesTab, QString());
         _regestrationTab = new QWidget();
         _regestrationTab->setObjectName(QStringLiteral("_regestrationTab"));
         _regestrationProcessingButton = new QPushButton(_regestrationTab);
         _regestrationProcessingButton->setObjectName(QStringLiteral("_regestrationProcessingButton"));
         _regestrationProcessingButton->setGeometry(QRect(20, 420, 150, 40));
-        _regestrationProcessingButton->setFont(font1);
+        _regestrationProcessingButton->setFont(font);
         _regestrationTabWidget = new QTabWidget(_regestrationTab);
         _regestrationTabWidget->setObjectName(QStringLiteral("_regestrationTabWidget"));
         _regestrationTabWidget->setGeometry(QRect(20, 20, 420, 390));
@@ -853,10 +860,24 @@ public:
         _poissonDepthSpinBox->setMinimum(1);
         _poissonDepthSpinBox->setValue(9);
         _reconstructTabWidget->addTab(_poissonTab, QString());
+        _concaveHullTab = new QWidget();
+        _concaveHullTab->setObjectName(QStringLiteral("_concaveHullTab"));
+        _concaveHullAlphaSpinBox = new QDoubleSpinBox(_concaveHullTab);
+        _concaveHullAlphaSpinBox->setObjectName(QStringLiteral("_concaveHullAlphaSpinBox"));
+        _concaveHullAlphaSpinBox->setGeometry(QRect(300, 20, 95, 30));
+        _concaveHullAlphaSpinBox->setDecimals(3);
+        _concaveHullAlphaSpinBox->setMinimum(0.001);
+        _concaveHullAlphaSpinBox->setMaximum(1);
+        _concaveHullAlphaSpinBox->setSingleStep(0.01);
+        _concaveHullAlphaSpinBox->setValue(0.01);
+        _concaveHullAlphaLabel = new QLabel(_concaveHullTab);
+        _concaveHullAlphaLabel->setObjectName(QStringLiteral("_concaveHullAlphaLabel"));
+        _concaveHullAlphaLabel->setGeometry(QRect(10, 20, 250, 30));
+        _reconstructTabWidget->addTab(_concaveHullTab, QString());
         _reconstructProcessingButton = new QPushButton(_reconstructTab);
         _reconstructProcessingButton->setObjectName(QStringLiteral("_reconstructProcessingButton"));
         _reconstructProcessingButton->setGeometry(QRect(20, 420, 150, 40));
-        _reconstructProcessingButton->setFont(font1);
+        _reconstructProcessingButton->setFont(font);
         _processingTabWidget->addTab(_reconstructTab, QString());
         _smoothingTab = new QWidget();
         _smoothingTab->setObjectName(QStringLiteral("_smoothingTab"));
@@ -944,12 +965,12 @@ public:
         _smoothingProcessingButton = new QPushButton(_smoothingTab);
         _smoothingProcessingButton->setObjectName(QStringLiteral("_smoothingProcessingButton"));
         _smoothingProcessingButton->setGeometry(QRect(20, 420, 150, 40));
-        _smoothingProcessingButton->setFont(font1);
+        _smoothingProcessingButton->setFont(font);
         _processingTabWidget->addTab(_smoothingTab, QString());
         MainWindowForm->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowForm);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1280, 21));
+        menuBar->setGeometry(QRect(0, 0, 1279, 21));
         menuCamera = new QMenu(menuBar);
         menuCamera->setObjectName(QStringLiteral("menuCamera"));
         menuPico_Flexx = new QMenu(menuCamera);
@@ -1011,16 +1032,16 @@ public:
         menuRemove_PointCloud->addAction(_removeAllPointCloudsAction);
         menuSelectPointCloud->addAction(_selectAllPointCloudsAction);
         menuSelectPointCloud->addAction(_unselectAllPointCloudsAction);
-        menuProcess->addAction(_processKeypoint2ICPAction);
+        menuProcess->addAction(_processICPMultiFrameAction);
 
         retranslateUi(MainWindowForm);
 
-        _processingTabWidget->setCurrentIndex(5);
-        _filterTabWidget->setCurrentIndex(0);
-        _keypointTabWidget->setCurrentIndex(0);
-        _correspondencesTabWidget->setCurrentIndex(3);
+        _processingTabWidget->setCurrentIndex(0);
+        _filterTabWidget->setCurrentIndex(1);
+        _keypointTabWidget->setCurrentIndex(1);
+        _correspondencesTabWidget->setCurrentIndex(0);
         _regestrationTabWidget->setCurrentIndex(0);
-        _reconstructTabWidget->setCurrentIndex(1);
+        _reconstructTabWidget->setCurrentIndex(0);
         _smoothingTabWidget->setCurrentIndex(1);
 
 
@@ -1053,7 +1074,7 @@ public:
         actionSelect_PointCloud_2->setText(QApplication::translate("MainWindowForm", "Select PointCloud", Q_NULLPTR));
         _selectAllPointCloudsAction->setText(QApplication::translate("MainWindowForm", "Select All", Q_NULLPTR));
         _unselectAllPointCloudsAction->setText(QApplication::translate("MainWindowForm", "Unselect All", Q_NULLPTR));
-        _processKeypoint2ICPAction->setText(QApplication::translate("MainWindowForm", "Keypoint To ICP", Q_NULLPTR));
+        _processICPMultiFrameAction->setText(QApplication::translate("MainWindowForm", "ICP Multi Frame", Q_NULLPTR));
         _voxelGridXLabel->setText(QApplication::translate("MainWindowForm", "X\357\274\232", Q_NULLPTR));
         _voxelGridYLabel->setText(QApplication::translate("MainWindowForm", "Y\357\274\232", Q_NULLPTR));
         _voxelGridZLabel->setText(QApplication::translate("MainWindowForm", "Z\357\274\232", Q_NULLPTR));
@@ -1064,6 +1085,7 @@ public:
         _boundingBoxXShiftLabel->setText(QApplication::translate("MainWindowForm", "~", Q_NULLPTR));
         _boundingBoxYShiftLabel->setText(QApplication::translate("MainWindowForm", "~", Q_NULLPTR));
         _boundingBoxZShiftLabel->setText(QApplication::translate("MainWindowForm", "~", Q_NULLPTR));
+        _testBoundingBoxButton->setText(QApplication::translate("MainWindowForm", "Test", Q_NULLPTR));
         _filterTabWidget->setTabText(_filterTabWidget->indexOf(_boundingBoxTab), QApplication::translate("MainWindowForm", "Bounding Box", Q_NULLPTR));
         _outlierMeanKLabel->setText(QApplication::translate("MainWindowForm", "Mean K\357\274\232", Q_NULLPTR));
         _outlierStddevMulThreshLabel->setText(QApplication::translate("MainWindowForm", "Stddev Mul Threshold\357\274\232", Q_NULLPTR));
@@ -1129,6 +1151,8 @@ public:
         _poissonNormalRadiusSearchLabel->setText(QApplication::translate("MainWindowForm", "Normal Radius Search\357\274\232", Q_NULLPTR));
         _poissonDepthLabel->setText(QApplication::translate("MainWindowForm", "Depth\357\274\232", Q_NULLPTR));
         _reconstructTabWidget->setTabText(_reconstructTabWidget->indexOf(_poissonTab), QApplication::translate("MainWindowForm", "Poisson", Q_NULLPTR));
+        _concaveHullAlphaLabel->setText(QApplication::translate("MainWindowForm", "Alpha\357\274\232", Q_NULLPTR));
+        _reconstructTabWidget->setTabText(_reconstructTabWidget->indexOf(_concaveHullTab), QApplication::translate("MainWindowForm", "Concave Hull", Q_NULLPTR));
         _reconstructProcessingButton->setText(QApplication::translate("MainWindowForm", "Processing", Q_NULLPTR));
         _processingTabWidget->setTabText(_processingTabWidget->indexOf(_reconstructTab), QApplication::translate("MainWindowForm", "Reconstruct", Q_NULLPTR));
         _smoothingLaplacianNumIterLabel->setText(QApplication::translate("MainWindowForm", "Num Iter\357\274\232", Q_NULLPTR));

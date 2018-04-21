@@ -186,6 +186,18 @@
     <ClCompile Include="include\pointCloudProcessing\smoothing\MyResampling.cpp">
       <Filter>include\pointCloudProcessing\smoothing</Filter>
     </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\reconstruct\ConcaveHull.cpp">
+      <Filter>include\pointCloudProcessing\reconstruct</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ui\BoundingBoxTestDialog.cpp">
+      <Filter>include\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BoundingBoxTestDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_BoundingBoxTestDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">
@@ -199,6 +211,12 @@
     </CustomBuild>
     <CustomBuild Include="include\observer\IObserver.h">
       <Filter>include\observer</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BoundingBoxTestDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\ui\BoundingBoxTestDialog.h">
+      <Filter>include\ui</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -363,6 +381,12 @@
     </ClInclude>
     <ClInclude Include="include\Typedef.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\reconstruct\ConcaveHull.h">
+      <Filter>include\pointCloudProcessing\reconstruct</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_BoundingBoxTestDialog.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
