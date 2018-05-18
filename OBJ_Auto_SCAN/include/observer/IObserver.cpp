@@ -16,25 +16,12 @@ void UIObserver::Update(pcl::PointCloud<PointT>::Ptr pointCloud)
 //				Grabber(Flexx, RS)
 //		*****************************************************************
 
-void FlexxSubject::RegisterObserver(IObserver* observer)
+void GrabberSubject::RegisterObserver(IObserver* observer)
 {
 	_observers.push_back(observer);
 }
 
-void FlexxSubject::NotifyObservers(pcl::PointCloud<PointT>::Ptr pointCloud)
-{
-	for each (IObserver* observer in _observers)
-	{
-		observer->Update(pointCloud);
-	}
-}
-
-void RSSubject::RegisterObserver(IObserver* observer)
-{
-	_observers.push_back(observer);
-}
-
-void RSSubject::NotifyObservers(pcl::PointCloud<PointT>::Ptr pointCloud)
+void GrabberSubject::NotifyObservers(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
 	for each (IObserver* observer in _observers)
 	{

@@ -46,17 +46,11 @@ protected:
 	std::vector<IObserver*> _observers;
 };
 
-class FlexxSubject : ISubject
+class GrabberSubject : ISubject
 {
 public:
 	void RegisterObserver(IObserver* observer);
 	void NotifyObservers(pcl::PointCloud<PointT>::Ptr pointCloud);
 };
 
-class RSSubject : ISubject
-{
-public:
-	void RegisterObserver(IObserver* observer);
-	void NotifyObservers(pcl::PointCloud<PointT>::Ptr pointCloud);
-};
 #endif

@@ -1,6 +1,6 @@
 #include "grabber/GrabberFactory.h"
 
-GrabberFactory::GrabberFactory() : _flexx(NULL), _rs(NULL)
+GrabberFactory::GrabberFactory() : _flexx(NULL), _rs(NULL), _openni(NULL)
 {
 }
 
@@ -10,6 +10,8 @@ GrabberFactory::~GrabberFactory()
 		delete _flexx;
 	if (_rs != NULL)
 		delete _rs;
+	if (_openni = NULL)
+		delete _openni;
 }
 
 IGrabber* GrabberFactory::GetFlexxGrabber(ISubject* subject)
@@ -30,4 +32,14 @@ IGrabber* GrabberFactory::GetRSGrabber(ISubject* subject)
 			_rs = new Realsense(subject);
 	}
 	return (IGrabber*)_rs;
+}
+
+IGrabber* GrabberFactory::GetOpenniGrabber(ISubject* subject)
+{
+	if (_openni == NULL)
+	{
+		if (subject != NULL)
+			_openni = new MyOpenniGrabber(subject);
+	}
+	return (IGrabber*)_openni;
 }

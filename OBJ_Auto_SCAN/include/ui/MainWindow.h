@@ -34,6 +34,7 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include "pointCloudProcessing/regestration/RegestrationFactory.h"
 #include "pointCloudProcessing/reconstruct/ReconstructFactory.h"
 #include "pointCloudProcessing/smoothing/SmoothingFactory.h"
+#include "kinfuApp/KinfuApp.h"
 
 class UIObserver;
 class ISubject;
@@ -71,6 +72,7 @@ public slots:
 	//****************************************************************
 	void StartFlexxCameraSlot();
 	void StartRSCameraSlot();
+	void StartXtionProCameraSlot();
 	void StopCameraSlot();
 	void SetCameraDepthConfidenceSlot();
 	//****************************************************************
@@ -90,7 +92,11 @@ public slots:
 	void RemoveAllPointCloudSlot();
 	void SelectAllPointCloudSlot();
 	void UnselectAllPointCloudSlot();
-	void ProcessICPMultiFrameSlot();
+	void CombinePointCloudSlot();
+	void XPointCloudSlot();
+	void ProcessICP1Slot();
+	void ProcessICP2Slot();
+	void ProcessICP3Slot();
 	//****************************************************************
 	//										Keypoint
 	//****************************************************************
@@ -127,7 +133,7 @@ public slots:
 	void ProcessRegestrationSlot();
 	void SetRegestrationCorrespondenceDistanceSlot(double correspondenceDistance);
 	void SetRegestrationOutlierThresholdSlot(double outlierThreshold);
-	void SetRegestrationTransformationEpsilonSlot(double transformationEpsilon);
+	void SetEuclideanFitnessEpsilonSlot(double euclideanFitnessEpsilon);
 	void SetRegestrationMaxIterationsSlot(int maxIterations);
 	//****************************************************************
 	//										Reconstruct
@@ -155,6 +161,10 @@ public slots:
 	void SetSmoothingRelaxationFactorMaxAngleSlot(double relaxationFactor);
 	void SetSmoothingFeatureAngleSlot(int featureAngle);
 	void SetSmoothingSearchRadiusSlot(double searchRadius);
+	//****************************************************************
+	//										Kinect Fusion
+	//****************************************************************
+	void ProcessKinfuSelectedPointCloudSlot();
 
 private:
 	void InitialMemberVariable();
@@ -196,7 +206,7 @@ private:
 	SmoothingFactory* _smoothingFactory;
 	SmoothingProcessing* _smoothingProcessing;
 
-	const int FRAME_PITCH = 1;	//	(sec)
+	const double FRAME_PITCH = 0.01;	//	(sec)
 	clock_t _preFrameTime;
 };
 

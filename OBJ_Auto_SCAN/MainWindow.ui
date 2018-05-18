@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -1614,30 +1614,20 @@
           <height>30</height>
          </rect>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
         <property name="minimum">
-         <double>0.010000000000000</double>
+         <double>0.001000000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.010000000000000</double>
+         <double>0.001000000000000</double>
         </property>
         <property name="value">
          <double>0.050000000000000</double>
-        </property>
-       </widget>
-       <widget class="QLabel" name="_icpTransformationEpsilonLabel">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>120</y>
-          <width>280</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Transformation Epsilon：</string>
         </property>
        </widget>
        <widget class="QDoubleSpinBox" name="_icpOutlierThresholdSpinBox">
@@ -1649,14 +1639,17 @@
           <height>30</height>
          </rect>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
         <property name="minimum">
-         <double>0.010000000000000</double>
+         <double>0.001000000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.010000000000000</double>
+         <double>0.001000000000000</double>
         </property>
         <property name="value">
          <double>0.050000000000000</double>
@@ -1666,7 +1659,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>170</y>
+          <y>120</y>
           <width>280</width>
           <height>30</height>
          </rect>
@@ -1679,7 +1672,7 @@
         <property name="geometry">
          <rect>
           <x>320</x>
-          <y>170</y>
+          <y>120</y>
           <width>80</width>
           <height>30</height>
          </rect>
@@ -1692,31 +1685,6 @@
         </property>
         <property name="value">
          <number>1000</number>
-        </property>
-       </widget>
-       <widget class="QDoubleSpinBox" name="_icpTransformationEpsilonSpinBox">
-        <property name="geometry">
-         <rect>
-          <x>275</x>
-          <y>120</y>
-          <width>125</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="decimals">
-         <number>6</number>
-        </property>
-        <property name="minimum">
-         <double>0.000001000000000</double>
-        </property>
-        <property name="maximum">
-         <double>1.000000000000000</double>
-        </property>
-        <property name="singleStep">
-         <double>0.000001000000000</double>
-        </property>
-        <property name="value">
-         <double>0.000001000000000</double>
         </property>
        </widget>
       </widget>
@@ -2435,8 +2403,16 @@
      <addaction name="_startRSAction"/>
      <addaction name="_stopRSAction"/>
     </widget>
+    <widget class="QMenu" name="menuXtion_Pro">
+     <property name="title">
+      <string>Xtion Pro</string>
+     </property>
+     <addaction name="_startXtionProAction"/>
+     <addaction name="_stopXtionProAction"/>
+    </widget>
     <addaction name="menuPico_Flexx"/>
     <addaction name="menuIntel_Realsense"/>
+    <addaction name="menuXtion_Pro"/>
    </widget>
    <widget class="QMenu" name="menuArduino">
     <property name="title">
@@ -2494,18 +2470,29 @@
     <addaction name="menuKeep_PointCloud"/>
     <addaction name="menuRemove_PointCloud"/>
     <addaction name="menuSelectPointCloud"/>
+    <addaction name="_combinePointCloudAction"/>
+    <addaction name="_xPointCloudAction"/>
    </widget>
    <widget class="QMenu" name="menuProcess">
     <property name="title">
      <string>Process</string>
     </property>
-    <addaction name="_processICPMultiFrameAction"/>
+    <addaction name="_processICP1Action"/>
+    <addaction name="_processICP2Action"/>
+    <addaction name="_processICP3Action"/>
+   </widget>
+   <widget class="QMenu" name="menuKinect_Fusion">
+    <property name="title">
+     <string>Kinect Fusion</string>
+    </property>
+    <addaction name="_kinfuSelectedPointCloudAction"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuCamera"/>
    <addaction name="menuArduino"/>
    <addaction name="menuPointCloud"/>
    <addaction name="menuProcess"/>
+   <addaction name="menuKinect_Fusion"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -2518,22 +2505,22 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="_startFlexxAction">
    <property name="text">
-    <string>Open</string>
+    <string>Start</string>
    </property>
   </action>
   <action name="_stopFlexxAction">
    <property name="text">
-    <string>Close</string>
+    <string>Stop</string>
    </property>
   </action>
   <action name="_startRSAction">
    <property name="text">
-    <string>Open</string>
+    <string>Start</string>
    </property>
   </action>
   <action name="_stopRSAction">
    <property name="text">
-    <string>Close</string>
+    <string>Stop</string>
    </property>
   </action>
   <action name="_getNumberOfBytesAction">
@@ -2631,9 +2618,44 @@
     <string>Unselect All</string>
    </property>
   </action>
-  <action name="_processICPMultiFrameAction">
+  <action name="_processICP1Action">
    <property name="text">
-    <string>ICP Multi Frame</string>
+    <string>ICP_1</string>
+   </property>
+  </action>
+  <action name="_processICP2Action">
+   <property name="text">
+    <string>ICP_2</string>
+   </property>
+  </action>
+  <action name="_combinePointCloudAction">
+   <property name="text">
+    <string>Combine PointCloud</string>
+   </property>
+  </action>
+  <action name="_processICP3Action">
+   <property name="text">
+    <string>ICP_3</string>
+   </property>
+  </action>
+  <action name="_xPointCloudAction">
+   <property name="text">
+    <string>PointCloud x?</string>
+   </property>
+  </action>
+  <action name="_kinfuSelectedPointCloudAction">
+   <property name="text">
+    <string>Selected PointCloud</string>
+   </property>
+  </action>
+  <action name="_startXtionProAction">
+   <property name="text">
+    <string>Start</string>
+   </property>
+  </action>
+  <action name="_stopXtionProAction">
+   <property name="text">
+    <string>Stop</string>
    </property>
   </action>
  </widget>

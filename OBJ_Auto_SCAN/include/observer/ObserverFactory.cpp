@@ -2,12 +2,18 @@
 
 ISubject* SubjectFactory::GetFlexxSubject()
 {
-	static FlexxSubject* subject = new FlexxSubject();
+	static GrabberSubject* subject = new GrabberSubject();
 	return (ISubject*)subject;
 }
 
 ISubject* SubjectFactory::GetRSSubject()
 {
-	static RSSubject* subject = new RSSubject();
+	static GrabberSubject* subject = new GrabberSubject();
+	return (ISubject*)subject;
+}
+
+ISubject* SubjectFactory::GetOpenniSubject()
+{
+	static GrabberSubject* subject = new GrabberSubject();
 	return (ISubject*)subject;
 }

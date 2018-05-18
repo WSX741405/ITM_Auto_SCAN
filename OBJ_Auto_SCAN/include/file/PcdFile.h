@@ -17,14 +17,18 @@ public:
 	{
 		pcl::PCDReader reader;
 		reader.read(_dir, *_cloud);
-		for (size_t index = 0; index < _cloud->points.size(); index++)
-			_cloud->points[index].a = 255;
+		for (int counter = 0; counter < _cloud->size(); counter++)
+		{
+			_cloud->points[counter].r = 255;
+			_cloud->points[counter].g = 255;
+			_cloud->points[counter].b = 255;
+			_cloud->points[counter].a = 255;
+		}
 	}
 
 	void SaveFile(pcl::PointCloud<PointT>::Ptr cloud)
 	{
-		pcl::PCDWriter writer;
-		writer.write(_dir, *cloud);
+		pcl::io::savePCDFile(_dir, *cloud, false);
 	}
 
 	pcl::PointCloud<PointT>::Ptr GetPointCloud()

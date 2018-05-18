@@ -14,6 +14,7 @@ public:
 	Viewer(std::string title = "") : _title(title)
 	{
 		_viewer.reset(new pcl::visualization::PCLVisualizer(_title, false));
+		//_viewer->setBackgroundColor(255,255,255);
 	}
 
 	void ShowPointCloud(pcl::PointCloud<PointT>::Ptr cloud, std::string name = "")
@@ -49,9 +50,9 @@ public:
 		return _viewer->getRenderWindow();
 	}
 
-	void AddCoordinateSystem(double coorSys)
+	void AddCoordinateSystem(double coorSys, float x = 0, float y = 0, float z = 0)
 	{
-		_viewer->addCoordinateSystem(coorSys);
+		_viewer->addCoordinateSystem(coorSys, x, y, z);
 	}
 
 private:

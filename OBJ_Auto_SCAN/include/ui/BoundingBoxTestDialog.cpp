@@ -23,6 +23,7 @@ BoundingBoxTestDialog::BoundingBoxTestDialog() : _dialog(new Ui::BoundingBoxTest
 
 void BoundingBoxTestDialog::SetPointCloud(PointCloudElement* cloud)
 {
+	_viewer->Clear();
 	_cloud = cloud;
 	UpdateLabel();
 }
@@ -31,6 +32,7 @@ void BoundingBoxTestDialog::InitialPointCloudViewer()
 {
 	_dialog->_qvtkWidget->SetRenderWindow(_viewer->GetRenderWindow());
 	_viewer->SetupInteractor(_dialog->_qvtkWidget->GetInteractor(), _dialog->_qvtkWidget->GetRenderWindow());
+	_viewer->AddCoordinateSystem(1, -1, -1, -1);
 	_dialog->_qvtkWidget->update();
 }
 

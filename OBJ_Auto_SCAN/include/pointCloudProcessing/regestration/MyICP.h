@@ -13,18 +13,21 @@ public:
 	void Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<PointT>::Ptr target);
 	void SetCorrespondenceDistance(float maxCorrespondenceDistance);
 	void SetRansacOutlierRejectionThreshold(float ransacOutlierRejectionThreshold);
-	void SetTransformationEpsilon(float transformationEpsilon);
+	void SetEuclideanFitnessEpsilon(float euclideanFitnessEpsilon);
 	void SetMaximumIterations(int maximumIterations);
 	Eigen::Matrix4f GetMatrix();
 	pcl::PointCloud<PointT>::Ptr GetResult();
+	bool HasConverged();
 
 private:
 
 	pcl::PointCloud<PointT>::Ptr _registeredCloud;
 	Eigen::Matrix4f _registeredMatrix;
+	bool _hasConverged;
 
 	float _maxCorrespondenceDistance;
 	float _ransacOutlierRejectionThreshold;
+	float _euclideanFitnessEpsilon;
 	float _transformationEpsilon;
 	int _maximumIterations;
 };

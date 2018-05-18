@@ -13,6 +13,7 @@ public:
 	}
 	ISubject* GetFlexxSubject();
 	ISubject* GetRSSubject();
+	ISubject* GetOpenniSubject();
 };
 
 #endif

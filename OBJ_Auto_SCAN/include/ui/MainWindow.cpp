@@ -53,6 +53,8 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_startRSAction, SIGNAL(triggered()), this, SLOT(StartRSCameraSlot()));
 	connect(_ui->_stopRSAction, SIGNAL(triggered()), this, SLOT(StopCameraSlot()));
 	connect(_ui->_setConfidenceAction, SIGNAL(triggered()), this, SLOT(SetCameraDepthConfidenceSlot()));
+	connect(_ui->_startXtionProAction, SIGNAL(triggered()), this, SLOT(StartXtionProCameraSlot()));
+	connect(_ui->_stopXtionProAction, SIGNAL(triggered()), this, SLOT(StopCameraSlot()));
 	connect(this->_uiObserver, SIGNAL(UpdateViewer(pcl::PointCloud<PointT>::Ptr)), this, SLOT(UpdateViewerSlot(pcl::PointCloud<PointT>::Ptr)));
 	//		Arduino
 	connect(_ui->_getNumberOfBytesAction, SIGNAL(triggered()), this, SLOT(GetNumberOfBytesSlot()));
@@ -67,8 +69,12 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_removeAllPointCloudsAction, SIGNAL(triggered()), this, SLOT(RemoveAllPointCloudSlot()));
 	connect(_ui->_selectAllPointCloudsAction, SIGNAL(triggered()), this, SLOT(SelectAllPointCloudSlot()));
 	connect(_ui->_unselectAllPointCloudsAction, SIGNAL(triggered()), this, SLOT(UnselectAllPointCloudSlot()));
+	connect(_ui->_combinePointCloudAction, SIGNAL(triggered()), this, SLOT(CombinePointCloudSlot()));
+	connect(_ui->_xPointCloudAction, SIGNAL(triggered()), this, SLOT(XPointCloudSlot()));
 	//		Processing
-	connect(_ui->_processICPMultiFrameAction, SIGNAL(triggered()), this, SLOT(ProcessICPMultiFrameSlot()));
+	connect(_ui->_processICP1Action, SIGNAL(triggered()), this, SLOT(ProcessICP1Slot()));
+	connect(_ui->_processICP2Action, SIGNAL(triggered()), this, SLOT(ProcessICP2Slot()));
+	connect(_ui->_processICP3Action, SIGNAL(triggered()), this, SLOT(ProcessICP3Slot()));
 	//		Keypoint
 	connect(_ui->_keypointProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessKeypointSlot()));
 	connect(_ui->_keypointTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeKeypointTabSlot(int)));
@@ -125,7 +131,7 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_regestrationProcessingButton, SIGNAL(clicked()), this, SLOT(ProcessRegestrationSlot()));
 	connect(_ui->_icpCorrespondenceDistanceSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetRegestrationCorrespondenceDistanceSlot(double)));
 	connect(_ui->_icpOutlierThresholdSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetRegestrationOutlierThresholdSlot(double)));
-	connect(_ui->_icpTransformationEpsilonSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetRegestrationTransformationEpsilonSlot(double)));
+	//connect(_ui->_icpEuclideanFitnessEpsilonSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetEuclideanFitnessEpsilonSlot(double)));
 	connect(_ui->_icpMaxIterationsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetRegestrationMaxIterationsSlot(int)));
 	//		Reconstruct : Greedy Projection
 	connect(_ui->_reconstructTabWidget, SIGNAL(currentChanged(int)), this, SLOT(ChangeReconstructTabSlot(int)));
@@ -154,6 +160,8 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_smoothingLaplacianFeatureAngleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(SetSmoothingFeatureAngleSlot(int)));
 	connect(_ui->_resampleingSearchRadiusSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetSmoothingSearchRadiusSlot(double)));
 	connect(_ui->_concaveHullAlphaSpinBox, SIGNAL(valueChanged(double)), this, SLOT(SetReconstructAlphaSlot(double)));
+	//		Kinect Fusion
+	connect(_ui->_kinfuSelectedPointCloudAction, SIGNAL(triggered()), this, SLOT(ProcessKinfuSelectedPointCloudSlot()));
 }
 
 //****************************************************************
@@ -341,6 +349,13 @@ void MainWindow::StartRSCameraSlot()
 	grabber->StartCamera();
 }
 
+void MainWindow::StartXtionProCameraSlot()
+{
+	ISubject* subject = _subjectFactory->GetOpenniSubject();
+	IGrabber* grabber = _grabberFactory->GetRSGrabber(subject);
+	grabber->StartCamera();
+}
+
 void MainWindow::StopCameraSlot()
 {
 	if (_grabber == NULL)	return;
@@ -470,7 +485,7 @@ void MainWindow::KeepContinueFrameSlot()
 void MainWindow::KeepFrameArrivedSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
 	clock_t nowFrameTime = clock();
-	if ((nowFrameTime - _preFrameTime) / (double)(CLOCKS_PER_SEC) <= FRAME_PITCH)
+	if ((double)(nowFrameTime - _preFrameTime) / (double)(CLOCKS_PER_SEC) <= FRAME_PITCH)
 		return;
 	std::string cloudName = _keepCloudName + std::string("_") + TypeConversion::Int2String(_keepFrameNumber);
 	MyPointCloud* cloud = new MyPointCloud(pointCloud, cloudName);
@@ -510,44 +525,132 @@ void MainWindow::UnselectAllPointCloudSlot()
 	UpdatePointCloudViewer();
 }
 
-//****************************************************************
-//								Slots : Processing
-//****************************************************************
-
-void MainWindow::ProcessICPMultiFrameSlot()
+void MainWindow::CombinePointCloudSlot()
 {
 	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
-	pcl::PointCloud<PointT>::Ptr corSource = clouds[0]->GetPointCloud();
-	std::vector<Eigen::Matrix4f> matrices;
 	if (clouds.size() < 2)
 	{
 		QMessageBox::about(this, tr("Process ICP"), tr("Selecct More Than Two Point Cloud!"));
 		return;
 	}
-	for (int counter = 1; counter < clouds.size(); counter++)
+	pcl::PointCloud<PointT>::Ptr combinedCloud(new pcl::PointCloud<PointT>);
+	for (int counter = 0; counter < clouds.size(); counter++)
 	{
-		pcl::PointCloud<PointT>::Ptr corTarget = clouds[counter]->GetPointCloud();
-		_regestrationProcessing->Processing(corSource, corTarget);
-		corSource = _regestrationProcessing->GetResult();
-		matrices.push_back(_regestrationProcessing->GetMatrix());
-		std::cout << "Process : " << counter + 1 << " / " << clouds.size() << std::endl;
-		//std::string name = std::string("Process") + TypeConversion::Int2String(counter);
-		//MyPointCloud* cloud = new MyPointCloud(corSource, name);
-		//_elements->AddPointCloudElement(cloud);
+		*combinedCloud += *clouds[counter]->GetPointCloud();
 	}
-	for (int counter = 0; counter < matrices.size(); counter++)
+	std::string name = std::string("Combine");
+	MyPointCloud* cloud = new MyPointCloud(combinedCloud, name);
+	_elements->AddPointCloudElement(cloud);
+	UpdatePointCloudTable();
+}
+
+void MainWindow::XPointCloudSlot()
+{
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	bool ok;
+	emit std::string magnification = ShowDialog(&ok, "X PointCloud", "Magnification");
+	if (!ok)	return;
+	for (int counter = 0; counter < clouds.size(); counter++)
 	{
-		pcl::PointCloud<PointT>::Ptr result;
-		result.reset(new pcl::PointCloud<PointT>(*clouds[0]->GetPointCloud()));
-		pcl::transformPointCloud(*result, *result, matrices[counter]);
-		*result += *clouds[counter + 1]->GetPointCloud();
-		//std::cout << "Process : " << counter + 1 << " / " << clouds.size() << std::endl;
-		std::string name = std::string("Process") + TypeConversion::Int2String(counter);
-		MyPointCloud* cloud = new MyPointCloud(corSource, name);
+		pcl::PointCloud<PointT>::Ptr temp(new pcl::PointCloud<PointT>(*clouds[counter]->GetPointCloud()));
+		for (int pointIndex = 0; pointIndex < temp->points.size(); pointIndex++)
+		{
+			temp->points[pointIndex].x *= TypeConversion::String2Int(magnification);
+			temp->points[pointIndex].y *= TypeConversion::String2Int(magnification);
+			temp->points[pointIndex].z *= TypeConversion::String2Int(magnification);
+		}
+		std::string name = clouds[counter]->GetName() + std::string("_Magnification");
+		MyPointCloud* cloud = new MyPointCloud(temp, name);
 		_elements->AddPointCloudElement(cloud);
 	}
 	UpdatePointCloudTable();
 }
+
+//****************************************************************
+//								Slots : Processing
+//****************************************************************
+
+void MainWindow::ProcessICP1Slot()
+{
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	if (clouds.size() < 2)
+	{
+		QMessageBox::about(this, tr("Process ICP"), tr("Selecct More Than Two Point Cloud!"));
+		return;
+	}
+	std::vector<Eigen::Matrix4f> matrices;
+	for (int counter = 1; counter < clouds.size(); counter++)
+	{
+		pcl::PointCloud<PointT>::Ptr corSource = clouds[counter - 1]->GetPointCloud();
+		pcl::PointCloud<PointT>::Ptr corTarget = clouds[counter]->GetPointCloud();
+		_regestrationProcessing->Processing(corSource, corTarget);
+		matrices.push_back(_regestrationProcessing->GetMatrix().inverse());
+		std::cout << "Process ICP : " << counter + 1 << " / " << clouds.size() << std::endl;
+		std::cout << "Has Converged : " << _regestrationProcessing->HasConverged() << std::endl;
+	}
+	pcl::PointCloud<PointT>::Ptr result(new pcl::PointCloud<PointT>(*clouds[0]->GetPointCloud()));
+	Eigen::Matrix4f globalTransform = Eigen::Matrix4f::Identity();
+	for (int counter = 0; counter < matrices.size(); counter++)
+	{
+		pcl::PointCloud<PointT>::Ptr temp(new pcl::PointCloud<PointT>);
+		globalTransform *= matrices[counter];
+		pcl::transformPointCloud(*clouds[counter + 1]->GetPointCloud(), *temp, globalTransform);
+		*result += *temp;
+		std::string name = std::string("ICP_1_Transform_") + TypeConversion::Int2String(counter);
+		MyPointCloud* cloud = new MyPointCloud(temp, name);
+		_elements->AddPointCloudElement(cloud);
+	}
+	std::string name = std::string("ICP_1_Result");
+	MyPointCloud* cloud = new MyPointCloud(result, name);
+	_elements->AddPointCloudElement(cloud);
+	UpdatePointCloudTable();
+}
+
+void MainWindow::ProcessICP2Slot()
+{
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	if (clouds.size() < 2)
+	{
+		QMessageBox::about(this, tr("Process ICP"), tr("Selecct More Than Two Point Cloud!"));
+		return;
+	}
+	pcl::PointCloud<PointT>::Ptr result(new pcl::PointCloud<PointT>(*clouds[0]->GetPointCloud()));
+	for (int counter = 1; counter < clouds.size(); counter++)
+	{
+		_regestrationProcessing->Processing(result, clouds[counter]->GetPointCloud());
+		result.reset(new pcl::PointCloud<PointT>(*_regestrationProcessing->GetResult()));
+		std::cout << "Process ICP : " << counter + 1 << " / " << clouds.size() << std::endl;
+		std::cout << "Has Converged : " << _regestrationProcessing->HasConverged() << std::endl;
+		std::string name = std::string("ICP_2_Result_") + TypeConversion::Int2String(counter);
+		MyPointCloud* cloud = new MyPointCloud(result, name);
+		_elements->AddPointCloudElement(cloud);
+	}
+	UpdatePointCloudTable();
+}
+
+void MainWindow::ProcessICP3Slot()
+{
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	if (clouds.size() < 2)
+	{
+		QMessageBox::about(this, tr("Process ICP"), tr("Selecct More Than Two Point Cloud!"));
+		return;
+	}
+	for (int counter = 0; counter < (clouds.size() / 2); counter++)
+	{
+		pcl::PointCloud<PointT>::Ptr corSource = clouds[2 * counter]->GetPointCloud();
+		pcl::PointCloud<PointT>::Ptr corTarget = clouds[2 * counter + 1]->GetPointCloud();
+		_regestrationProcessing->Processing(corSource, corTarget);
+		std::cout << "Process ICP : " << counter + 1 << " / " << clouds.size() << std::endl;
+		std::cout << "Has Converged : " << _regestrationProcessing->HasConverged() << std::endl;
+		std::string name = std::string("ICP_3_Result_") + TypeConversion::Int2String(counter);
+		MyPointCloud* cloud = new MyPointCloud(_regestrationProcessing->GetResult(), name);
+		_elements->AddPointCloudElement(cloud);
+	}
+	UpdatePointCloudTable();
+}
+
+
 
 //****************************************************************
 //								Slots : Filter Processing
@@ -828,9 +931,9 @@ void MainWindow::SetRegestrationOutlierThresholdSlot(double outlierThreshold)
 	_regestrationProcessing->SetRansacOutlierRejectionThreshold(outlierThreshold);
 }
 
-void MainWindow::SetRegestrationTransformationEpsilonSlot(double transformationEpsilon)
+void MainWindow::SetEuclideanFitnessEpsilonSlot(double euclideanFitnessEpsilon)
 {
-	_regestrationProcessing->SetTransformationEpsilon(transformationEpsilon);
+	_regestrationProcessing->SetEuclideanFitnessEpsilon(euclideanFitnessEpsilon);
 }
 
 void MainWindow::SetRegestrationMaxIterationsSlot(int maxIterations)
@@ -1003,4 +1106,28 @@ void MainWindow::SetSmoothingFeatureAngleSlot(int featureAngle)
 void MainWindow::SetSmoothingSearchRadiusSlot(double searchRadius)
 {
 	_smoothingProcessing->SetSearchRadius(searchRadius);
+}
+
+//****************************************************************
+//								Slots : Kinfu
+//****************************************************************
+
+void MainWindow::ProcessKinfuSelectedPointCloudSlot()
+{
+	float volumeSize = 3.f;
+	int icp = 1, visualization = 0;
+	boost::shared_ptr<CameraPoseProcessor> poseProcessor;
+	KinFuApp kinfu(volumeSize, icp, visualization, poseProcessor);
+	//kinfu.startMainLoop();
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	for (int counter = 0; counter < clouds.size(); counter++)
+	{
+		kinfu.source_cb3(clouds[counter]->GetPointCloud());
+		kinfu.execute();
+	}
+	std::string name = std::string("Kinfu");
+	MyPointCloud* cloud = new MyPointCloud(kinfu.GetPointCloud(), name);
+	_elements->AddPointCloudElement(cloud);
+	UpdatePointCloudTable();
+	UpdatePointCloudViewer();
 }

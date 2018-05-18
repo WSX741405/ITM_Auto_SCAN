@@ -82,6 +82,12 @@
     <Filter Include="include\pointCloudProcessing\smoothing">
       <UniqueIdentifier>{32db98d9-0154-4240-86e8-9bac6809717f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\kinfuApp">
+      <UniqueIdentifier>{c23cbcf9-dea2-45ed-8d9a-b5aeb30fc283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\grabber\openni">
+      <UniqueIdentifier>{d65e9eea-7095-4dc2-beac-f2ebbbc1c876}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\main.cpp">
@@ -197,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_BoundingBoxTestDialog.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="include\grabber\openni\OpenniGrabber.cpp">
+      <Filter>include\grabber\openni</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -387,6 +396,27 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_BoundingBoxTestDialog.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kinfuApp\SampledScopeTime.h">
+      <Filter>include\kinfuApp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kinfuApp\ImageView.h">
+      <Filter>include\kinfuApp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kinfuApp\SceneCloudView.h">
+      <Filter>include\kinfuApp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kinfuApp\CurrentFrameCloudView.h">
+      <Filter>include\kinfuApp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kinfuApp\KinfuCommon.h">
+      <Filter>include\kinfuApp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kinfuApp\KinfuApp.h">
+      <Filter>include\kinfuApp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\grabber\openni\OpenniGrabber.h">
+      <Filter>include\grabber\openni</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
