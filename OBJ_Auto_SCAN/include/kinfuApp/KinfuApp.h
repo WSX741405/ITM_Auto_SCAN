@@ -138,6 +138,10 @@ struct KinFuApp
 					has_image = kinfu_(depth_device_, image_view_.colors_device_);
 				else
 					has_image = kinfu_(depth_device_);
+				if (has_image)
+					std::cout << "true" << std::endl;
+				else
+					std::cout << "fasle" << std::endl;
 			}
 
 			// process camera pose
@@ -278,6 +282,7 @@ struct KinFuApp
 		data_ready_cond_.notify_one();
 	}
 	*/
+
 	void source_cb3(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr & DC3)
 	{
 		{

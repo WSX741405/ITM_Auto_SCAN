@@ -34,12 +34,12 @@ IGrabber* GrabberFactory::GetRSGrabber(ISubject* subject)
 	return (IGrabber*)_rs;
 }
 
-IGrabber* GrabberFactory::GetOpenniGrabber(ISubject* subject)
+IGrabber* GrabberFactory::GetOpenNI2Grabber(ISubject* subject)
 {
 	if (_openni == NULL)
 	{
 		if (subject != NULL)
-			_openni = new MyOpenniGrabber(subject);
+			_openni = new OpenNI2Grabber(subject);
 	}
 	return (IGrabber*)_openni;
 }

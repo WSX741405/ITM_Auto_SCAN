@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -63,6 +63,363 @@
     <property name="tabBarAutoHide">
      <bool>false</bool>
     </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Base</string>
+     </attribute>
+     <widget class="QTabWidget" name="_baseTabWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>420</width>
+        <height>440</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="_shiftTab">
+       <attribute name="title">
+        <string>Shift</string>
+       </attribute>
+       <widget class="QLabel" name="_shiftXLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>50</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>X：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_shiftYLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>50</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Y：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_shiftYSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>70</y>
+          <width>90</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>-100.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_shiftZSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>120</y>
+          <width>90</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>-100.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_shiftXSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>20</y>
+          <width>90</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>-100.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_shiftZLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>120</y>
+          <width>50</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Z：</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="_shiftButton">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>340</y>
+          <width>150</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Processing</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="_multiplicationTab">
+       <attribute name="title">
+        <string>Multiplication</string>
+       </attribute>
+       <widget class="QDoubleSpinBox" name="_multiplicationYSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>70</y>
+          <width>95</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>-100.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_multiplicationZLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>120</y>
+          <width>50</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Z：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_multiplicationXSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>20</y>
+          <width>95</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>-100.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_multiplicationXLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>50</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>X：</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="_multiplicationZSpinBox">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>120</y>
+          <width>95</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>-100.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="_multiplicationYLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>70</y>
+          <width>50</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Y：</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="_multiplicationButton">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>340</y>
+          <width>150</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Processing</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
     <widget class="QWidget" name="_filterTab">
      <attribute name="title">
       <string>Filter</string>
@@ -70,7 +427,7 @@
      <widget class="QTabWidget" name="_filterTabWidget">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>20</y>
         <width>420</width>
         <height>390</height>
@@ -82,7 +439,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="_voxelGridTab">
        <attribute name="title">
@@ -650,7 +1007,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="_sift3DTab">
        <attribute name="title">
@@ -2405,7 +2762,7 @@
     </widget>
     <widget class="QMenu" name="menuXtion_Pro">
      <property name="title">
-      <string>Xtion Pro</string>
+      <string>OpenNI Device</string>
      </property>
      <addaction name="_startXtionProAction"/>
      <addaction name="_stopXtionProAction"/>
@@ -2471,7 +2828,7 @@
     <addaction name="menuRemove_PointCloud"/>
     <addaction name="menuSelectPointCloud"/>
     <addaction name="_combinePointCloudAction"/>
-    <addaction name="_xPointCloudAction"/>
+    <addaction name="_getMinNegativeNumberAction"/>
    </widget>
    <widget class="QMenu" name="menuProcess">
     <property name="title">
@@ -2487,7 +2844,21 @@
     </property>
     <addaction name="_kinfuSelectedPointCloudAction"/>
    </widget>
+   <widget class="QMenu" name="menuViewer">
+    <property name="title">
+     <string>Viewer</string>
+    </property>
+    <widget class="QMenu" name="menuSet_Background_Color">
+     <property name="title">
+      <string>Set Background Color</string>
+     </property>
+     <addaction name="_setViewBackgroundToBlackAction"/>
+     <addaction name="_setViewBackgroundToWhiteAction"/>
+    </widget>
+    <addaction name="menuSet_Background_Color"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuViewer"/>
    <addaction name="menuCamera"/>
    <addaction name="menuArduino"/>
    <addaction name="menuPointCloud"/>
@@ -2656,6 +3027,21 @@
   <action name="_stopXtionProAction">
    <property name="text">
     <string>Stop</string>
+   </property>
+  </action>
+  <action name="_setViewBackgroundToBlackAction">
+   <property name="text">
+    <string>Black</string>
+   </property>
+  </action>
+  <action name="_setViewBackgroundToWhiteAction">
+   <property name="text">
+    <string>White</string>
+   </property>
+  </action>
+  <action name="_getMinNegativeNumberAction">
+   <property name="text">
+    <string>Get Min Negative Number</string>
    </property>
   </action>
  </widget>

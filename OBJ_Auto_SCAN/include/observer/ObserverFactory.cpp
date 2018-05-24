@@ -12,7 +12,7 @@ ISubject* SubjectFactory::GetRSSubject()
 	return (ISubject*)subject;
 }
 
-ISubject* SubjectFactory::GetOpenniSubject()
+ISubject* SubjectFactory::GetOpenNI2Subject()
 {
 	static GrabberSubject* subject = new GrabberSubject();
 	return (ISubject*)subject;

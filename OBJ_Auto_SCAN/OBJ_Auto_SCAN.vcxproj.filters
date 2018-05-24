@@ -204,7 +204,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_BoundingBoxTestDialog.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="include\grabber\openni\OpenniGrabber.cpp">
+    <ClCompile Include="include\grabber\openni\OpenNI2Grabber.cpp">
       <Filter>include\grabber\openni</Filter>
     </ClCompile>
   </ItemGroup>
@@ -415,7 +415,7 @@
     <ClInclude Include="include\kinfuApp\KinfuApp.h">
       <Filter>include\kinfuApp</Filter>
     </ClInclude>
-    <ClInclude Include="include\grabber\openni\OpenniGrabber.h">
+    <ClInclude Include="include\grabber\openni\OpenNI2Grabber.h">
       <Filter>include\grabber\openni</Filter>
     </ClInclude>
   </ItemGroup>

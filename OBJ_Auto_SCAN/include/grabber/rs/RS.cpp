@@ -4,6 +4,7 @@ Realsense::Realsense(ISubject* subject, std::string deviceId) : _subject(subject
 {
 	_grabber = new pcl::RealSenseGrabber(deviceId);
 	_function = boost::bind(&Realsense::CloudCallback, this, _1);
+	_connection = _grabber->registerCallback(_function);
 }
 
 Realsense::~Realsense()
@@ -13,7 +14,6 @@ Realsense::~Realsense()
 
 void Realsense::StartCamera()
 {
-	_connection = _grabber->registerCallback(_function);
 	_grabber->start();
 }
 

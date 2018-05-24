@@ -47,6 +47,9 @@ void MainWindow::InitialConnectSlots()
 	//		File
 	connect(_ui->_openFileAction, SIGNAL(triggered()), this, SLOT(OpenFileSlot()));
 	connect(_ui->_saveFileAction, SIGNAL(triggered()), this, SLOT(SaveFileSlot()));
+	//		Viewer
+	connect(_ui->_setViewBackgroundToBlackAction, SIGNAL(triggered()), this, SLOT(SetViewBackgroundToBlackSlot()));
+	connect(_ui->_setViewBackgroundToWhiteAction, SIGNAL(triggered()), this, SLOT(SetViewWhiteBackgroundToWhiteSlot()));
 	//		Camera
 	connect(_ui->_startFlexxAction, SIGNAL(triggered()), this, SLOT(StartFlexxCameraSlot()));
 	connect(_ui->_stopFlexxAction, SIGNAL(triggered()), this, SLOT(StopCameraSlot()));
@@ -70,7 +73,9 @@ void MainWindow::InitialConnectSlots()
 	connect(_ui->_selectAllPointCloudsAction, SIGNAL(triggered()), this, SLOT(SelectAllPointCloudSlot()));
 	connect(_ui->_unselectAllPointCloudsAction, SIGNAL(triggered()), this, SLOT(UnselectAllPointCloudSlot()));
 	connect(_ui->_combinePointCloudAction, SIGNAL(triggered()), this, SLOT(CombinePointCloudSlot()));
-	connect(_ui->_xPointCloudAction, SIGNAL(triggered()), this, SLOT(XPointCloudSlot()));
+	connect(_ui->_getMinNegativeNumberAction, SIGNAL(triggered()), this, SLOT(GetMinNegativeNumberSlot()));
+	connect(_ui->_multiplicationButton, SIGNAL(clicked()), this, SLOT(MultiplicationPointCloudSlot()));
+	connect(_ui->_shiftButton, SIGNAL(clicked()), this, SLOT(ShiftPointCloudSlot()));
 	//		Processing
 	connect(_ui->_processICP1Action, SIGNAL(triggered()), this, SLOT(ProcessICP1Slot()));
 	connect(_ui->_processICP2Action, SIGNAL(triggered()), this, SLOT(ProcessICP2Slot()));
@@ -240,6 +245,8 @@ void MainWindow::RegisterObserver()
 	rsSubject->RegisterObserver(_uiObserver);
 	ISubject* flexxSubject = _subjectFactory->GetFlexxSubject();
 	flexxSubject->RegisterObserver(_uiObserver);
+	ISubject* openNI2 = _subjectFactory->GetOpenNI2Subject();
+	openNI2->RegisterObserver(_uiObserver);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -258,12 +265,27 @@ std::string MainWindow::ShowInputDialogSlot(bool* ok, const char* title, const c
 }
 
 //****************************************************************
+//										Slots : Viewer
+//****************************************************************
+void MainWindow::SetViewBackgroundToBlackSlot()
+{
+	_viewer->SetBackgroundColor(0, 0, 0);
+	_ui->_qvtkWidget->update();
+}
+
+void MainWindow::SetViewWhiteBackgroundToWhiteSlot()
+{
+	_viewer->SetBackgroundColor(255, 255, 255);
+	_ui->_qvtkWidget->update();
+}
+
+//****************************************************************
 //								Slots : UI
 //****************************************************************
 void MainWindow::UpdateViewerSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
 	_tmpPointCloud = pointCloud;
-	std::unique_lock<std::mutex> lock(_grabber->GetMutex());
+	//std::unique_lock<std::mutex> lock(_grabber->GetMutex());
 	_viewer->ShowPointCloud(pointCloud);
 	//_viewer->ResetCamera();
 	_ui->_qvtkWidget->update();
@@ -345,15 +367,15 @@ void MainWindow::StartFlexxCameraSlot()
 void MainWindow::StartRSCameraSlot()
 {
 	ISubject* subject = _subjectFactory->GetRSSubject();
-	IGrabber* grabber = _grabberFactory->GetRSGrabber(subject);
-	grabber->StartCamera();
+	_grabber = _grabberFactory->GetRSGrabber(subject);
+	_grabber->StartCamera();
 }
 
 void MainWindow::StartXtionProCameraSlot()
 {
-	ISubject* subject = _subjectFactory->GetOpenniSubject();
-	IGrabber* grabber = _grabberFactory->GetRSGrabber(subject);
-	grabber->StartCamera();
+	ISubject* subject = _subjectFactory->GetOpenNI2Subject();
+	_grabber = _grabberFactory->GetOpenNI2Grabber(subject);
+	_grabber->StartCamera();
 }
 
 void MainWindow::StopCameraSlot()
@@ -485,7 +507,7 @@ void MainWindow::KeepContinueFrameSlot()
 void MainWindow::KeepFrameArrivedSlot(pcl::PointCloud<PointT>::Ptr pointCloud)
 {
 	clock_t nowFrameTime = clock();
-	if ((double)(nowFrameTime - _preFrameTime) / (double)(CLOCKS_PER_SEC) <= FRAME_PITCH)
+	if ((double)(nowFrameTime - _preFrameTime) / (double)(CLOCKS_PER_SEC / 2) <= FRAME_PITCH)
 		return;
 	std::string cloudName = _keepCloudName + std::string("_") + TypeConversion::Int2String(_keepFrameNumber);
 	MyPointCloud* cloud = new MyPointCloud(pointCloud, cloudName);
@@ -544,22 +566,64 @@ void MainWindow::CombinePointCloudSlot()
 	UpdatePointCloudTable();
 }
 
-void MainWindow::XPointCloudSlot()
+void MainWindow::GetMinNegativeNumberSlot()
+{
+	double min = 0;
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	for (int counter = 0; counter < clouds.size(); counter++)
+	{
+		pcl::PointCloud<PointT>::Ptr temp(new pcl::PointCloud<PointT>(*clouds[counter]->GetPointCloud()));
+		for (int pointCounter = 0; pointCounter < temp->size(); pointCounter++)
+		{
+			if(temp->points[pointCounter].x < min)
+				min = temp->points[pointCounter].x;
+			if (temp->points[pointCounter].y < min)
+				min = temp->points[pointCounter].y;
+			if (temp->points[pointCounter].z < min)
+				min = temp->points[pointCounter].z;
+		}
+	}
+	QMessageBox::about(this, tr("Min Negative Number"), tr(TypeConversion::Double2String(std::abs(min)).c_str()));
+}
+
+void MainWindow::MultiplicationPointCloudSlot()
 {
 	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
-	bool ok;
-	emit std::string magnification = ShowDialog(&ok, "X PointCloud", "Magnification");
-	if (!ok)	return;
+	double magnificationX = TypeConversion::QString2Double(_ui->_multiplicationXSpinBox->text());
+	double magnificationY = TypeConversion::QString2Double(_ui->_multiplicationYSpinBox->text());
+	double magnificationZ = TypeConversion::QString2Double(_ui->_multiplicationZSpinBox->text());
 	for (int counter = 0; counter < clouds.size(); counter++)
 	{
 		pcl::PointCloud<PointT>::Ptr temp(new pcl::PointCloud<PointT>(*clouds[counter]->GetPointCloud()));
 		for (int pointIndex = 0; pointIndex < temp->points.size(); pointIndex++)
 		{
-			temp->points[pointIndex].x *= TypeConversion::String2Int(magnification);
-			temp->points[pointIndex].y *= TypeConversion::String2Int(magnification);
-			temp->points[pointIndex].z *= TypeConversion::String2Int(magnification);
+			temp->points[pointIndex].x *= magnificationX;
+			temp->points[pointIndex].y *= magnificationY;
+			temp->points[pointIndex].z *= magnificationZ;
 		}
 		std::string name = clouds[counter]->GetName() + std::string("_Magnification");
+		MyPointCloud* cloud = new MyPointCloud(temp, name);
+		_elements->AddPointCloudElement(cloud);
+	}
+	UpdatePointCloudTable();
+}
+
+void MainWindow::ShiftPointCloudSlot()
+{
+	double shiftX = TypeConversion::QString2Double(_ui->_shiftXSpinBox->text());
+	double shiftY = TypeConversion::QString2Double(_ui->_shiftYSpinBox->text());
+	double shiftZ = TypeConversion::QString2Double(_ui->_shiftZSpinBox->text());
+	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	for (int counter = 0; counter < clouds.size(); counter++)
+	{
+		pcl::PointCloud<PointT>::Ptr temp(new pcl::PointCloud<PointT>(*clouds[counter]->GetPointCloud()));
+		for (int pointCounter = 0; pointCounter < temp->size(); pointCounter++)
+		{
+			temp->points[pointCounter].x += shiftX;
+			temp->points[pointCounter].y += shiftY;
+			temp->points[pointCounter].z += shiftZ;
+		}
+		std::string name = clouds[counter]->GetName() + std::string("_Shift");
 		MyPointCloud* cloud = new MyPointCloud(temp, name);
 		_elements->AddPointCloudElement(cloud);
 	}
@@ -1120,8 +1184,11 @@ void MainWindow::ProcessKinfuSelectedPointCloudSlot()
 	KinFuApp kinfu(volumeSize, icp, visualization, poseProcessor);
 	//kinfu.startMainLoop();
 	std::vector<PointCloudElement*> clouds = _elements->GetElementsByIsSelected();
+	//kinfu.registration_ = true;
 	for (int counter = 0; counter < clouds.size(); counter++)
 	{
+		if(counter == clouds.size() - 1)
+			kinfu.scan_ = true;
 		kinfu.source_cb3(clouds[counter]->GetPointCloud());
 		kinfu.execute();
 	}

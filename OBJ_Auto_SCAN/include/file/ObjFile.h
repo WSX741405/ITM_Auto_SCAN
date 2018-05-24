@@ -20,11 +20,12 @@ public:
 	{
 		pcl::OBJReader reader;
 		reader.read(_dir, *_cloud);
-		for (size_t index = 0; index < _cloud->points.size(); index++)
+		for (int counter = 0; counter < _cloud->points.size(); counter++)
 		{
-			_cloud->points[index].r = 255;
-			_cloud->points[index].g = 255;
-			_cloud->points[index].b = 255;
+			_cloud->points[counter].r = 255;
+			_cloud->points[counter].g = 255;
+			_cloud->points[counter].b = 255;
+			_cloud->points[counter].a = 255;
 		}
 	}
 

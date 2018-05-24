@@ -14,7 +14,6 @@ public:
 	Viewer(std::string title = "") : _title(title)
 	{
 		_viewer.reset(new pcl::visualization::PCLVisualizer(_title, false));
-		//_viewer->setBackgroundColor(255,255,255);
 	}
 
 	void ShowPointCloud(pcl::PointCloud<PointT>::Ptr cloud, std::string name = "")
@@ -38,6 +37,11 @@ public:
 	void Clear()
 	{
 		_viewer->removeAllPointClouds();
+	}
+
+	void SetBackgroundColor(int r, int g, int b)
+	{
+		_viewer->setBackgroundColor(r, g, b);
 	}
 
 	void SetupInteractor(QVTKInteractor* interactor, vtkRenderWindow* renderWindow)

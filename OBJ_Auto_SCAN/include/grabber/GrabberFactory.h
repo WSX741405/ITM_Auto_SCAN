@@ -4,12 +4,12 @@
 #include "grabber/Grabber.h"
 #include "flexx/Flexx.h"
 #include "rs/RS.h"
-#include "openni/OpenniGrabber.h"
+#include "openni/OpenNI2Grabber.h"
 
 class IGrabber;
 class Flexx;
 class Realsense;
-class MyOpenniGrabber;
+class OpenNI2Grabber;
 
 class GrabberFactory
 {
@@ -18,12 +18,12 @@ public:
 	~GrabberFactory();
 	IGrabber* GetFlexxGrabber(ISubject* subject = NULL);
 	IGrabber* GetRSGrabber(ISubject* subject = NULL);
-	IGrabber* GetOpenniGrabber(ISubject* subject = NULL);
+	IGrabber* GetOpenNI2Grabber(ISubject* subject = NULL);
 
 private:
 	Flexx* _flexx;
 	Realsense* _rs;
-	MyOpenniGrabber* _openni;
+	OpenNI2Grabber* _openni;
 };
 
 #endif

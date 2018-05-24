@@ -68,6 +68,11 @@ public slots:
 	void OpenFileSlot();
 	void SaveFileSlot();
 	//****************************************************************
+	//										Viewer
+	//****************************************************************
+	void SetViewBackgroundToBlackSlot();
+	void SetViewWhiteBackgroundToWhiteSlot();
+	//****************************************************************
 	//										Camera
 	//****************************************************************
 	void StartFlexxCameraSlot();
@@ -93,10 +98,12 @@ public slots:
 	void SelectAllPointCloudSlot();
 	void UnselectAllPointCloudSlot();
 	void CombinePointCloudSlot();
-	void XPointCloudSlot();
+	void GetMinNegativeNumberSlot();
 	void ProcessICP1Slot();
 	void ProcessICP2Slot();
 	void ProcessICP3Slot();
+	void ShiftPointCloudSlot();
+	void MultiplicationPointCloudSlot();
 	//****************************************************************
 	//										Keypoint
 	//****************************************************************
@@ -206,7 +213,7 @@ private:
 	SmoothingFactory* _smoothingFactory;
 	SmoothingProcessing* _smoothingProcessing;
 
-	const double FRAME_PITCH = 0.01;	//	(sec)
+	const double FRAME_PITCH = 0.5;	//	(sec)
 	clock_t _preFrameTime;
 };
 

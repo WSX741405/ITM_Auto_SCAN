@@ -31,3 +31,5 @@ x64/Debug/OBJ_Auto_SCAN.pdb
 x64/Debug/OBJ_Auto_SCAN.lib
 OBJ_Auto_SCAN/x64/Debug/real_sense_grabber.obj
 x64/Debug/OBJ_Auto_SCAN.ilk
+OBJ_Auto_SCAN/x64/Debug/OpenNI2Grabber.obj
+OBJ_Auto_SCAN/x64/Debug/MyOpenniGrabber.obj
