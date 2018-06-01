@@ -30,6 +30,11 @@ public:
 		viewer.ShowPointCloud(GetPointCloud(), GetName());
 	}
 
+	void Delete(Viewer& viewer)
+	{
+		viewer.DeletePointCloud(_name);
+	}
+
 	pcl::PointCloud<PointT>::Ptr GetPointCloud()
 	{
 		pcl::PointCloud<PointT>::Ptr tmpCloud;
@@ -47,6 +52,11 @@ public:
 			tmpCloud->push_back(point);
 		}
 		return tmpCloud;
+	}
+
+	pcl::PointCloud<KeypointT>::Ptr GetKeyPoint()
+	{
+		return _cloud;
 	}
 
 	pcl::PolygonMeshPtr GetMesh()

@@ -19,6 +19,8 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include <QSpinBox>
 #include <QCloseEvent>
 
+#include <pcl/filters/filter.h>
+
 #include "ui_MainWindow.h"
 #include "ui/BoundingBoxTestDialog.h";
 #include "ui/Viewer.h"
@@ -35,6 +37,7 @@ Q_DECLARE_METATYPE(pcl::PointCloud<PointT>::Ptr);
 #include "pointCloudProcessing/reconstruct/ReconstructFactory.h"
 #include "pointCloudProcessing/smoothing/SmoothingFactory.h"
 #include "kinfuApp/KinfuApp.h"
+//#include "kinfuApp/KinfuLSApp.h"
 
 class UIObserver;
 class ISubject;
@@ -104,6 +107,7 @@ public slots:
 	void ProcessICP3Slot();
 	void ShiftPointCloudSlot();
 	void MultiplicationPointCloudSlot();
+	void RemoveNANSlot();
 	//****************************************************************
 	//										Keypoint
 	//****************************************************************
@@ -171,6 +175,8 @@ public slots:
 	//****************************************************************
 	//										Kinect Fusion
 	//****************************************************************
+	void ProcessKinfuTestBoundingBoxSlot();
+	void GetKinfuTestBoundingBoxSlot();
 	void ProcessKinfuSelectedPointCloudSlot();
 
 private:
@@ -186,7 +192,6 @@ private:
 	void OpenFile(std::string dir, std::string filter);
 	void SaveFile(std::string dir, std::string filter);
 
-	BoundingBoxTestDialog* _dialog;
 	Viewer* _viewer;
 	UIObserver* _uiObserver;
 	FileFactory* _fileFactory;
@@ -213,8 +218,13 @@ private:
 	SmoothingFactory* _smoothingFactory;
 	SmoothingProcessing* _smoothingProcessing;
 
+	BoundingBoxTestDialog* _dialog;
+
 	const double FRAME_PITCH = 0.5;	//	(sec)
 	clock_t _preFrameTime;
+
+	//		Kinfu
+	bool _isTestedKinfuBoundingBox;
 };
 
 #endif

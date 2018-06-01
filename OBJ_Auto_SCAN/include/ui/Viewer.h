@@ -16,6 +16,11 @@ public:
 		_viewer.reset(new pcl::visualization::PCLVisualizer(_title, false));
 	}
 
+	~Viewer()
+	{
+		_viewer.reset();
+	}
+
 	void ShowPointCloud(pcl::PointCloud<PointT>::Ptr cloud, std::string name = "")
 	{
 		if (!_viewer->updatePointCloud(cloud, name))
@@ -29,14 +34,25 @@ public:
 			_viewer->addPolygonMesh(*surface, name);
 	}
 
-	void Show(pcl::PointCloud<PointT>::Ptr sourceCloud, pcl::PointCloud<PointT>::ConstPtr targetCloud, pcl::CorrespondencesPtr correspondences, std::string name = "")
+	void Show(pcl::PointCloud<KeypointT>::Ptr sourceCloud, pcl::PointCloud<KeypointT>::Ptr targetCloud, pcl::CorrespondencesPtr correspondences, std::string name = "")
 	{
-		_viewer->addCorrespondences<PointT>(sourceCloud, targetCloud, *correspondences, name);
+		_viewer->addCorrespondences<KeypointT>(sourceCloud, targetCloud, *correspondences, name);
+	}
+
+	void DeletePointCloud(std::string id)
+	{
+		_viewer->removePointCloud(id);
+	}
+
+	void DeleteCorrespondence(std::string id)
+	{
+		_viewer->removeCorrespondences(id);
 	}
 
 	void Clear()
 	{
 		_viewer->removeAllPointClouds();
+		_viewer->removeAllShapes();
 	}
 
 	void SetBackgroundColor(int r, int g, int b)

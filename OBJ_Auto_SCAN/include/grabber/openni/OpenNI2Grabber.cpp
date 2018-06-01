@@ -31,6 +31,19 @@ void OpenNI2Grabber::CloudCallback(const pcl::PointCloud<PointT>::ConstPtr &clou
 {
 	std::unique_lock<std::mutex> lock(_mutex);
 	pcl::PointCloud<PointT>::Ptr cpyCloud = boost::const_pointer_cast<pcl::PointCloud<PointT>>(cloud);
+	/*
+	int width = cloud->width;
+	int height = cloud->height;
+	pcl::PointCloud<PointT>::Ptr cpyCloud;
+	cpyCloud.reset(new pcl::PointCloud<PointT>(width / 2, height / 2));
+	for (int widthIndex = 0; widthIndex < width / 2; widthIndex++)
+	{
+		for (int heightIndex = 0; heightIndex < height / 2; heightIndex++)
+		{
+			PointT point(cloud->at(widthIndex, heightIndex));
+			cpyCloud->at(widthIndex, heightIndex) = point;
+		} 
+	}*/
 	_subject->NotifyObservers(cpyCloud);
-	boost::this_thread::sleep(boost::posix_time::seconds(1));
+	boost::this_thread::sleep(boost::posix_time::milliseconds(500));
 }

@@ -5,6 +5,7 @@
 #include "VoxelGridFilter.h"
 #include "BoundingBoxFilter.h"
 #include "OutlierRemovalFilter.h"
+#include "DepthImageBoundingBoxFilter.h"
 
 class FilterFactory
 {
@@ -13,6 +14,7 @@ public:
 	FilterProcessing* GetVoixelGridFilter();
 	FilterProcessing* GetBoundingBoxFilter();
 	FilterProcessing* GetOutlierRemovalFilter();
+	FilterProcessing* GetDepthImageBoundingBoxFilter();
 
 private:
 

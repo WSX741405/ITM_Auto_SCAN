@@ -3,6 +3,13 @@
 
 #include "Typedef.h"
 
+#include <QVTKWidget.h>
+#include<QMessageBox>
+#include <QFileDialog>
+#include<QInputDialog>
+#include <QSpinBox>
+#include <QCloseEvent>
+
 class TypeConversion
 {
 public:

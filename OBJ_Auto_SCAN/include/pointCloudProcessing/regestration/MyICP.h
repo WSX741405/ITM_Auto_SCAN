@@ -2,6 +2,7 @@
 #define MY_ICP
 
 #include "Typedef.h"
+#include <pcl/filters/filter.h>
 #include <pcl/registration/icp.h>
 
 #include "RegestrationProcessing.h"

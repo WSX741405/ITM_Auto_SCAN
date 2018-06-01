@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_BoundingBoxTestDialog_t {
-    QByteArrayData data[12];
-    char stringdata0[107];
+    QByteArrayData data[14];
+    char stringdata0[149];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,14 +40,18 @@ QT_MOC_LITERAL(5, 46, 4), // "minY"
 QT_MOC_LITERAL(6, 51, 4), // "maxY"
 QT_MOC_LITERAL(7, 56, 4), // "minZ"
 QT_MOC_LITERAL(8, 61, 4), // "maxZ"
-QT_MOC_LITERAL(9, 66, 18), // "SetBoundingBoxSlot"
-QT_MOC_LITERAL(10, 85, 10), // "AcceptSlot"
-QT_MOC_LITERAL(11, 96, 10) // "RejectSlot"
+QT_MOC_LITERAL(9, 66, 17), // "TestKinfuFinished"
+QT_MOC_LITERAL(10, 84, 18), // "SetBoundingBoxSlot"
+QT_MOC_LITERAL(11, 103, 23), // "EditLineBoundingBoxSlot"
+QT_MOC_LITERAL(12, 127, 10), // "AcceptSlot"
+QT_MOC_LITERAL(13, 138, 10) // "RejectSlot"
 
     },
     "BoundingBoxTestDialog\0TestFinished\0\0"
     "minX\0maxX\0minY\0maxY\0minZ\0maxZ\0"
-    "SetBoundingBoxSlot\0AcceptSlot\0RejectSlot"
+    "TestKinfuFinished\0SetBoundingBoxSlot\0"
+    "EditLineBoundingBoxSlot\0AcceptSlot\0"
+    "RejectSlot"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,25 +61,29 @@ static const uint qt_meta_data_BoundingBoxTestDialog[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    6,   34,    2, 0x06 /* Public */,
+       1,    6,   44,    2, 0x06 /* Public */,
+       9,    0,   57,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       9,    0,   47,    2, 0x0a /* Public */,
-      10,    0,   48,    2, 0x0a /* Public */,
-      11,    0,   49,    2, 0x0a /* Public */,
+      10,    0,   58,    2, 0x0a /* Public */,
+      11,    0,   59,    2, 0x0a /* Public */,
+      12,    0,   60,    2, 0x0a /* Public */,
+      13,    0,   61,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float,    3,    4,    5,    6,    7,    8,
+    QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -90,9 +98,11 @@ void BoundingBoxTestDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->TestFinished((*reinterpret_cast< float(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5])),(*reinterpret_cast< float(*)>(_a[6]))); break;
-        case 1: _t->SetBoundingBoxSlot(); break;
-        case 2: _t->AcceptSlot(); break;
-        case 3: _t->RejectSlot(); break;
+        case 1: _t->TestKinfuFinished(); break;
+        case 2: _t->SetBoundingBoxSlot(); break;
+        case 3: _t->EditLineBoundingBoxSlot(); break;
+        case 4: _t->AcceptSlot(); break;
+        case 5: _t->RejectSlot(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -102,6 +112,13 @@ void BoundingBoxTestDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c
             typedef void (BoundingBoxTestDialog::*_t)(float , float , float , float , float , float );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&BoundingBoxTestDialog::TestFinished)) {
                 *result = 0;
+                return;
+            }
+        }
+        {
+            typedef void (BoundingBoxTestDialog::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&BoundingBoxTestDialog::TestKinfuFinished)) {
+                *result = 1;
                 return;
             }
         }
@@ -133,13 +150,13 @@ int BoundingBoxTestDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 6)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 4;
+        _id -= 6;
     }
     return _id;
 }
@@ -149,6 +166,12 @@ void BoundingBoxTestDialog::TestFinished(float _t1, float _t2, float _t3, float 
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)), const_cast<void*>(reinterpret_cast<const void*>(&_t6)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void BoundingBoxTestDialog::TestKinfuFinished()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

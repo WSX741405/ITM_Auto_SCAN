@@ -6,6 +6,7 @@
 #include "MyPointCloud.h"
 #include "MyKeypoint.h"
 #include "MySurface.h"
+#include "MyCorrespondences.h"
 
 class PointCloudElements
 {
@@ -100,6 +101,11 @@ public:
 	int GetNumberOfElements()
 	{
 		return _elements.size();
+	}
+
+	PointCloudElement* GetPointCloudElementById(int id)
+	{
+		return _elements[id];
 	}
 
 private:

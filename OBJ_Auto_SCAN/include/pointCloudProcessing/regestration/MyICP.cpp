@@ -6,9 +6,9 @@ MyICP::MyICP()
 
 	_maxCorrespondenceDistance = 0.05;
 	_ransacOutlierRejectionThreshold = 0.05;
-	_transformationEpsilon = 1e-10;
+	_transformationEpsilon = 1e-12;
 	_maximumIterations = 1000;
-	_euclideanFitnessEpsilon = 0.01;
+	_euclideanFitnessEpsilon = 1e-12;
 }
 
 void MyICP::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<PointT>::Ptr target)
@@ -17,10 +17,10 @@ void MyICP::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<Poin
 	registration->setInputSource(source);
 	//registration->setInputSource (source_segmented_);
 	registration->setInputTarget(target);
-	//registration->setMaxCorrespondenceDistance(_maxCorrespondenceDistance);
+	registration->setMaxCorrespondenceDistance(_maxCorrespondenceDistance);
 	registration->setRANSACOutlierRejectionThreshold(_ransacOutlierRejectionThreshold);
 	registration->setTransformationEpsilon(_transformationEpsilon);
-	//registration->setEuclideanFitnessEpsilon(_euclideanFitnessEpsilon);
+	registration->setEuclideanFitnessEpsilon(_euclideanFitnessEpsilon);
 	registration->setMaximumIterations(_maximumIterations);
 	registration->align(*_registeredCloud);
 	_registeredMatrix = registration->getFinalTransformation();

@@ -27,7 +27,7 @@
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
-#include "QVTKWidget.h"
+#include <qvtkwidget.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -43,31 +43,26 @@ public:
     QAction *_getArrayAction;
     QAction *_controlMotorAction;
     QAction *_setConfidenceAction;
-    QAction *_IterativeClosestPointAction;
     QAction *_openFileAction;
     QAction *_saveFileAction;
     QAction *_keepOneFrameAction;
     QAction *_keepContinueFrameAction;
-    QAction *actionFeature;
-    QAction *_autoScanAction;
     QAction *_removeSelectedPointCloudsAction;
     QAction *_removeAllPointCloudsAction;
-    QAction *_selectAllAction;
-    QAction *action_2;
-    QAction *actionSelect_PointCloud_2;
     QAction *_selectAllPointCloudsAction;
     QAction *_unselectAllPointCloudsAction;
     QAction *_processICP1Action;
     QAction *_processICP2Action;
     QAction *_combinePointCloudAction;
     QAction *_processICP3Action;
-    QAction *_xPointCloudAction;
     QAction *_kinfuSelectedPointCloudAction;
     QAction *_startXtionProAction;
     QAction *_stopXtionProAction;
     QAction *_setViewBackgroundToBlackAction;
     QAction *_setViewBackgroundToWhiteAction;
     QAction *_getMinNegativeNumberAction;
+    QAction *_kinfuTestBoundingBoxAction;
+    QAction *_removeNANAction;
     QWidget *centralWidget;
     QVTKWidget *_qvtkWidget;
     QTableWidget *_pointCloudTable;
@@ -275,8 +270,6 @@ public:
         _controlMotorAction->setObjectName(QStringLiteral("_controlMotorAction"));
         _setConfidenceAction = new QAction(MainWindowForm);
         _setConfidenceAction->setObjectName(QStringLiteral("_setConfidenceAction"));
-        _IterativeClosestPointAction = new QAction(MainWindowForm);
-        _IterativeClosestPointAction->setObjectName(QStringLiteral("_IterativeClosestPointAction"));
         _openFileAction = new QAction(MainWindowForm);
         _openFileAction->setObjectName(QStringLiteral("_openFileAction"));
         _saveFileAction = new QAction(MainWindowForm);
@@ -285,20 +278,10 @@ public:
         _keepOneFrameAction->setObjectName(QStringLiteral("_keepOneFrameAction"));
         _keepContinueFrameAction = new QAction(MainWindowForm);
         _keepContinueFrameAction->setObjectName(QStringLiteral("_keepContinueFrameAction"));
-        actionFeature = new QAction(MainWindowForm);
-        actionFeature->setObjectName(QStringLiteral("actionFeature"));
-        _autoScanAction = new QAction(MainWindowForm);
-        _autoScanAction->setObjectName(QStringLiteral("_autoScanAction"));
         _removeSelectedPointCloudsAction = new QAction(MainWindowForm);
         _removeSelectedPointCloudsAction->setObjectName(QStringLiteral("_removeSelectedPointCloudsAction"));
         _removeAllPointCloudsAction = new QAction(MainWindowForm);
         _removeAllPointCloudsAction->setObjectName(QStringLiteral("_removeAllPointCloudsAction"));
-        _selectAllAction = new QAction(MainWindowForm);
-        _selectAllAction->setObjectName(QStringLiteral("_selectAllAction"));
-        action_2 = new QAction(MainWindowForm);
-        action_2->setObjectName(QStringLiteral("action_2"));
-        actionSelect_PointCloud_2 = new QAction(MainWindowForm);
-        actionSelect_PointCloud_2->setObjectName(QStringLiteral("actionSelect_PointCloud_2"));
         _selectAllPointCloudsAction = new QAction(MainWindowForm);
         _selectAllPointCloudsAction->setObjectName(QStringLiteral("_selectAllPointCloudsAction"));
         _unselectAllPointCloudsAction = new QAction(MainWindowForm);
@@ -311,8 +294,6 @@ public:
         _combinePointCloudAction->setObjectName(QStringLiteral("_combinePointCloudAction"));
         _processICP3Action = new QAction(MainWindowForm);
         _processICP3Action->setObjectName(QStringLiteral("_processICP3Action"));
-        _xPointCloudAction = new QAction(MainWindowForm);
-        _xPointCloudAction->setObjectName(QStringLiteral("_xPointCloudAction"));
         _kinfuSelectedPointCloudAction = new QAction(MainWindowForm);
         _kinfuSelectedPointCloudAction->setObjectName(QStringLiteral("_kinfuSelectedPointCloudAction"));
         _startXtionProAction = new QAction(MainWindowForm);
@@ -325,6 +306,10 @@ public:
         _setViewBackgroundToWhiteAction->setObjectName(QStringLiteral("_setViewBackgroundToWhiteAction"));
         _getMinNegativeNumberAction = new QAction(MainWindowForm);
         _getMinNegativeNumberAction->setObjectName(QStringLiteral("_getMinNegativeNumberAction"));
+        _kinfuTestBoundingBoxAction = new QAction(MainWindowForm);
+        _kinfuTestBoundingBoxAction->setObjectName(QStringLiteral("_kinfuTestBoundingBoxAction"));
+        _removeNANAction = new QAction(MainWindowForm);
+        _removeNANAction->setObjectName(QStringLiteral("_removeNANAction"));
         centralWidget = new QWidget(MainWindowForm);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         _qvtkWidget = new QVTKWidget(centralWidget);
@@ -883,7 +868,7 @@ public:
         _icpCorrespondenceDistanceSpinBox->setGeometry(QRect(320, 20, 80, 30));
         _icpCorrespondenceDistanceSpinBox->setDecimals(3);
         _icpCorrespondenceDistanceSpinBox->setMinimum(0.001);
-        _icpCorrespondenceDistanceSpinBox->setMaximum(1);
+        _icpCorrespondenceDistanceSpinBox->setMaximum(10);
         _icpCorrespondenceDistanceSpinBox->setSingleStep(0.001);
         _icpCorrespondenceDistanceSpinBox->setValue(0.05);
         _icpOutlierThresholdSpinBox = new QDoubleSpinBox(_icpTab);
@@ -1181,6 +1166,7 @@ public:
         menuPointCloud->addAction(menuSelectPointCloud->menuAction());
         menuPointCloud->addAction(_combinePointCloudAction);
         menuPointCloud->addAction(_getMinNegativeNumberAction);
+        menuPointCloud->addAction(_removeNANAction);
         menuKeep_PointCloud->addAction(_keepOneFrameAction);
         menuKeep_PointCloud->addAction(_keepContinueFrameAction);
         menuRemove_PointCloud->addAction(_removeSelectedPointCloudsAction);
@@ -1190,6 +1176,7 @@ public:
         menuProcess->addAction(_processICP1Action);
         menuProcess->addAction(_processICP2Action);
         menuProcess->addAction(_processICP3Action);
+        menuKinect_Fusion->addAction(_kinfuTestBoundingBoxAction);
         menuKinect_Fusion->addAction(_kinfuSelectedPointCloudAction);
         menuViewer->addAction(menuSet_Background_Color->menuAction());
         menuSet_Background_Color->addAction(_setViewBackgroundToBlackAction);
@@ -1197,9 +1184,9 @@ public:
 
         retranslateUi(MainWindowForm);
 
-        _processingTabWidget->setCurrentIndex(0);
+        _processingTabWidget->setCurrentIndex(4);
         _baseTabWidget->setCurrentIndex(0);
-        _filterTabWidget->setCurrentIndex(0);
+        _filterTabWidget->setCurrentIndex(1);
         _keypointTabWidget->setCurrentIndex(0);
         _correspondencesTabWidget->setCurrentIndex(0);
         _regestrationTabWidget->setCurrentIndex(0);
@@ -1222,31 +1209,26 @@ public:
         _getArrayAction->setText(QApplication::translate("MainWindowForm", "Get Array", Q_NULLPTR));
         _controlMotorAction->setText(QApplication::translate("MainWindowForm", "Control Motor", Q_NULLPTR));
         _setConfidenceAction->setText(QApplication::translate("MainWindowForm", "Set Confidence", Q_NULLPTR));
-        _IterativeClosestPointAction->setText(QApplication::translate("MainWindowForm", "PCL IterativeClosestPoint", Q_NULLPTR));
         _openFileAction->setText(QApplication::translate("MainWindowForm", "Open File", Q_NULLPTR));
         _saveFileAction->setText(QApplication::translate("MainWindowForm", "Save File", Q_NULLPTR));
         _keepOneFrameAction->setText(QApplication::translate("MainWindowForm", "One Frame", Q_NULLPTR));
         _keepContinueFrameAction->setText(QApplication::translate("MainWindowForm", "Continue Frame", Q_NULLPTR));
-        actionFeature->setText(QApplication::translate("MainWindowForm", "Feature", Q_NULLPTR));
-        _autoScanAction->setText(QApplication::translate("MainWindowForm", "Auto Scan", Q_NULLPTR));
         _removeSelectedPointCloudsAction->setText(QApplication::translate("MainWindowForm", "Remove Selected", Q_NULLPTR));
         _removeAllPointCloudsAction->setText(QApplication::translate("MainWindowForm", "Remove All", Q_NULLPTR));
-        _selectAllAction->setText(QApplication::translate("MainWindowForm", "Select All", Q_NULLPTR));
-        action_2->setText(QApplication::translate("MainWindowForm", "Select All", Q_NULLPTR));
-        actionSelect_PointCloud_2->setText(QApplication::translate("MainWindowForm", "Select PointCloud", Q_NULLPTR));
         _selectAllPointCloudsAction->setText(QApplication::translate("MainWindowForm", "Select All", Q_NULLPTR));
         _unselectAllPointCloudsAction->setText(QApplication::translate("MainWindowForm", "Unselect All", Q_NULLPTR));
         _processICP1Action->setText(QApplication::translate("MainWindowForm", "ICP_1", Q_NULLPTR));
         _processICP2Action->setText(QApplication::translate("MainWindowForm", "ICP_2", Q_NULLPTR));
         _combinePointCloudAction->setText(QApplication::translate("MainWindowForm", "Combine PointCloud", Q_NULLPTR));
         _processICP3Action->setText(QApplication::translate("MainWindowForm", "ICP_3", Q_NULLPTR));
-        _xPointCloudAction->setText(QApplication::translate("MainWindowForm", "PointCloud x?", Q_NULLPTR));
         _kinfuSelectedPointCloudAction->setText(QApplication::translate("MainWindowForm", "Selected PointCloud", Q_NULLPTR));
         _startXtionProAction->setText(QApplication::translate("MainWindowForm", "Start", Q_NULLPTR));
         _stopXtionProAction->setText(QApplication::translate("MainWindowForm", "Stop", Q_NULLPTR));
         _setViewBackgroundToBlackAction->setText(QApplication::translate("MainWindowForm", "Black", Q_NULLPTR));
         _setViewBackgroundToWhiteAction->setText(QApplication::translate("MainWindowForm", "White", Q_NULLPTR));
         _getMinNegativeNumberAction->setText(QApplication::translate("MainWindowForm", "Get Min Negative Number", Q_NULLPTR));
+        _kinfuTestBoundingBoxAction->setText(QApplication::translate("MainWindowForm", "Test Bounding Box", Q_NULLPTR));
+        _removeNANAction->setText(QApplication::translate("MainWindowForm", "Remove NAN", Q_NULLPTR));
         _shiftXLabel->setText(QApplication::translate("MainWindowForm", "X\357\274\232", Q_NULLPTR));
         _shiftYLabel->setText(QApplication::translate("MainWindowForm", "Y\357\274\232", Q_NULLPTR));
         _shiftZLabel->setText(QApplication::translate("MainWindowForm", "Z\357\274\232", Q_NULLPTR));

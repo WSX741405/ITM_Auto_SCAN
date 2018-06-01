@@ -12,6 +12,7 @@ void OutlierRemovalFilter::Processing(pcl::PointCloud<PointT>::Ptr cloud)
 {
 	pcl::StatisticalOutlierRemoval<PointT> sor;
 	sor.setInputCloud(cloud);
+	sor.setKeepOrganized(true);
 	sor.setMeanK(50);
 	sor.setStddevMulThresh(1.0);
 	sor.filter(*_filteredCloud);

@@ -3,6 +3,7 @@
 
 #include "Typedef.h"
 #include "FilterProcessing.h"
+#include "Conversion.h"
 #include <pcl/filters/crop_box.h>
 
 class BoundingBoxFilter : public FilterProcessing

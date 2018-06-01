@@ -17,6 +17,11 @@ public:
 		_isSelected = false;		//default
 	}
 
+	~MyPointCloud()
+	{
+		_cloud.reset();
+	}
+
 	std::string GetName()
 	{
 		return _name;
@@ -25,6 +30,16 @@ public:
 	void Show(Viewer& viewer)
 	{
 		viewer.ShowPointCloud(GetPointCloud(), GetName());
+	}
+
+	void Delete(Viewer& viewer)
+	{
+		viewer.DeletePointCloud(_name);
+	}
+
+	pcl::PointCloud<KeypointT>::Ptr GetKeyPoint()
+	{
+		return NULL;
 	}
 
 	pcl::PointCloud<PointT>::Ptr GetPointCloud()

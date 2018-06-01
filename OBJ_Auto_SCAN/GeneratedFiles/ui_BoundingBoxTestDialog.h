@@ -16,6 +16,7 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollBar>
 #include <qvtkwidget.h>
@@ -40,12 +41,12 @@ public:
     QLabel *_maxYLabel;
     QLabel *_minZLabel;
     QLabel *_maxZLabel;
-    QLabel *_minXDisplayLabel;
-    QLabel *_maxXDisplayLabel;
-    QLabel *_minYDisplayLabel;
-    QLabel *_maxYDisplayLabel;
-    QLabel *_minZDisplayLabel;
-    QLabel *_maxZDisplayLabel;
+    QLineEdit *_minXLineEdit;
+    QLineEdit *_maxXLineEdit;
+    QLineEdit *_minYLineEdit;
+    QLineEdit *_maxYLineEdit;
+    QLineEdit *_minZLineEdit;
+    QLineEdit *_maxZLineEdit;
 
     void setupUi(QDialog *BoundingBoxTestDialog)
     {
@@ -137,30 +138,24 @@ public:
         _maxZLabel->setObjectName(QStringLiteral("_maxZLabel"));
         _maxZLabel->setGeometry(QRect(450, 380, 80, 30));
         _maxZLabel->setFont(font);
-        _minXDisplayLabel = new QLabel(BoundingBoxTestDialog);
-        _minXDisplayLabel->setObjectName(QStringLiteral("_minXDisplayLabel"));
-        _minXDisplayLabel->setGeometry(QRect(530, 30, 80, 30));
-        _minXDisplayLabel->setFont(font);
-        _maxXDisplayLabel = new QLabel(BoundingBoxTestDialog);
-        _maxXDisplayLabel->setObjectName(QStringLiteral("_maxXDisplayLabel"));
-        _maxXDisplayLabel->setGeometry(QRect(530, 100, 80, 30));
-        _maxXDisplayLabel->setFont(font);
-        _minYDisplayLabel = new QLabel(BoundingBoxTestDialog);
-        _minYDisplayLabel->setObjectName(QStringLiteral("_minYDisplayLabel"));
-        _minYDisplayLabel->setGeometry(QRect(530, 170, 80, 30));
-        _minYDisplayLabel->setFont(font);
-        _maxYDisplayLabel = new QLabel(BoundingBoxTestDialog);
-        _maxYDisplayLabel->setObjectName(QStringLiteral("_maxYDisplayLabel"));
-        _maxYDisplayLabel->setGeometry(QRect(530, 240, 80, 30));
-        _maxYDisplayLabel->setFont(font);
-        _minZDisplayLabel = new QLabel(BoundingBoxTestDialog);
-        _minZDisplayLabel->setObjectName(QStringLiteral("_minZDisplayLabel"));
-        _minZDisplayLabel->setGeometry(QRect(530, 310, 80, 30));
-        _minZDisplayLabel->setFont(font);
-        _maxZDisplayLabel = new QLabel(BoundingBoxTestDialog);
-        _maxZDisplayLabel->setObjectName(QStringLiteral("_maxZDisplayLabel"));
-        _maxZDisplayLabel->setGeometry(QRect(530, 380, 80, 30));
-        _maxZDisplayLabel->setFont(font);
+        _minXLineEdit = new QLineEdit(BoundingBoxTestDialog);
+        _minXLineEdit->setObjectName(QStringLiteral("_minXLineEdit"));
+        _minXLineEdit->setGeometry(QRect(530, 30, 80, 30));
+        _maxXLineEdit = new QLineEdit(BoundingBoxTestDialog);
+        _maxXLineEdit->setObjectName(QStringLiteral("_maxXLineEdit"));
+        _maxXLineEdit->setGeometry(QRect(530, 100, 80, 30));
+        _minYLineEdit = new QLineEdit(BoundingBoxTestDialog);
+        _minYLineEdit->setObjectName(QStringLiteral("_minYLineEdit"));
+        _minYLineEdit->setGeometry(QRect(530, 170, 80, 30));
+        _maxYLineEdit = new QLineEdit(BoundingBoxTestDialog);
+        _maxYLineEdit->setObjectName(QStringLiteral("_maxYLineEdit"));
+        _maxYLineEdit->setGeometry(QRect(530, 240, 80, 30));
+        _minZLineEdit = new QLineEdit(BoundingBoxTestDialog);
+        _minZLineEdit->setObjectName(QStringLiteral("_minZLineEdit"));
+        _minZLineEdit->setGeometry(QRect(530, 310, 80, 30));
+        _maxZLineEdit = new QLineEdit(BoundingBoxTestDialog);
+        _maxZLineEdit->setObjectName(QStringLiteral("_maxZLineEdit"));
+        _maxZLineEdit->setGeometry(QRect(530, 380, 80, 30));
 
         retranslateUi(BoundingBoxTestDialog);
 
@@ -178,12 +173,6 @@ public:
         _maxYLabel->setText(QApplication::translate("BoundingBoxTestDialog", "Max Y\357\274\232", Q_NULLPTR));
         _minZLabel->setText(QApplication::translate("BoundingBoxTestDialog", "Min Z\357\274\232", Q_NULLPTR));
         _maxZLabel->setText(QApplication::translate("BoundingBoxTestDialog", "Max Z\357\274\232", Q_NULLPTR));
-        _minXDisplayLabel->setText(QString());
-        _maxXDisplayLabel->setText(QString());
-        _minYDisplayLabel->setText(QString());
-        _maxYDisplayLabel->setText(QString());
-        _minZDisplayLabel->setText(QString());
-        _maxZDisplayLabel->setText(QString());
     } // retranslateUi
 
 };

@@ -317,7 +317,7 @@
     <string>Max Z：</string>
    </property>
   </widget>
-  <widget class="QLabel" name="_minXDisplayLabel">
+  <widget class="QLineEdit" name="_minXLineEdit">
    <property name="geometry">
     <rect>
      <x>530</x>
@@ -326,16 +326,8 @@
      <height>30</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
   </widget>
-  <widget class="QLabel" name="_maxXDisplayLabel">
+  <widget class="QLineEdit" name="_maxXLineEdit">
    <property name="geometry">
     <rect>
      <x>530</x>
@@ -344,16 +336,8 @@
      <height>30</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
   </widget>
-  <widget class="QLabel" name="_minYDisplayLabel">
+  <widget class="QLineEdit" name="_minYLineEdit">
    <property name="geometry">
     <rect>
      <x>530</x>
@@ -362,16 +346,8 @@
      <height>30</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
   </widget>
-  <widget class="QLabel" name="_maxYDisplayLabel">
+  <widget class="QLineEdit" name="_maxYLineEdit">
    <property name="geometry">
     <rect>
      <x>530</x>
@@ -380,16 +356,8 @@
      <height>30</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
   </widget>
-  <widget class="QLabel" name="_minZDisplayLabel">
+  <widget class="QLineEdit" name="_minZLineEdit">
    <property name="geometry">
     <rect>
      <x>530</x>
@@ -398,16 +366,8 @@
      <height>30</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
   </widget>
-  <widget class="QLabel" name="_maxZDisplayLabel">
+  <widget class="QLineEdit" name="_maxZLineEdit">
    <property name="geometry">
     <rect>
      <x>530</x>
@@ -415,14 +375,6 @@
      <width>80</width>
      <height>30</height>
     </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
  </widget>

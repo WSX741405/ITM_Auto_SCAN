@@ -21,3 +21,9 @@ FilterProcessing* FilterFactory::GetOutlierRemovalFilter()
 	static OutlierRemovalFilter* filter = new OutlierRemovalFilter();
 	return filter;
 }
+
+FilterProcessing* FilterFactory::GetDepthImageBoundingBoxFilter()
+{
+	static DepthImageBoundingBoxFilter* filter = new DepthImageBoundingBoxFilter();
+	return filter;
+}

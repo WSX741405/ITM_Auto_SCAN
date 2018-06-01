@@ -207,6 +207,12 @@
     <ClCompile Include="include\grabber\openni\OpenNI2Grabber.cpp">
       <Filter>include\grabber\openni</Filter>
     </ClCompile>
+    <ClCompile Include="include\pointCloudProcessing\filter\DepthImageBoundingBoxFilter.cpp">
+      <Filter>include\pointCloudProcessing\filter</Filter>
+    </ClCompile>
+    <ClCompile Include="include\kinfuApp\kinfuLSApp.cpp">
+      <Filter>include\kinfuApp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">
@@ -417,6 +423,12 @@
     </ClInclude>
     <ClInclude Include="include\grabber\openni\OpenNI2Grabber.h">
       <Filter>include\grabber\openni</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloudProcessing\filter\DepthImageBoundingBoxFilter.h">
+      <Filter>include\pointCloudProcessing\filter</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pointCloud\MyCorrespondences.h">
+      <Filter>include\pointCloud</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
