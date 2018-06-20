@@ -2,6 +2,7 @@
 #define POINT_CLOUD_ELEMENT
 
 #include "ui/Viewer.h"
+#include "file/MyFile.h"
 
 class PointCloudElement
 {
@@ -11,6 +12,7 @@ public:
 	virtual bool GetIsSelected() = 0;
 	virtual void Show(Viewer& viewer) = 0;
 	virtual void Delete(Viewer& viewer) = 0;
+	virtual void Save(MyFile* file) = 0;
 	virtual pcl::PointCloud<PointT>::Ptr GetPointCloud() = 0;
 	virtual pcl::PolygonMeshPtr GetMesh() = 0;
 	virtual pcl::PointCloud<KeypointT>::Ptr GetKeyPoint() = 0;

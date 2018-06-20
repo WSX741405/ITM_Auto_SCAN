@@ -41,6 +41,11 @@ public:
 		return _cloud;
 	}
 
+	void SaveFile(pcl::PolygonMeshPtr mesh)
+	{
+
+	}
+
 private:
 	pcl::PointCloud<PointT>::Ptr _cloud;
 };

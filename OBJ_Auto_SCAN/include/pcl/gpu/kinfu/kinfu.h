@@ -76,6 +76,9 @@ namespace pcl
         typedef pcl::PointXYZ PointType;
         typedef pcl::Normal NormalType;
 
+		typedef Eigen::Matrix<float, 3, 3, Eigen::RowMajor> Matrix3frm;
+		typedef Eigen::Vector3f Vector3f;
+
         /** \brief Constructor
           * \param[in] rows height of depth image
           * \param[in] cols width of depth image
@@ -200,6 +203,20 @@ namespace pcl
         /** \brief Disables ICP forever */
         void disableIcp();
 
+		/** \brief ICP step is completely disabled. Only integration now. */
+		bool disable_icp_;
+
+		/** \brief Frame counter */
+		int global_time_;
+
+		/** \brief Array of camera rotation matrices for each moment of time. */
+		std::vector<Matrix3frm> rmats_;
+
+		/** \brief Array of camera translations for each moment of time. */
+		std::vector<Vector3f> tvecs_;
+
+		void reset();
+
       private:
         
         /** \brief Number of pyramid levels */
@@ -210,16 +227,11 @@ namespace pcl
 
         /** \brief Vertex or Normal Map type */
         typedef DeviceArray2D<float> MapArr;
-        
-        typedef Eigen::Matrix<float, 3, 3, Eigen::RowMajor> Matrix3frm;
-        typedef Eigen::Vector3f Vector3f;
 
         /** \brief Height of input depth image. */
         int rows_;
         /** \brief Width of input depth image. */
         int cols_;
-        /** \brief Frame counter */
-        int global_time_;
 
         /** \brief Truncation threshold for depth image for ICP step */
         float max_icp_distance_;
@@ -272,17 +284,9 @@ namespace pcl
         /** \brief Buffer to store MLS matrix. */
         DeviceArray<double> sumbuf_;
 
-        /** \brief Array of camera rotation matrices for each moment of time. */
-        std::vector<Matrix3frm> rmats_;
-        
-        /** \brief Array of camera translations for each moment of time. */
-        std::vector<Vector3f> tvecs_;
 
         /** \brief Camera movement threshold. TSDF is integrated iff a camera movement metric exceedes some value. */
         float integration_metric_threshold_;
-
-        /** \brief ICP step is completely disabled. Only integration now. */
-        bool disable_icp_;
         
         /** \brief Allocates all GPU internal buffers.
           * \param[in] rows_arg
@@ -293,8 +297,6 @@ namespace pcl
 
         /** \brief Performs the tracker reset to initial  state. It's used if case of camera tracking fail.
           */
-        void
-        reset ();
 
 public:
 EIGEN_MAKE_ALIGNED_OPERATOR_NEW

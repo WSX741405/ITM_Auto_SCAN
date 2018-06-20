@@ -13,6 +13,7 @@ public:
 
 	virtual void LoadFile() = 0;
 	virtual void SaveFile(pcl::PointCloud<PointT>::Ptr cloud) = 0;
+	virtual void SaveFile(pcl::PolygonMeshPtr mesh) = 0;
 	virtual pcl::PointCloud<PointT>::Ptr GetPointCloud() = 0;
 protected:
 	std::string _dir;

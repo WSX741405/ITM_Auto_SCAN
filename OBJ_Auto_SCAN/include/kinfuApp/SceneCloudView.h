@@ -145,22 +145,22 @@ struct SceneCloudView
 	void
 		showMesh(pcl::gpu::KinfuTracker& kinfu, bool /*integrate_colors*/)
 	{
-		if (!viz_)
-			return;
-
-		ScopeTimeT time("Mesh Extraction");
-
 		if (!marching_cubes_)
 			marching_cubes_ = pcl::gpu::MarchingCubes::Ptr(new pcl::gpu::MarchingCubes());
 
 		pcl::gpu::DeviceArray<pcl::PointXYZ> triangles_device = marching_cubes_->run(kinfu.volume(), triangles_buffer_device_);
 		mesh_ptr_ = KinFuAppMethos::convertToMesh(triangles_device);
 
+		cout << "Done.  Triangles number: " << triangles_device.size() / pcl::gpu::MarchingCubes::POINTS_PER_TRIANGLE / 1000 << "K" << endl;
+
+		if (!viz_)
+			return;
+
+		ScopeTimeT time("Mesh Extraction");
+
 		cloud_viewer_->removeAllPointClouds();
 		if (mesh_ptr_)
 			cloud_viewer_->addPolygonMesh(*mesh_ptr_);
-
-		cout << "Done.  Triangles number: " << triangles_device.size() / pcl::gpu::MarchingCubes::POINTS_PER_TRIANGLE / 1000 << "K" << endl;
 	}
 
 	int viz_;

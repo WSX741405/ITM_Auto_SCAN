@@ -15,8 +15,8 @@ public:
 
 	void LoadFile()
 	{
-		pcl::PLYReader reader;
-		reader.read(_dir, *_cloud);
+		pcl::PLYReader* reader = new pcl::PLYReader();
+		reader->read(_dir, *_cloud);
 		for (int counter = 0; counter < _cloud->size(); counter++)
 		{
 			_cloud->points[counter].r = 255;
@@ -30,6 +30,11 @@ public:
 	{
 		pcl::PLYWriter writer;
 		writer.write(_dir, *cloud);
+	}
+
+	void SaveFile(pcl::PolygonMeshPtr mesh)
+	{
+		pcl::io::savePLYFile(_dir, *mesh);
 	}
 
 	pcl::PointCloud<PointT>::Ptr GetPointCloud()

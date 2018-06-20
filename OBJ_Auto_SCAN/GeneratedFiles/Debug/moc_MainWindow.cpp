@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[125];
-    char stringdata0[2535];
+    QByteArrayData data[131];
+    char stringdata0[2665];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -155,7 +155,13 @@ QT_MOC_LITERAL(120, 2398, 12), // "featureAngle"
 QT_MOC_LITERAL(121, 2411, 28), // "SetSmoothingSearchRadiusSlot"
 QT_MOC_LITERAL(122, 2440, 31), // "ProcessKinfuTestBoundingBoxSlot"
 QT_MOC_LITERAL(123, 2472, 27), // "GetKinfuTestBoundingBoxSlot"
-QT_MOC_LITERAL(124, 2500, 34) // "ProcessKinfuSelectedPointClou..."
+QT_MOC_LITERAL(124, 2500, 30), // "ProcessSegmentedKinfuCloudSlot"
+QT_MOC_LITERAL(125, 2531, 32), // "ProcessIgnoreResetKinfuCloudSlot"
+QT_MOC_LITERAL(126, 2564, 12), // "SaveRTMatrix"
+QT_MOC_LITERAL(127, 2577, 54), // "std::vector<Eigen::Matrix<flo..."
+QT_MOC_LITERAL(128, 2632, 1), // "r"
+QT_MOC_LITERAL(129, 2634, 28), // "std::vector<Eigen::Vector3f>"
+QT_MOC_LITERAL(130, 2663, 1) // "t"
 
     },
     "MainWindow\0ShowDialog\0std::string\0\0"
@@ -225,7 +231,11 @@ QT_MOC_LITERAL(124, 2500, 34) // "ProcessKinfuSelectedPointClou..."
     "featureAngle\0SetSmoothingSearchRadiusSlot\0"
     "ProcessKinfuTestBoundingBoxSlot\0"
     "GetKinfuTestBoundingBoxSlot\0"
-    "ProcessKinfuSelectedPointCloudSlot"
+    "ProcessSegmentedKinfuCloudSlot\0"
+    "ProcessIgnoreResetKinfuCloudSlot\0"
+    "SaveRTMatrix\0"
+    "std::vector<Eigen::Matrix<float,3,3,Eigen::RowMajor> >\0"
+    "r\0std::vector<Eigen::Vector3f>\0t"
 };
 #undef QT_MOC_LITERAL
 
@@ -235,7 +245,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      88,   14, // methods
+      90,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -243,96 +253,98 @@ static const uint qt_meta_data_MainWindow[] = {
        4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    4,  454,    3, 0x06 /* Public */,
-       1,    3,  463,    3, 0x26 /* Public | MethodCloned */,
-       1,    2,  470,    3, 0x26 /* Public | MethodCloned */,
-       1,    1,  475,    3, 0x26 /* Public | MethodCloned */,
+       1,    4,  464,    3, 0x06 /* Public */,
+       1,    3,  473,    3, 0x26 /* Public | MethodCloned */,
+       1,    2,  480,    3, 0x26 /* Public | MethodCloned */,
+       1,    1,  485,    3, 0x26 /* Public | MethodCloned */,
 
  // slots: name, argc, parameters, tag, flags
-      10,    1,  478,    3, 0x0a /* Public */,
-      13,    1,  481,    3, 0x0a /* Public */,
-      16,    4,  484,    3, 0x0a /* Public */,
-      16,    3,  493,    3, 0x2a /* Public | MethodCloned */,
-      16,    2,  500,    3, 0x2a /* Public | MethodCloned */,
-      16,    1,  505,    3, 0x2a /* Public | MethodCloned */,
-      17,    6,  508,    3, 0x0a /* Public */,
-      24,    0,  521,    3, 0x0a /* Public */,
-      25,    0,  522,    3, 0x0a /* Public */,
-      26,    0,  523,    3, 0x0a /* Public */,
-      27,    0,  524,    3, 0x0a /* Public */,
-      28,    0,  525,    3, 0x0a /* Public */,
-      29,    0,  526,    3, 0x0a /* Public */,
-      30,    0,  527,    3, 0x0a /* Public */,
-      31,    0,  528,    3, 0x0a /* Public */,
-      32,    0,  529,    3, 0x0a /* Public */,
-      33,    0,  530,    3, 0x0a /* Public */,
-      34,    0,  531,    3, 0x0a /* Public */,
-      35,    0,  532,    3, 0x0a /* Public */,
-      36,    0,  533,    3, 0x0a /* Public */,
-      37,    0,  534,    3, 0x0a /* Public */,
-      38,    0,  535,    3, 0x0a /* Public */,
-      39,    1,  536,    3, 0x0a /* Public */,
-      40,    0,  539,    3, 0x0a /* Public */,
-      41,    0,  540,    3, 0x0a /* Public */,
-      42,    0,  541,    3, 0x0a /* Public */,
-      43,    0,  542,    3, 0x0a /* Public */,
-      44,    0,  543,    3, 0x0a /* Public */,
-      45,    0,  544,    3, 0x0a /* Public */,
-      46,    0,  545,    3, 0x0a /* Public */,
-      47,    0,  546,    3, 0x0a /* Public */,
-      48,    0,  547,    3, 0x0a /* Public */,
-      49,    0,  548,    3, 0x0a /* Public */,
-      50,    0,  549,    3, 0x0a /* Public */,
-      51,    0,  550,    3, 0x0a /* Public */,
-      52,    0,  551,    3, 0x0a /* Public */,
-      53,    1,  552,    3, 0x0a /* Public */,
-      55,    0,  555,    3, 0x0a /* Public */,
-      56,    0,  556,    3, 0x0a /* Public */,
-      57,    0,  557,    3, 0x0a /* Public */,
-      58,    0,  558,    3, 0x0a /* Public */,
-      59,    1,  559,    3, 0x0a /* Public */,
-      60,    1,  562,    3, 0x0a /* Public */,
-      61,    0,  565,    3, 0x0a /* Public */,
-      62,    0,  566,    3, 0x0a /* Public */,
-      63,    0,  567,    3, 0x0a /* Public */,
-      64,    1,  568,    3, 0x0a /* Public */,
-      66,    1,  571,    3, 0x0a /* Public */,
-      68,    0,  574,    3, 0x0a /* Public */,
-      69,    1,  575,    3, 0x0a /* Public */,
-      70,    0,  578,    3, 0x0a /* Public */,
-      71,    1,  579,    3, 0x0a /* Public */,
-      73,    1,  582,    3, 0x0a /* Public */,
-      75,    1,  585,    3, 0x0a /* Public */,
-      77,    1,  588,    3, 0x0a /* Public */,
-      79,    1,  591,    3, 0x0a /* Public */,
-      81,    0,  594,    3, 0x0a /* Public */,
-      82,    1,  595,    3, 0x0a /* Public */,
-      84,    1,  598,    3, 0x0a /* Public */,
-      86,    1,  601,    3, 0x0a /* Public */,
-      88,    1,  604,    3, 0x0a /* Public */,
-      90,    1,  607,    3, 0x0a /* Public */,
-      91,    0,  610,    3, 0x0a /* Public */,
-      92,    1,  611,    3, 0x0a /* Public */,
-      94,    1,  614,    3, 0x0a /* Public */,
-      96,    1,  617,    3, 0x0a /* Public */,
-      98,    1,  620,    3, 0x0a /* Public */,
-     100,    1,  623,    3, 0x0a /* Public */,
-     102,    1,  626,    3, 0x0a /* Public */,
-     104,    0,  629,    3, 0x0a /* Public */,
-     105,    1,  630,    3, 0x0a /* Public */,
-     107,    1,  633,    3, 0x0a /* Public */,
-     109,    1,  636,    3, 0x0a /* Public */,
-     110,    1,  639,    3, 0x0a /* Public */,
-     111,    1,  642,    3, 0x0a /* Public */,
-     112,    0,  645,    3, 0x0a /* Public */,
-     113,    1,  646,    3, 0x0a /* Public */,
-     115,    1,  649,    3, 0x0a /* Public */,
-     117,    1,  652,    3, 0x0a /* Public */,
-     119,    1,  655,    3, 0x0a /* Public */,
-     121,    1,  658,    3, 0x0a /* Public */,
-     122,    0,  661,    3, 0x0a /* Public */,
-     123,    0,  662,    3, 0x0a /* Public */,
-     124,    0,  663,    3, 0x0a /* Public */,
+      10,    1,  488,    3, 0x0a /* Public */,
+      13,    1,  491,    3, 0x0a /* Public */,
+      16,    4,  494,    3, 0x0a /* Public */,
+      16,    3,  503,    3, 0x2a /* Public | MethodCloned */,
+      16,    2,  510,    3, 0x2a /* Public | MethodCloned */,
+      16,    1,  515,    3, 0x2a /* Public | MethodCloned */,
+      17,    6,  518,    3, 0x0a /* Public */,
+      24,    0,  531,    3, 0x0a /* Public */,
+      25,    0,  532,    3, 0x0a /* Public */,
+      26,    0,  533,    3, 0x0a /* Public */,
+      27,    0,  534,    3, 0x0a /* Public */,
+      28,    0,  535,    3, 0x0a /* Public */,
+      29,    0,  536,    3, 0x0a /* Public */,
+      30,    0,  537,    3, 0x0a /* Public */,
+      31,    0,  538,    3, 0x0a /* Public */,
+      32,    0,  539,    3, 0x0a /* Public */,
+      33,    0,  540,    3, 0x0a /* Public */,
+      34,    0,  541,    3, 0x0a /* Public */,
+      35,    0,  542,    3, 0x0a /* Public */,
+      36,    0,  543,    3, 0x0a /* Public */,
+      37,    0,  544,    3, 0x0a /* Public */,
+      38,    0,  545,    3, 0x0a /* Public */,
+      39,    1,  546,    3, 0x0a /* Public */,
+      40,    0,  549,    3, 0x0a /* Public */,
+      41,    0,  550,    3, 0x0a /* Public */,
+      42,    0,  551,    3, 0x0a /* Public */,
+      43,    0,  552,    3, 0x0a /* Public */,
+      44,    0,  553,    3, 0x0a /* Public */,
+      45,    0,  554,    3, 0x0a /* Public */,
+      46,    0,  555,    3, 0x0a /* Public */,
+      47,    0,  556,    3, 0x0a /* Public */,
+      48,    0,  557,    3, 0x0a /* Public */,
+      49,    0,  558,    3, 0x0a /* Public */,
+      50,    0,  559,    3, 0x0a /* Public */,
+      51,    0,  560,    3, 0x0a /* Public */,
+      52,    0,  561,    3, 0x0a /* Public */,
+      53,    1,  562,    3, 0x0a /* Public */,
+      55,    0,  565,    3, 0x0a /* Public */,
+      56,    0,  566,    3, 0x0a /* Public */,
+      57,    0,  567,    3, 0x0a /* Public */,
+      58,    0,  568,    3, 0x0a /* Public */,
+      59,    1,  569,    3, 0x0a /* Public */,
+      60,    1,  572,    3, 0x0a /* Public */,
+      61,    0,  575,    3, 0x0a /* Public */,
+      62,    0,  576,    3, 0x0a /* Public */,
+      63,    0,  577,    3, 0x0a /* Public */,
+      64,    1,  578,    3, 0x0a /* Public */,
+      66,    1,  581,    3, 0x0a /* Public */,
+      68,    0,  584,    3, 0x0a /* Public */,
+      69,    1,  585,    3, 0x0a /* Public */,
+      70,    0,  588,    3, 0x0a /* Public */,
+      71,    1,  589,    3, 0x0a /* Public */,
+      73,    1,  592,    3, 0x0a /* Public */,
+      75,    1,  595,    3, 0x0a /* Public */,
+      77,    1,  598,    3, 0x0a /* Public */,
+      79,    1,  601,    3, 0x0a /* Public */,
+      81,    0,  604,    3, 0x0a /* Public */,
+      82,    1,  605,    3, 0x0a /* Public */,
+      84,    1,  608,    3, 0x0a /* Public */,
+      86,    1,  611,    3, 0x0a /* Public */,
+      88,    1,  614,    3, 0x0a /* Public */,
+      90,    1,  617,    3, 0x0a /* Public */,
+      91,    0,  620,    3, 0x0a /* Public */,
+      92,    1,  621,    3, 0x0a /* Public */,
+      94,    1,  624,    3, 0x0a /* Public */,
+      96,    1,  627,    3, 0x0a /* Public */,
+      98,    1,  630,    3, 0x0a /* Public */,
+     100,    1,  633,    3, 0x0a /* Public */,
+     102,    1,  636,    3, 0x0a /* Public */,
+     104,    0,  639,    3, 0x0a /* Public */,
+     105,    1,  640,    3, 0x0a /* Public */,
+     107,    1,  643,    3, 0x0a /* Public */,
+     109,    1,  646,    3, 0x0a /* Public */,
+     110,    1,  649,    3, 0x0a /* Public */,
+     111,    1,  652,    3, 0x0a /* Public */,
+     112,    0,  655,    3, 0x0a /* Public */,
+     113,    1,  656,    3, 0x0a /* Public */,
+     115,    1,  659,    3, 0x0a /* Public */,
+     117,    1,  662,    3, 0x0a /* Public */,
+     119,    1,  665,    3, 0x0a /* Public */,
+     121,    1,  668,    3, 0x0a /* Public */,
+     122,    0,  671,    3, 0x0a /* Public */,
+     123,    0,  672,    3, 0x0a /* Public */,
+     124,    0,  673,    3, 0x0a /* Public */,
+     125,    0,  674,    3, 0x0a /* Public */,
+     126,    2,  675,    3, 0x0a /* Public */,
 
  // signals: parameters
     0x80000000 | 2, 0x80000000 | 4, 0x80000000 | 6, 0x80000000 | 6, 0x80000000 | 6,    5,    7,    8,    9,
@@ -425,6 +437,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 127, 0x80000000 | 129,  128,  130,
 
        0        // eod
 };
@@ -530,7 +544,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 84: _t->SetSmoothingSearchRadiusSlot((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 85: _t->ProcessKinfuTestBoundingBoxSlot(); break;
         case 86: _t->GetKinfuTestBoundingBoxSlot(); break;
-        case 87: _t->ProcessKinfuSelectedPointCloudSlot(); break;
+        case 87: _t->ProcessSegmentedKinfuCloudSlot(); break;
+        case 88: _t->ProcessIgnoreResetKinfuCloudSlot(); break;
+        case 89: _t->SaveRTMatrix((*reinterpret_cast< std::vector<Eigen::Matrix<float,3,3,Eigen::RowMajor> >(*)>(_a[1])),(*reinterpret_cast< std::vector<Eigen::Vector3f>(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -589,13 +605,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 88)
+        if (_id < 90)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 88;
+        _id -= 90;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 88)
+        if (_id < 90)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 88;
+        _id -= 90;
     }
     return _id;
 }

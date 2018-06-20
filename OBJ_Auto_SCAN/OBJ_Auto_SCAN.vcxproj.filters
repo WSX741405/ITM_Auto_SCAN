@@ -210,9 +210,6 @@
     <ClCompile Include="include\pointCloudProcessing\filter\DepthImageBoundingBoxFilter.cpp">
       <Filter>include\pointCloudProcessing\filter</Filter>
     </ClCompile>
-    <ClCompile Include="include\kinfuApp\kinfuLSApp.cpp">
-      <Filter>include\kinfuApp</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">

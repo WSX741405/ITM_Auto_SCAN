@@ -371,8 +371,8 @@ pcl::gpu::KinfuTracker::operator() (const DepthMap& depth_raw,
   } 
   else /* if (disable_icp_) */
   {
-      if (global_time_ == 0)
-        ++global_time_;
+      //if (global_time_ == 0)
+       ++global_time_;
 
       Matrix3frm Rcurr = rmats_[global_time_ - 1];
       Vector3f   tcurr = tvecs_[global_time_ - 1];

@@ -44,6 +44,10 @@ public:
 		viewer.DeleteCorrespondence(_name);
 	}
 
+	void Save(MyFile* file)
+	{
+	}
+
 	pcl::PointCloud<KeypointT>::Ptr GetKeyPoint()
 	{
 		return NULL;

@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>3</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -1007,7 +1007,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="_sift3DTab">
        <attribute name="title">
@@ -1062,10 +1062,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -1100,7 +1100,7 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="singleStep">
          <double>0.100000000000000</double>
@@ -1179,10 +1179,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -1204,10 +1204,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -1302,7 +1302,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="_fpfhTab">
        <attribute name="title">
@@ -1344,10 +1344,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -1401,10 +1401,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -1439,10 +1439,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="singleStep">
          <double>0.100000000000000</double>
@@ -1511,10 +1511,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -1523,7 +1523,7 @@
          <double>0.010000000000000</double>
         </property>
         <property name="value">
-         <double>0.010000000000000</double>
+         <double>0.001000000000000</double>
         </property>
        </widget>
        <widget class="QLabel" name="_shotCorrespondencesKLabel">
@@ -1549,10 +1549,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -1574,10 +1574,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="singleStep">
          <double>0.100000000000000</double>
@@ -1672,10 +1672,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -1713,10 +1713,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="singleStep">
          <double>0.100000000000000</double>
@@ -1766,10 +1766,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="singleStep">
          <double>0.100000000000000</double>
@@ -1817,10 +1817,10 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
-         <double>0.001000000000000</double>
+         <double>0.000100000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
@@ -1972,7 +1972,7 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
          <double>0.001000000000000</double>
@@ -1997,7 +1997,7 @@
          </rect>
         </property>
         <property name="decimals">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="minimum">
          <double>0.001000000000000</double>
@@ -2844,7 +2844,8 @@
      <string>Kinect Fusion</string>
     </property>
     <addaction name="_kinfuTestBoundingBoxAction"/>
-    <addaction name="_kinfuSelectedPointCloudAction"/>
+    <addaction name="_segmentedKinfuAction"/>
+    <addaction name="_ignoreResetKinfuAction"/>
    </widget>
    <widget class="QMenu" name="menuViewer">
     <property name="title">
@@ -2981,9 +2982,9 @@
     <string>ICP_3</string>
    </property>
   </action>
-  <action name="_kinfuSelectedPointCloudAction">
+  <action name="_segmentedKinfuAction">
    <property name="text">
-    <string>Selected PointCloud</string>
+    <string>Segmented Kinfu</string>
    </property>
   </action>
   <action name="_startXtionProAction">
@@ -3019,6 +3020,11 @@
   <action name="_removeNANAction">
    <property name="text">
     <string>Remove NAN</string>
+   </property>
+  </action>
+  <action name="_ignoreResetKinfuAction">
+   <property name="text">
+    <string>Ignore Reset Kinfu</string>
    </property>
   </action>
  </widget>

@@ -45,5 +45,5 @@ void OpenNI2Grabber::CloudCallback(const pcl::PointCloud<PointT>::ConstPtr &clou
 		} 
 	}*/
 	_subject->NotifyObservers(cpyCloud);
-	boost::this_thread::sleep(boost::posix_time::milliseconds(500));
+	boost::this_thread::sleep(boost::posix_time::milliseconds(300));
 }

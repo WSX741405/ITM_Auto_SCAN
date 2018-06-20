@@ -31,6 +31,11 @@ public:
 		pcl::io::savePCDFile(_dir, *cloud, false);
 	}
 
+	void SaveFile(pcl::PolygonMeshPtr mesh)
+	{
+		pcl::io::savePLYFile(_dir, *mesh);
+	}
+
 	pcl::PointCloud<PointT>::Ptr GetPointCloud()
 	{
 		return _cloud;

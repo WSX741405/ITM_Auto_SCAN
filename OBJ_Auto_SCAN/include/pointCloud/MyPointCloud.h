@@ -37,6 +37,11 @@ public:
 		viewer.DeletePointCloud(_name);
 	}
 
+	void Save(MyFile* file)
+	{
+		file->SaveFile(_cloud);
+	}
+
 	pcl::PointCloud<KeypointT>::Ptr GetKeyPoint()
 	{
 		return NULL;

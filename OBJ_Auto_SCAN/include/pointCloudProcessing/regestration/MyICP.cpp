@@ -13,6 +13,10 @@ MyICP::MyICP()
 
 void MyICP::Processing(pcl::PointCloud<PointT>::Ptr source, pcl::PointCloud<PointT>::Ptr target)
 {
+	std::vector<int> mapSource;
+	std::vector<int> mapTarget;
+	pcl::removeNaNFromPointCloud(*source, *source, mapSource);
+	pcl::removeNaNFromPointCloud(*target, *target, mapTarget);
 	pcl::Registration<PointT, PointT>::Ptr registration(new pcl::IterativeClosestPoint<PointT, PointT>);
 	registration->setInputSource(source);
 	//registration->setInputSource (source_segmented_);

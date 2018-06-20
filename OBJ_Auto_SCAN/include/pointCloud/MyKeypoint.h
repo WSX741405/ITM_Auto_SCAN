@@ -35,6 +35,11 @@ public:
 		viewer.DeletePointCloud(_name);
 	}
 
+	void Save(MyFile* file)
+	{
+
+	}
+
 	pcl::PointCloud<PointT>::Ptr GetPointCloud()
 	{
 		pcl::PointCloud<PointT>::Ptr tmpCloud;

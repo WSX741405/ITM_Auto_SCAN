@@ -46,6 +46,18 @@ struct KinFuApp
 
 			scene_cloud_view_.toggleCube(volume_size);
 		}
+		kinfu_.reset();
+	}
+
+	void SetInitalCameraPose(Eigen::Matrix3f R, Eigen::Vector3f t)
+	{
+		Eigen::Affine3f pose = Eigen::Translation3f(t) * Eigen::AngleAxisf(R);
+		kinfu_.setInitalCameraPose(pose);
+	}
+
+	void SetICP(bool flag)
+	{
+		kinfu_.disable_icp_ = flag;
 	}
 
 	~KinFuApp()
@@ -120,7 +132,7 @@ struct KinFuApp
 			evaluation_ptr_->fx, evaluation_ptr_->fy, evaluation_ptr_->cx, evaluation_ptr_->cy));
 	}
 
-	void execute()
+	bool execute()
 	{
 		bool has_image = false;
 
@@ -138,10 +150,7 @@ struct KinFuApp
 					has_image = kinfu_(depth_device_, image_view_.colors_device_);
 				else
 					has_image = kinfu_(depth_device_);
-				if (has_image)
-					std::cout << "true" << std::endl;
-				else
-					std::cout << "fasle" << std::endl;
+				std::cout << kinfu_.global_time_ << std::endl;
 			}
 
 			// process camera pose
@@ -191,6 +200,7 @@ struct KinFuApp
 
 		if (viz_ && !independent_camera_)
 			KinFuAppMethos::setViewerPose(*scene_cloud_view_.cloud_viewer_, kinfu_.getCameraPose());
+		return has_image;
 	}
 	/*
 	void source_cb1_device(const boost::shared_ptr<openni_wrapper::DepthImage>& depth_wrapper)
@@ -564,6 +574,31 @@ struct KinFuApp
 	{
 		const SceneCloudView& view = scene_cloud_view_;
 		return KinFuAppMethos::merge<pcl::PointXYZRGB>(*view.cloud_ptr_, *view.point_colors_ptr_);
+	}
+
+	pcl::PolygonMeshPtr GetMesh()
+	{
+		return scene_cloud_view_.mesh_ptr_;
+	}
+
+	Eigen::Matrix<float, 3, 3, Eigen::RowMajor> GetR()
+	{
+		return kinfu_.rmats_[kinfu_.global_time_ - 1];
+	}
+
+	Eigen::Vector3f GetT()
+	{
+		return kinfu_.tvecs_[kinfu_.global_time_ - 1];
+	}
+
+	void SetRMatrix(std::vector<Eigen::Matrix<float, 3, 3, Eigen::RowMajor>> rMatrix)
+	{
+		kinfu_.rmats_ = rMatrix;
+	}
+
+	void SetTVector(std::vector<Eigen::Vector3f> tVector)
+	{
+		kinfu_.tvecs_ = tVector;
 	}
 };
 

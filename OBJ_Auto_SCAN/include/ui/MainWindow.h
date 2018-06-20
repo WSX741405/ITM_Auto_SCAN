@@ -177,7 +177,9 @@ public slots:
 	//****************************************************************
 	void ProcessKinfuTestBoundingBoxSlot();
 	void GetKinfuTestBoundingBoxSlot();
-	void ProcessKinfuSelectedPointCloudSlot();
+	void ProcessSegmentedKinfuCloudSlot();
+	void ProcessIgnoreResetKinfuCloudSlot();
+	void SaveRTMatrix(std::vector<Eigen::Matrix<float, 3, 3, Eigen::RowMajor>> r, std::vector<Eigen::Vector3f> t);
 
 private:
 	void InitialMemberVariable();
@@ -201,6 +203,7 @@ private:
 	int _keepFrameNumber;
 	std::string _keepCloudName;
 	pcl::PointCloud<PointT>::Ptr _tmpPointCloud;
+	pcl::PointCloud<PointT>::Ptr _boundingBoxPointCloud;
 	PointCloudElements* _elements;
 	Arduino* _arduino;
 	Ui::MainWindowForm* _ui;
@@ -220,7 +223,7 @@ private:
 
 	BoundingBoxTestDialog* _dialog;
 
-	const double FRAME_PITCH = 0.5;	//	(sec)
+	const double FRAME_PITCH = 0.3;	//	(sec)
 	clock_t _preFrameTime;
 
 	//		Kinfu
